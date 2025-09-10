@@ -1,0 +1,345 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+interface TasteRating {
+    aroma: number; // 향
+    acidity: number; // 산미
+    sweetness: number; // 단맛
+    nutty: number; // 고소함
+    body: number; // 바디
+}
+
+export default function AnalysisPage() {
+    const [ratings, setRatings] = useState<TasteRating>({
+        aroma: 5,
+        acidity: 4,
+        sweetness: 4,
+        nutty: 3,
+        body: 4,
+    });
+
+    const tasteLabels = [
+        { key: 'aroma', label: '향', position: 'top' },
+        { key: 'acidity', label: '산미', position: 'top-left' },
+        { key: 'sweetness', label: '단맛', position: 'top-right' },
+        { key: 'nutty', label: '고소함', position: 'bottom-left' },
+        { key: 'body', label: '바디', position: 'bottom-right' },
+    ];
+
+    const updateRating = (taste: keyof TasteRating, value: number) => {
+        setRatings(prev => ({
+            ...prev,
+            [taste]: Math.max(1, Math.min(5, value))
+        }));
+    };
+
+    const handleMouseDown = (taste: keyof TasteRating, event: React.MouseEvent) => {
+        const svg = event.currentTarget.closest('svg');
+        if (!svg) return;
+
+        const rect = svg.getBoundingClientRect();
+        const centerX = 200;
+        const centerY = 200;
+        const maxRadius = 150;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            // SVG viewBox koordinatalariga o'tkazish
+            const svgWidth = rect.width;
+            const svgHeight = rect.height;
+            const viewBoxWidth = 400;
+            const viewBoxHeight = 400;
+            
+            const x = ((e.clientX - rect.left) / svgWidth) * viewBoxWidth - centerX;
+            const y = ((e.clientY - rect.top) / svgHeight) * viewBoxHeight - centerY;
+            
+            const distance = Math.sqrt(x * x + y * y);
+            const normalizedDistance = Math.max(0, Math.min(1, distance / maxRadius));
+            const newValue = Math.round(normalizedDistance * 4) + 1;
+
+            // Faqat 1-5 oraliqda qiymat qabul qilish
+            const clampedValue = Math.max(1, Math.min(5, newValue));
+            updateRating(taste, clampedValue);
+        };
+
+        const handleMouseUp = () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+    };
+
+    const generateRadarPath = () => {
+        const centerX = 200;
+        const centerY = 200;
+        const maxRadius = 150;
+
+        const points = tasteLabels.map((taste, index) => {
+            const angle = (index * 72 - 90) * (Math.PI / 180); // 72 degrees between each point
+            const radius = (ratings[taste.key as keyof TasteRating] / 5) * maxRadius;
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            return { x, y };
+        });
+
+        const pathData = points.map((point, index) =>
+            `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+        ).join(' ') + ' Z';
+
+        return pathData;
+    };
+
+    return (
+        <>
+            <div className="min-h-screen flex-1 flex flex-col justify-center items-center px-4 pb-8">
+                <div className="my-auto">
+                    <div className="w-full sm:mx-auto px-4 py-4">
+                        <Image
+                            src="/images/logo.svg"
+                            alt="My Coffee.Ai"
+                            className="w-[215.378px] h-[31.211px] mx-auto"
+                            width={215.378}
+                            height={31.211}
+                        />
+                        <p className="text-gray-0 text-center mt-4 text-[14px]">
+                            나만의 커피 취향을 찾아볼까요?
+                        </p>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="flex-1 flex flex-col justify-center items-center px-6 pb-8 sm:mx-auto">
+                        {/* Radar Chart */}
+                        <div className="relative mb-8">
+                            <svg 
+                                className="mx-auto no-select w-[300px] h-[300px] sm:w-[325px] sm:h-[325px]" 
+                                viewBox="0 0 400 400"
+                                preserveAspectRatio="xMidYMid meet"
+                            >
+                                {/* Grid - Concentric pentagons with varying stroke width */}
+                                {[1, 2, 3, 4, 5].map((level) => {
+                                    const centerX = 200;
+                                    const centerY = 200;
+                                    const maxRadius = 150;
+                                    const radius = (level / 5) * maxRadius;
+                                    const strokeWidth = level/2.2; // 1, 2, 3, 4, 5
+                                    
+                                    let pentagonPath = '';
+                                    for (let i = 0; i < 5; i++) {
+                                        const angle = (i * 72 - 90) * (Math.PI / 180);
+                                        const x = centerX + radius * Math.cos(angle);
+                                        const y = centerY + radius * Math.sin(angle);
+                                        
+                                        if (i === 0) {
+                                            pentagonPath += `M ${x} ${y} `;
+                                        } else {
+                                            pentagonPath += `L ${x} ${y} `;
+                                        }
+                                    }
+                                    pentagonPath += 'Z';
+                                    
+                                    return (
+                                        <path
+                                            key={level}
+                                            d={pentagonPath}
+                                            fill="none"
+                                            stroke="#B9B9B9"
+                                            strokeWidth={strokeWidth}
+                                            strokeDasharray="4,2"
+                                            opacity="0.8"
+                                        />
+                                    );
+                                })}
+                                
+                                {/* Radial lines */}
+                                {[0, 1, 2, 3, 4].map((i) => {
+                                    const centerX = 200;
+                                    const centerY = 200;
+                                    const maxRadius = 150;
+                                    const angle = (i * 72 - 90) * (Math.PI / 180);
+                                    const x = centerX + maxRadius * Math.cos(angle);
+                                    const y = centerY + maxRadius * Math.sin(angle);
+                                    
+                                    return (
+                                        <line
+                                            key={i}
+                                            x1={centerX}
+                                            y1={centerY}
+                                            x2={x}
+                                            y2={y}
+                                            stroke="#B9B9B9"
+                                            strokeWidth="1"
+                                            strokeDasharray="4,2"
+                                            opacity="0.8"
+                                        />
+                                    );
+                                })}
+
+                                {/* Gradient definition */}
+                                <defs>
+                                    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stopColor="rgba(255, 255, 255, 0.20)" />
+                                        <stop offset="35.51%" stopColor="rgba(255, 224, 173, 0.20)" />
+                                        <stop offset="74.3%" stopColor="rgba(255, 131, 54, 0.20)" />
+                                        <stop offset="94.73%" stopColor="rgba(255, 117, 32, 0.20)" />
+                                        <stop offset="100%" stopColor="rgba(255, 113, 26, 0.20)" />
+                                    </linearGradient>
+                                </defs>
+
+                                {/* Filled area with rounded corners */}
+                                <path
+                                    d={generateRadarPath()}
+                                    fill="url(#chartGradient)"
+                                    stroke="#FF7927"
+                                    strokeWidth="2.686"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                
+                                {/* Rounded corner circles at connection points */}
+                                {tasteLabels.map((taste, index) => {
+                                    const angle = (index * 72 - 90) * (Math.PI / 180);
+                                    const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
+                                    const pointX = 200 + currentRadius * Math.cos(angle);
+                                    const pointY = 200 + currentRadius * Math.sin(angle);
+                                    
+                                    return (
+                                        <circle
+                                            key={`connection-${taste.key}`}
+                                            cx={pointX}
+                                            cy={pointY}
+                                            r="5.75"
+                                            fill="#FF7927"
+                                            width="11.5"
+                                            height="11.5"
+                                        />
+                                    );
+                                })}
+
+
+                                {/* Interactive taste points */}
+                                {tasteLabels.map((taste, index) => {
+                                    const angle = (index * 72 - 90) * (Math.PI / 180);
+                                    
+                                    // Custom label positioning based on taste
+                                    let labelRadius = 170;
+                                    if (taste.key === 'aroma') { // 향 - top
+                                        labelRadius = 170 + 17; // 17px up
+                                    } else if (taste.key === 'acidity' || taste.key === 'sweetness') { // 산미, 단맛 - sides
+                                        labelRadius = 170 + 12; // 12px out
+                                    } else if (taste.key === 'nutty' || taste.key === 'body') { // 고소함, 바디 - bottom
+                                        labelRadius = 170 + 7; // 7px out
+                                    }
+                                    
+                                    const labelX = 200 + labelRadius * Math.cos(angle);
+                                    const labelY = 200 + labelRadius * Math.sin(angle);
+
+                                    // Current rating position
+                                    const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
+                                    const pointX = 200 + currentRadius * Math.cos(angle);
+                                    const pointY = 200 + currentRadius * Math.sin(angle);
+
+                                    return (
+                                        <g key={taste.key}>
+                                            {/* Taste label */}
+                                            <text
+                                                x={labelX}
+                                                y={labelY}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                                className="text-[14px] font-medium fill-gray-0"
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
+                                            >
+                                                {taste.label}
+                                            </text>
+
+                                            {/* Rating badge background */}
+                                            <rect
+                                                x={labelX - 20}
+                                                y={labelY + 8}
+                                                width="40"
+                                                height="18"
+                                                rx="8"
+                                                fill="#FFF"
+                                                stroke="#E6E6E6"
+                                                strokeWidth="0.56"
+                                            />
+                                            
+                                            {/* Rating number - only the number in orange */}
+                                            <text
+                                                x={labelX - 6}
+                                                y={labelY + 18}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                                fill="#FF7927"
+                                                fontSize="13"
+                                                fontWeight="400"
+                                                letterSpacing="-0.13px"
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
+                                            >
+                                                {ratings[taste.key as keyof TasteRating]}
+                                            </text>
+                                            
+                                            {/* "/5" text in black */}
+                                            <text
+                                                x={labelX + 4}
+                                                y={labelY + 18}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                                fill="#1A1A1A"
+                                                fontSize="13"
+                                                fontWeight="400"
+                                                letterSpacing="-0.13px"
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
+                                            >
+                                                /5
+                                            </text>
+
+                                            {/* Invisible larger area for easier dragging */}
+                                            <circle
+                                                cx={pointX}
+                                                cy={pointY}
+                                                r="15"
+                                                fill="transparent"
+                                                className="cursor-pointer draggable"
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    handleMouseDown(taste.key as keyof TasteRating, e);
+                                                }}
+                                                style={{ cursor: 'grab' }}
+                                            />
+                                            
+                                            {/* Visible draggable point */}
+                                            <circle
+                                                cx={pointX}
+                                                cy={pointY}
+                                                r="5.75"
+                                                fill="transparent"
+                                                className="cursor-pointer hover:r-6.75 transition-all draggable"
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    handleMouseDown(taste.key as keyof TasteRating, e);
+                                                }}
+                                                style={{ cursor: 'grab' }}
+                                                filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"
+                                            />
+
+                                        </g>
+                                    );
+                                })}
+                            </svg>
+                        </div>
+
+                    </div>
+                </div>
+                {/* CTA Button */}
+                <Link href="/result" className="btn-primary w-full text-center block">
+                    추천 원두 보기
+                </Link>
+            </div>
+        </>
+    );
+}
