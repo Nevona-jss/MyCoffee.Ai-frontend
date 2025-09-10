@@ -73,6 +73,49 @@ export default function AnalysisPage() {
         document.addEventListener('mouseup', handleMouseUp);
     };
 
+    const handleTouchStart = (taste: keyof TasteRating, event: React.TouchEvent) => {
+        event.preventDefault(); // Prevent scrolling
+        const svg = event.currentTarget.closest('svg');
+        if (!svg) return;
+
+        const rect = svg.getBoundingClientRect();
+        const centerX = 200;
+        const centerY = 200;
+        const maxRadius = 150;
+
+        const handleTouchMove = (e: TouchEvent) => {
+            e.preventDefault(); // Prevent scrolling
+            if (e.touches.length === 0) return;
+            
+            const touch = e.touches[0];
+            // SVG viewBox koordinatalariga o'tkazish
+            const svgWidth = rect.width;
+            const svgHeight = rect.height;
+            const viewBoxWidth = 400;
+            const viewBoxHeight = 400;
+            
+            const x = ((touch.clientX - rect.left) / svgWidth) * viewBoxWidth - centerX;
+            const y = ((touch.clientY - rect.top) / svgHeight) * viewBoxHeight - centerY;
+            
+            const distance = Math.sqrt(x * x + y * y);
+            const normalizedDistance = Math.max(0, Math.min(1, distance / maxRadius));
+            const newValue = Math.round(normalizedDistance * 4) + 1;
+
+            // Faqat 1-5 oraliqda qiymat qabul qilish
+            const clampedValue = Math.max(1, Math.min(5, newValue));
+            updateRating(taste, clampedValue);
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            e.preventDefault();
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchEnd);
+        };
+
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd, { passive: false });
+    };
+
     const generateRadarPath = () => {
         const centerX = 200;
         const centerY = 200;
@@ -95,7 +138,7 @@ export default function AnalysisPage() {
 
     return (
         <>
-            <div className="min-h-screen flex-1 flex flex-col justify-center items-center px-4 pb-8">
+            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-8">
                 <div className="my-auto">
                     <div className="w-full sm:mx-auto px-4 py-4">
                         <Image
@@ -309,7 +352,11 @@ export default function AnalysisPage() {
                                                     e.preventDefault();
                                                     handleMouseDown(taste.key as keyof TasteRating, e);
                                                 }}
-                                                style={{ cursor: 'grab' }}
+                                                onTouchStart={(e) => {
+                                                    e.preventDefault();
+                                                    handleTouchStart(taste.key as keyof TasteRating, e);
+                                                }}
+                                                style={{ cursor: 'grab', touchAction: 'none' }}
                                             />
                                             
                                             {/* Visible draggable point */}
@@ -323,7 +370,11 @@ export default function AnalysisPage() {
                                                     e.preventDefault();
                                                     handleMouseDown(taste.key as keyof TasteRating, e);
                                                 }}
-                                                style={{ cursor: 'grab' }}
+                                                onTouchStart={(e) => {
+                                                    e.preventDefault();
+                                                    handleTouchStart(taste.key as keyof TasteRating, e);
+                                                }}
+                                                style={{ cursor: 'grab', touchAction: 'none' }}
                                                 filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"
                                             />
 

@@ -77,7 +77,7 @@ export default function ResultPage() {
     return (
         <>
             {/* Main Content */}
-            <div className="min-h-screen flex-1 flex flex-col justify-center items-center px-6 py-8">
+            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-6 py-8">
 
                 {/* Coffee Blend Card */}
                 {coffeeBlends.map((blend, index) => (

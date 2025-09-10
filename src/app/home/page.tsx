@@ -11,7 +11,7 @@ export default function HomePage() {
 
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="h-[100dvh] bg-background">
             {/* Header */}
             <div className="px-6 py-[18px] flex justify-center">
                 <Image

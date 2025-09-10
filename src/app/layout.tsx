@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "MyCoffee.Ai",
   description: "MyCoffee.Ai",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
 };
 
 export default function RootLayout({
@@ -28,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pretendard.variable} ${suite.variable} antialiased`}
       >
-        <div className="min-h-screen flex flex-col">
+        <div className="h-[100dvh] flex flex-col">
           <div className="w-full sm:max-w-sm sm:mx-auto bg-background shadow">
             {children}
           </div>
