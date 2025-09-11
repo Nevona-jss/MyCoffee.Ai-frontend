@@ -17,12 +17,13 @@ interface UserReview {
 }
 
 const UserReviews = () => {
+
     const userReviews: UserReview[] = [
         {
             name: "이**",
             avatar: "👤",
             rating: 3,
-            comment: "제 취향에 맞는 커피라서 너무 행복해용 ㅎㅎ",
+            comment: "제 취향에 맞는 커피라서 너무 행복해용ㅎㅎ",
             product: "벨벳 터치 블렌드",
             date: "2일전",
             images: ["/images/coffee.png", "/images/coffee.png"]
@@ -31,7 +32,7 @@ const UserReviews = () => {
             name: "김**",
             avatar: "👤",
             rating: 5,
-            comment: "Deep Body Blend의 깊은 맛이 정말 인상적이었어요. 아침에 마시기 딱 좋은 커피입니다.",
+            comment: "제 취향에 맞는 커피라서 너무 행복해용ㅎㅎ",
             product: "딥 바디 블렌드",
             date: "1일전",
             images: ["/images/coffee.png"]
@@ -40,7 +41,7 @@ const UserReviews = () => {
             name: "박**",
             avatar: "👤",
             rating: 4,
-            comment: "가격 대비 품질이 훌륭해요. 자주 주문할 것 같습니다.",
+            comment: "제 취향에 맞는 커피라서 너무 행복해용ㅎㅎ",
             product: "아로마 블렌드",
             date: "3일전"
         }
@@ -48,7 +49,7 @@ const UserReviews = () => {
 
     return (
         <div className="mb-4 bg-background-sub py-3 px-4 pr-0 text-gray-0">
-            <div className="flex items-center justify-between mb-3 pr-4">
+            <div className="flex items-center justify-between mb-3 pr-6">
                 <h2 className="text-base font-bold">모이면 더 맛있는 커피 리뷰</h2>
                 <svg className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
                     <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -62,7 +63,7 @@ const UserReviews = () => {
             >
                 {userReviews.map((review, index) => (
                     <SwiperSlide key={index}>
-                        <div className="rounded-lg px-3 py-2.5 border-[0.8px] border-line text-gray-0">
+                        <div className="rounded-lg px-3 py-2.5 border-[0.8px] border-[#D9D9D9] text-gray-0">
                             {/* User Info */}
                             <div className="flex justify-between mb-2">
                                 <div className="flex items-center gap-[9px]">
@@ -85,18 +86,18 @@ const UserReviews = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <span className="text-[10px] text-[#999] font-normal">{review.date}</span>
+                                <span className="text-[10px] text-[#999] font-normal leading-[150%]">{review.date}</span>
                             </div>
 
                             {/* Product Tag */}
                             <div className="mb-1">
-                                <span className="inline-block px-2 py-0.5 bg-[rgba(0,0,0,0.05)] rounded-4xl text-xs text-[#999] text-[10px]">
+                                <span className="inline-block px-2 py-0.5 bg-[rgba(0,0,0,0.05)] rounded-4xl text-[#999] text-[10px] leading-[150%]">
                                     {review.product}
                                 </span>
                             </div>
 
                             {/* Comment */}
-                            <p className="text-[10px] mb-2 font-normal">{review.comment}</p>
+                            <p className="text-[10px] mb-2 font-normal leading-[150%]">{review.comment}</p>
 
                             {/* Images - maksimal 2 ta */}
                             {review.images && review.images.length > 0 && (
@@ -106,8 +107,8 @@ const UserReviews = () => {
                                             <Image
                                                 src={image}
                                                 alt={`Review image ${imgIndex + 1}`}
-                                                width={90}
-                                                height={90}
+                                                width={200}
+                                                height={10}
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>

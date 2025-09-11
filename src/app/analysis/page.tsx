@@ -14,12 +14,13 @@ interface TasteRating {
 
 export default function AnalysisPage() {
     const [ratings, setRatings] = useState<TasteRating>({
-        aroma: 5,
-        acidity: 4,
-        sweetness: 4,
-        nutty: 3,
-        body: 4,
+        aroma: 1,
+        acidity: 1,
+        sweetness: 1,
+        nutty: 1,
+        body: 1,
     });
+    const [isDragging, setIsDragging] = useState(false);
 
     const tasteLabels = [
         { key: 'aroma', label: '향', position: 'top' },
@@ -36,10 +37,40 @@ export default function AnalysisPage() {
         }));
     };
 
+    const handleClick = (taste: keyof TasteRating, event: React.MouseEvent) => {
+        if (isDragging) return; // Don't handle click if we're dragging
+        
+        const svg = event.currentTarget.closest('svg');
+        if (!svg) return;
+
+        const rect = svg.getBoundingClientRect();
+        const centerX = 200;
+        const centerY = 200;
+        const maxRadius = 150;
+
+        // Calculate position relative to SVG viewBox
+        const svgWidth = rect.width;
+        const svgHeight = rect.height;
+        const viewBoxWidth = 400;
+        const viewBoxHeight = 400;
+        
+        const x = ((event.clientX - rect.left) / svgWidth) * viewBoxWidth - centerX;
+        const y = ((event.clientY - rect.top) / svgHeight) * viewBoxHeight - centerY;
+        
+        const distance = Math.sqrt(x * x + y * y);
+        const normalizedDistance = Math.max(0, Math.min(1, distance / maxRadius));
+        const newValue = Math.round(normalizedDistance * 4) + 1;
+
+        // Set rating based on which ring was clicked (1-5)
+        const clampedValue = Math.max(1, Math.min(5, newValue));
+        updateRating(taste, clampedValue);
+    };
+
     const handleMouseDown = (taste: keyof TasteRating, event: React.MouseEvent) => {
         const svg = event.currentTarget.closest('svg');
         if (!svg) return;
 
+        setIsDragging(true);
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
         const centerY = 200;
@@ -65,6 +96,7 @@ export default function AnalysisPage() {
         };
 
         const handleMouseUp = () => {
+            setIsDragging(false);
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
@@ -78,6 +110,7 @@ export default function AnalysisPage() {
         const svg = event.currentTarget.closest('svg');
         if (!svg) return;
 
+        setIsDragging(true);
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
         const centerY = 200;
@@ -108,6 +141,7 @@ export default function AnalysisPage() {
 
         const handleTouchEnd = (e: TouchEvent) => {
             e.preventDefault();
+            setIsDragging(false);
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         };
@@ -185,15 +219,38 @@ export default function AnalysisPage() {
                                     pentagonPath += 'Z';
                                     
                                     return (
-                                        <path
-                                            key={level}
-                                            d={pentagonPath}
-                                            fill="none"
-                                            stroke="#B9B9B9"
-                                            strokeWidth={strokeWidth}
-                                            strokeDasharray="4,2"
-                                            opacity="0.8"
-                                        />
+                                        <g key={level}>
+                                            <path
+                                                d={pentagonPath}
+                                                fill="none"
+                                                stroke="#B9B9B9"
+                                                strokeWidth={strokeWidth}
+                                                strokeDasharray="4,2"
+                                                opacity="0.8"
+                                            />
+                                            {/* Clickable corners for each ring */}
+                                            {tasteLabels.map((taste, tasteIndex) => {
+                                                const angle = (tasteIndex * 72 - 90) * (Math.PI / 180);
+                                                const x = centerX + radius * Math.cos(angle);
+                                                const y = centerY + radius * Math.sin(angle);
+                                                
+                                                return (
+                                                    <circle
+                                                        key={`ring-${level}-${taste.key}`}
+                                                        cx={x}
+                                                        cy={y}
+                                                        r="8"
+                                                        fill="transparent"
+                                                        className="cursor-pointer"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            updateRating(taste.key as keyof TasteRating, level);
+                                                        }}
+                                                        style={{ cursor: 'pointer' }}
+                                                    />
+                                                );
+                                            })}
+                                        </g>
                                     );
                                 })}
                                 
@@ -240,6 +297,7 @@ export default function AnalysisPage() {
                                     strokeWidth="2.686"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
+                                    style={{ pointerEvents: 'none' }}
                                 />
                                 
                                 {/* Rounded corner circles at connection points */}
@@ -258,6 +316,7 @@ export default function AnalysisPage() {
                                             fill="#FF7927"
                                             width="11.5"
                                             height="11.5"
+                                            style={{ pointerEvents: 'none' }}
                                         />
                                     );
                                 })}
@@ -348,6 +407,7 @@ export default function AnalysisPage() {
                                                 r="15"
                                                 fill="transparent"
                                                 className="cursor-pointer draggable"
+                                                onClick={(e) => handleClick(taste.key as keyof TasteRating, e)}
                                                 onMouseDown={(e) => {
                                                     e.preventDefault();
                                                     handleMouseDown(taste.key as keyof TasteRating, e);
@@ -356,7 +416,7 @@ export default function AnalysisPage() {
                                                     e.preventDefault();
                                                     handleTouchStart(taste.key as keyof TasteRating, e);
                                                 }}
-                                                style={{ cursor: 'grab', touchAction: 'none' }}
+                                                style={{ cursor: 'grab', touchAction: 'none', pointerEvents: 'auto' }}
                                             />
                                             
                                             {/* Visible draggable point */}
@@ -366,6 +426,7 @@ export default function AnalysisPage() {
                                                 r="5.75"
                                                 fill="transparent"
                                                 className="cursor-pointer hover:r-6.75 transition-all draggable"
+                                                onClick={(e) => handleClick(taste.key as keyof TasteRating, e)}
                                                 onMouseDown={(e) => {
                                                     e.preventDefault();
                                                     handleMouseDown(taste.key as keyof TasteRating, e);
@@ -374,7 +435,7 @@ export default function AnalysisPage() {
                                                     e.preventDefault();
                                                     handleTouchStart(taste.key as keyof TasteRating, e);
                                                 }}
-                                                style={{ cursor: 'grab', touchAction: 'none' }}
+                                                style={{ cursor: 'grab', touchAction: 'none', pointerEvents: 'auto' }}
                                                 filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"
                                             />
 
@@ -388,7 +449,7 @@ export default function AnalysisPage() {
                 </div>
                 {/* CTA Button */}
                 <Link href="/result" className="btn-primary w-full text-center block">
-                    추천 원두 보기
+                취향 분석 시작하기
                 </Link>
             </div>
         </>

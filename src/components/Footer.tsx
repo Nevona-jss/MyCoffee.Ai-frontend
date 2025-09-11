@@ -1,12 +1,12 @@
 const Footer = () => {
     return (
-        <div className="bg-[rgba(0,0,0,0.05)] p-4 pb-6 text-gray-0">
+        <div className="bg-[rgba(0,0,0,0.05)] px-4 pt-3 pb-8 text-gray-0">
             <div className="max-w-sm mx-auto">
                 {/* Company Name */}
-                <h3 className="text-base font-bold mb-2.5">MyCoffee.Ai</h3>
+                <h3 className="text-base font-bold mb-2.5 leading-[125%]">MyCoffee.Ai</h3>
                 
                 {/* Company Information */}
-                <div className="space-y-1 text-[10px] font-normal">
+                <div className="space-y-1 text-[10px] font-normal leading-[150%]">
                     <p>(주)아로마빌 커피</p>
                     <p>대표 : 노환걸</p>
                     <p>18530 경기도 화성시 팔탄면 서해로987번길 23 (주)아로마빌커피</p>

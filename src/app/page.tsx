@@ -24,8 +24,8 @@ export default function Home() {
         </div>
 
         {/* CTA Button */}
-        <Link href="/analysis" className="btn-primary w-full text-center block">
-          취향 분석 시작
+        <Link href="/analysis" className="btn-primary w-full block">
+            취향 분석 시작
         </Link>
       </div>
     </>

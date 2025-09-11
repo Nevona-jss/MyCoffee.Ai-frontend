@@ -13,7 +13,7 @@ export default function HomePage() {
     return (
         <div className="h-[100dvh] bg-background">
             {/* Header */}
-            <div className="px-6 py-[18px] flex justify-center">
+            <div className="py-[18px] flex justify-center">
                 <Image
                     src="/images/logo.svg"
                     alt="My Coffee.Ai"
@@ -24,7 +24,7 @@ export default function HomePage() {
             </div>
 
             {/* Main Content */}
-            <div>
+            <div className='bg-background'>
                 {/* Today's Coffee Pick */}
                 <TodaysCoffeePick />
 

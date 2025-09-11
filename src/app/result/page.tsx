@@ -77,7 +77,7 @@ export default function ResultPage() {
     return (
         <>
             {/* Main Content */}
-            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-6 py-8">
+            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 py-6">
 
                 {/* Coffee Blend Card */}
                 {coffeeBlends.map((blend, index) => (
@@ -86,7 +86,7 @@ export default function ResultPage() {
                         <p className="text-gray-0 text-sm mb-2 font-normal">{blend.description}</p>
 
                         {/* Origins */}
-                        <div className="flex gap-1">
+                        <div className="flex gap-1 mb-4">
                             {blend.origins.map((origin, idx) => (
                                 <span
                                     key={idx}
@@ -240,7 +240,7 @@ export default function ResultPage() {
                                                 x={labelX - 20}
                                                 y={labelY + 8}
                                                 width="40"
-                                                height="18"
+                                                height="22"
                                                 rx="8"
                                                 fill="#FFF"
                                                 stroke="#E6E6E6"
@@ -250,14 +250,14 @@ export default function ResultPage() {
                                             {/* Rating number - only the number in orange */}
                                             <text
                                                 x={labelX - 6}
-                                                y={labelY + 18}
+                                                y={labelY + 20}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill="#FF7927"
-                                                fontSize="13"
+                                                fontSize="12"
                                                 fontWeight="400"
                                                 letterSpacing="-0.13px"
-                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
                                             >
                                                 {ratings[taste.key as keyof TasteRating]}
                                             </text>
@@ -265,14 +265,14 @@ export default function ResultPage() {
                                             {/* "/5" text in black */}
                                             <text
                                                 x={labelX + 4}
-                                                y={labelY + 18}
+                                                y={labelY + 20}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill="#1A1A1A"
-                                                fontSize="13"
+                                                fontSize="12"
                                                 fontWeight="400"
                                                 letterSpacing="-0.13px"
-                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
                                             >
                                                 /5
                                             </text>
@@ -302,7 +302,7 @@ export default function ResultPage() {
                                             ))}
                                         </div>
                                     </div>
-                                    <p className="text-[10px] text-[#999]">
+                                    <p className="text-[10px] text-[#999] leading-[140%]">
                                         {tasteDescriptions[taste.key as keyof typeof tasteDescriptions]}
                                     </p>
                                 </div>
@@ -316,7 +316,7 @@ export default function ResultPage() {
                     <Link href="/home" className="btn-primary w-full text-center block">
                         회원 가입
                     </Link>
-                    <Link href="/" className="block text-center text-base underline text-primary">
+                    <Link href="/" className="block text-center text-base text-primary font-bold">
                         둘러보고 나중에 할래요.
                     </Link>
                 </div>
