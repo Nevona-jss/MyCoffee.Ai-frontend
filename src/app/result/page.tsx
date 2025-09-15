@@ -82,7 +82,7 @@ export default function ResultPage() {
                 {/* Coffee Blend Card */}
                 {coffeeBlends.map((blend, index) => (
                     <div key={index}>
-                        <h1 className="text-xl font-bold text-primary mb-2">{blend.name}</h1>
+                        <h1 className="text-xl font-bold text-[#4E2A18] mb-2">{blend.name}</h1>
                         <p className="text-gray-0 text-sm mb-2 font-normal">{blend.description}</p>
 
                         {/* Origins */}
@@ -131,7 +131,7 @@ export default function ResultPage() {
                                             key={level}
                                             d={pentagonPath}
                                             fill="none"
-                                            stroke="#B9B9B9"
+                                            stroke="#B3B3B3"
                                             strokeWidth={strokeWidth}
                                             strokeDasharray="4,2"
                                             opacity="0.8"
@@ -155,7 +155,7 @@ export default function ResultPage() {
                                             y1={centerY}
                                             x2={x}
                                             y2={y}
-                                            stroke="#B9B9B9"
+                                            stroke="#B3B3B3"
                                             strokeWidth="1"
                                             strokeDasharray="4,2"
                                             opacity="0.8"
