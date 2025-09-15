@@ -311,7 +311,7 @@ input[type="radio"]:checked::after {
 }
 
 /* Add slashes between date parts */
-.date-input-custom::before {
+/* .date-input-custom::before {
   content: "/";
   position: absolute;
   left: 55px;
@@ -328,4 +328,4 @@ input[type="radio"]:checked::after {
   color: #000;
   pointer-events: none;
   z-index: 1; 
-}
+} */
