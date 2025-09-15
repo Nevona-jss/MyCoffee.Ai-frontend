@@ -178,11 +178,11 @@ export default function AnalysisPage() {
                         <Image
                             src="/images/logo.svg"
                             alt="My Coffee.Ai"
-                            className="w-[215.378px] h-[31.211px] mx-auto"
-                            width={215.378}
-                            height={31.211}
+                            className="w-[220px] h-[32px] mx-auto"
+                            width={220}
+                            height={32}
                         />
-                        <p className="text-gray-0 text-center mt-4 text-[14px]">
+                        <p className="text-gray-0 text-center mt-3 text-[14px]">
                             나만의 커피 취향을 찾아볼까요?
                         </p>
                     </div>
@@ -223,7 +223,7 @@ export default function AnalysisPage() {
                                             <path
                                                 d={pentagonPath}
                                                 fill="none"
-                                                stroke="#B9B9B9"
+                                                stroke="#B3B3B3"
                                                 strokeWidth={strokeWidth}
                                                 strokeDasharray="4,2"
                                                 opacity="0.8"
@@ -270,7 +270,7 @@ export default function AnalysisPage() {
                                             y1={centerY}
                                             x2={x}
                                             y2={y}
-                                            stroke="#B9B9B9"
+                                            stroke="#B3B3B3"
                                             strokeWidth="1"
                                             strokeDasharray="4,2"
                                             opacity="0.8"

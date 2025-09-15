@@ -13,7 +13,7 @@
   --line: #E6E6E6;
   
   /* Background Colors */
-  --background: #F2F2F2;
+  --background: #FAFAFA;
   --background-sub: #FFF;
   
   /* Taste Colors */
@@ -81,6 +81,17 @@
   font-weight: 600;
   line-height: 150%;
   border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary-empty {
+  border-radius: 8px;
+  padding: 12px 10px;
+  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -163,4 +174,98 @@ svg {
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Auth checkbox styles */
+.auth-checkbox {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+.auth-checkbox:checked {
+  background-color: #FF7939 !important;
+  border-color: #FF7939 !important;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Radio button styles */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #FF7939;
+  border-radius: 50%;
+  background-color: transparent;
+  position: relative;
+}
+
+input[type="radio"]:checked {
+  background-color: transparent;
+  border-color: #FF7939;
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #FF7939;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* Date input custom styling */
+.date-input-custom::-webkit-datetime-edit, .date-input-custom::-webkit-inner-spin-button, .date-input-custom::-webkit-clear-button {
+  color: #fff;
+  position: relative;
+}
+
+.date-input-custom::-webkit-datetime-edit-year-field{
+  position: absolute !important;
+  padding: 0px;
+  color:#000;
+  left: 4px;
+}
+
+.date-input-custom::-webkit-datetime-edit-month-field{
+  position: absolute !important;
+  padding: 0px;
+  color:#000;
+  left: 45px;
+}
+
+.date-input-custom::-webkit-datetime-edit-day-field{
+  position: absolute !important;
+  color:#000;
+  padding: 0px;
+  left: 70px;
+}
+
+/* Add slashes between date parts */
+.date-input-custom::before {
+  content: "/";
+  position: absolute;
+  left: 55px;
+  color: #000;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.date-input-custom::after {
+  content: "/";
+  top: 10px;
+  position: absolute;
+  left: 80px;
+  color: #000;
+  pointer-events: none;
+  z-index: 1;
 }

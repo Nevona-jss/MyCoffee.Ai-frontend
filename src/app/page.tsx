@@ -13,10 +13,10 @@ export default function Home() {
           <Image
             src="/images/logo.svg"
             alt="My Coffee.Ai"
-            className="w-[215.378px] h-[31.211px] mb-3
+            className="w-[220px] h-[32px] mb-3
             "
-            width={215.378}
-            height={31.211}
+            width={220}
+            height={32}
           />
           <p className="mb-16 text-[14px]">
             나만의 커피 취향을 찾아볼까요?
@@ -24,7 +24,7 @@ export default function Home() {
         </div>
 
         {/* CTA Button */}
-        <Link href="/analysis" className="btn-primary w-full block">
+        <Link href="/analysis" className="btn-primary w-full block text-center">
             취향 분석 시작
         </Link>
       </div>
