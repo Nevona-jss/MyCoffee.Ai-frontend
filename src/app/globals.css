@@ -1,39 +1,21 @@
 @import "tailwindcss";
 
 :root {
-<<<<<<< HEAD
-  /* Primary Colors */
-=======
   /* Primary Colors */ 
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
   --primary: #532E19;
   --primary-active: #3B2112;
   --text-disabled: #6E6E6E;
   
-<<<<<<< HEAD
-  /* Secondary/Accent Colors */
-
-=======
   /* Secondary/Accent Colors */ 
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
   --accent: #FF7927;
   --accent-sub: #FFE0AD; 
   --text-primary: #1A1A1A;
   --text-secondary: #6E6E6E;
   
 
-<<<<<<< HEAD
-  /* Line Color */
-
-  --line: #E6E6E6;
-  --action-disabled: #E6E6E6;
-
-
-=======
   /* Line Color */ 
   --line: #E6E6E6;
   --action-disabled: #E6E6E6; 
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
   /* Background Colors */
   --background: #FAFAFA;
   --background-sub: #FFF;
@@ -74,32 +56,17 @@
 @theme inline {
   /* Primary Colors */
   --color-primary: var(--primary);
-<<<<<<< HEAD
-  --color-primary-active: var(--primary-active);
-
-=======
   --color-primary-active: var(--primary-active); 
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
   --color-text-disabled: var(--text-disabled);
   
   /* Secondary/Accent Colors */
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
-<<<<<<< HEAD
-  --color-text-primary: var(--text-primary);
-
-  --color-text-secondary: var(--text-secondary);
-  
-  --color-line: var(--line);
-  --color-action-disabled: var(--action-disabled);
-  
-=======
   --color-text-primary: var(--text-primary); 
   --color-text-secondary: var(--text-secondary);
   
   --color-line: var(--line);
   --color-action-disabled: var(--action-disabled); 
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
   /* Background Colors */
   --color-background: var(--background);
   --color-background-sub: var(--background-sub);
@@ -264,18 +231,11 @@ svg {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
 }
-<<<<<<< HEAD
-
-.calendar-shadow {
-  box-shadow: 0px 1px 3px 0px #00000014;
-}
-=======
  
 .calendar-shadow {
   box-shadow: 0px 1px 3px 0px #00000014;
 }
  
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
 /* Auth checkbox styles */
 .auth-checkbox {
   appearance: none !important;
@@ -367,9 +327,5 @@ input[type="radio"]:checked::after {
   left: 80px;
   color: #000;
   pointer-events: none;
-<<<<<<< HEAD
-  z-index: 1;
-=======
   z-index: 1; 
->>>>>>> dd98cbe9541b9c4743434d343db8de2a7f16b051
 }
