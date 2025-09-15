@@ -4,6 +4,7 @@ import ActionSheet from "../../components/ActionSheet";
 import OrderSelectOption from "./components/orderSelectOption";
 import OrderSelectLabelOption from "./components/orderSelectLabelOption";
 import OrderSelectSubscriptionDeleviryDate from "./components/orderSelectSubscriptionDeleviryDate";
+import Link from "next/link";
 
 const Ordering = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -222,9 +223,9 @@ const Ordering = () => {
               )}
             </div>
  
-            <button className="flex-1 py-3 border border-transparent bg-linear-gradient text-white rounded-lg font-bold leading-[24px]">
+            <Link href={"/purchase-individual-item"} className="flex-1 inline-block text-center py-3 border border-transparent bg-linear-gradient text-white rounded-lg font-bold leading-[24px]">
               단품 구매
-            </button>
+            </Link>
           </div>
         </ActionSheet>
       </div>
