@@ -2,14 +2,20 @@
 
 :root {
   /* Primary Colors */
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
   --primary: #532E19;
   --primary-active: #3B2112;
   --text-disabled: #6E6E6E;
   
   /* Secondary/Accent Colors */
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
   --accent: #FF7927;
   --accent-sub: #FFE0AD; 
   --text-primary: #1A1A1A;
@@ -17,11 +23,16 @@
   
 
   /* Line Color */
+<<<<<<< HEAD
+  --line: #E6E6E6;
+  --action-disabled: #E6E6E6;
+=======
 
   --line: #E6E6E6;
   --action-disabled: #E6E6E6;
 
 
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
   /* Background Colors */
   --background: #FAFAFA;
   --background-sub: #FFF;
@@ -63,19 +74,28 @@
   /* Primary Colors */
   --color-primary: var(--primary);
   --color-primary-active: var(--primary-active);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
   --color-text-disabled: var(--text-disabled);
   
   /* Secondary/Accent Colors */
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
   --color-text-primary: var(--text-primary);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
   --color-text-secondary: var(--text-secondary);
   
   --color-line: var(--line);
   --color-action-disabled: var(--action-disabled);
+<<<<<<< HEAD
+=======
   
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
   /* Background Colors */
   --color-background: var(--background);
   --color-background-sub: var(--background-sub);
@@ -241,10 +261,17 @@ svg {
   -webkit-tap-highlight-color: transparent;
 }
 
+<<<<<<< HEAD
+.calendar-shadow {
+  box-shadow: 0px 1px 3px 0px #00000014;
+}
+
+=======
 
 .calendar-shadow {
   box-shadow: 0px 1px 3px 0px #00000014;
 =======
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
 /* Auth checkbox styles */
 .auth-checkbox {
   appearance: none !important;
@@ -337,5 +364,8 @@ input[type="radio"]:checked::after {
   color: #000;
   pointer-events: none;
   z-index: 1;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7d078ec14077367b0e4dcca3963ad0aa336fc463
 }
