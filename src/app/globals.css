@@ -7,7 +7,8 @@
   
   /* Secondary/Accent Colors */
   --accent: #FF7927;
-  --accent-sub: #FFE0AD;
+  --accent-sub: #FFE0AD; 
+  --text-secondary: #6E6E6E;
   
   /* Line Color */
   --line: #E6E6E6;
@@ -22,13 +23,21 @@
   --sweetness: #FFB5C2;
   --nutty: #D8A058;
   --body: #3B1C1C;
+  --brand-secondary-accent-sub: #ffe5bf;
+  --action-secondary: #FF7939;
   
   /* Gray Colors */
   --gray-0: #1A1A1A;
   --gray-10: #B9B9B9;
+
+  /* Icon color */
+  --icon-default: #1A1A1A;
   
   /* Foreground */
   --foreground: var(--gray-0);
+
+  /* border/default color */
+  --border-default: #E6E6E6;
 }
 
 @theme inline {
@@ -39,6 +48,7 @@
   /* Secondary/Accent Colors */
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
+  --color-text-secondary: var(--text-secondary);
   
   /* Line Color */
   --color-line: var(--line);
@@ -53,13 +63,20 @@
   --color-sweetness: var(--sweetness);
   --color-nutty: var(--nutty);
   --color-body: var(--body);
-  
+  --color-brand-secondary-accent-sub: var(--brand-secondary-accent-sub);
+  --color-action-secondary: var(--action-secondary);
   /* Gray Colors */
   --color-gray-0: var(--gray-0);
   --color-gray-10: var(--gray-10);
   
   /* Foreground */
   --color-foreground: var(--foreground);
+ 
+  /* border/default color */
+  --color-border-default: var(--border-default);
+
+  /* icon/default color */
+  --color-icon-default: var(--icon-default);
   
   /* Fonts */
   --font-sans: var(--font-geist-sans);
@@ -69,6 +86,12 @@
   /* Gradient Primary */
   --gradient-primary: linear-gradient(90deg, #FFF9F5 -152.09%, #A99387 -127.44%, #64422F -5.57%, #532E19 114.31%);
 }
+
+/* Linear Gradient */
+.bg-linear-gradient {
+  background: linear-gradient(90deg, #FFF9F5 -152.09%, #A99387 -127.44%, #64422F -5.57%, #532E19 114.31%);
+}
+
 
 /* Button Component Styles */
 .btn-primary {
