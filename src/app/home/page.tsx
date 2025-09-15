@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import MyCollection from '@/components/MyCollection';
 import TodaysCoffeePick from '@/components/TodaysCoffeePick';
 import UserReviews from '@/components/UserReviews';

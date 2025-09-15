@@ -22,7 +22,7 @@ const warningIcon = () => {
   );
 };
 
-export default function FindId() {
+export default function ForgotPassword() {
   const [phone, setPhone] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
@@ -92,7 +92,7 @@ export default function FindId() {
 
     if (isPhoneValid && isCodeValid && isCodeSent) {
       // Handle successful verification
-      router.push('/auth/find-id/select');
+      router.push('/auth/forgot-password/reset-password');
     }
   };
 
@@ -103,10 +103,24 @@ export default function FindId() {
   };
   return (
     <div className="h-[100dvh] flex flex-col">
-      <Header title="아이디 찾기" />
+      <Header title="비밀번호 찾기" />
       {/* Login Form */}
       <div className="py-6 px-4 text-gray-0">
         {/* Phone Number Input */}
+        <div className="mb-3">
+          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
+          아이디 또는 이메일
+          </label>
+          <div>
+            <input
+              type="email"
+              id="email"
+              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full py-2.5 px-4"
+              placeholder="아이디 또는 이메일을 입력해주세요."
+              required
+            />
+          </div>
+        </div>
         <div>
           <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0">
             휴대폰 번호
@@ -149,7 +163,7 @@ export default function FindId() {
         {/* Verification Code Input */}
         <div className="pt-4">
           <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0">
-            인증 번호
+          인증 번호
           </label>
           <div className="flex gap-1">
             <input
@@ -179,7 +193,7 @@ export default function FindId() {
           disabled={!isCodeSent || verificationCode.trim() === ''}
           className="w-full btn-primary duration-200 disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:cursor-not-allowed"
         >
-          아이디 찾기
+          다음
         </button>
       </div>
     </div>

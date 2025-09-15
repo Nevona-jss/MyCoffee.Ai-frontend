@@ -22,7 +22,7 @@ export default function Login() {
       <div className="py-6 px-4 text-gray-0">
         {/* Email Input */}
         <div className="mb-3">
-          <label htmlFor="email" className="block mb-2 text-sm font-bold text-gray-0">
+          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
             이메일
           </label>
           <div className="relative">
@@ -35,7 +35,7 @@ export default function Login() {
             <input
               type="email"
               id="email"
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-sm rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 p-[9px]"
+              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 py-2.5"
               placeholder="이메일을 입력하세요."
               required
             />
@@ -44,7 +44,7 @@ export default function Login() {
 
         {/* Password Input */}
         <div className="mb-3">
-          <label htmlFor="password" className="block mb-2 text-sm font-bold text-gray-0">
+          <label htmlFor="password" className="block mb-2 text-[12px] font-bold text-gray-0">
             비밀번호
           </label>
           <div className="relative">
@@ -57,7 +57,7 @@ export default function Login() {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-sm rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 pr-10 p-[9px]"
+              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 pr-10 py-2.5"
               placeholder="비밀번호를 입력해주세요."
               required
             />
@@ -112,7 +112,7 @@ export default function Login() {
           <Link href="/auth/find-id" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
             아이디 찾기
           </Link>
-          <Link href="#" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
+          <Link href="/auth/forgot-password" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
             비밀번호 찾기
           </Link>
           <Link href="/auth/register" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
