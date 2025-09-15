@@ -2,22 +2,23 @@
 
 :root {
   /* Primary Colors */
-  --primary: #532E19;
-  --primary-active: #3B2112;
-  
-  /* Secondary/Accent Colors */
+  --primary: #532e19;
+  --primary-active: #3b2112;
+
   --accent: #FF7927;
   --accent-sub: #FFE0AD; 
   --text-secondary: #6E6E6E;
   
+
   /* Line Color */
-  --line: #E6E6E6;
-  
+  --line: #e6e6e6;
+
   /* Background Colors */
-  --background: #F2F2F2;
-  --background-sub: #FFF;
-  
+  --background: #f2f2f2;
+  --background-sub: #fff;
+
   /* Taste Colors */
+
   --aroma: #BE9FE2;
   --acidity: #DCF494;
   --sweetness: #FFB5C2;
@@ -33,6 +34,14 @@
   /* Icon color */
   --icon-default: #1A1A1A;
   
+
+  /*Action Colors*/
+  --action-primary: #4e2a18;
+
+  /*Text Colors*/
+  --text-secondary: #6e6e6e;
+
+
   /* Foreground */
   --foreground: var(--gray-0);
 
@@ -44,33 +53,36 @@
   /* Primary Colors */
   --color-primary: var(--primary);
   --color-primary-active: var(--primary-active);
-  
+
   /* Secondary/Accent Colors */
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
+
   --color-text-secondary: var(--text-secondary);
   
-  /* Line Color */
   --color-line: var(--line);
-  
+
   /* Background Colors */
   --color-background: var(--background);
   --color-background-sub: var(--background-sub);
-  
+
   /* Taste Colors */
   --color-aroma: var(--aroma);
   --color-acidity: var(--acidity);
   --color-sweetness: var(--sweetness);
   --color-nutty: var(--nutty);
   --color-body: var(--body);
+
   --color-brand-secondary-accent-sub: var(--brand-secondary-accent-sub);
   --color-action-secondary: var(--action-secondary);
+
   /* Gray Colors */
   --color-gray-0: var(--gray-0);
   --color-gray-10: var(--gray-10);
-  
+
   /* Foreground */
   --color-foreground: var(--foreground);
+
  
   /* border/default color */
   --color-border-default: var(--border-default);
@@ -78,13 +90,26 @@
   /* icon/default color */
   --color-icon-default: var(--icon-default);
   
-  /* Fonts */
+
+
+  /* Action Colors */
+  --color-action-primary: var(--action-primary);
+
+  /* Text Colors */
+  --color-text-secondary: var(--text-secondary);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-pretendard: var(--font-pretendard);
   --font-suite: var(--font-suite);
   /* Gradient Primary */
-  --gradient-primary: linear-gradient(90deg, #FFF9F5 -152.09%, #A99387 -127.44%, #64422F -5.57%, #532E19 114.31%);
+  --gradient-primary: linear-gradient(
+    90deg,
+    #fff9f5 -152.09%,
+    #a99387 -127.44%,
+    #64422f -5.57%,
+    #532e19 114.31%
+  );
 }
 
 /* Linear Gradient */
@@ -98,8 +123,9 @@
   border-radius: 8px;
   background: var(--gradient-primary);
   padding: 12px 20px;
-  color: #FFF;
-  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #fff;
+  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 150%;
@@ -121,11 +147,13 @@
 body {
   background: var(--background-sub);
   color: var(--foreground);
-  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
 }
 
 * {
-  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
 }
 
 /* Suite font uchun CSS variable */
