@@ -5,9 +5,10 @@
   --primary: #532e19;
   --primary-active: #3b2112;
 
-  /* Secondary/Accent Colors */
-  --accent: #ff7927;
-  --accent-sub: #ffe0ad;
+  --accent: #FF7927;
+  --accent-sub: #FFE0AD; 
+  --text-secondary: #6E6E6E;
+  
 
   /* Line Color */
   --line: #e6e6e6;
@@ -17,15 +18,22 @@
   --background-sub: #fff;
 
   /* Taste Colors */
-  --aroma: #be9fe2;
-  --acidity: #dcf494;
-  --sweetness: #ffb5c2;
-  --nutty: #d8a058;
-  --body: #3b1c1c;
 
+  --aroma: #BE9FE2;
+  --acidity: #DCF494;
+  --sweetness: #FFB5C2;
+  --nutty: #D8A058;
+  --body: #3B1C1C;
+  --brand-secondary-accent-sub: #ffe5bf;
+  --action-secondary: #FF7939;
+  
   /* Gray Colors */
-  --gray-0: #1a1a1a;
-  --gray-10: #b9b9b9;
+  --gray-0: #1A1A1A;
+  --gray-10: #B9B9B9;
+
+  /* Icon color */
+  --icon-default: #1A1A1A;
+  
 
   /*Action Colors*/
   --action-primary: #4e2a18;
@@ -33,8 +41,12 @@
   /*Text Colors*/
   --text-secondary: #6e6e6e;
 
+
   /* Foreground */
   --foreground: var(--gray-0);
+
+  /* border/default color */
+  --border-default: #E6E6E6;
 }
 
 @theme inline {
@@ -46,7 +58,8 @@
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
 
-  /* Line Color */
+  --color-text-secondary: var(--text-secondary);
+  
   --color-line: var(--line);
 
   /* Background Colors */
@@ -60,6 +73,9 @@
   --color-nutty: var(--nutty);
   --color-body: var(--body);
 
+  --color-brand-secondary-accent-sub: var(--brand-secondary-accent-sub);
+  --color-action-secondary: var(--action-secondary);
+
   /* Gray Colors */
   --color-gray-0: var(--gray-0);
   --color-gray-10: var(--gray-10);
@@ -67,13 +83,21 @@
   /* Foreground */
   --color-foreground: var(--foreground);
 
+ 
+  /* border/default color */
+  --color-border-default: var(--border-default);
+
+  /* icon/default color */
+  --color-icon-default: var(--icon-default);
+  
+
+
   /* Action Colors */
   --color-action-primary: var(--action-primary);
 
   /* Text Colors */
   --color-text-secondary: var(--text-secondary);
 
-  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-pretendard: var(--font-pretendard);
@@ -87,6 +111,12 @@
     #532e19 114.31%
   );
 }
+
+/* Linear Gradient */
+.bg-linear-gradient {
+  background: linear-gradient(90deg, #FFF9F5 -152.09%, #A99387 -127.44%, #64422F -5.57%, #532E19 114.31%);
+}
+
 
 /* Button Component Styles */
 .btn-primary {
