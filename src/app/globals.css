@@ -2,16 +2,25 @@
 
 :root {
   /* Primary Colors */
-  --primary: #532e19;
-  --primary-active: #3b2112;
+
+  --primary: #532E19;
+  --primary-active: #3B2112;
+  --text-disabled: #6E6E6E;
+  
+  /* Secondary/Accent Colors */
+
 
   --accent: #FF7927;
   --accent-sub: #FFE0AD; 
+  --text-primary: #1A1A1A;
   --text-secondary: #6E6E6E;
   
 
   /* Line Color */
-  --line: #e6e6e6;
+
+  --line: #E6E6E6;
+  --action-disabled: #E6E6E6;
+
 
   /* Background Colors */
   --background: #FAFAFA;
@@ -33,6 +42,7 @@
 
   /* Icon color */
   --icon-default: #1A1A1A;
+  --icon-disabled: #9CA3AF;
   
 
   /*Action Colors*/
@@ -54,14 +64,18 @@
   --color-primary: var(--primary);
   --color-primary-active: var(--primary-active);
 
+  --color-text-disabled: var(--text-disabled);
+  
   /* Secondary/Accent Colors */
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
+  --color-text-primary: var(--text-primary);
 
   --color-text-secondary: var(--text-secondary);
   
   --color-line: var(--line);
-
+  --color-action-disabled: var(--action-disabled);
+  
   /* Background Colors */
   --color-background: var(--background);
   --color-background-sub: var(--background-sub);
@@ -227,6 +241,10 @@ svg {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+.calendar-shadow {
+  box-shadow: 0px 1px 3px 0px #00000014;
+=======
 /* Auth checkbox styles */
 .auth-checkbox {
   appearance: none !important;
@@ -319,4 +337,5 @@ input[type="radio"]:checked::after {
   color: #000;
   pointer-events: none;
   z-index: 1;
+
 }
