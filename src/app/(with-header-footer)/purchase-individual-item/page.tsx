@@ -1,9 +1,7 @@
-"use client";
-import Header from "@/components/Header";
+"use client"; 
 import React, { useState } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
-import Link from "next/link";
-import BottomMenuBar from "@/components/BottomMenuBar";
+import Link from "next/link"; 
 
 const PurchaseIndividualItem = () => {
   const [quantity, setQuantity] = useState(1);
@@ -68,8 +66,6 @@ const PurchaseIndividualItem = () => {
 
   return (
     <>
-      <Header title="주문하기" showBackButton={true} />
-
       <div className="bg-background min-h-screen p-4 pb-14">
         <div className="space-y-4 ">
           {/* 주문 정보 (Order Information) */}
@@ -372,7 +368,6 @@ const PurchaseIndividualItem = () => {
           )}
         </div>
       </div>
-      <BottomMenuBar />
     </>
   );
 };
