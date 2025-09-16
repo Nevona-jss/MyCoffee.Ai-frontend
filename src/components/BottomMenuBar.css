@@ -1,0 +1,35 @@
+.navbar-menu .navbar-menu-main-item-wrapper {
+    background: #fff;
+    padding: 8px;
+    width: 80px;
+    height: 80px;
+    position: relative;
+}
+
+.navbar-menu-main-item{
+    z-index: 2;
+}
+
+.navbar-menu-main-item-wrapper::before{
+    content: "";
+    background: none;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -0.5px;
+    left: -23.6px;
+    box-shadow: 19px 19px #fff;
+}
+
+.navbar-menu-main-item-wrapper::after{
+    content: "";
+    background: none;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -0.5px;
+    right: -23.6px;
+    box-shadow: -19px 19px #fff;
+}
