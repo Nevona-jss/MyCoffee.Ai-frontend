@@ -64,7 +64,7 @@ const ActionSheet: React.FC<ActionSheetProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 bg-[#32475C]/60 z-50 flex items-end transition-all duration-300 ${
+      className={`fixed inset-0 bg-black/20 z-50 flex items-end transition-all duration-300 ${
         isClosing ? "opacity-0" : "opacity-100"
       }`}
       onClick={handleClose}
