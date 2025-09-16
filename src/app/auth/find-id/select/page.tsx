@@ -3,9 +3,19 @@
 import Header from "@/components/Header";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useHeaderStore } from "@/stores/header-store";
+import { useEffect } from "react";
 
 export default function SelectId() {
   const router = useRouter();
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "아이디 찾기",
+      showBackButton: true,
+    });
+  }, [setHeader]);
 
   const accountData = [
     {
@@ -45,7 +55,7 @@ export default function SelectId() {
       icon: ""
       // icon: (
       //   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-      //     <g clip-path="url(#clip0_1304_8236)">
+      //     <g clipPath="url(#clip0_1304_8236)">
       //       <path d="M13.5371 7.1536C13.5371 6.70041 13.5004 6.24478 13.422 5.79895H7.13379V8.36616H10.7348C10.5853 9.19414 10.1052 9.92658 9.40215 10.392V12.0578H11.5505C12.812 10.8966 13.5371 9.18189 13.5371 7.1536Z" fill="#4285F4" />
       //       <path d="M7.13328 13.6671C8.93131 13.6671 10.4476 13.0768 11.5524 12.0577L9.40409 10.392C8.80638 10.7986 8.03475 11.0289 7.13573 11.0289C5.39649 11.0289 3.92182 9.85552 3.3927 8.27795H1.17578V9.99514C2.30751 12.2464 4.61261 13.6671 7.13328 13.6671Z" fill="#34A853" />
       //       <path d="M3.39043 8.27788C3.11117 7.44991 3.11117 6.55334 3.39043 5.72537V4.00818H1.17596C0.230408 5.89194 0.230408 8.11131 1.17596 9.99507L3.39043 8.27788Z" fill="#FBBC04" />
@@ -78,7 +88,7 @@ export default function SelectId() {
 
   return (
     <div className="h-[100dvh] flex flex-col">
-      <Header title="아이디 찾기" />
+      <Header />
 
       {/* Content */}
       <div className="flex-1 px-4 py-6">

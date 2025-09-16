@@ -1,15 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useHeaderStore } from '@/stores/header-store';
 
-interface HeaderProps {
-    title?: string;
-    showBackButton?: boolean;
-    backHref?: string;
-}
-
-const Header = ({ title, showBackButton = true, backHref }: HeaderProps) => {
+const Header = () => {
     const router = useRouter();
+    const { title, showBackButton, backHref } = useHeaderStore();
 
     const handleBackClick = () => {
         if (backHref) {

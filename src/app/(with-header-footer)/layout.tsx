@@ -12,7 +12,7 @@ export default function LayoutHeaderFooter({
   return (
     <div className="h-[100vh] bg-background">
       {/* Header */}
-      <Header title="내 커피" showBackButton={false} />
+      <Header />
       <div className="flex-1 overflow-y-auto">
         {children}
       </div>

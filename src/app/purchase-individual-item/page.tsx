@@ -1,11 +1,13 @@
 "use client";
 import Header from "@/components/Header";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
 import Link from "next/link";
 import BottomMenuBar from "@/components/BottomMenuBar";
+import { useHeaderStore } from "@/stores/header-store";
 
 const PurchaseIndividualItem = () => {
+  const { setHeader } = useHeaderStore();
   const [quantity, setQuantity] = useState(1);
   const [pointUsage, setPointUsage] = useState(0);
   const [agreements, setAgreements] = useState({
@@ -22,6 +24,13 @@ const PurchaseIndividualItem = () => {
     paymentMethod: false,
     finalAmount: true,
   });
+
+  useEffect(() => {
+    setHeader({
+      title: "주문하기",
+      showBackButton: true,
+    });
+  }, [setHeader]);
 
   const handleQuantityChange = (type: "increase" | "decrease") => {
     if (type === "increase") {
@@ -68,7 +77,7 @@ const PurchaseIndividualItem = () => {
 
   return (
     <>
-      <Header title="주문하기" showBackButton={true} />
+      <Header />
 
       <div className="bg-background min-h-screen p-4 pb-14">
         <div className="space-y-4 ">

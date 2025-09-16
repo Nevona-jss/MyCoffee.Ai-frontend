@@ -2,11 +2,13 @@
 
 import Header from "@/components/Header";
 import PasswordInput from "@/app/auth/components/PasswordInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useHeaderStore } from "@/stores/header-store";
 
 
 export default function ResetPassword() {
+    const { setHeader } = useHeaderStore();
     const [errors, setErrors] = useState({
         password: '',
         confirmPassword: '',
@@ -16,8 +18,14 @@ export default function ResetPassword() {
         confirmPassword: '',
     });
 
-
     const router = useRouter();
+
+    useEffect(() => {
+        setHeader({
+            title: "비밀번호 재설정",
+            showBackButton: true,
+        });
+    }, [setHeader]);
 
     const validateField = (name: string, value: string) => {
         let error = '';
@@ -62,7 +70,7 @@ export default function ResetPassword() {
 
     return (
         <div className="h-[100dvh] flex flex-col">
-            <Header title="비밀번호 재설정" />
+            <Header />
             {/* Login Form */}
             <div className="py-6 px-4 text-gray-0">
                 <PasswordInput

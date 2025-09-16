@@ -21,7 +21,7 @@ export default function LoginSelect() {
           {/* CTA Button */}
           <Link href="#" className="btn-primary-empty w-full text-center mb-2 bg-[#FEE500] hover:bg-[#fee500f1] text-gray-0 flex items-center justify-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-              <g clip-path="url(#clip0_1267_5580)">
+              <g clipPath="url(#clip0_1267_5580)">
                 <path fillRule="evenodd" clipRule="evenodd" d="M10.5001 0.666687C4.97688 0.666687 0.5 4.12554 0.5 8.39148C0.5 11.0445 2.23157 13.3834 4.86838 14.7745L3.75893 18.8273C3.66091 19.1854 4.07047 19.4709 4.38498 19.2633L9.24819 16.0536C9.6586 16.0932 10.0757 16.1164 10.5001 16.1164C16.0228 16.1164 20.5 12.6576 20.5 8.39148C20.5 4.12554 16.0228 0.666687 10.5001 0.666687Z" fill="black" />
               </g>
               <defs>
@@ -34,7 +34,7 @@ export default function LoginSelect() {
           </Link>
           <Link href="#" className="btn-primary-empty w-full text-center mb-2 bg-[#03C75A] hover:bg-[#03c75be9] text-white flex items-center justify-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-              <g clip-path="url(#clip0_1267_5584)">
+              <g clipPath="url(#clip0_1267_5584)">
                 <path d="M14.0614 10.7033L6.64609 0H0.5V20H6.93861V9.295L14.3539 20H20.5V0H14.0614V10.7033Z" fill="white" />
               </g>
               <defs>
