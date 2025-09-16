@@ -202,12 +202,15 @@ export default function Register() {
             type="text"
             id="name"
             className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full px-4 py-2.5"
-            placeholder="이름을 입력하세요."
+            placeholder="이름을 입력해주세요."
             defaultValue=""
             onChange={(e) => handleInputChange('name', e.target.value)}
             required
           />
         </div>
+
+
+
 
         <DatePicker
           id="birthDate"
@@ -257,7 +260,7 @@ export default function Register() {
                 type="tel"
                 id="phone"
                 className="w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
-                placeholder="0000000000"
+                placeholder="휴대폰 번호를 입력해주세요"
                 onChange={(e) => {
                   const button = document.getElementById('phoneButton') as HTMLButtonElement;
                   if (e.target.value.trim() === '') {
@@ -290,7 +293,7 @@ export default function Register() {
               type="text"
               id="verificationCode"
               className="flex-1 bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
-              placeholder="인증 번호를 입력하세요."
+              placeholder="인증 번호를 입력해주세요."
               onChange={(e) => {
                 const button = document.getElementById('verifyButton') as HTMLButtonElement;
                 if (e.target.value.trim() === '') {

@@ -51,7 +51,7 @@ export default function RegisterSuccess() {
                     onClick={handleContinue}
                     className="w-full btn-primary duration-200"
                 >
-                    가입하기
+                    로그인
                 </button>
             </div>
         </div>

@@ -1,6 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+interface DatePickerProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+  required?: boolean;
+  className?: string;
+  placeholder?: string;
+}
 
 const warningIcon = () => {
   return (
@@ -19,17 +30,6 @@ const warningIcon = () => {
   );
 };
 
-interface DatePickerProps {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  error?: string;
-  required?: boolean;
-  className?: string;
-  placeholder?: string;
-}
-
 export default function DatePicker({
   id,
   label,
@@ -38,50 +38,29 @@ export default function DatePicker({
   error,
   required = false,
   className = '',
-  placeholder = ''
+  placeholder = '날짜를 선택하세요',
 }: DatePickerProps) {
-  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [displayValue, setDisplayValue] = useState('');
+
+  useEffect(() => {
+    if (value) {
+      const [year, month, day] = value.split('-');
+      setDisplayValue(`${year} / ${month} / ${day}`);
+    } else {
+      setDisplayValue('');
+    }
+  }, [value]);
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    onChange(inputValue);
-    
-    // Format display for Korean format (년/월/일)
-    if (inputValue) {
-      const [year, month, day] = inputValue.split('-');
-      const formattedValue = `${year}/${month}/${day}`;
-      
-      // Create overlay for formatted display
-      const overlay = document.createElement('div');
-      overlay.textContent = formattedValue;
-      overlay.className = 'absolute inset-0 flex items-center px-4 pointer-events-none text-gray-0 text-[12px] font-bold z-20';
-      overlay.id = 'date-overlay';
-      
-      // Remove existing overlay
-      const existingOverlay = e.target.parentElement?.querySelector('#date-overlay');
-      if (existingOverlay) {
-        existingOverlay.remove();
-      }
-      
-      // Add new overlay
-      e.target.parentElement?.appendChild(overlay);
-      e.target.style.color = 'transparent'; // Hide original input text
-    }
-  };
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
+    const newValue = e.target.value;
+    onChange(newValue);
   };
 
   const openDatePicker = () => {
-    const input = document.getElementById(id) as HTMLInputElement;
-    if (input) {
-      input.focus();
-      input.showPicker?.();
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.showPicker?.();
     }
   };
 
@@ -90,23 +69,13 @@ export default function DatePicker({
       <label htmlFor={id} className="block mb-2 text-[12px] font-bold text-gray-0">
         {label}
       </label>
-      <div className="relative">
-        <input
-          type="date"
-          id={id}
-          className={`date-input-custom bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full px-4 py-2.5 pr-10 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer ${error ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
-            }`}
-          value={value}
-          onChange={handleDateChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          required={required}
-        />
-        <div className="absolute z-10 inset-y-0 right-0 pr-3 flex items-center">
+      <div className="relative max-w-sm">
+        {/* Calendar icon on the right - clickable */}
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 z-20">
           <button
             type="button"
             onClick={openDatePicker}
-            className="cursor-pointer p-1 rounded transition-colors"
+            className="cursor-pointer p-1 rounded transition-colors hover:bg-gray-100"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M8 2V6" stroke="#B3B3B3" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
@@ -116,6 +85,28 @@ export default function DatePicker({
             </svg>
           </button>
         </div>
+        
+        {/* Hidden date input */}
+        <input
+          type="date"
+          id={id}
+          ref={inputRef}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 text-gray-0"
+          value={value}
+          onChange={handleDateChange}
+          required={required}
+        />
+        
+        {/* Visible text input */}
+        <input
+          type="text"
+          className={`bg-gray-50 border text-gray-0 text-[12px] rounded-lg focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pr-10 py-2.5 px-4 cursor-pointer ${error ? 'border-[#EF4444]' : 'border-[#E6E6E6]'}`}
+          placeholder={placeholder}
+          value={displayValue}
+          readOnly
+          onClick={openDatePicker}
+          onFocus={openDatePicker}
+        />
       </div>
       {error && (
         <div className="flex items-center gap-1 mt-2">

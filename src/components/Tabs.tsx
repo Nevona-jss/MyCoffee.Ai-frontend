@@ -30,7 +30,7 @@ const Tabs = ({ tabs, activeTab, onTabChange }: TabsProps) => {
   }, [activeTab, tabs]);
 
   return (
-    <div ref={containerRef} className="relative flex items-center gap-x-3">
+    <div ref={containerRef} className="relative flex items-center justify-center gap-x-3">
       {/* Sliding indicator - positioned at the very bottom */}
       <div
         className="absolute h-0.5 bg-action-primary transition-all duration-300 ease-out"

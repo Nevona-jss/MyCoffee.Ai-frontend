@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { pretendard, suite } from "./fonts";
+import { suite } from "./fonts";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${pretendard.variable} ${suite.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${suite.variable} antialiased`}
       >
         <div className="h-[100dvh] flex flex-col">
           <div className="w-full sm:max-w-sm sm:mx-auto bg-background shadow">

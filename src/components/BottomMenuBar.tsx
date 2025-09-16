@@ -42,39 +42,41 @@ const profileIcon = (fill: string = '#B3B3B3') => <svg xmlns="http://www.w3.org/
 
 const BottomMenuBar = () => {
     return (
-        <div className="bg-[#FAFAFA] sticky bottom-0 w-full rounded-t-lg px-2 z-10 -mt-4 pb-2">
-            <div className="flex items-center justify-between">
-                {/* Home */}
-                <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer">
-                    {homeIcon("#4E2A18")}
-                    <span className="text-[8px] text-primary mt-1">홈</span>
-                </div>
+        <div className="h-[112px] mt-auto">
+            <div className="bg-[#ff8e8e] fixed bottom-0 w-full sm:max-w-sm rounded-t-[6px] px-2 z-10 -mt-4 pb-2">
+                <div className="flex items-center justify-between">
+                    {/* Home */}
+                    <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer">
+                        {homeIcon("#4E2A18")}
+                        <span className="text-[8px] text-primary mt-1">홈</span>
+                    </div>
 
-                {/* edit */}
-                <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer mr-16">
-                    {editIcon()}
-                    <span className="text-[8px] text-[#999] mt-1">리뷰</span>
-                </div>
+                    {/* edit */}
+                    <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer mr-16">
+                        {editIcon()}
+                        <span className="text-[8px] text-[#999] mt-1">리뷰</span>
+                    </div>
 
-                {/* Primary Icon */}
-                <div className="absolute cursor-pointer right-[50%] translate-x-[50%] -translate-y-[26%] flex flex-col items-center justify-center bg-primary rounded-full w-[70px] h-[70px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
-                        <path d="M12.4506 6.69345C12.2183 6.17196 12.0173 5.36824 13.0661 4.88356C13.9829 4.4541 15.2765 4.31299 16.6329 4.31299C18.3536 4.33139 20.1119 4.73632 21.8074 5.49708C23.5029 6.25785 25.1042 7.36219 26.5172 8.74261C27.9301 10.123 29.1295 11.7611 30.0464 13.5587C30.9632 15.3564 31.5786 17.2767 31.8549 19.2093C32.1312 21.1419 32.0684 23.056 31.6665 24.8353C31.2646 26.6145 30.4922 28.1483 29.5126 29.5839C28.9725 30.3017 28.3508 30.9459 27.6664 31.492C26.6616 32.2957 25.4119 32.1484 24.7714 30.8662L18.7492 19.0498L12.4506 6.69345Z" fill="#F7FEFF" />
-                        <path d="M19.7289 25.7067C20.0304 26.3018 20.0869 26.7681 19.1261 27.2344C18.0146 27.7681 16.7084 27.8356 15.4148 27.8233C13.6941 27.8049 11.9358 27.4 10.2403 26.6392C8.54478 25.8785 6.94346 24.7741 5.53053 23.3937C4.11759 22.0133 2.91817 20.3752 2.00133 18.5776C1.0845 16.78 0.469087 14.8596 0.19278 12.9271C-0.0835269 10.9945 -0.0207298 9.08028 0.381171 7.30107C0.783072 5.52186 1.51152 3.9083 2.53511 2.55242C3.13168 1.76098 3.81617 1.0677 4.58229 0.484858C5.49285 -0.20842 6.54784 -0.232961 7.15697 1.04316L13.2922 13.0866L19.7226 25.7128L19.7289 25.7067Z" fill="#F7FEFF" />
-                    </svg>
-                    <span className="text-[8px] text-[#fff] mt-1">내 커피</span>
-                </div>
+                    
+                    <div className="navbar-menu-main-item absolute cursor-pointer right-[50%] translate-x-[50%] -translate-y-[26%] flex flex-col items-center justify-center bg-action-primary rounded-full w-[64px] h-[64px]" style={{boxShadow: "0 4px 12px 0 rgba(78,42,24,0.50)"}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <path d="M10.8735 5.84853C10.6702 5.39222 10.4944 4.68897 11.412 4.26488C12.2142 3.8891 13.3462 3.76562 14.533 3.76562C16.0386 3.78173 17.5771 4.13604 19.0607 4.80171C20.5443 5.46738 21.9454 6.43367 23.1817 7.64154C24.4181 8.84941 25.4676 10.2827 26.2698 11.8557C27.072 13.4286 27.6105 15.1089 27.8523 16.7999C28.094 18.4909 28.0391 20.1658 27.6874 21.7226C27.3358 23.2794 26.6599 24.6215 25.8027 25.8777C25.3302 26.5058 24.7862 27.0694 24.1873 27.5472C23.3081 28.2505 22.2147 28.1216 21.6542 26.9997L16.3848 16.6603L10.8735 5.84853Z" fill="white" />
+                            <path d="M17.2419 22.4851C17.5056 23.0058 17.5551 23.4138 16.7144 23.8218C15.7418 24.2888 14.5989 24.3479 13.467 24.3371C11.9614 24.321 10.4229 23.9667 8.93933 23.301C7.45575 22.6354 6.05459 21.6691 4.81827 20.4612C3.58196 19.2533 2.53246 17.82 1.73023 16.2471C0.928 14.6742 0.389516 12.9939 0.147747 11.3029C-0.0940211 9.61186 -0.0390737 7.93695 0.31259 6.38014C0.664253 4.82333 1.30164 3.41146 2.19728 2.22507C2.71928 1.53256 3.31821 0.925939 3.98857 0.41595C4.78531 -0.190669 5.70842 -0.212142 6.24141 0.904466L11.6098 11.4424L17.2364 22.4904L17.2419 22.4851Z" fill="white" />
+                        </svg>
+                        <span className="text-[12px] text-[#fff] mt-0.5">내 커피</span>
+                    </div>
 
-                {/* globus */}
-                <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer ml-16">
-                    {globalIcon()}
-                    <span className="text-[8px] text-[#999] mt-1">커뮤니티</span>
-                </div>
+                    {/* globus */}
+                    <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer ml-16">
+                        {globalIcon()}
+                        <span className="text-[8px] text-[#999] mt-1">커뮤니티</span>
+                    </div>
 
-                {/* Profile */}
-                <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer">
-                    {profileIcon()}
-                    <span className="text-[8px] text-[#999] mt-1">MY</span>
+                    {/* Profile */}
+                    <div className="px-3 py-2.5 flex flex-col items-center cursor-pointer">
+                        {profileIcon()}
+                        <span className="text-[8px] text-[#999] mt-1">MY</span>
+                    </div>
                 </div>
             </div>
         </div>

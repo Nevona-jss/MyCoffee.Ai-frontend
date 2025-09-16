@@ -118,7 +118,7 @@ export default function FindId() {
                 id="phone"
                 className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${errors.phone ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                   }`}
-                placeholder="0000000000"
+                placeholder="휴대폰 번호를 입력해주세요"
                 value={phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 required
@@ -143,7 +143,7 @@ export default function FindId() {
 
         {isCodeSent && timeLeft > 0 && (
           <div className="mt-2 text-[10px] text-gray-0 font-normal flex items-center">
-            {formatTime(timeLeft)} 후에 새 코드를 보내기
+            유효 시간 {formatTime(timeLeft)}
           </div>
         )}
         {/* Verification Code Input */}
@@ -157,7 +157,7 @@ export default function FindId() {
               id="verificationCode"
               className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${errors.verificationCode ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                 }`}
-              placeholder="인증 번호를 입력하세요."
+              placeholder="인증 번호를 입력해주세요."
               value={verificationCode}
               onChange={(e) => handleInputChange('verificationCode', e.target.value)}
               required

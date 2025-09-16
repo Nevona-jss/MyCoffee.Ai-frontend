@@ -4,14 +4,12 @@ import TodaysCoffeePick from '@/components/TodaysCoffeePick';
 import UserReviews from '@/components/UserReviews';
 import CoffeeStories from '@/components/CoffeeStories';
 import Footer from '@/components/Footer';
-import BottomMenuBar from '@/components/BottomMenuBar';
 
 export default function HomePage() {
 
 
     return (
-        <div className="h-[100dvh] bg-background">
-            {/* Header */}
+        <div className="bg-background">
             <div className="py-[18px] flex justify-center">
                 <Image
                     src="/images/logo.svg"
@@ -39,7 +37,6 @@ export default function HomePage() {
                 {/* Footer */}
                 <Footer />
             </div>
-            <BottomMenuBar />
         </div>
     );
 }
