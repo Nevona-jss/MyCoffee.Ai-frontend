@@ -241,6 +241,8 @@ svg {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
+  border: 1px solid #B3B3B3;
+  border-radius: 4px;
 }
 
 .auth-checkbox:checked {
