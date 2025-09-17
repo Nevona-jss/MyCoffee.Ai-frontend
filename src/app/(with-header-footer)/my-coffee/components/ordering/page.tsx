@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import ActionSheet from "../../components/ActionSheet";
 import OrderSelectOption from "./components/orderSelectOption";
 import OrderSelectLabelOption from "./components/orderSelectLabelOption";
 import OrderSelectSubscriptionDeleviryDate from "./components/orderSelectSubscriptionDeleviryDate";
 import Link from "next/link";
+import ActionSheet from "@/components/ActionSheet";
 
 const Ordering = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
