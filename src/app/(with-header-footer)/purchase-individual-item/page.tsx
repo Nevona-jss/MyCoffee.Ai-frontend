@@ -1,9 +1,7 @@
 "use client";
-import Header from "@/components/Header";
 import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
 import Link from "next/link";
-import BottomMenuBar from "@/components/BottomMenuBar";
 import { useHeaderStore } from "@/stores/header-store";
 
 const PurchaseIndividualItem = () => {
@@ -77,8 +75,6 @@ const PurchaseIndividualItem = () => {
 
   return (
     <>
-      <Header />
-
       <div className="bg-background min-h-screen p-4 pb-14">
         <div className="space-y-4 ">
           {/* 주문 정보 (Order Information) */}
@@ -381,7 +377,6 @@ const PurchaseIndividualItem = () => {
           )}
         </div>
       </div>
-      <BottomMenuBar />
     </>
   );
 };

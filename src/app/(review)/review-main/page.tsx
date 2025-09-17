@@ -37,6 +37,7 @@ const ReviewMain = () => {
     });
   }, []);
 
+  const [isToolTipOpen, setIsToolTipOpen] = useState(true);
 
   const sortOptions = ["최신순", "인기순", "별점 높은 순", "별점 낮은 순"];
 
@@ -284,9 +285,26 @@ const ReviewMain = () => {
           </div>
         ))}
 
-        <button className="py-4 bg-linear-gradient w-full text-white rounded-lg font-bold text-base">
-          내 커피 추천하기
-        </button>
+        <div className="relative">
+          {isToolTipOpen && (
+            <div className="absolute bottom-full flex items-center gap-2 left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-lg shadow-lg opacity-100 transition-opacity duration-300 whitespace-nowrap">
+              포토 내 커피 추천 작성시 포인트 +1,000
+              {/* Arrow */}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
+              {/* X button */}
+              <button
+                onClick={() => setIsToolTipOpen(false)}
+                className="size-4 cursor-pointer inline-flex items-center justify-center hover:bg-gray-700 rounded"
+              >
+                <X size={12} className="text-white" />
+              </button>
+            </div>
+          )}
+
+          <button className="py-4 bg-linear-gradient w-full text-white rounded-lg font-bold text-base ">
+            내 커피 추천하기 111
+          </button>
+        </div>
       </div>
 
       <div className="bg-menu-bar h-[40px]"></div>
