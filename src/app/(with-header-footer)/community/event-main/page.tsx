@@ -32,9 +32,10 @@ const EventMain = () => {
     <div className="bg-background">
       <div className="px-4 pt-4 space-y-4">
         {events.map((event) => (
-          <div
+          <Link
+            href={`/community/event-main/${event.id}`}
             key={event.id}
-            className="bg-white rounded-lg p-3 border border-border-default"
+            className="bg-white block rounded-lg p-3 border border-border-default"
           >
             {/* Review Image */}
             <div className="mb-3 rounded-lg overflow-hidden relative">
@@ -57,17 +58,14 @@ const EventMain = () => {
             </div>
 
             {/* Title*/}
-            <Link
-              href={`/community/event-main/${event.id}`}
-              className="text-base font-bold inline-block leading-[20px] mb-1 cursor-pointer"
-            >
+            <p className="text-base font-bold leading-[20px] mb-1 cursor-pointer">
               오늘의 커피 이야기: {event.title}
-            </Link>
+            </p>
             {/* Date */}
             <p className="text-[12px] font-normal text-text-secondary">
               {event.date}
             </p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

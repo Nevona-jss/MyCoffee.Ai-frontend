@@ -8,6 +8,10 @@ import {
   Wallet,
   MapPin,
   HelpCircle,
+  MessageSquareDot,
+  MapPinHouse,
+  MessageSquareMore,
+  BadgeAlert,
 } from "lucide-react";
 
 const MyPage = () => {
@@ -37,87 +41,93 @@ const MyPage = () => {
             <p className="text-[10px] leading-[16px] text-text-secondary mb-1">
               나의 포인트
             </p>
-            <p className="text-xl font-bold text-action-secondary">0원</p>
+            <p className="text-base leading-[20px] font-bold text-action-secondary">
+              0원
+            </p>
           </div>
-          <button className="px-4 py-2 bg-action-primary text-white rounded-lg text-sm font-medium">
+          <button className="px-3.5 py-1.5 bg-action-primary text-white rounded-sm text-sm font-bold">
             이용 내역
           </button>
         </div>
       </div>
 
       {/* Quick Access Icons */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-2 mb-4">
         {/* Order/Delivery Inquiry */}
-        <div className="bg-white rounded-lg p-4 border border-border-default text-center">
-          <div className="w-12 h-12 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-2">
+        <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
+          <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
             <Truck size={24} className="text-white" />
           </div>
-          <p className="text-xs text-gray-0 font-medium">주문/배송 조회</p>
+          <p className="text-xs leading-[16px] font-bold">주문/배송 조회</p>
         </div>
 
         {/* Subscription Management */}
-        <div className="bg-white rounded-lg p-4 border border-border-default text-center">
-          <div className="w-12 h-12 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-2">
-            <Wifi size={24} className="text-white" />
+        <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
+          <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
+            <img src="/icons/wifi.svg" alt="wifi" className="w-6 h-6" />
           </div>
-          <p className="text-xs text-gray-0 font-medium">구독 관리</p>
+          <p className="text-xs leading-[16px] font-bold">구독 관리</p>
         </div>
 
         {/* My Reviews */}
-        <div className="bg-white rounded-lg p-4 border border-border-default text-center">
-          <div className="w-12 h-12 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-2">
-            <MessageSquare size={24} className="text-white" />
+        <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
+          <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
+            {/* <MessageSquare size={24} className="text-white" /> */}
+
+            <MessageSquareDot size={24} className="text-white" />
           </div>
-          <p className="text-xs text-gray-0 font-medium">내리뷰</p>
+          <p className="text-xs leading-[16px] font-bold">내리뷰</p>
         </div>
       </div>
 
       {/* Management List */}
-      <div className="bg-white rounded-lg border border-border-default">
+      <div className="bg-white rounded-2xl border border-border-default p-3">
         {/* Payment Method Management */}
-        <div className="flex items-center justify-between p-4 ">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between py-1.5">
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
-              <Wallet size={16} className="text-action-primary" />
+              <img src="/icons/wallet.svg" alt="wallet" className="w-5 h-5" />
             </div>
-            <span className="text-sm text-action-primary font-bold">
+            <span className="text-sm leading-[20px] font-bold">
               결제 수단 관리
             </span>
           </div>
-          <ChevronRight size={20} className="text-gray-400" />
+          <ChevronRight size={20} className="text-icon-default" />
         </div>
 
         {/* Delivery Address Management */}
-        <div className="flex items-center justify-between p-4 ">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between py-1.5">
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
-              <MapPin size={20} className="text-action-primary" />
+              <MapPinHouse size={20} className="text-action-primary" />
             </div>
-            <span className="text-sm text-action-primary font-bold">배송지 관리</span>
+            <span className="text-sm leading-[20px] font-bold">
+              배송지 관리
+            </span>
           </div>
-          <ChevronRight size={20} className="text-gray-400" />
+          <ChevronRight size={20} className="text-icon-default" />
         </div>
 
         {/* My Reviews */}
-        <div className="flex items-center justify-between p-4  ">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between py-1.5">
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
-              <MessageSquare size={20} className="text-action-primary" />
+              <MessageSquareMore size={20} className="text-action-primary" />
             </div>
-            <span className="text-sm text-action-primary font-bold">내 리뷰</span>
+            <span className="text-sm leading-[20px] font-bold">내 리뷰</span>
           </div>
-          <ChevronRight size={20} className="text-gray-400" />
+          <ChevronRight size={20} className="text-icon-default" />
         </div>
 
         {/* My Inquiries */}
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between py-1.5">
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
-              <HelpCircle size={20} className="text-action-primary" />
+              <BadgeAlert size={20} className="text-action-primary" />
             </div>
-            <span className="text-sm text-action-primary font-bold">내 문의</span>
+            <span className="text-sm leading-[20px] font-bold">내 문의</span>
           </div>
-          <ChevronRight size={20} className="text-gray-400" />
+          <ChevronRight size={20} className="text-icon-default" />
         </div>
       </div>
     </div>

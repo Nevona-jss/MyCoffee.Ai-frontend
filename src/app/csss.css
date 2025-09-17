@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+body, html, * {
+  background: black !important;
+  color: white !important;
+}
+
 :root {
   /* Primary Colors */ 
   --primary: #532E19;
