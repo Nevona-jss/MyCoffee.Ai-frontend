@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Tabs from "@/components/Tabs";
 import { usePathname, useRouter } from "next/navigation";
+import { useHeaderStore } from "@/stores/header-store";
 
 const tabs = [
   { id: 1, label: "커피 취향 분석", value: "taste-analysis" },
@@ -28,6 +29,14 @@ export default function MyCoffeeLayout({
   const handleTabChange = (tab: string) => {
     router.push(`/my-coffee/${tab}`);
   };
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "내 커피"
+    });
+  }, []);
 
   return (
     <div>

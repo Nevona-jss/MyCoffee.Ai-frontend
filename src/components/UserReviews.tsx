@@ -8,6 +8,7 @@ import 'swiper/css';
 
 interface UserReview {
     name: string;
+    id: number;
     avatar: string;
     rating: number;
     comment: string;
@@ -21,6 +22,7 @@ const UserReviews = () => {
     const userReviews: UserReview[] = [
         {
             name: "이**",
+            id: 1,
             avatar: "👤",
             rating: 3,
             comment: "제 취향에 맞는 커피라서 너무 행복해용ㅎㅎ",
@@ -30,6 +32,7 @@ const UserReviews = () => {
         },
         {
             name: "김**",
+            id: 2,
             avatar: "👤",
             rating: 5,
             comment: "제 취향에 맞는 커피라서 너무 행복해용ㅎㅎ",
@@ -39,6 +42,7 @@ const UserReviews = () => {
         },
         {
             name: "박**",
+            id: 3,
             avatar: "👤",
             rating: 4,
             comment: "제 취향에 맞는 커피라서 너무 행복해용ㅎㅎ",
@@ -62,8 +66,8 @@ const UserReviews = () => {
                 className="user-reviews-swiper"
             >
                 {userReviews.map((review, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="rounded-lg px-3 py-2.5 border-[0.8px] border-[#D9D9D9] text-gray-0">
+                    <SwiperSlide key={review?.id}>
+                        <div key={review?.id * index} className="rounded-lg px-3 py-2.5 border-[0.8px] border-[#D9D9D9] text-gray-0">
                             {/* User Info */}
                             <div className="flex justify-between mb-2">
                                 <div className="flex items-center gap-[9px]">
