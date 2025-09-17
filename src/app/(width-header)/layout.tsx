@@ -8,7 +8,7 @@ export default function LayoutFooter({
 }) {
 
   return (
-    <div className="h-[100dvh] bg-background">
+    <div className="h-[100dvh] bg-background flex flex-col">
         <Header title="내 커피" showBackButton={false} />
         {/* Main Content */}
         <div className="flex-1 overflow-y-auto">
