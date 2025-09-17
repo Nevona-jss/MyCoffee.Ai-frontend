@@ -70,7 +70,7 @@ const MonthlyCoffeeDetail = () => {
                                 >
                                     <span className="flex items-center gap-2 text-gray-0 text-base font-bold leading-[125%]">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path d="M20 6L9 17L4 12" stroke="#22C55E" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M20 6L9 17L4 12" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         {item.title}
                                     </span>
@@ -78,7 +78,7 @@ const MonthlyCoffeeDetail = () => {
                                         className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? 'rotate-180' : ''
                                             }`}
                                         xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                        <path d="M10.5 6.5L6 1.5L1.5 6.5" stroke="#1A1A1A" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.5 6.5L6 1.5L1.5 6.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </button>
                             </div>
