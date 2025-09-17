@@ -10,7 +10,7 @@ export default function LayoutHeaderFooter({
 }) {
 
   return (
-    <div className="a bg-background flex flex-col">
+    <div className="h-min-[100vh] bg-background flex flex-col">
       {/* Header */}
       <Header />
       <div className="flex-1">

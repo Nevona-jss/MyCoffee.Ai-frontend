@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
-import Link from "next/link";
+import Link from "next/link"; 
 import { useHeaderStore } from "@/stores/header-store";
-
 const PurchaseIndividualItem = () => {
   const { setHeader } = useHeaderStore();
   const [quantity, setQuantity] = useState(1);
