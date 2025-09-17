@@ -10,14 +10,12 @@ export default function LayoutHeaderFooter({
 }) {
 
   return (
-    <div className="h-min-[100vh] bg-background flex flex-col">
-      {/* Header */}
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
       <div className="flex-1">
         {children}
       </div>
 
-      {/* Bottom Menu Bar */}
       <BottomMenuBar />
     </div>
   );
