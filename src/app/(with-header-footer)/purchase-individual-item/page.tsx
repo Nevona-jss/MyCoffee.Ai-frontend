@@ -2,10 +2,8 @@
 import Header from "@/components/Header";
 import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
-import Link from "next/link";
-import BottomMenuBar from "@/components/BottomMenuBar";
+import Link from "next/link"; 
 import { useHeaderStore } from "@/stores/header-store";
-
 const PurchaseIndividualItem = () => {
   const { setHeader } = useHeaderStore();
   const [quantity, setQuantity] = useState(1);
@@ -77,8 +75,11 @@ const PurchaseIndividualItem = () => {
 
   return (
     <>
+<<<<<<< HEAD:src/app/purchase-individual-item/page.tsx
       <Header />
 
+=======
+>>>>>>> foziljon:src/app/(with-header-footer)/purchase-individual-item/page.tsx
       <div className="bg-background min-h-screen p-4 pb-14">
         <div className="space-y-4 ">
           {/* 주문 정보 (Order Information) */}
@@ -381,7 +382,6 @@ const PurchaseIndividualItem = () => {
           )}
         </div>
       </div>
-      <BottomMenuBar />
     </>
   );
 };

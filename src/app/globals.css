@@ -91,6 +91,7 @@
 
   /* icon/default color */
   --color-icon-default: var(--icon-default);
+  --color-icon-disabled: var(--icon-disabled);
   
 
 
