@@ -1,101 +1,168 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import CoffeeBrewingAnimation from "./CoffeeBrewingAnimation";
 
 const TasteAnalysisPage = () => {
+  const [showBrewingAnimation, setShowBrewingAnimation] = useState(false);
+  const router = useRouter();
+
+  const handleStartAnalysis = () => {
+    setShowBrewingAnimation(true);
+  };
+
+  const handleAnimationComplete = () => {
+    setShowBrewingAnimation(false);
+    // Navigate to ready page using Next.js router
+    router.push('/my-coffee/taste-analysis/ready');
+  };
+
+  if (showBrewingAnimation) {
+    return <CoffeeBrewingAnimation onComplete={handleAnimationComplete} />;
+  }
+
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 pb-6 pt-[36px]">
       {/* Main Prompt */}
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-0 mb-2">
-          나만의 커피 취향을 찾아볼까요?
-        </h1>
+        <h1 className="text-[20px] font-bold text-gray-0">나만의 커피 취향을 찾아볼까요?</h1>
       </div>
 
       {/* Radar Chart */}
-      <div className="flex justify-center mb-8">
-        <div className="relative w-80 h-80">
+      <div className="flex justify-center mb-10">
+        <div className="relative">
           <svg
-            width="320"
-            height="320"
-            viewBox="0 0 320 320"
-            className="absolute inset-0"
+            className="mx-auto no-select w-[300px] h-[300px] sm:w-[325px] sm:h-[325px]"
+            viewBox="0 0 400 400"
+            preserveAspectRatio="xMidYMid meet"
           >
-            {/* Background pentagon */}
-            <polygon
-              points="160,40 240,100 200,200 120,200 80,100"
-              fill="none"
-              stroke="#E6E6E6"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-            />
-            
-            {/* Grid lines */}
-            <line x1="160" y1="40" x2="160" y2="200" stroke="#E6E6E6" strokeWidth="1" strokeDasharray="2,2" />
-            <line x1="80" y1="100" x2="240" y2="100" stroke="#E6E6E6" strokeWidth="1" strokeDasharray="2,2" />
-            <line x1="120" y1="200" x2="200" y2="200" stroke="#E6E6E6" strokeWidth="1" strokeDasharray="2,2" />
-            <line x1="100" y1="150" x2="220" y2="150" stroke="#E6E6E6" strokeWidth="1" strokeDasharray="2,2" />
-            <line x1="120" y1="120" x2="200" y2="180" stroke="#E6E6E6" strokeWidth="1" strokeDasharray="2,2" />
-            <line x1="200" y1="120" x2="120" y2="180" stroke="#E6E6E6" strokeWidth="1" strokeDasharray="2,2" />
-            
-            {/* Taste labels and ratings */}
-            {/* 향 (Aroma) - Top */}
-            <text x="160" y="25" textAnchor="middle" className="text-sm font-bold fill-gray-0">
-              향
-            </text>
-            <text x="160" y="35" textAnchor="middle" className="text-xs font-bold fill-[#FF7939]">
-              0/5
-            </text>
-            
-            {/* 단맛 (Sweetness) - Top Right */}
-            <text x="255" y="95" textAnchor="middle" className="text-sm font-bold fill-gray-0">
-              단맛
-            </text>
-            <text x="255" y="105" textAnchor="middle" className="text-xs font-bold fill-[#FF7939]">
-              0/5
-            </text>
-            
-            {/* 바디 (Body) - Bottom Right */}
-            <text x="255" y="215" textAnchor="middle" className="text-sm font-bold fill-gray-0">
-              바디
-            </text>
-            <text x="255" y="225" textAnchor="middle" className="text-xs font-bold fill-[#FF7939]">
-              0/5
-            </text>
-            
-            {/* 고소함 (Nutty) - Bottom Left */}
-            <text x="65" y="215" textAnchor="middle" className="text-sm font-bold fill-gray-0">
-              고소함
-            </text>
-            <text x="65" y="225" textAnchor="middle" className="text-xs font-bold fill-[#FF7939]">
-              0/5
-            </text>
-            
-            {/* 산미 (Acidity) - Top Left */}
-            <text x="65" y="95" textAnchor="middle" className="text-sm font-bold fill-gray-0">
-              산미
-            </text>
-            <text x="65" y="105" textAnchor="middle" className="text-xs font-bold fill-[#FF7939]">
-              4/5
-            </text>
-            
-            {/* Current rating circle for 산미 */}
-            <circle cx="160" cy="120" r="6" fill="#FF7939" />
+            {/* Outer pentagon border with dashed style */}
+            {(() => {
+              const centerX = 200;
+              const centerY = 200;
+              const maxRadius = 150;
+              let pentagonPath = '';
+              for (let i = 0; i < 5; i++) {
+                const angle = (i * 72 - 90) * (Math.PI / 180);
+                const x = centerX + maxRadius * Math.cos(angle);
+                const y = centerY + maxRadius * Math.sin(angle);
+
+                if (i === 0) {
+                  pentagonPath += `M ${x} ${y} `;
+                } else {
+                  pentagonPath += `L ${x} ${y} `;
+                }
+              }
+              pentagonPath += 'Z';
+
+              return (
+                <path
+                  d={pentagonPath}
+                  fill="none"
+                  stroke="#B3B3B3"
+                  strokeWidth="2"
+                  strokeDasharray="4,2"
+                  opacity="0.8"
+                />
+              );
+            })()}
+
+            {/* Taste labels with proper positioning */}
+            {[
+              { key: 'aroma', label: '향', angle: 0, rating: 0 },
+              { key: 'sweetness', label: '단맛', angle: 72, rating: 0 },
+              { key: 'body', label: '바디', angle: 144, rating: 0 },
+              { key: 'nutty', label: '고소함', angle: 216, rating: 0 },
+              { key: 'acidity', label: '산미', angle: 288, rating: 4 }
+            ].map((taste, index) => {
+              const centerX = 200;
+              const centerY = 200;
+              // Custom label positioning based on taste
+              let labelRadius = 185;
+              if (taste.key === 'aroma') { // 향 - top
+                labelRadius = 190; // 5px further out
+              } else if (taste.key === 'sweetness') { // 단맛 - top right
+                labelRadius = 190; // 5px further out
+              }
+              
+              const angle = (taste.angle - 90) * (Math.PI / 180);
+              const labelX = centerX + labelRadius * Math.cos(angle);
+              const labelY = centerY + labelRadius * Math.sin(angle);
+
+              return (
+                <g key={taste.key}>
+                  {/* Taste label */}
+                  <text
+                    x={labelX}
+                    y={labelY}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="text-[14px] font-medium fill-gray-0"
+                    style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
+                  >
+                    {taste.label}
+                  </text>
+
+                  {/* Rating badge background */}
+                  <rect
+                    x={labelX - 20}
+                    y={labelY + 8}
+                    width="40"
+                    height="22"
+                    rx="8"
+                    fill="#FFF"
+                    stroke="#E6E6E6"
+                    strokeWidth="0.56"
+                  />
+
+                  {/* Rating number - only the number in orange */}
+                  <text
+                    x={labelX - 6}
+                    y={labelY + 20}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#FF7939"
+                    fontSize="12"
+                    fontWeight="400"
+                    letterSpacing="-0.13px"
+                    style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
+                  >
+                    {taste.rating}
+                  </text>
+
+                  {/* "/5" text in black */}
+                  <text
+                    x={labelX + 4}
+                    y={labelY + 20}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#1A1A1A"
+                    fontSize="12"
+                    fontWeight="400"
+                    letterSpacing="-0.13px"
+                    style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
+                  >
+                    /5
+                  </text>
+                </g>
+              );
+            })}
+
           </svg>
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="space-y-3">
-        <Link
-          href="/analysis"
-          className="block w-full bg-[#FF7939] text-white text-center py-4 rounded-lg font-bold text-lg hover:bg-[#E66A2A] transition-colors"
+      <div className="space-y-2">
+        <button
+          onClick={handleStartAnalysis}
+          className="block w-full btn-primary text-center"
         >
           취향 분석 시작
-        </Link>
+        </button>
         
-        <button className="block w-full bg-white border-2 border-[#FF7939] text-[#FF7939] text-center py-4 rounded-lg font-bold text-lg hover:bg-[#FF7939] hover:text-white transition-colors">
+        <button className="block w-full btn-primary-empty !py-2.5 bg-white border-2 border-[#4E2A18] text-[#4E2A18] text-center hover:bg-[#4E2A18] hover:text-white">
           지난 커피 분석 보기
         </button>
       </div>

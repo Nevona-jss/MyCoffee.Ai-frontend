@@ -2,13 +2,22 @@
 
 import Link from "next/link";
 import Header from "@/components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useHeaderStore } from "@/stores/header-store";
 
 export default function Login() {
+  const { setHeader } = useHeaderStore();
   const [showPassword, setShowPassword] = useState(false);
   const [isRememberChecked, setIsRememberChecked] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setHeader({
+      title: "로그인",
+      showBackButton: true,
+    });
+  }, [setHeader]);
 
   const handleLogin = () => {
     if (isRememberChecked) {

@@ -10,10 +10,10 @@ export default function LayoutHeaderFooter({
 }) {
 
   return (
-    <div className="h-[100vh] bg-background flex flex-col">
+    <div className="h-min-[100vh] bg-background flex flex-col">
       {/* Header */}
-      <Header title="내 커피" showBackButton={false} />
-      <div className="flex-1 overflow-y-auto">
+      <Header />
+      <div className="flex-1">
         {children}
       </div>
 

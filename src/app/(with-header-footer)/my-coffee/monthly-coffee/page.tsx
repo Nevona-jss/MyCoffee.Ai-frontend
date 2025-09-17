@@ -2,126 +2,246 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const MonthlyCoffeePage = () => {
-  const monthlyCoffees = [
-    {
-      id: 1,
-      name: "에티오피아 예가체프",
-      origin: "에티오피아",
-      roast: "라이트 로스트",
-      flavor: "과일향, 꽃향, 밝은 산미",
-      image: "/images/coffee1.jpg",
-      rating: 4.5,
-    },
-    {
-      id: 2,
-      name: "콜롬비아 수프리모",
-      origin: "콜롬비아",
-      roast: "미디엄 로스트",
-      flavor: "견과류, 초콜릿, 균형잡힌 산미",
-      image: "/images/coffee2.jpg",
-      rating: 4.2,
-    },
-    {
-      id: 3,
-      name: "과테말라 안티구아",
-      origin: "과테말라",
-      roast: "다크 로스트",
-      flavor: "스모키, 카라멜, 진한 바디",
-      image: "/images/coffee3.jpg",
-      rating: 4.7,
-    },
+  const tasteRatings = {
+    aroma: 3,
+    acidity: 4,
+    sweetness: 4,
+    nutty: 5,
+    body: 3
+  };
+
+  const tasteLabels = [
+    { key: 'aroma', label: '향', color: 'aroma' },
+    { key: 'acidity', label: '산미', color: 'acidity' },
+    { key: 'sweetness', label: '단맛', color: 'sweetness' },
+    { key: 'nutty', label: '고소함', color: 'nutty' },
+    { key: 'body', label: '바디', color: 'body' }
   ];
 
   return (
-    <div className="px-4 py-6">
-      <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-gray-0 mb-2">이달의 커피</h2>
-        <p className="text-sm text-gray-500">
-          이번 달 추천 커피를 만나보세요
-        </p>
-      </div>
+    <div className="px-4 pt-6 pb-3">
+      <div className="bg-white rounded-2xl p-3 border border-border-default mb-[34px]">
+        <div className="max-w-4xl mx-auto">
+          {/* Header Section */}
+          <div className="">
+            <h1 className="text-[14px] font-medium text-gray-0 mb-0.5">📌 이달의 추천 커피 : 스무스 터치 블렌드</h1>
+            <p className="text-[10px] text-text-secondary font-normal">오늘 이 커피를 추천하는 이유, 직접 전해드립니다.</p>
+          </div>
 
-      {/* Monthly Coffee List */}
-      <div className="space-y-4">
-        {monthlyCoffees.map((coffee) => (
-          <div
-            key={coffee.id}
-            className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
-          >
-            <div className="flex items-start space-x-4">
-              {/* Coffee Image */}
-              <div className="w-16 h-16 bg-gray-200 rounded-lg flex-shrink-0 flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12C21 16.97 16.97 21 12 21C7.03 21 3 16.97 3 12Z"
-                    fill="#FF7939"
-                    fillOpacity="0.1"
-                  />
-                  <path
-                    d="M8 7H16C16.55 7 17 7.45 17 8V12C17 12.55 16.55 13 16 13H8C7.45 13 7 12.55 7 12V8C7 7.45 7.45 7 8 7Z"
-                    fill="#FF7939"
-                  />
-                  <path
-                    d="M7 15H17C17.55 15 18 15.45 18 16C18 16.55 17.55 17 17 17H7C6.45 17 6 16.55 6 16C6 15.45 6.45 15 7 15Z"
-                    fill="#FF7939"
-                  />
-                </svg>
-              </div>
-
-              {/* Coffee Info */}
-              <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-bold text-gray-0 mb-1">
-                  {coffee.name}
-                </h3>
-                <p className="text-sm text-gray-500 mb-2">{coffee.origin}</p>
-                <p className="text-xs text-gray-400 mb-2">{coffee.roast}</p>
-                <p className="text-sm text-gray-600 mb-2">{coffee.flavor}</p>
-                
-                {/* Rating */}
-                <div className="flex items-center space-x-1">
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill={i < Math.floor(coffee.rating) ? "#FF7939" : "#E5E7EB"}
-                      >
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
+          {/* Coffee Profile Section */}
+          <div className="grid grid-cols-2 gap-2 items-center">
+            {/* Left Side - Taste Attributes */}
+            <div className="space-y-1 xs:pr-10 pr-5">
+              {tasteLabels.map((taste) => (
+                <div key={taste.key} className="flex items-center justify-between">
+                  <span className="text-[10px] font-normal text-gray-0 leading-[160%]">{taste.label}</span>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((dot) => (
+                      <div
+                        key={dot}
+                        className="w-2 h-2 rounded-full"
+                        style={{
+                          backgroundColor: dot <= tasteRatings[taste.key as keyof typeof tasteRatings]
+                            ? `var(--${taste.color})`
+                            : '#E6E6E6'
+                        }}
+                      />
                     ))}
                   </div>
-                  <span className="text-xs text-gray-500 ml-1">
-                    {coffee.rating}
-                  </span>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              {/* Action Button */}
-              <button className="bg-[#FF7939] text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-[#E66A2A] transition-colors">
-                자세히
-              </button>
+            {/* Right Side - Radar Chart */}
+            <div className="flex justify-center">
+              <svg
+                className="w-48 h-48"
+                viewBox="0 0 200 200"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                {/* Gradient definition */}
+                <defs>
+                  <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(255, 255, 255, 0.20)" />
+                    <stop offset="35.51%" stopColor="rgba(255, 224, 173, 0.20)" />
+                    <stop offset="81.76%" stopColor="rgba(255, 131, 54, 0.20)" />
+                    <stop offset="102.66%" stopColor="rgba(255, 117, 32, 0.20)" />
+                    <stop offset="114.74%" stopColor="rgba(255, 113, 26, 0.20)" />
+                  </linearGradient>
+                </defs>
+
+                {/* Grid - Concentric pentagons with dashed lines */}
+                {[1, 2, 3, 4, 5].map((level) => {
+                  const centerX = 100;
+                  const centerY = 100;
+                  const maxRadius = 70;
+                  const radius = (level / 5) * maxRadius;
+
+                  let pentagonPath = '';
+                  for (let i = 0; i < 5; i++) {
+                    const angle = (i * 72 - 90) * (Math.PI / 180);
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+
+                    if (i === 0) {
+                      pentagonPath += `M ${x} ${y} `;
+                    } else {
+                      pentagonPath += `L ${x} ${y} `;
+                    }
+                  }
+                  pentagonPath += 'Z';
+
+                  return (
+                    <path
+                      key={level}
+                      d={pentagonPath}
+                      fill="none"
+                      stroke="#B3B3B3"
+                      strokeWidth="1"
+                      strokeDasharray="2,2"
+                      opacity="0.8"
+                    />
+                  );
+                })}
+
+                {/* Radial lines */}
+                {[0, 1, 2, 3, 4].map((i) => {
+                  const centerX = 100;
+                  const centerY = 100;
+                  const maxRadius = 70;
+                  const angle = (i * 72 - 90) * (Math.PI / 180);
+                  const x = centerX + maxRadius * Math.cos(angle);
+                  const y = centerY + maxRadius * Math.sin(angle);
+
+                  return (
+                    <line
+                      key={i}
+                      x1={centerX}
+                      y1={centerY}
+                      x2={x}
+                      y2={y}
+                      stroke="#B3B3B3"
+                      strokeWidth="1"
+                      strokeDasharray="2,2"
+                      opacity="0.8"
+                    />
+                  );
+                })}
+
+                {/* Filled area with gradient */}
+                <path
+                  d={(() => {
+                    const centerX = 100;
+                    const centerY = 100;
+                    const maxRadius = 70;
+                    let path = '';
+
+                    tasteLabels.forEach((taste, index) => {
+                      const angle = (index * 72 - 90) * (Math.PI / 180);
+                      const currentRadius = (tasteRatings[taste.key as keyof typeof tasteRatings] / 5) * maxRadius;
+                      const x = centerX + currentRadius * Math.cos(angle);
+                      const y = centerY + currentRadius * Math.sin(angle);
+
+                      if (index === 0) {
+                        path += `M ${x} ${y} `;
+                      } else {
+                        path += `L ${x} ${y} `;
+                      }
+                    });
+                    path += 'Z';
+                    return path;
+                  })()}
+                  fill="url(#chartGradient)"
+                  stroke="#FF7927"
+                  strokeWidth="0.715"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                {/* Rounded corner circles at connection points */}
+                {tasteLabels.map((taste, index) => {
+                  const centerX = 100;
+                  const centerY = 100;
+                  const maxRadius = 70;
+                  const angle = (index * 72 - 90) * (Math.PI / 180);
+                  const currentRadius = (tasteRatings[taste.key as keyof typeof tasteRatings] / 5) * maxRadius;
+                  const pointX = centerX + currentRadius * Math.cos(angle);
+                  const pointY = centerY + currentRadius * Math.sin(angle);
+
+                  return (
+                    <circle
+                      key={`connection-${taste.key}`}
+                      cx={pointX}
+                      cy={pointY}
+                      r="1.556"
+                      fill="#FF7927"
+                      width="3.112"
+                      height="3.439"
+                    />
+                  );
+                })}
+
+                {/* Labels */}
+                {tasteLabels.map((taste, index) => {
+                  const angle = (index * 72 - 90) * (Math.PI / 180);
+                  const labelRadius = 85;
+                  const labelX = 100 + labelRadius * Math.cos(angle);
+                  const labelY = 100 + labelRadius * Math.sin(angle);
+
+                  return (
+                    <text
+                      key={taste.key}
+                      x={labelX}
+                      y={labelY}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="text-[10px] font-normal fill-gray-0"
+                    >
+                      {taste.label}
+                    </text>
+                  );
+                })}
+              </svg>
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Load More Button */}
-      <div className="mt-6 text-center">
-        <button className="text-[#FF7939] text-sm font-medium hover:underline">
-          더 많은 커피 보기
-        </button>
+          {/* Recommendation Quote */}
+          <div className="bg-[#DAF6E0] rounded-lg px-4 py-3 mb-4 text-center border border-[#22C55E]">
+            <p className="text-xs text-[#22C55E] font-normal leading-[150%]">
+              "오늘은 부담 없이 즐기기 좋은, 깊이 있으면서도 깔끔한 딥 바디 블렌드가 잘 어울려요."
+            </p>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-4 mb-4">
+            <p className="text-gray-0 leading-[160%] text-[10px] font-normal">
+              스무스 터치 블렌드는 브라질의 부드러움, 에티오피아의 산뜻한 산미, 과테말라의 은은한 고소함이 조화를 이루고 있습니다.
+            </p>
+            <p className="text-gray-0 leading-[160%] text-[10px] font-normal">
+              특히 바디감이 무겁지 않아 아침이나 점심, 부담 없이 즐기기에 제격이죠.
+            </p>
+            <p className="text-gray-0 leading-[160%] text-[10px] font-normal">
+              은은한 향과 부드러운 산미가 하루의 리듬을 깨우면서도 편안하게 이어줍니다.오늘 같은 날, 가볍게 시작하고 싶은 당신께 이 커피를 추천합니다.
+            </p>
+          </div>
+
+          {/* Coffee Image */}
+          <div className="mb-4">
+            <Image src="/images/monthly-coffee-img.png" alt="Monthly Coffee" width={337} height={400} className="w-full h-[400px]" />
+          </div>
+
+          {/* Footer */}
+          <div className="text-right">
+            <p className="text-[10px] text-text-secondary font-normal">- 김OO 연구원 -</p>
+          </div>
+        </div>
       </div>
+      <Link href="/my-coffee/monthly-coffee/detail" className="block btn-primary text-center">
+        커피 취향 분석 보기
+      </Link>
     </div>
   );
 };

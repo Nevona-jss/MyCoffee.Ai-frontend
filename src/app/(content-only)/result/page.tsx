@@ -313,7 +313,7 @@ export default function ResultPage() {
 
                 {/* CTA Buttons */}
                 <div className="space-y-5 mt-auto w-full">
-                    <Link href="/home" className="btn-primary w-full text-center block">
+                    <Link href="/auth/login-select" className="btn-primary w-full text-center block">
                         회원 가입
                     </Link>
                     <Link href="/" className="block text-center text-base text-primary font-bold">

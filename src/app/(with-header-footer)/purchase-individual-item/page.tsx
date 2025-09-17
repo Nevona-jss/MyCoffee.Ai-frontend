@@ -1,9 +1,10 @@
-"use client"; 
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
 import Link from "next/link"; 
-
+import { useHeaderStore } from "@/stores/header-store";
 const PurchaseIndividualItem = () => {
+  const { setHeader } = useHeaderStore();
   const [quantity, setQuantity] = useState(1);
   const [pointUsage, setPointUsage] = useState(0);
   const [agreements, setAgreements] = useState({
@@ -20,6 +21,13 @@ const PurchaseIndividualItem = () => {
     paymentMethod: false,
     finalAmount: true,
   });
+
+  useEffect(() => {
+    setHeader({
+      title: "주문하기",
+      showBackButton: true,
+    });
+  }, [setHeader]);
 
   const handleQuantityChange = (type: "increase" | "decrease") => {
     if (type === "increase") {

@@ -42,6 +42,7 @@ export default function DatePicker({
 }: DatePickerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [displayValue, setDisplayValue] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     if (value) {
@@ -62,6 +63,14 @@ export default function DatePicker({
       inputRef.current.focus();
       inputRef.current.showPicker?.();
     }
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   return (
@@ -91,16 +100,24 @@ export default function DatePicker({
           type="date"
           id={id}
           ref={inputRef}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 text-gray-0"
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 text-gray-0 focus:ring-[#FF7939] focus:border-[#FF7939] placeholder:font-normal font-bold"
           value={value}
           onChange={handleDateChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           required={required}
         />
         
         {/* Visible text input */}
         <input
           type="text"
-          className={`bg-gray-50 border text-gray-0 text-[12px] rounded-lg focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pr-10 py-2.5 px-4 cursor-pointer ${error ? 'border-[#EF4444]' : 'border-[#E6E6E6]'}`}
+          className={`bg-gray-50 border text-gray-0 text-[12px] rounded-lg focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pr-10 py-2.5 px-4 cursor-pointer placeholder:font-normal font-bold ${
+            error 
+              ? 'border-[#EF4444]' 
+              : isFocused 
+                ? 'border-[#FF7939]' 
+                : 'border-[#E6E6E6]'
+          }`}
           placeholder={placeholder}
           value={displayValue}
           readOnly

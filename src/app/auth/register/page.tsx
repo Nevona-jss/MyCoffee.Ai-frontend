@@ -1,15 +1,16 @@
 'use client';
 
 import Header from "@/components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PasswordInput from "../components/PasswordInput";
 import DatePicker from "../components/DatePicker";
+import { useHeaderStore } from "@/stores/header-store";
 
 const warningIcon = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <g clip-path="url(#clip0_1366_13821)">
+      <g clipPath="url(#clip0_1366_13821)">
         <path d="M7.99992 14.6667C11.6818 14.6667 14.6666 11.6819 14.6666 8.00001C14.6666 4.31811 11.6818 1.33334 7.99992 1.33334C4.31802 1.33334 1.33325 4.31811 1.33325 8.00001C1.33325 11.6819 4.31802 14.6667 7.99992 14.6667Z" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M8 5.33334V8.00001" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M8 10.6667H8.00667" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
@@ -23,6 +24,14 @@ const warningIcon = () => {
   );
 };
 export default function Register() {
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "회원가입",
+      showBackButton: true,
+    });
+  }, [setHeader]);
 
   const [isAllAgreed, setIsAllAgreed] = useState(false);
   const [agreements, setAgreements] = useState({

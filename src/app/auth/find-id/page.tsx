@@ -1,9 +1,9 @@
 'use client';
 
-import Link from "next/link";
 import Header from "@/components/Header";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useHeaderStore } from "@/stores/header-store";
 
 const warningIcon = () => {
   return (
@@ -23,6 +23,7 @@ const warningIcon = () => {
 };
 
 export default function FindId() {
+  const { setHeader } = useHeaderStore();
   const [phone, setPhone] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
@@ -32,6 +33,13 @@ export default function FindId() {
     verificationCode: '',
   });
   const router = useRouter();
+
+  useEffect(() => {
+    setHeader({
+      title: "아이디 찾기",
+      showBackButton: true,
+    });
+  }, [setHeader]);
 
   // Counter effect
   useEffect(() => {
@@ -103,7 +111,7 @@ export default function FindId() {
   };
   return (
     <div className="h-[100dvh] flex flex-col">
-      <Header title="아이디 찾기" />
+      <Header />
       {/* Login Form */}
       <div className="py-6 px-4 text-gray-0">
         {/* Phone Number Input */}

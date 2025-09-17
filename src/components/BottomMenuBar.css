@@ -10,6 +10,17 @@
     z-index: 2;
 }
 
+/* Menu item active states */
+.navbar-menu-item {
+    transition: all 0.3s cubic-bezier(.46,0,.12,1);
+}
+
+.navbar-menu-item.active .navbar-menu-text {
+    color: #4E2A18;
+    font-weight: 700;
+    font-size: 12px;
+}
+
 .navbar-menu-main-item-wrapper::before{
     content: "";
     background: none;

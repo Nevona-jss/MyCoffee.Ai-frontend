@@ -1,9 +1,22 @@
+'use client';
+
 import Header from '@/components/Header';
+import { useHeaderStore } from '@/stores/header-store';
+import { useEffect } from 'react';
 
 export default function CollectionPage() {
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "내 커피",
+      showBackButton: true,
+    });
+  }, [setHeader]);
+
   return (
     <>
-      <Header title="내 커피" />
+      <Header />
       <div className="bg-[#FAFAFA] min-h-screen">
         {/* Page content goes here */}
         <div className="p-4">

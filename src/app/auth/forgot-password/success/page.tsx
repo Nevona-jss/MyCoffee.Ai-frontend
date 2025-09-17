@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 export default function RegisterSuccess() {
     const router = useRouter();
@@ -14,7 +13,7 @@ export default function RegisterSuccess() {
     }, []);
 
     const handleContinue = () => {
-        router.push('/home');
+        router.push('/auth/login-select');
     };
 
     return (

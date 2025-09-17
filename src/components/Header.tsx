@@ -1,15 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useHeaderStore } from '@/stores/header-store';
 
-interface HeaderProps {
-    title?: string;
-    showBackButton?: boolean;
-    backHref?: string;
-}
-
-const Header = ({ title, showBackButton = true, backHref }: HeaderProps) => {
+const Header = () => {
     const router = useRouter();
+    const { title, showBackButton, backHref } = useHeaderStore();
 
     const handleBackClick = () => {
         if (backHref) {
@@ -20,7 +16,7 @@ const Header = ({ title, showBackButton = true, backHref }: HeaderProps) => {
     };
 
     return (
-        <div className="bg-white px-4 py-2.5 flex items-center justify-between w-full" style={{boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.08)"}}>
+        <div className="sticky top-0 z-10 bg-white px-4 py-2.5 flex items-center justify-between w-full" style={{boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.08)"}}>
             {/* Left side - Back button */}
             <div className="flex items-center">
                 {showBackButton && (

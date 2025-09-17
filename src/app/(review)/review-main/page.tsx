@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BottomMenuBar from "@/components/BottomMenuBar";
 import {
   ChevronDown,
@@ -16,6 +16,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useHeaderStore } from "@/stores/header-store";
 
 const ReviewMain = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -27,6 +28,15 @@ const ReviewMain = () => {
   const [selectedReviewImages, setSelectedReviewImages] = useState<string[]>(
     []
   );
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "리뷰",
+      showBackButton: false,
+    });
+  }, []);
+
   const [isToolTipOpen, setIsToolTipOpen] = useState(true);
 
   const sortOptions = ["최신순", "인기순", "별점 높은 순", "별점 낮은 순"];
@@ -135,7 +145,7 @@ const ReviewMain = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <Header title="리뷰" showBackButton={false} />
+      <Header />
       <div className="px-4 pt-2.5">
         {/* Sort Dropdown */}
         <div className="flex justify-between">
