@@ -28,10 +28,42 @@ const OrderingComponent = ({ title }: { title: string }) => {
 
   return (
     <>
-      <button onClick={openModal} className="w-full block text-center btn-primary">
-        {title}
-      </button>
-      
+      <div className="relative group block w-full">
+        <button
+          onClick={openModal}
+          className="w-full block text-center btn-primary"
+        >
+          {title}
+        </button>
+
+        {/* Tooltip - Default holatda ochiq */}
+        {isTooltipOpen && (
+          <div
+            id="tooltip-default"
+            role="tooltip"
+            className="absolute -top-[28px] left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-normal text-white leading-[150%]">첫 구독 결제시 1달 무료</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsTooltipOpen(false);
+                }}
+                className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-gray-700"
+                title="Tooltip yopish"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M12 4L4 12" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M4 4L12 12" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <div className="absolute top-full left-[20px] transform w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1C1C1C]"></div>
+          </div>
+        )}
+      </div>
+
       <ActionSheet
         isOpen={isModalOpen}
         onClose={closeModal}

@@ -1,20 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface LikeModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (coffeeName: string, comment: string) => void;
+  href: string;
+  data?: any;
 }
 
-const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
+const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave, href, data }) => {
   const router = useRouter();
-  const [coffeeName, setCoffeeName] = useState("");
-  const [comment, setComment] = useState("");
+  const [coffeeName, setCoffeeName] = useState(data?.title || "");
+  const [comment, setComment] = useState(data?.description || "");
   const [errors, setErrors] = useState<{coffeeName?: string; comment?: string}>({});
   const [isDuplicate, setIsDuplicate] = useState(false);
+
+  // Update input fields when data changes
+  useEffect(() => {
+    if (data) {
+      setCoffeeName(data.title || "");
+      setComment(data.description || "");
+    } else {
+      setCoffeeName("");
+      setComment("");
+    }
+    setErrors({});
+    setIsDuplicate(false);
+  }, [data]);
 
   const handleSave = () => {
     const newErrors: {coffeeName?: string; comment?: string} = {};
@@ -45,7 +60,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
       setIsDuplicate(false);
       onClose();
       // Redirect to collection page
-      router.push('/my-coffee/collection');
+      router.push(href);
     }
   };
 

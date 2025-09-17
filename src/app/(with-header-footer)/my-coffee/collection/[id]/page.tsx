@@ -141,6 +141,7 @@ const CollectionDetail = () => {
                 isOpen={isLikeModalOpen}
                 onClose={() => setIsLikeModalOpen(false)}
                 onSave={handleLikeSave}
+                href={`/my-coffee/collection`}
             />
         </div>
     );

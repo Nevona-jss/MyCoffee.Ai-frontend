@@ -2,9 +2,15 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import ActionSheet from "@/components/ActionSheet";
 
 const ReadyPage = () => {
   const [showWarning, setShowWarning] = useState(true);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
+  const handleDelete = () => {
+    setDeleteModalIsOpen(false);
+  };
 
   const coffeeAnalyses = [
     {
@@ -81,7 +87,7 @@ const ReadyPage = () => {
                 취향 분석 시작
               </Link>
 
-              <button className="size-8 border border-action-primary rounded-sm flex items-center justify-center cursor-pointer " >
+              <button onClick={() => setDeleteModalIsOpen(true)} className="size-8 border border-action-primary rounded-sm flex items-center justify-center cursor-pointer " >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M15.8334 5V16.6667C15.8334 17.1087 15.6578 17.5326 15.3453 17.8452C15.0327 18.1577 14.6088 18.3333 14.1667 18.3333H5.83341C5.39139 18.3333 4.96746 18.1577 4.6549 17.8452C4.34234 17.5326 4.16675 17.1087 4.16675 16.6667V5" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M2.5 5H17.5" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
@@ -92,6 +98,31 @@ const ReadyPage = () => {
           </div>
         ))}
       </div>
+      {/* Delete Confirmation ActionSheet */}
+      <ActionSheet
+        isOpen={deleteModalIsOpen}
+        onClose={() => setDeleteModalIsOpen(false)}
+      >
+        <div className="text-center">
+          <p className="text-base font-bold text-gray-0 my-6">
+          정말 삭제하시겠습니까?
+          </p>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={handleDelete}
+              className="w-full btn-primary"
+            >
+              예
+            </button>
+            <button
+              onClick={() => setDeleteModalIsOpen(false)}
+              className="w-full btn-primary-empty"
+            >
+              아니오
+            </button>
+          </div>
+        </div>
+      </ActionSheet>
     </div>
   );
 };

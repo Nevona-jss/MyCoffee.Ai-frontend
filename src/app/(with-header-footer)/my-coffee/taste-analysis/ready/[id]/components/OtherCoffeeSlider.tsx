@@ -48,11 +48,11 @@ const OtherCoffeeSlider: React.FC = () => {
     ];
 
     const tasteLabels = [
-        { key: 'aroma', label: '향', color: 'purple' },
-        { key: 'acidity', label: '산미', color: 'green' },
-        { key: 'sweetness', label: '단맛', color: 'pink' },
-        { key: 'nutty', label: '고소함', color: 'brown' },
-        { key: 'body', label: '바디', color: 'dark-brown' }
+        { key: 'aroma', label: '향', color: 'aroma' },
+        { key: 'acidity', label: '산미', color: 'acidity' },
+        { key: 'sweetness', label: '단맛', color: 'sweetness' },
+        { key: 'nutty', label: '고소함', color: 'nutty' },
+        { key: 'body', label: '바디', color: 'body' }
     ];
 
     return (

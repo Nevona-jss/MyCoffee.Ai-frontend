@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import CoffeeBrewingAnimation from "./CoffeeBrewingAnimation";
+import Link from "next/link";
 
 const TasteAnalysisPage = () => {
   const [showBrewingAnimation, setShowBrewingAnimation] = useState(false);
@@ -162,9 +163,9 @@ const TasteAnalysisPage = () => {
           취향 분석 시작
         </button>
         
-        <button className="block w-full btn-primary-empty !py-2.5 bg-white border-2 border-[#4E2A18] text-[#4E2A18] text-center hover:bg-[#4E2A18] hover:text-white">
+        <Link href={'/my-coffee/taste-analysis/ready'} className="block w-full btn-primary-empty !py-2.5 bg-white border-2 border-[#4E2A18] text-[#4E2A18] text-center">
           지난 커피 분석 보기
-        </button>
+        </Link>
       </div>
     </div>
   );
