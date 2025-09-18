@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       {/* Main Content */}
-      <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-8">
+      <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-15">
         {/* Logo and Title */}
         <div className="my-auto text-center">  
           <Image
@@ -25,7 +25,7 @@ export default function Home() {
 
         {/* CTA Button */}
         <Link href="/analysis" className="btn-primary w-full block text-center">
-            취향 분석 시작
+          취향 분석 시작
         </Link>
       </div>
     </>

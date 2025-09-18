@@ -29,8 +29,8 @@ export default function ResultPage() {
     ];
 
     const generateRadarPath = () => {
-        const centerX = 200;
-        const centerY = 200;
+        const centerX = 225;
+        const centerY = 225;
         const maxRadius = 150;
 
         const points = tasteLabels.map((taste, index) => {
@@ -76,8 +76,7 @@ export default function ResultPage() {
 
     return (
         <>
-            {/* Main Content */}
-            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 py-6">
+            <div className="flex flex-col justify-center items-center px-4 pt-6 pb-15">
 
                 {/* Coffee Blend Card */}
                 {coffeeBlends.map((blend, index) => (
@@ -100,14 +99,14 @@ export default function ResultPage() {
                         {/* Radar Chart */}
                         <div className="relative">
                             <svg
-                                className="mx-auto no-select w-[300px] h-[300px] sm:w-[325px] sm:h-[325px]"
-                                viewBox="0 0 400 400"
+                                className="mx-auto no-select w-[350px] h-[350px] sm:w-[375px] sm:h-[375px]"
+                                viewBox="0 0 450 450"
                                 preserveAspectRatio="xMidYMid meet"
                             >
                                 {/* Grid - Concentric pentagons with varying stroke width */}
                                 {[1, 2, 3, 4, 5].map((level) => {
-                                    const centerX = 200;
-                                    const centerY = 200;
+                                    const centerX = 225;
+                                    const centerY = 225;
                                     const maxRadius = 150;
                                     const radius = (level / 5) * maxRadius;
                                     const strokeWidth = level / 2.2;
@@ -141,8 +140,8 @@ export default function ResultPage() {
 
                                 {/* Radial lines */}
                                 {[0, 1, 2, 3, 4].map((i) => {
-                                    const centerX = 200;
-                                    const centerY = 200;
+                                    const centerX = 225;
+                                    const centerY = 225;
                                     const maxRadius = 150;
                                     const angle = (i * 72 - 90) * (Math.PI / 180);
                                     const x = centerX + maxRadius * Math.cos(angle);
@@ -188,8 +187,8 @@ export default function ResultPage() {
                                 {tasteLabels.map((taste, index) => {
                                     const angle = (index * 72 - 90) * (Math.PI / 180);
                                     const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
-                                    const pointX = 200 + currentRadius * Math.cos(angle);
-                                    const pointY = 200 + currentRadius * Math.sin(angle);
+                                    const pointX = 225 + currentRadius * Math.cos(angle);
+                                    const pointY = 225 + currentRadius * Math.sin(angle);
 
                                     return (
                                         <circle
@@ -211,15 +210,15 @@ export default function ResultPage() {
                                         // Custom label positioning based on taste
                                         let labelRadius = 170;
                                         if (taste.key === 'aroma') { // 향 - top
-                                            labelRadius = 170 + 17; // 17px up
+                                            labelRadius = 170 + 25; // 25px up
                                         } else if (taste.key === 'acidity' || taste.key === 'sweetness') { // 산미, 단맛 - sides
-                                            labelRadius = 170 + 12; // 12px out
+                                            labelRadius = 170 + 18; // 18px out
                                         } else if (taste.key === 'nutty' || taste.key === 'body') { // 고소함, 바디 - bottom
-                                            labelRadius = 170 + 7; // 7px out
+                                            labelRadius = 170 + 12; // 12px out
                                         }
 
-                                    const labelX = 200 + labelRadius * Math.cos(angle);
-                                    const labelY = 200 + labelRadius * Math.sin(angle);
+                                    const labelX = 225 + labelRadius * Math.cos(angle);
+                                    const labelY = 225 + labelRadius * Math.sin(angle);
 
                                     return (
                                         <g key={taste.key}>
@@ -229,7 +228,7 @@ export default function ResultPage() {
                                                 y={labelY}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
-                                                className="text-[14px] font-medium fill-gray-0"
+                                                className="text-[18px] font-medium fill-gray-0"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
                                                 {taste.label}
@@ -237,11 +236,11 @@ export default function ResultPage() {
 
                                             {/* Rating badge background */}
                                             <rect
-                                                x={labelX - 20}
+                                                x={labelX - 26}
                                                 y={labelY + 8}
-                                                width="40"
-                                                height="22"
-                                                rx="8"
+                                                width="53"
+                                                height="27"
+                                                rx="13"
                                                 fill="#FFF"
                                                 stroke="#E6E6E6"
                                                 strokeWidth="0.56"
@@ -250,29 +249,29 @@ export default function ResultPage() {
                                             {/* Rating number - only the number in orange */}
                                             <text
                                                 x={labelX - 6}
-                                                y={labelY + 20}
+                                                y={labelY + 23}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill="#FF7927"
-                                                fontSize="12"
-                                                fontWeight="400"
+                                                fontSize="16"
+                                                fontWeight="600"
                                                 letterSpacing="-0.13px"
-                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
                                                 {ratings[taste.key as keyof TasteRating]}
                                             </text>
 
                                             {/* "/5" text in black */}
                                             <text
-                                                x={labelX + 4}
-                                                y={labelY + 20}
+                                                x={labelX + 7}
+                                                y={labelY + 23}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill="#1A1A1A"
-                                                fontSize="12"
-                                                fontWeight="400"
+                                                fontSize="16"
+                                                fontWeight="600"
                                                 letterSpacing="-0.13px"
-                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
+                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
                                                 /5
                                             </text>
