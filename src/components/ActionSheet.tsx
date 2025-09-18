@@ -71,21 +71,19 @@ const ActionSheet: React.FC<ActionSheetProps> = ({
     >
       {/* Modal Content */}
       <div
-        className={`bg-white w-full max-w-sm mx-auto rounded-t-2xl p-4 pt-3 max-h-[80vh] overflow-y-auto transition-all duration-300 ease-out ${
+        className={`bg-white w-full sm:max-w-sm sm:mx-auto rounded-t-2xl p-4 pt-3 pb-10 max-h-[80vh] overflow-y-auto transition-all duration-300 ease-out ${
           isClosing ? "translate-y-full" : isOpening ? "translate-y-0" : "translate-y-full"
         }`}
         onClick={(e) => e.stopPropagation()} 
       >
         {/* Handle */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center items-center mb-6 h-[24px]">
           <div 
             className="w-16 h-[5px] bg-[#9CA3AF] rounded-full cursor-pointer" 
             onClick={handleClose}
           ></div>
         </div>
  
-
-
         {/* Title */}
         {title && (
           <h2 className="text-xl text-center font-heading font-bold text-h3 leading-h3 ">
