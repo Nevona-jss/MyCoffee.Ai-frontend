@@ -12,7 +12,7 @@ export default function LayoutHeaderFooter({
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      <div className="flex-1 flex">
+      <div className="flex-1 flex child-width-full">
         {children}
       </div>
 

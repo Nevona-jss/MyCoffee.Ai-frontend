@@ -30,8 +30,8 @@ export default function CommunityLayout({
   };
 
   return (
-    <div>
-      <div className="bg-background mt-4">
+    <div className="w-full">
+      <div className="bg-background mt-4 px-4">
         <Tabs
           tabs={tabs}
           activeTab={getCurrentTab()}
