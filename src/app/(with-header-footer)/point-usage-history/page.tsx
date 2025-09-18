@@ -217,7 +217,7 @@ const PointUsageHistory = () => {
               className={`h-7 px-2.5 py-1 rounded-sm text-sm leading-[20px] font-bold cursor-pointer ${
                 activeTab === tab.key
                   ? "bg-action-primary text-white"
-                  : "bg-white text-action-primary border border-action-primary"
+                  : "text-action-primary border border-action-primary"
               }`}
             >
               {tab.label}
