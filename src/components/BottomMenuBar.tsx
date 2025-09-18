@@ -86,8 +86,8 @@ const BottomMenuBar = () => {
                         </Link>
 
                         {/* Profile */}
-                        <Link href="/my-page" className={`navbar-menu-item px-4 py-[12.5px] flex flex-col items-center cursor-pointer ml-2 ${isActive('/my-page') ? 'active' : ''}`}>
-                            {profileIcon(isActive('/my-page') ? "#4E2A18" : "#B3B3B3")}
+                        <Link href="/profile" className={`navbar-menu-item px-4 py-[12.5px] flex flex-col items-center cursor-pointer ml-2 ${isActive('/profile') ? 'active' : ''}`}>
+                            {profileIcon(isActive('/profile') ? "#4E2A18" : "#B3B3B3")}
                             <span className={`navbar-menu-text !text-[12px] mt-2 text-[#B3B3B3]`}>MY</span>
                         </Link>
                     </div>

@@ -30,7 +30,7 @@ const Tabs = ({ tabs, activeTab, onTabChange }: TabsProps) => {
   }, [activeTab, tabs]);
 
   return (
-    <div ref={containerRef} className="relative flex items-center justify-center gap-x-3">
+    <div ref={containerRef} className="relative flex items-center justify-center gap-x-3 w-full">
       {/* Sliding indicator - positioned at the very bottom */}
       <div
         className="absolute h-0.5 bg-action-primary transition-all duration-300 ease-out"
@@ -45,7 +45,7 @@ const Tabs = ({ tabs, activeTab, onTabChange }: TabsProps) => {
           ref={(el) => {
             tabRefs.current[i] = el;
           }}
-          className="relative text-sm cursor-pointer px-4 transition-all duration-200 ease-out flex items-center"
+          className="relative w-full justify-center text-sm cursor-pointer transition-all duration-200 ease-out flex items-center"
           style={{ height: "38px" }} // Exact height as per design
           key={tab.id || i}
           onClick={() => onTabChange(tab.value)}

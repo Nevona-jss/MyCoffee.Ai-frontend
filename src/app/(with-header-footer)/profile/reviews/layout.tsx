@@ -5,9 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useHeaderStore } from "@/stores/header-store";
 
 const tabs = [
-  { id: 1, label: "커피 취향 분석", value: "taste-analysis" },
-  { id: 2, label: "내 커피 컬렉션", value: "collection" },
-  { id: 3, label: "이달의 커피", value: "monthly-coffee" },
+  { id: 1, label: "리뷰작성 (5)", value: "write-review" },
+  { id: 2, label: "리뷰내역 (10)", value: "history" },
 ];
 
 export default function MyCoffeeLayout({
@@ -20,21 +19,21 @@ export default function MyCoffeeLayout({
   
   // Get current tab from pathname
   const getCurrentTab = () => {
-    if (pathname.includes('taste-analysis')) return 'taste-analysis';
+    if (pathname.includes('write-review')) return 'write-review';
     if (pathname.includes('collection')) return 'collection';
-    if (pathname.includes('monthly-coffee')) return 'monthly-coffee';
-    return 'taste-analysis'; // default
+    if (pathname.includes('history')) return 'history';
+    return 'history'; // default
   };
 
   const handleTabChange = (tab: string) => {
-    router.push(`/my-coffee/${tab}`);
+    router.push(`/profile/reviews/${tab}`);
   };
 
   const { setHeader } = useHeaderStore();
 
   useEffect(() => {
     setHeader({
-      title: "내 커피"
+      title: "내 리뷰"
     });
   }, []);
 
@@ -49,7 +48,7 @@ export default function MyCoffeeLayout({
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto p-4">
         {children}
       </div>
     </div>

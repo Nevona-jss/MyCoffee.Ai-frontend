@@ -3,16 +3,12 @@ import React from "react";
 import {
   ChevronRight,
   Truck,
-  Wifi,
-  MessageSquare,
-  Wallet,
-  MapPin,
-  HelpCircle,
   MessageSquareDot,
   MapPinHouse,
   MessageSquareMore,
   BadgeAlert,
 } from "lucide-react";
+import Link from "next/link";
 
 const MyPage = () => {
   return (
@@ -54,20 +50,20 @@ const MyPage = () => {
       {/* Quick Access Icons */}
       <div className="grid grid-cols-3 gap-2 mb-4">
         {/* Order/Delivery Inquiry */}
-        <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
+        <Link href="/profile/order-delivery" className="bg-white rounded-2xl p-3 border border-border-default text-center">
           <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
             <Truck size={24} className="text-white" />
           </div>
           <p className="text-xs leading-[16px] font-bold">주문/배송 조회</p>
-        </div>
+        </Link>
 
         {/* Subscription Management */}
-        <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
+        <Link href="/profile/manage-subscriptions" className="bg-white rounded-2xl p-3 border border-border-default text-center">
           <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
             <img src="/icons/wifi.svg" alt="wifi" className="w-6 h-6" />
           </div>
           <p className="text-xs leading-[16px] font-bold">구독 관리</p>
-        </div>
+        </Link>
 
         {/* My Reviews */}
         <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
