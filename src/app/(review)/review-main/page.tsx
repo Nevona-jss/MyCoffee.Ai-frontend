@@ -271,7 +271,7 @@ const ReviewMain = () => {
 
             {/* Action Buttons */}
             <div className="flex items-center justify-between gap-2">
-              <button className="flex-1 py-1.5 border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]">
+              <button className="btn-action">
                 이 추천 커피로 바로 주문하기
               </button>
 
