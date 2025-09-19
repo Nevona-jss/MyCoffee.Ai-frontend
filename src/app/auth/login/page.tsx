@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useHeaderStore } from "@/stores/header-store";
+import { Lock, Mail } from "lucide-react";
 
 export default function Login() {
   const { setHeader } = useHeaderStore();
@@ -14,7 +15,7 @@ export default function Login() {
 
   useEffect(() => {
     setHeader({
-      title: "로그인",
+      title: "",
       showBackButton: true,
     });
   }, [setHeader]);
@@ -28,7 +29,7 @@ export default function Login() {
     <div className="h-[100dvh]">
       <Header />
       {/* Login Form */}
-      <div className="py-6 px-4 text-gray-0">
+      <div className="p-4 text-gray-0">
         {/* Email Input */}
         <div className="mb-3">
           <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
@@ -36,10 +37,7 @@ export default function Login() {
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M18.3333 5.83334L10.8408 10.6058C10.5865 10.7535 10.2977 10.8313 10.0037 10.8313C9.70968 10.8313 9.42088 10.7535 9.16663 10.6058L1.66663 5.83334" stroke="#B3B3B3" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M16.6666 3.33334H3.33329C2.41282 3.33334 1.66663 4.07954 1.66663 5.00001V15C1.66663 15.9205 2.41282 16.6667 3.33329 16.6667H16.6666C17.5871 16.6667 18.3333 15.9205 18.3333 15V5.00001C18.3333 4.07954 17.5871 3.33334 16.6666 3.33334Z" stroke="#B3B3B3" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <Mail className="text-[#B3B3B3]" size={20} />
             </div>
             <input
               type="email"
@@ -58,10 +56,7 @@ export default function Login() {
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M15.8333 9.16666H4.16667C3.24619 9.16666 2.5 9.91285 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91285 16.7538 9.16666 15.8333 9.16666Z" stroke="#B3B3B3" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M5.83337 9.16666V5.83332C5.83337 4.72825 6.27236 3.66845 7.05376 2.88704C7.83516 2.10564 8.89497 1.66666 10 1.66666C11.1051 1.66666 12.1649 2.10564 12.9463 2.88704C13.7277 3.66845 14.1667 4.72825 14.1667 5.83332V9.16666" stroke="#B3B3B3" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <Lock className="text-[#B3B3B3]" height={20} width={20} />
             </div>
             <input
               type={showPassword ? "text" : "password"}
@@ -93,7 +88,7 @@ export default function Login() {
         </div>
 
         {/* Remember Me Checkbox */}
-        <div className="flex items-center mb-10">
+        <div className="flex items-center mb-[50px]">
           <input
             id="remember"
             type="checkbox"
@@ -102,14 +97,14 @@ export default function Login() {
             checked={isRememberChecked}
             onChange={(e) => setIsRememberChecked(e.target.checked)}
           />
-          <label htmlFor="remember" className="ml-2 text-sm text-gray-0 font-normal cursor-pointer">
+          <label htmlFor="remember" className="ml-2 text-xs text-gray-0 font-normal cursor-pointer">
             자동 로그인
           </label>
         </div>
 
         {/* Login Button */}
         <button 
-          className={`w-full font-medium transition-colors ${isRememberChecked ? 'btn-primary' : 'btn-primary-empty bg-[#E6E6E6] text-gray-700 hover:bg-[#E6E6E6] !cursor-not-allowed'}`}
+          className="w-full btn-primary"
           disabled={!isRememberChecked}
           onClick={handleLogin}
         >
@@ -118,13 +113,13 @@ export default function Login() {
 
         {/* Account Management Links */}
         <div className="flex justify-center items-center mt-4 space-x-2 text-sm">
-          <Link href="/auth/find-id" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
+          <Link href="/auth/find-id" className="text-gray-0 py-[6px] px-[14px]">
             아이디 찾기
           </Link>
-          <Link href="/auth/forgot-password" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
+          <Link href="/auth/forgot-password" className="text-gray-0 py-[6px] px-[14px]">
             비밀번호 찾기
           </Link>
-          <Link href="/auth/register" className="text-gray-600 hover:text-gray-0 py-[6px] px-[14px]">
+          <Link href="/auth/register" className="text-gray-0 py-[6px] px-[14px]">
             회원가입
           </Link>
         </div>

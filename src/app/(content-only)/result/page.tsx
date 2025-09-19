@@ -301,7 +301,7 @@ export default function ResultPage() {
                                             ))}
                                         </div>
                                     </div>
-                                    <p className="text-[10px] text-[#999] leading-[140%]">
+                                    <p className="text-[10px] text-[#999] leading-[140%] w-[100px]">
                                         {tasteDescriptions[taste.key as keyof typeof tasteDescriptions]}
                                     </p>
                                 </div>

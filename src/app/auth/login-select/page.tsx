@@ -52,7 +52,7 @@ export default function LoginSelect() {
             Apple로 계속하기
           </Link>
           
-          <Link href="/auth/login" className="btn-primary-empty w-full block text-center text-[#1F2937] border-solid border-[1px] border-[#E5E7EB] hover:border-[#1F2937]">
+          <Link href="/auth/login" className="btn-primary-empty bg-white w-full block text-center text-[#1F2937] border-solid border-[1px] border-[#E5E7EB] hover:border-[#1F2937]">
             이메일로 계속하기
           </Link>
           {/* Divider */}
@@ -61,7 +61,7 @@ export default function LoginSelect() {
               <div className="w-full border-t border-[#E6E6E6]"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-[18px] bg-[#FAFAFA] text-[#6E6E6E] text-[10px] py-[1px]">또는</span>
+              <span className="px-[18px] bg-[#FAFAFA] text-[#6E6E6E] text-[10px] py-[1px] leading-[160%]">또는</span>
             </div>
           </div>
 
