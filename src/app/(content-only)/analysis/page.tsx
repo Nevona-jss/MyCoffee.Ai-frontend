@@ -24,10 +24,10 @@ export default function AnalysisPage() {
 
     const tasteLabels = [
         { key: 'aroma', label: '향', position: 'top' },
-        { key: 'acidity', label: '산미', position: 'top-left' },
-        { key: 'sweetness', label: '단맛', position: 'top-right' },
+        { key: 'acidity', label: '단맛', position: 'top-left' },
+        { key: 'sweetness', label: '바디', position: 'top-right' },
         { key: 'nutty', label: '고소함', position: 'bottom-left' },
-        { key: 'body', label: '바디', position: 'bottom-right' },
+        { key: 'body', label: '산미', position: 'bottom-right' },
     ];
 
     const updateRating = (taste: keyof TasteRating, value: number) => {
@@ -172,7 +172,7 @@ export default function AnalysisPage() {
 
     return (
         <>
-            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-8">
+            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-15">
                 <div className="my-auto">
                     <div className="w-full sm:mx-auto px-4 py-4">
                         <Image
@@ -352,7 +352,7 @@ export default function AnalysisPage() {
                                                 y={labelY}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
-                                                className="text-[14px] font-medium fill-gray-0"
+                                                className="text-[18px] font-medium fill-gray-0"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
                                                 {taste.label}
@@ -360,11 +360,11 @@ export default function AnalysisPage() {
 
                                             {/* Rating badge background */}
                                             <rect
-                                                x={labelX - 20}
+                                                x={labelX - 26}
                                                 y={labelY + 8}
-                                                width="40"
-                                                height="18"
-                                                rx="8"
+                                                width="53"
+                                                height="27"
+                                                rx="13"
                                                 fill="#FFF"
                                                 stroke="#E6E6E6"
                                                 strokeWidth="0.56"
@@ -373,12 +373,12 @@ export default function AnalysisPage() {
                                             {/* Rating number - only the number in orange */}
                                             <text
                                                 x={labelX - 6}
-                                                y={labelY + 18}
+                                                y={labelY + 23}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill="#FF7927"
-                                                fontSize="13"
-                                                fontWeight="400"
+                                                fontSize="16"
+                                                fontWeight="600"
                                                 letterSpacing="-0.13px"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
                                             >
@@ -387,13 +387,13 @@ export default function AnalysisPage() {
                                             
                                             {/* "/5" text in black */}
                                             <text
-                                                x={labelX + 4}
-                                                y={labelY + 18}
+                                                x={labelX + 7}
+                                                y={labelY + 23}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
                                                 fill="#1A1A1A"
-                                                fontSize="13"
-                                                fontWeight="400"
+                                                fontSize="16"
+                                                fontWeight="600"
                                                 letterSpacing="-0.13px"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
                                             >
@@ -449,7 +449,7 @@ export default function AnalysisPage() {
                 </div>
                 {/* CTA Button */}
                 <Link href="/result" className="btn-primary w-full text-center block">
-                취향 분석 시작하기
+                    취향 분석 시작
                 </Link>
             </div>
         </>
