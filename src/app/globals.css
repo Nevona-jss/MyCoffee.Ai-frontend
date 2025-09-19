@@ -1,69 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  /* Primary Colors */ 
-  --primary: #532E19;
-  --primary-active: #3B2112;
-  --text-disabled: #6E6E6E;
-  
-  /* Secondary/Accent Colors */ 
-  --accent: #FF7927;
-  --accent-sub: #FFE0AD; 
-  --text-primary: #1A1A1A;
-  --text-secondary: #6E6E6E;
-  
+  /* Primary Colors */
+  --primary: #532e19;
+  --primary-active: #3b2112;
+  --text-disabled: #6e6e6e;
 
-  /* Line Color */ 
-  --line: #E6E6E6;
-  --action-disabled: #E6E6E6; 
+  /* Secondary/Accent Colors */
+  --accent: #ff7927;
+  --accent-sub: #ffe0ad;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6e6e6e;
+
+  /* Line Color */
+  --line: #e6e6e6;
+  --action-disabled: #e6e6e6;
   /* Background Colors */
-  --background: #FAFAFA;
-  --background-sub: #FFF;
-  
+  --background: #fafafa;
+  --background-sub: #fff;
+
   /* Taste Colors */
 
-  --aroma: #BE9FE2;
-  --acidity: #DCF494;
-  --sweetness: #FFB5C2;
-  --nutty: #D8A058;
-  --body: #3B1C1C;
+  --aroma: #be9fe2;
+  --acidity: #dcf494;
+  --sweetness: #ffb5c2;
+  --nutty: #d8a058;
+  --body: #3b1c1c;
   --brand-secondary-accent-sub: #ffe5bf;
-  --action-secondary: #FF7939;
-  
+  --action-secondary: #ff7939;
+
   /* Gray Colors */
-  --gray-0: #1A1A1A;
-  --gray-10: #B9B9B9;
+  --gray-0: #1a1a1a;
+  --gray-10: #b9b9b9;
 
   /* Icon color */
-  --icon-default: #1A1A1A;
-  --icon-disabled: #9CA3AF;
-  
+  --icon-default: #1a1a1a;
+  --icon-disabled: #9ca3af;
 
   /*Action Colors*/
   --action-primary: #4e2a18;
-
 
   /* Foreground */
   --foreground: var(--gray-0);
 
   /* border/default color */
-  --border-default: #E6E6E6;
+  --border-default: #e6e6e6;
 }
 
 @theme inline {
   /* Primary Colors */
   --color-primary: var(--primary);
-  --color-primary-active: var(--primary-active); 
+  --color-primary-active: var(--primary-active);
   --color-text-disabled: var(--text-disabled);
-  
+
   /* Secondary/Accent Colors */
   --color-accent: var(--accent);
   --color-accent-sub: var(--accent-sub);
-  --color-text-primary: var(--text-primary); 
+  --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
-  
+
   --color-line: var(--line);
-  --color-action-disabled: var(--action-disabled); 
+  --color-action-disabled: var(--action-disabled);
   /* Background Colors */
   --color-background: var(--background);
   --color-background-sub: var(--background-sub);
@@ -85,15 +82,12 @@
   /* Foreground */
   --color-foreground: var(--foreground);
 
- 
   /* border/default color */
   --color-border-default: var(--border-default);
 
   /* icon/default color */
   --color-icon-default: var(--icon-default);
   --color-icon-disabled: var(--icon-disabled);
-  
-
 
   /* Action Colors */
   --color-action-primary: var(--action-primary);
@@ -113,12 +107,18 @@
     #532e19 114.31%
   );
 }
+ 
 
 /* Linear Gradient */
 .bg-linear-gradient {
-  background: linear-gradient(90deg, #FFF9F5 -152.09%, #A99387 -127.44%, #64422F -5.57%, #532E19 114.31%);
+  background: linear-gradient(
+    90deg,
+    #fff9f5 -152.09%,
+    #a99387 -127.44%,
+    #64422f -5.57%,
+    #532e19 114.31%
+  );
 }
-
 
 /* Button Component Styles */
 .btn-primary {
@@ -133,7 +133,10 @@
   line-height: 150%;
   border: none;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s linear;
+  /* -webkit-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  transition: all 0.3s linear; */
 }
 .btn-primary[disabled] {
   background: #E6E6E6;
@@ -150,6 +153,9 @@
   line-height: 150%;
   cursor: pointer;
   transition: all 0.5s ease;
+  background: #e6e6e6;
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
 /* .btn-primary:hover {
@@ -158,16 +164,14 @@
   box-shadow: 0 4px 12px rgba(83, 46, 25, 0.3);
 } */
 
-.btn-primary:active {
+.btn-primary:not([disabled]):active {
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(83, 46, 25, 0.2);
 }
- 
+
 .btn-action {
   @apply flex-1 py-[5px] border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px];
 } 
-
-
 
 body {
   background: var(--background-sub);
@@ -177,7 +181,8 @@ body {
 }
 
 * {
-  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-suite), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
 }
 
 /* Suite font uchun CSS variable */
@@ -239,23 +244,23 @@ svg {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
 }
- 
+
 .calendar-shadow {
   box-shadow: 0px 1px 3px 0px #00000014;
 }
- 
+
 /* Auth checkbox styles */
 .auth-checkbox {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  border: 1px solid #B3B3B3;
+  border: 1px solid #b3b3b3;
   border-radius: 4px;
 }
 
 .auth-checkbox:checked {
-  background-color: #FF7939 !important;
-  border-color: #FF7939 !important;
+  background-color: #ff7939 !important;
+  border-color: #ff7939 !important;
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e") !important;
   background-size: 16px 16px !important;
   background-position: center !important;
@@ -281,13 +286,13 @@ input[type="radio"]:checked {
 }
 
 input[type="radio"]:checked::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   width: 10px;
   height: 10px;
-  background-color: #FF7939;
+  background-color: #ff7939;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
@@ -295,4 +300,3 @@ input[type="radio"]:checked::after {
 .child-width-full > :first-child {
   width: 100%;
 }
-
