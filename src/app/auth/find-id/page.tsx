@@ -88,7 +88,7 @@ export default function FindId() {
   const handleSendCode = () => {
     if (validateField('phone', phone)) {
       setIsCodeSent(true);
-      setTimeLeft(10);
+      setTimeLeft(60);
       // Reset verification code when resending
       setVerificationCode('');
     }
@@ -113,7 +113,7 @@ export default function FindId() {
     <div className="h-[100dvh] flex flex-col">
       <Header />
       {/* Login Form */}
-      <div className="py-6 px-4 text-gray-0">
+      <div className="p-4 text-gray-0">
         {/* Phone Number Input */}
         <div>
           <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0">
@@ -136,7 +136,7 @@ export default function FindId() {
               type="button"
               onClick={handleSendCode}
               disabled={phone.trim() === '' || (isCodeSent && timeLeft > 0)}
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold hover:bg-[#532E19] cursor-pointer hover:text-white transition-colors disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
+              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold cursor-pointer disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
             >
               {isCodeSent ? '재전송' : '인증 요청'}
             </button>
@@ -181,11 +181,11 @@ export default function FindId() {
       </div>
 
       {/* Submit Button */}
-      <div className="px-4 pb-2 mt-auto">
+      <div className="px-4 pb-10 mt-auto">
         <button
           onClick={handleSubmit}
           disabled={!isCodeSent || verificationCode.trim() === ''}
-          className="w-full btn-primary duration-200 disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:cursor-not-allowed"
+          className="w-full btn-primary"
         >
           아이디 찾기
         </button>

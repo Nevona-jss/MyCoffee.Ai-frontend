@@ -1,5 +1,17 @@
+"use client";
+import { useHeaderStore } from "@/stores/header-store";
+import { useEffect } from "react";
 
 const ManageSubscriptionsDetail = () => {
+
+
+    const { setHeader } = useHeaderStore();
+
+    useEffect(() => {
+      setHeader({
+        title: "구독 상세"
+      });
+    }, []);
 
     const item = {
         id: 1,

@@ -86,7 +86,7 @@ const ReviewWrite = () => {
                             >
                                 주문 상세보기
                                 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
-                                    <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </Link>
                         </div>
@@ -108,7 +108,7 @@ const ReviewWrite = () => {
 
                         <Link
                             href={`/profile/write-review/${item.id}`}
-                            className="block text-center py-[5px] border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]"
+                            className="btn-action block text-center"
                         >
                             리뷰 작성
                         </Link>

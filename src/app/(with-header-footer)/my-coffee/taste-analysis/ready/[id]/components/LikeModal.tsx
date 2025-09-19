@@ -119,11 +119,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
         <div className="flex flex-col gap-2">
           <button
             onClick={handleSave}
-            className={`w-full text-center  ${
-              isFormValid 
-                ? 'btn-primary' 
-                : 'btn-primary-empty bg-action-disabled text-[#9CA3AF] !cursor-not-allowed'
-            }`}
+            className={`w-full text-center btn-primary`}
             disabled={!isFormValid}
           >
             저장하기

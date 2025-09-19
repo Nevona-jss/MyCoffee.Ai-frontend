@@ -172,7 +172,7 @@ export default function AnalysisPage() {
 
     return (
         <>
-            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-15">
+            <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-10">
                 <div className="my-auto">
                     <div className="w-full sm:mx-auto px-4 py-4">
                         <Image

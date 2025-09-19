@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useHeaderStore } from "@/stores/header-store";
 
-
 export default function ResetPassword() {
     const { setHeader } = useHeaderStore();
     const [errors, setErrors] = useState({
@@ -72,7 +71,7 @@ export default function ResetPassword() {
         <div className="h-[100dvh] flex flex-col">
             <Header />
             {/* Login Form */}
-            <div className="py-6 px-4 text-gray-0">
+            <div className="p-4 text-gray-0">
                 <PasswordInput
                     id="password"
                     label="새 비밀번호"
@@ -95,11 +94,11 @@ export default function ResetPassword() {
             </div>
 
             {/* Submit Button */}
-            <div className="px-4 pb-2 mt-auto">
+            <div className="px-4 pb-10 mt-auto">
                 <button
                     onClick={handleSubmit}
                     disabled={formData.password.trim() === '' || formData.confirmPassword.trim() === ''}
-                    className={formData.password.trim() === '' || formData.confirmPassword.trim() === '' ? 'btn-primary-empty bg-[#E6E6E6] text-[#9CA3AF]  !cursor-not-allowed w-full' : 'btn-primary w-full'}
+                    className="w-full btn-primary"
                 >
                     비밀번호 재설정
                 </button>

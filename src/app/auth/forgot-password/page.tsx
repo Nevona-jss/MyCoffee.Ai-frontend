@@ -89,7 +89,7 @@ export default function ForgotPassword() {
   const handleSendCode = () => {
     if (validateField('phone', phone)) {
       setIsCodeSent(true);
-      setTimeLeft(10);
+      setTimeLeft(60);
       // Reset verification code when resending
       setVerificationCode('');
     }
@@ -111,10 +111,10 @@ export default function ForgotPassword() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
   return (
-    <div className="h-[100dvh] flex flex-col">
+    <div className="h-[100dvh] flex flex-col ">
       <Header />
       {/* Login Form */}
-      <div className="py-6 px-4 text-gray-0">
+      <div className="p-4 text-gray-0">
         {/* Phone Number Input */}
         <div className="mb-3">
           <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
@@ -132,7 +132,7 @@ export default function ForgotPassword() {
         </div>
         <div>
           <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0">
-            휴대폰 번호
+          휴대폰 번호
           </label>
           <div className="flex gap-1">
             <div className="flex-1">
@@ -151,7 +151,7 @@ export default function ForgotPassword() {
               type="button"
               onClick={handleSendCode}
               disabled={phone.trim() === '' || (isCodeSent && timeLeft > 0)}
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold hover:bg-[#532E19] cursor-pointer hover:text-white transition-colors disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
+              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold cursor-pointer transition-colors disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
             >
               {isCodeSent ? '재전송' : '인증 요청'}
             </button>
@@ -180,7 +180,7 @@ export default function ForgotPassword() {
               id="verificationCode"
               className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${errors.verificationCode ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                 }`}
-              placeholder="인증 번호를 입력해주세요."
+              placeholder="인증 번호를 입력하세요."
               value={verificationCode}
               onChange={(e) => handleInputChange('verificationCode', e.target.value)}
               required
@@ -196,11 +196,11 @@ export default function ForgotPassword() {
       </div>
 
       {/* Submit Button */}
-      <div className="px-4 pb-2 mt-auto">
+      <div className="px-4 pb-10 mt-auto">
         <button
           onClick={handleSubmit}
           disabled={!isCodeSent || verificationCode.trim() === ''}
-          className="w-full btn-primary duration-200 disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:cursor-not-allowed"
+          className="w-full btn-primary"
         >
           다음
         </button>

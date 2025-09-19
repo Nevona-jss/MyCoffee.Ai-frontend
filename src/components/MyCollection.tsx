@@ -31,9 +31,9 @@ const MyCollection = () => {
     ];
 
     const generateRadarPath = (ratings: TasteRating) => {
-        const centerX = 140;
-        const centerY = 140;
-        const maxRadius = 100;
+        const centerX = 90;
+        const centerY = 110;
+        const maxRadius = 60;
 
         const points = tasteLabels.map((taste, index) => {
             const angle = (index * 72 - 90) * (Math.PI / 180);
@@ -52,7 +52,7 @@ const MyCollection = () => {
 
     const coffeeBlends: CoffeeBlend[] = [
         {
-            name: "내 커피 컬렉션",
+            name: "벨벳 터치 블렌드",
             description: "오늘, 깊고 깔끔한 맛을 가진, 마시기 편한 Deep Body Blend가 당신에게 딱 맞습니다.",
             hashtags: ["씁쓸 달콤", "고소한 맛", "밸런스"],
             ratings: {
@@ -64,7 +64,7 @@ const MyCollection = () => {
             }
         },
         {
-            name: "내 커피 컬렉션",
+            name: "벨벳 터치 블렌드",
             description: "깔끔한 마무리와 산뜻한 입안 감촉이 좋은 커피입니다.",
             hashtags: ["씁쓸 달콤", "고소한 맛", "밸런스"],
             ratings: {
@@ -76,7 +76,7 @@ const MyCollection = () => {
             }
         },
         {
-            name: "내 커피 컬렉션",
+            name: "벨벳 터치 블렌드 ",
             description: "깔끔한 마무리와 산뜻한 입안 감촉이 좋은 커피입니다.",
             hashtags: ["씁쓸 달콤", "고소한 맛"],
             ratings: {
@@ -88,7 +88,7 @@ const MyCollection = () => {
             }
         },
         {
-            name: "내 커피 컬렉션",
+            name: "벨벳 터치 블렌드 ",
             description: "깔끔한 마무리와 산뜻한 입안 감촉이 좋은 커피입니다.",
             hashtags: ["씁쓸 달콤", "고소한 맛", "밸런스"],
             ratings: {
@@ -131,7 +131,7 @@ const MyCollection = () => {
                                                         backgroundColor: '#D2954F'
                                                     }}
                                                 ></div>
-                                                <span className="text-[8px] font-light text-[#999] leading-normal">{hashtag}</span>
+                                                <span className="text-[10px] font-light text-[#6E6E6E] leading-[16px]">{hashtag}</span>
                                             </div>
                                         ))
                                     }
@@ -140,15 +140,15 @@ const MyCollection = () => {
                             {/* Radar Chart */}
                             <div className="mb-2">
                                 <svg
-                                    className="w-[170px] h-[140px] mx-auto"
-                                    viewBox="0 0 280 280"
+                                    className="w-[180px] h-[180px] mx-auto"
+                                    viewBox="0 0 180 200"
                                     preserveAspectRatio="xMidYMid meet"
                                 >
                                     {/* Grid */}
                                     {[1, 2, 3, 4, 5].map((level) => {
-                                        const centerX = 140;
-                                        const centerY = 140;
-                                        const maxRadius = 100;
+                                        const centerX = 90;
+                                        const centerY = 110;
+                                        const maxRadius = 60;
                                         const radius = (level / 5) * maxRadius;
 
                                         let pentagonPath = '';
@@ -170,10 +170,34 @@ const MyCollection = () => {
                                                 key={level}
                                                 d={pentagonPath}
                                                 fill="none"
-                                                stroke="#CCCCCC"
+                                                stroke="#B3B3B3"
                                                 strokeWidth="0.5"
                                                 strokeDasharray="2,2"
                                                 opacity="1"
+                                            />
+                                        );
+                                    })}
+
+                                    {/* Radial lines from center to each corner */}
+                                    {tasteLabels.map((taste, index) => {
+                                        const angle = (index * 72 - 90) * (Math.PI / 180);
+                                        const centerX = 90;
+                                        const centerY = 110;
+                                        const maxRadius = 60;
+                                        const endX = centerX + maxRadius * Math.cos(angle);
+                                        const endY = centerY + maxRadius * Math.sin(angle);
+                                        
+                                        return (
+                                            <line
+                                                key={`radial-${taste.key}`}
+                                                x1={centerX}
+                                                y1={centerY}
+                                                x2={endX}
+                                                y2={endY}
+                                                stroke="#B3B3B3"
+                                                strokeWidth="0.5"
+                                                strokeDasharray="2,2"
+                                                opacity="0.7"
                                             />
                                         );
                                     })}
@@ -200,9 +224,9 @@ const MyCollection = () => {
                                     {/* Connection point circles */}
                                     {tasteLabels.map((taste, index) => {
                                         const angle = (index * 72 - 90) * (Math.PI / 180);
-                                        const currentRadius = (blend.ratings[taste.key as keyof TasteRating] / 5) * 100;
-                                        const pointX = 140 + currentRadius * Math.cos(angle);
-                                        const pointY = 140 + currentRadius * Math.sin(angle);
+                                        const currentRadius = (blend.ratings[taste.key as keyof TasteRating] / 5) * 60;
+                                        const pointX = 90 + currentRadius * Math.cos(angle);
+                                        const pointY = 110 + currentRadius * Math.sin(angle);
                                         
                                         return (
                                             <circle
@@ -218,9 +242,9 @@ const MyCollection = () => {
                                     {/* Taste Labels */}
                                     {tasteLabels.map((taste, index) => {
                                         const angle = (index * 72 - 90) * (Math.PI / 180);
-                                        const labelRadius = 110;
-                                        const x = 140 + labelRadius * Math.cos(angle);
-                                        const y = 140 + labelRadius * Math.sin(angle);
+                                        const labelRadius = 75;
+                                        const x = 90 + labelRadius * Math.cos(angle);
+                                        const y = 110 + labelRadius * Math.sin(angle);
                                         
                                         return (
                                             <text
@@ -241,10 +265,10 @@ const MyCollection = () => {
                             </div>
 
                             {/* Taste dots */}
-                            <div className="space-y-1 my-2">
+                            <div className="space-y-1 mb-2 mt-1">
                                 {tasteLabels.map((taste) => (
                                     <div key={taste.key} className="flex items-center justify-between">
-                                        <span className="text-[10px] font-light">{taste.label}</span>
+                                        <span className="text-[10px] font-normal leading-[16px]">{taste.label}</span>
                                         <div className="flex gap-[3px]">
                                             {[1, 2, 3, 4, 5].map((dot) => (
                                                 <div
