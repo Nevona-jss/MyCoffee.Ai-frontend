@@ -75,8 +75,9 @@ export default function ResultPage() {
     };
 
     return (
-        <>
+        <> 
             <div className="flex flex-col justify-center items-center px-4 pt-6 pb-15">
+ 
 
                 {/* Coffee Blend Card */}
                 {coffeeBlends.map((blend, index) => (
