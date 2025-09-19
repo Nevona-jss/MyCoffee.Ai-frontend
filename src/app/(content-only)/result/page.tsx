@@ -29,7 +29,7 @@ export default function ResultPage() {
     ];
 
     const generateRadarPath = () => {
-        const centerX = 225;
+        const centerX = 200;
         const centerY = 225;
         const maxRadius = 150;
 
@@ -99,13 +99,13 @@ export default function ResultPage() {
                         {/* Radar Chart */}
                         <div className="relative">
                             <svg
-                                className="mx-auto no-select w-[350px] h-[350px] sm:w-[375px] sm:h-[375px]"
-                                viewBox="0 0 450 450"
+                                className="mx-auto no-select w-[320px] h-[360px] sm:w-[350px] sm:h-[380px]"
+                                viewBox="0 0 420 450"
                                 preserveAspectRatio="xMidYMid meet"
                             >
                                 {/* Grid - Concentric pentagons with varying stroke width */}
                                 {[1, 2, 3, 4, 5].map((level) => {
-                                    const centerX = 225;
+                                    const centerX = 200;
                                     const centerY = 225;
                                     const maxRadius = 150;
                                     const radius = (level / 5) * maxRadius;
@@ -140,7 +140,7 @@ export default function ResultPage() {
 
                                 {/* Radial lines */}
                                 {[0, 1, 2, 3, 4].map((i) => {
-                                    const centerX = 225;
+                                    const centerX = 200;
                                     const centerY = 225;
                                     const maxRadius = 150;
                                     const angle = (i * 72 - 90) * (Math.PI / 180);
@@ -187,7 +187,7 @@ export default function ResultPage() {
                                 {tasteLabels.map((taste, index) => {
                                     const angle = (index * 72 - 90) * (Math.PI / 180);
                                     const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
-                                    const pointX = 225 + currentRadius * Math.cos(angle);
+                                    const pointX = 200 + currentRadius * Math.cos(angle);
                                     const pointY = 225 + currentRadius * Math.sin(angle);
 
                                     return (
@@ -217,7 +217,7 @@ export default function ResultPage() {
                                             labelRadius = 170 + 12; // 12px out
                                         }
 
-                                    const labelX = 225 + labelRadius * Math.cos(angle);
+                                    const labelX = 200 + labelRadius * Math.cos(angle);
                                     const labelY = 225 + labelRadius * Math.sin(angle);
 
                                     return (
@@ -236,10 +236,10 @@ export default function ResultPage() {
 
                                             {/* Rating badge background */}
                                             <rect
-                                                x={labelX - 26}
+                                                x={labelX - 20}
                                                 y={labelY + 8}
-                                                width="53"
-                                                height="27"
+                                                width="43.2"
+                                                height="26.4"
                                                 rx="13"
                                                 fill="#FFF"
                                                 stroke="#E6E6E6"
@@ -315,7 +315,7 @@ export default function ResultPage() {
                     <Link href="/auth/login-select" className="btn-primary w-full text-center block">
                         회원 가입
                     </Link>
-                    <Link href="/" className="block text-center text-base text-primary font-bold">
+                    <Link href="/" className="block text-center text-base text-gray-0 font-bold">
                         둘러보고 나중에 할래요.
                     </Link>
                 </div>
