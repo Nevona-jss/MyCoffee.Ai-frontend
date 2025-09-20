@@ -25,8 +25,8 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
 
   const generateRadarPath = () => {
     const centerX = 200;
-    const centerY = 200;
-    const maxRadius = 150;
+    const centerY = 210;
+    const maxRadius = 130;
     let path = '';
 
     tasteLabels.forEach((taste, index) => {
@@ -49,15 +49,15 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
     <div className="flex justify-center">
       <div className="relative">
         <svg
-          className="mx-auto no-select w-[280px] h-[280px] sm:w-[305px] sm:h-[305px]"
-          viewBox="0 0 400 400"
+          className="mx-auto no-select w-[280px] h-[320px] sm:w-[305px] sm:h-[345px]"
+          viewBox="0 0 400 450"
           preserveAspectRatio="xMidYMid meet"
         >
           {/* Grid - Concentric pentagons with varying stroke width */}
           {[1, 2, 3, 4, 5].map((level) => {
             const centerX = 200;
-            const centerY = 200;
-            const maxRadius = 150;
+            const centerY = 210;
+            const maxRadius = 130;
             const radius = (level / 5) * maxRadius;
             const strokeWidth = level / 2.2;
 
@@ -91,8 +91,8 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
           {/* Radial lines */}
           {[0, 1, 2, 3, 4].map((i) => {
             const centerX = 200;
-            const centerY = 200;
-            const maxRadius = 150;
+            const centerY = 210;
+            const maxRadius = 130;
             const angle = (i * 72 - 90) * (Math.PI / 180);
             const x = centerX + maxRadius * Math.cos(angle);
             const y = centerY + maxRadius * Math.sin(angle);
@@ -136,9 +136,9 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
           {/* Rounded corner circles at connection points */}
           {tasteLabels.map((taste, index) => {
             const angle = (index * 72 - 90) * (Math.PI / 180);
-            const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
+            const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 130;
             const pointX = 200 + currentRadius * Math.cos(angle);
-            const pointY = 200 + currentRadius * Math.sin(angle);
+            const pointY = 210 + currentRadius * Math.sin(angle);
 
             return (
               <circle
@@ -162,23 +162,23 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
             if (taste.key === 'aroma') { // 향 - top
               labelRadius = 170 + 17; // 17px up
             } else if (taste.key === 'acidity' || taste.key === 'sweetness') { // 산미, 단맛 - sides
-              labelRadius = 170 + 12; // 12px out
+              labelRadius = 170 + 7; // 5px closer to center (was 12, now 7)
             } else if (taste.key === 'nutty' || taste.key === 'body') { // 고소함, 바디 - bottom
-              labelRadius = 170 + 7; // 7px out
+              labelRadius = 170 + 2; // 5px closer to center (was 7, now 2)
             }
 
             const labelX = 200 + labelRadius * Math.cos(angle);
-            const labelY = 200 + labelRadius * Math.sin(angle);
+            const labelY = 210 + labelRadius * Math.sin(angle);
 
             return (
               <g key={taste.key}>
                 {/* Taste label */}
                 <text
                   x={labelX}
-                  y={labelY}
+                  y={labelY - 8}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  className="text-[14px] font-medium fill-gray-0"
+                  className="text-[18px] font-medium fill-gray-0"
                   style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                 >
                   {taste.label}
@@ -186,11 +186,11 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
 
                 {/* Rating badge background */}
                 <rect
-                  x={labelX - 20}
-                  y={labelY + 8}
-                  width="40"
-                  height="22"
-                  rx="8"
+                  x={labelX - 27}
+                  y={labelY + 3}
+                  width="55"
+                  height="29"
+                  rx="13"
                   fill="#FFF"
                   stroke="#E6E6E6"
                   strokeWidth="0.56"
@@ -203,7 +203,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill="#FF7927"
-                  fontSize="12"
+                  fontSize="15"
                   fontWeight="400"
                   letterSpacing="-0.13px"
                   style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
@@ -213,12 +213,12 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
 
                 {/* "/5" text in black */}
                 <text
-                  x={labelX + 4}
+                  x={labelX + 6}
                   y={labelY + 20}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill="#1A1A1A"
-                  fontSize="12"
+                  fontSize="15"
                   fontWeight="400"
                   letterSpacing="-0.13px"
                   style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}

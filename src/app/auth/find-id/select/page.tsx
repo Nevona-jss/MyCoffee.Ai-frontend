@@ -91,7 +91,7 @@ export default function SelectId() {
       <Header />
 
       {/* Content */}
-      <div className="flex-1 px-4 py-6">
+      <div className="flex-1 p-4">
         <div className="space-y-[14px]">
           {accountData.map((account, index) => (
             <div key={index} className="bg-white rounded-xl p-3 border border-[#E6E6E6]">
@@ -113,7 +113,7 @@ export default function SelectId() {
       </div>
 
       {/* Bottom Button */}
-      <div className="px-4 pb-6">
+      <div className="px-4 pb-10">
         <button
           onClick={() => router.push('/auth/login-select')}
           className="w-full btn-primary"

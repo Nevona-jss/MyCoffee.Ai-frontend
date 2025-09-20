@@ -54,7 +54,7 @@ const UserReviews = () => {
     return (
         <div className="mb-4 bg-background-sub py-3 px-4 pr-0 text-gray-0">
             <div className="flex items-center justify-between mb-3 pr-6">
-                <h2 className="text-base font-bold">모이면 더 맛있는 커피 리뷰</h2>
+                <h2 className="text-base font-bold">내 커피 컬렉션</h2>
                 <svg className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
                     <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -67,15 +67,15 @@ const UserReviews = () => {
             >
                 {userReviews.map((review, index) => (
                     <SwiperSlide key={review?.id}>
-                        <div key={review?.id * index} className="rounded-lg px-3 py-2.5 border-[0.8px] border-[#D9D9D9] text-gray-0">
+                        <div className="rounded-lg px-3 py-2.5 border-[0.8px] border-border-default text-gray-0">
                             {/* User Info */}
                             <div className="flex justify-between mb-2">
                                 <div className="flex items-center gap-[9px]">
                                     <div className="w-[28px] h-[28px] bg-gray-200 rounded-full flex items-center justify-center text-xs">
-                                        {review.avatar}
+                                        <Image src="/images/avatar.png" alt="user" width={40} height={40} className="w-full h-full object-cover rounded-full" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-bold leading-[150%]  mb-0.5">{review.name}</p>
+                                        <p className="text-[10px] font-bold leading-[160%]  mb-0.5">{review.name}</p>
                                         <div className="flex gap-1">
                                             {[1, 2, 3, 4, 5].map((star) => (
                                                 star <= review.rating ? (
@@ -90,29 +90,29 @@ const UserReviews = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <span className="text-[10px] text-[#999] font-normal leading-[150%]">{review.date}</span>
+                                <span className="text-[10px] text-text-secondary font-normal leading-[160%]">{review.date}</span>
                             </div>
 
                             {/* Product Tag */}
                             <div className="mb-1">
-                                <span className="inline-block px-2 py-0.5 bg-[rgba(0,0,0,0.05)] rounded-4xl text-[#999] text-[10px] leading-[150%]">
+                                <span className="inline-block px-2 py-0.5 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-text-secondary text-[10px] leading-[160%]">
                                     {review.product}
                                 </span>
                             </div>
 
                             {/* Comment */}
-                            <p className="text-[10px] mb-2 font-normal leading-[150%]">{review.comment}</p>
+                            <p className="text-[10px] mb-2 font-normal leading-[160%]">{review.comment}</p>
 
                             {/* Images - maksimal 2 ta */}
                             {review.images && review.images.length > 0 && (
                                 <div className="flex gap-2 overflow-hidden">
                                     {review.images.slice(0, 2).map((image, imgIndex) => (
-                                        <div key={imgIndex} className="w-[90px] h-[90px] shrink-0 bg-gray-200 rounded-lg overflow-hidden">
+                                        <div key={imgIndex} className="w-[97px] h-[97px] shrink-0 bg-gray-200 rounded-lg overflow-hidden">
                                             <Image
                                                 src={image}
                                                 alt={`Review image ${imgIndex + 1}`}
-                                                width={200}
-                                                height={10}
+                                                width={97}
+                                                height={97}
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>

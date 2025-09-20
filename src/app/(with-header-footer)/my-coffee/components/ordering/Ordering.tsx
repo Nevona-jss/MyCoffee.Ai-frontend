@@ -7,7 +7,7 @@ import Link from "next/link";
 import ActionSheet from "@/components/ActionSheet";
 import { X } from "lucide-react";
 
-const OrderingComponent = ({ title }: { title: string }) => {
+const OrderingComponent = ({ className, title, isTooltipOpenHave = true, children }: { className?: string, title?: string, isTooltipOpenHave?: boolean, children?: React.ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [orderSelectOption, setOrderSelectOption] = useState(false);
@@ -29,13 +29,22 @@ const OrderingComponent = ({ title }: { title: string }) => {
 
   return (
     <>
-      <div className="relative group block w-full">
-        <button
-          onClick={openModal}
-          className="w-full block text-center btn-primary"
-        >
-          {title}
-        </button>
+      {
+        isTooltipOpenHave && isTooltipOpen ?
+          (<div className="relative group block w-full">
+            {children ? (
+              <div onClick={openModal}>
+                {children}
+              </div>
+            ) : (
+              <button
+                onClick={openModal}
+                className={className || "w-full block text-center btn-primary"}
+              >
+                {title}
+              </button>
+            )}
+
 
         {/* Tooltip - Default holatda ochiq */}
         {isTooltipOpen && (
@@ -48,21 +57,49 @@ const OrderingComponent = ({ title }: { title: string }) => {
               <span className="text-xs font-normal text-white leading-[150%]">
                 첫 구독 결제시 1달 무료
               </span>
+
+            {/* Tooltip - Default holatda ochiq */}
+            {isTooltipOpenHave && isTooltipOpen && (
+              <div
+                id="tooltip-default"
+                role="tooltip"
+                className="absolute -top-[28px] left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-normal text-white leading-[150%]">첫 구독 결제시 1달 무료</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsTooltipOpen(false);
+                    }}
+                    className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-gray-700"
+                    title="Tooltip yopish"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M12 4L4 12" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M4 4L12 12" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="absolute top-full left-[20px] transform w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1C1C1C]"></div>
+              </div>
+            )}
+          </div>) : (
+            children ? (
+              <div className="flex-1" onClick={openModal}>
+                {children}
+              </div>
+            ) : (
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsTooltipOpen(false);
-                }}
-                className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-gray-700"
-                title="Tooltip yopish"
+                onClick={openModal}
+                className={className || "w-full block text-center btn-primary"}
               >
                 <X size={16} className="text-white" />
+                {title}
               </button>
-            </div>
-            <div className="absolute top-full left-[20px] transform w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1C1C1C]"></div>
-          </div>
-        )}
-      </div>
+            )
+          )
+    }
 
       <ActionSheet isOpen={isModalOpen} onClose={closeModal} title="구매하기">
         {/* Option Dropdowns */}

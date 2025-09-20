@@ -8,7 +8,6 @@ export default function RegisterSuccess() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Animation trigger
         setTimeout(() => setIsVisible(true), 100);
     }, []);
 
@@ -17,7 +16,7 @@ export default function RegisterSuccess() {
     };
 
     return (
-        <div className="h-[100dvh] flex flex-col px-4 pb-2">
+        <div className="h-[100dvh] flex flex-col px-4 pb-10">
             {/* Success Content */}
             <div className="flex-1 flex flex-col items-center justify-center my-auto">
                 {/* Success Icon with Animation */}

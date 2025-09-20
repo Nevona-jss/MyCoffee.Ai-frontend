@@ -24,7 +24,7 @@ const TasteAnalysisPage = () => {
   }
 
   return (
-    <div className="px-4 pb-6 pt-[36px]">
+    <div className="px-4 pt-[36px] h-[calc(100dvh-220px)] flex flex-col">
       {/* Main Prompt */}
       <div className="text-center mb-8">
         <h1 className="text-[20px] font-bold text-gray-0">나만의 커피 취향을 찾아볼까요?</h1>
@@ -42,7 +42,7 @@ const TasteAnalysisPage = () => {
             {(() => {
               const centerX = 200;
               const centerY = 200;
-              const maxRadius = 150;
+              const maxRadius = 140;
               let pentagonPath = '';
               for (let i = 0; i < 5; i++) {
                 const angle = (i * 72 - 90) * (Math.PI / 180);
@@ -80,11 +80,11 @@ const TasteAnalysisPage = () => {
               const centerX = 200;
               const centerY = 200;
               // Custom label positioning based on taste
-              let labelRadius = 185;
+              let labelRadius = 175;
               if (taste.key === 'aroma') { // 향 - top
-                labelRadius = 190; // 5px further out
+                labelRadius = 180; // 5px further out
               } else if (taste.key === 'sweetness') { // 단맛 - top right
-                labelRadius = 190; // 5px further out
+                labelRadius = 180; // 5px further out
               }
               
               const angle = (taste.angle - 90) * (Math.PI / 180);
@@ -99,7 +99,7 @@ const TasteAnalysisPage = () => {
                     y={labelY}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    className="text-[14px] font-medium fill-gray-0"
+                    className="text-[17px] font-medium fill-gray-0"
                     style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                   >
                     {taste.label}
@@ -107,10 +107,10 @@ const TasteAnalysisPage = () => {
 
                   {/* Rating badge background */}
                   <rect
-                    x={labelX - 20}
+                    x={labelX - 25}
                     y={labelY + 8}
-                    width="40"
-                    height="22"
+                    width="48"
+                    height="25"
                     rx="8"
                     fill="#FFF"
                     stroke="#E6E6E6"
@@ -119,12 +119,12 @@ const TasteAnalysisPage = () => {
 
                   {/* Rating number - only the number in orange */}
                   <text
-                    x={labelX - 6}
-                    y={labelY + 20}
+                    x={labelX - 10}
+                    y={labelY + 22}
                     textAnchor="middle"
                     dominantBaseline="middle"
                     fill="#FF7939"
-                    fontSize="12"
+                    fontSize="16"
                     fontWeight="400"
                     letterSpacing="-0.13px"
                     style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
@@ -135,11 +135,11 @@ const TasteAnalysisPage = () => {
                   {/* "/5" text in black */}
                   <text
                     x={labelX + 4}
-                    y={labelY + 20}
+                    y={labelY + 22}
                     textAnchor="middle"
                     dominantBaseline="middle"
                     fill="#1A1A1A"
-                    fontSize="12"
+                    fontSize="16"
                     fontWeight="400"
                     letterSpacing="-0.13px"
                     style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
@@ -155,7 +155,7 @@ const TasteAnalysisPage = () => {
       </div>
 
       {/* Action Buttons */}
-      <div className="space-y-2">
+      <div className="space-y-2 mt-auto">
         <button
           onClick={handleStartAnalysis}
           className="block w-full btn-primary text-center"

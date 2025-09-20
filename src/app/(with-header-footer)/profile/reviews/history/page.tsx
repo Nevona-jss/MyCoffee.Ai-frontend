@@ -110,12 +110,12 @@ const ReviewWrite = () => {
             {showWarning && (
                 <div className="bg-[#FFF3CD] rounded-lg py-3 px-4 mb-1">
                     <div className="flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <svg className="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M12 8V12" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M12 16H12.01" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <p className="text-[12px] text-[#F59E0B] leading-[140%]">
+                        <p className="text-[12px] text-[#F59E0B] leading-[150%]">
                             포토 리뷰 작성 시, 확인 후 1000포인트를 드려요!<br /> 작성일로부터 48시간 이내 적립됩니다.
                         </p>
                         <button
@@ -123,8 +123,8 @@ const ReviewWrite = () => {
                             className="flex-shrink-0 cursor-pointer ml-auto"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 6L6 18" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M6 6L18 18" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M18 6L6 18" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M6 6L18 18" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
@@ -255,7 +255,10 @@ const ReviewWrite = () => {
 
                         {/* Action Buttons */}
                         <div className="flex items-center justify-between gap-2">
-                            <button onClick={e => e.preventDefault()} className="flex-1 py-1.5 border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]">
+                            <button 
+                                onClick={e => e.preventDefault()}
+                                className="btn-action"
+                            >
                                 이 추천 커피로 바로 주문하기
                             </button>
 

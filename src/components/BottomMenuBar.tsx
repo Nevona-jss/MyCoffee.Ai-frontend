@@ -53,8 +53,8 @@ const BottomMenuBar = () => {
     };
 
     return (
-        <div className="h-[112px] mt-auto navbar-menu">
-            <div className="h-[112px] fixed bottom-0 w-full sm:max-w-sm  z-10">
+        <div className={`mt-auto navbar-menu ${pathname === '/home' ? 'h-[70px]' : 'h-[112px]'}`}>
+            <div className={` fixed bottom-0 w-full sm:max-w-sm  z-10 ${pathname === '/home' ? 'h-[50px]' : 'h-[112px]'}`}>
                 <div className="bg-[#fff] fixed bottom-0 w-full sm:max-w-sm rounded-t-[6px] px-2 z-10 -mt-4" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
                     <div className="flex items-start justify-center w-full">
                         {/* Home */}

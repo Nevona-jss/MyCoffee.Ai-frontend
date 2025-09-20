@@ -66,7 +66,7 @@ const OtherCoffeeSlider: React.FC = () => {
             >
                 {slides.map((slide) => (
                     <SwiperSlide key={slide.id}>
-                        <div className="bg-white rounded-lg p-4 min-h-[180px] border border-border-default">
+                        <div className="bg-white rounded-lg p-3 min-h-[180px] border border-border-default">
                             {/* Title */}
                             <h3 className="text-xs font-bold text-gray-0 mb-1">{slide.title}</h3>
                             

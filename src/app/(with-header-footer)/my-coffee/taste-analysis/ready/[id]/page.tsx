@@ -68,18 +68,18 @@ const CoffeeAnalysisDetail = () => {
                 <div className="space-y-[26px]">
                     {accordionItems.map((item, index) => (
                         <div key={item.id} className="overflow-hidden">
-                            <div className="pr-8">
+                            <div className="pr-[22px]">
                                 <button
                                     type="button"
                                     onClick={() => toggleItem(item.id)}
                                     className="r-4 flex items-center justify-between w-full py-0 font-medium text-gray-500 rounded-lg transition-colors duration-200 cursor-pointer"
                                 >
-                                    <span className="flex items-center gap-2 text-gray-0 text-base font-bold leading-[125%]">
+                                    <div className="flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path d="M20 6L9 17L4 12" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
-                                        {item.title}
-                                    </span>
+                                        <p className="flex items-center mt-[3px] text-gray-0 text-base font-bold leading-[125%]">{item.title}</p>
+                                    </div>
                                     <svg
                                         className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? 'rotate-180' : ''
                                             }`}
