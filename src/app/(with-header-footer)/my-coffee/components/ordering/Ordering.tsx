@@ -5,13 +5,15 @@ import OrderSelectLabelOption from "./components/orderSelectLabelOption";
 import OrderSelectSubscriptionDeleviryDate from "./components/orderSelectSubscriptionDeleviryDate";
 import Link from "next/link";
 import ActionSheet from "@/components/ActionSheet";
+import { X } from "lucide-react";
 
 const OrderingComponent = ({ title }: { title: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [orderSelectOption, setOrderSelectOption] = useState(false);
   const [orderLabelOption, setOrderLabelOption] = useState(false);
-  const [orderSubscriptionDeleviryDate, setOrderSubscriptionDeleviryDate] = useState(false);
+  const [orderSubscriptionDeleviryDate, setOrderSubscriptionDeleviryDate] =
+    useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -43,7 +45,9 @@ const OrderingComponent = ({ title }: { title: string }) => {
             className="absolute -top-[28px] left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
           >
             <div className="flex items-center gap-2">
-              <span className="text-xs font-normal text-white leading-[150%]">첫 구독 결제시 1달 무료</span>
+              <span className="text-xs font-normal text-white leading-[150%]">
+                첫 구독 결제시 1달 무료
+              </span>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -52,10 +56,7 @@ const OrderingComponent = ({ title }: { title: string }) => {
                 className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-gray-700"
                 title="Tooltip yopish"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M12 4L4 12" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M4 4L12 12" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <X size={16} className="text-white" />
               </button>
             </div>
             <div className="absolute top-full left-[20px] transform w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1C1C1C]"></div>
@@ -63,11 +64,7 @@ const OrderingComponent = ({ title }: { title: string }) => {
         )}
       </div>
 
-      <ActionSheet
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        title="내 커피 이름"
-      >
+      <ActionSheet isOpen={isModalOpen} onClose={closeModal} title="구매하기">
         {/* Option Dropdowns */}
         <div className="space-y-3 mb-6 mt-4">
           <div className="relative">
@@ -75,7 +72,7 @@ const OrderingComponent = ({ title }: { title: string }) => {
               onClick={() => setOrderSelectOption(true)}
               className="w-full h-[40px] leading-[40px] text-xs text-text-secondary pl-4 pr-2 border border-border-default rounded-lg bg-white"
             >
-              옵션을 선택해주세요.
+              옵션(필수)
             </p>
             <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
               {/* this svg size should be 8px 4px  */}
@@ -96,7 +93,7 @@ const OrderingComponent = ({ title }: { title: string }) => {
             </div>
           </div>
 
-          <div className="relative">
+          {/* <div className="relative">
             <p
               onClick={() => setOrderLabelOption(true)}
               className="w-full h-[40px] leading-[40px] text-xs text-text-secondary pl-4 pr-2 border border-border-default rounded-lg appearance-none bg-white"
@@ -119,7 +116,7 @@ const OrderingComponent = ({ title }: { title: string }) => {
                 />
               </svg>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Selected Item Display */}
@@ -128,7 +125,7 @@ const OrderingComponent = ({ title }: { title: string }) => {
             <p className="font-bold text-xs leading-[18px]">
               나만의 커피 1호기/클래식 하모니 블랜드
             </p>
-            <button onClick={() => { }}>
+            <button onClick={() => {}}>
               <svg
                 width="16"
                 height="16"
@@ -218,7 +215,10 @@ const OrderingComponent = ({ title }: { title: string }) => {
         {/* Action Buttons */}
         <div className="flex space-x-2">
           <div className="relative group flex-1">
-            <button onClick={() => setOrderSubscriptionDeleviryDate(true)} className="w-full py-3 border border-gradient-primary rounded-lg font-bold leading-[24px] color-[#4E2A18] ">
+            <button
+              onClick={() => setOrderSubscriptionDeleviryDate(true)}
+              className="w-full py-3 border border-gradient-primary rounded-lg font-bold leading-[24px] color-[#4E2A18] "
+            >
               정기구독
             </button>
 
@@ -253,7 +253,10 @@ const OrderingComponent = ({ title }: { title: string }) => {
             )}
           </div>
 
-          <Link href={"/purchase-individual-item"} className="flex-1 inline-block text-center py-3 border border-transparent bg-linear-gradient text-white rounded-lg font-bold leading-[24px]">
+          <Link
+            href={"/purchase-individual-item"}
+            className="flex-1 inline-block text-center py-3 border border-transparent bg-linear-gradient text-white rounded-lg font-bold leading-[24px]"
+          >
             단품 구매
           </Link>
         </div>

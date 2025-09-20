@@ -36,7 +36,7 @@ const Ordering = () => {
         <ActionSheet
           isOpen={isModalOpen}
           onClose={closeModal}
-          title="내 커피 이름"
+          title="구매하기"
         >
           {/* Option Dropdowns */}
           <div className="space-y-3 mb-6 mt-4">

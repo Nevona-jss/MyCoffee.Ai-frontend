@@ -20,8 +20,7 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
   const isButtonsDisabled =
     caffeineIntensity === "" ||
     grindLevel === "" ||
-    packaging === "" ||
-    weight === "";
+    packaging === ""
 
   const handleComplete = () => {
     // Handle selection completion
@@ -30,7 +29,7 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
 
   return (
     <>
-      <ActionSheet isOpen={isOpen} onClose={onClose} title="내 커피 이름">
+      <ActionSheet isOpen={isOpen} onClose={onClose} title="옵션선택">
         <div className="space-y-4 mt-4">
           {/* 카페인 강도 (Caffeine Intensity) */}
           <div>
