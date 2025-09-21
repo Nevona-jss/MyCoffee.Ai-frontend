@@ -163,7 +163,7 @@ const TasteAnalysisPage = () => {
           취향 분석 시작
         </button>
         
-        <Link href={'/my-coffee/taste-analysis/ready'} className="block w-full btn-primary-empty !py-2.5 bg-white border-2 border-[#4E2A18] text-[#4E2A18] text-center">
+        <Link href={'/my-coffee/taste-analysis/ready'} className="block w-full rounded-lg font-bold !py-2.5 border-1 border-[#4E2A18] text-[#4E2A18] text-center">
           지난 커피 분석 보기
         </Link>
       </div>

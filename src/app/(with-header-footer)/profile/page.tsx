@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ChevronRight,
   Truck,
@@ -9,8 +9,22 @@ import {
   BadgeAlert,
 } from "lucide-react";
 import Link from "next/link";
+import { useHeaderStore } from "@/stores/header-store";
 
 const MyPage = () => {
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "마이페이지",
+      showBackButton: false,
+      showSettingsButton: true,
+    });
+  }, []);
+
+
+
   return (
     <div className="bg-background p-4">
       {/* User Information Card */}
@@ -79,7 +93,7 @@ const MyPage = () => {
       {/* Management List */}
       <div className="bg-white rounded-2xl border border-border-default p-3">
         {/* Payment Method Management */}
-        <div className="flex items-center justify-between py-1.5">
+        <Link href="#" className="flex items-center justify-between py-1.5">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <img src="/icons/wallet.svg" alt="wallet" className="w-5 h-5" />
@@ -89,10 +103,10 @@ const MyPage = () => {
             </span>
           </div>
           <ChevronRight size={20} className="text-icon-default" />
-        </div>
+        </Link>
 
         {/* Delivery Address Management */}
-        <div className="flex items-center justify-between py-1.5">
+        <Link href="/delivery-address-management" className="flex items-center justify-between py-1.5">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <MapPinHouse size={20} className="text-action-primary" />
@@ -102,7 +116,7 @@ const MyPage = () => {
             </span>
           </div>
           <ChevronRight size={20} className="text-icon-default" />
-        </div>
+        </Link>
 
         {/* My Reviews */}
         <div className="flex items-center justify-between py-1.5">
@@ -116,7 +130,7 @@ const MyPage = () => {
         </div>
 
         {/* My Inquiries */}
-        <div className="flex items-center justify-between py-1.5">
+        <Link href="/inquiries" className="flex items-center justify-between py-1.5">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <BadgeAlert size={20} className="text-action-primary" />
@@ -124,7 +138,7 @@ const MyPage = () => {
             <span className="text-sm leading-[20px] font-bold">내 문의</span>
           </div>
           <ChevronRight size={20} className="text-icon-default" />
-        </div>
+        </Link>
       </div>
     </div>
   );

@@ -1,10 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ActionSheet from "@/components/ActionSheet";
+import { useHeaderStore } from "@/stores/header-store";
 
 const MembershipWithdraw = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "회원탈퇴",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
 
   const handleWithdraw = () => {
     if (isAgreed) {
@@ -14,7 +25,7 @@ const MembershipWithdraw = () => {
 
   return (
     <>
-      <div className="bg-background p-4 flex flex-col justify-between h-full">
+      <div className="bg-background p-4 pb-2 flex flex-col justify-between">
         {/* Warning Section */}
         <div className="border border-border-default rounded-2xl p-3 bg-white">
           <h2 className="text-base leading-[20px] font-bold mb-3">
@@ -59,7 +70,7 @@ const MembershipWithdraw = () => {
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
       >
-        <div className="pb-6 pt-2">
+        <div className="">
           <p className="mb-2 text-center text-base leading-[20px] font-bold">
             회원탈퇴가 완료되었습니다.
           </p>

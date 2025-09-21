@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
-import Link from "next/link"; 
+import Link from "next/link";
 import { useHeaderStore } from "@/stores/header-store";
-const PurchaseIndividualItem = () => {
+const PurchaseSubscription = () => {
   const { setHeader } = useHeaderStore();
   const [quantity, setQuantity] = useState(1);
   const [pointUsage, setPointUsage] = useState(0);
@@ -20,6 +20,7 @@ const PurchaseIndividualItem = () => {
     pointUsage: true,
     paymentMethod: false,
     finalAmount: true,
+    subscriptionInfo: true,
   });
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const PurchaseIndividualItem = () => {
 
   return (
     <>
-      <div className="bg-background min-h-screen p-4 pb-14">
+      <div className="bg-background p-4 pb-2 flex flex-col justify-between">
         <div className="space-y-4 ">
           {/* 주문 정보 (Order Information) */}
           <div className="bg-white rounded-lg p-3 border border-border-default">
@@ -150,6 +151,40 @@ const PurchaseIndividualItem = () => {
                     {productPrice.toLocaleString()}원
                   </div>
                 </div>
+              </div>
+            )}
+          </div>
+
+          {/* 구독 정보 ( Subscription Information) */}
+          <div className="bg-white rounded-lg p-3 border border-border-default">
+            <div
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => toggleSection("subscriptionInfo")}
+            >
+              <h2 className="text-sm leading-[20px] font-bold">구독 정보</h2>
+              {expandedSections.subscriptionInfo ? (
+                <ChevronUp size={24} className="text-icon-default" />
+              ) : (
+                <ChevronDown size={24} className="text-icon-default" />
+              )}
+            </div>
+
+            {expandedSections.subscriptionInfo && (
+              <div className="mt-2">
+                <ul className="space-y-2 text-xs leading-[18px]">
+                  <li className="flex justify-between items-center">
+                    <span className="font-normal">첫 배송 희망일</span>
+                    <span className="font-bold">9월 3일(수)</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="font-normal">1회차 결제일</span>
+                    <span className="font-bold">9월 1일(월)</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="font-normal">이용 횟수</span>
+                    <span className="font-bold">총 4회</span>
+                  </li>
+                </ul>
               </div>
             )}
           </div>
@@ -303,7 +338,7 @@ const PurchaseIndividualItem = () => {
                   onChange={() => handleAgreementChange("all")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-sm leading-[22px] font-normal ">
+                <span className="text-xs leading-[18px] font-normal ">
                   구매조건/약관 및 개인정보 이용 전체 동의
                 </span>
               </label>
@@ -315,7 +350,7 @@ const PurchaseIndividualItem = () => {
                   onChange={() => handleAgreementChange("personalInfo")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-sm leading-[22px] font-normal ">
+                <span className="text-xs leading-[18px] font-normal ">
                   개인정보 수집 및 이용 동의 (필수)
                 </span>
                 <ChevronRight size={20} className="ml-auto text-icon-default" />
@@ -328,7 +363,7 @@ const PurchaseIndividualItem = () => {
                   onChange={() => handleAgreementChange("terms")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-sm leading-[22px] font-normal ">
+                <span className="text-xs leading-[18px] font-normal ">
                   이용약관 동의 (필수)
                 </span>
                 <ChevronRight size={20} className="ml-auto text-icon-default" />
@@ -341,7 +376,7 @@ const PurchaseIndividualItem = () => {
                   onChange={() => handleAgreementChange("marketing")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-sm leading-[22px] font-normal ">
+                <span className="text-xs leading-[18px] font-normal ">
                   개인정보 마케팅 활용 동의 (선택)
                 </span>
                 <ChevronRight size={20} className="ml-auto text-icon-default" />
@@ -349,14 +384,7 @@ const PurchaseIndividualItem = () => {
             </div>
           </div>
         </div>
-
-        {/* 주문하기 버튼 (Order Button) */}
-
-        {/* shu elementni */}
-
         <div className="pt-4 w-full ">
-          {/* <div className="fixed left-[50%] translate-x-[-50%] pb-4 pt-4 px-4 bottom-0 w-full max-w-sm bg-background"> */}
-          {/* if chekcbox not clicked then button will be disabled */}
           {agreements.all ||
           agreements.personalInfo ||
           agreements.terms ||
@@ -380,4 +408,4 @@ const PurchaseIndividualItem = () => {
   );
 };
 
-export default PurchaseIndividualItem;
+export default PurchaseSubscription;

@@ -1,6 +1,20 @@
-import React from "react";
+"use client";
+import { useHeaderStore } from "@/stores/header-store";
+import React, { useEffect } from "react";
 
 const EventDetail = () => {
+
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "리뷰",
+      showBackButton: true,
+    });
+  }, []);
+
+
   const event = {
     id: 1,
     product: "커피 스토리 1",

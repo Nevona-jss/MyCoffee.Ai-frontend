@@ -1,7 +1,8 @@
 "use client";
 import ActionSheet from "@/components/ActionSheet";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useHeaderStore } from "@/stores/header-store";
 const Bullet = () => (
   <span className="inline-block w-1 h-1  bg-gray-0 rounded-full mr-2 ml-1 translate-y-[-2px]" />
 );
@@ -9,12 +10,22 @@ const Bullet = () => (
 const MarketingPermission = () => {
   const [isAgreed, setIsAgreed] = useState(false);
 
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "개인정보 마케팅 활용 동의",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
+
   const handleAgree = () => {
     setIsAgreed(true);
   };
 
   return (
-    <div className="bg-background p-4 pb-8 h-full flex flex-col justify-between">
+    <div className="bg-background p-4 pb-10 h-full flex flex-col justify-between">
       <div className="bg-white rounded-2xl border border-border-default p-3">
         {/* Title */}
         <h1 className="text-base leading-[20px] font-bold text-gray-0 mb-4">
@@ -81,7 +92,7 @@ const MarketingPermission = () => {
 
       {/* Agree Modal Action sheet*/}
       <ActionSheet isOpen={isAgreed} onClose={() => setIsAgreed(false)}>
-        <div className="pb-6">
+        <div className="">
           <p className="text-base leading-[20px] font-bold text-center">
             개인정보 마케팅 활용 동의 안내
           </p>

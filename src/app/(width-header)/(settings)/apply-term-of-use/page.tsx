@@ -1,7 +1,21 @@
+"use client";
 import { ChevronRight } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useHeaderStore } from "@/stores/header-store";
 const ApplyTermOfUse = () => {
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "약관 및 개인정보 처리 동의",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
+
+
   return (
     <div className="p-4">
       <div className="bg-white rounded-2xl border border-border-default p-3">

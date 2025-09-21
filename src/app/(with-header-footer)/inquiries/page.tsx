@@ -41,8 +41,9 @@ const Inquiries = () => {
 
   useEffect(() => {
     setHeader({
-      title: "포인트 이용내역",
+      title: "내 문의",
       showBackButton: true,
+      showSettingsButton: false,
     });
   }, [setHeader]);
 
@@ -81,7 +82,7 @@ const Inquiries = () => {
   ];
 
   return (
-    <div className="bg-background p-4">
+    <div className="bg-background p-4 pb-2">
       {/* Tab Buttons */}
       <div className="flex items-center gap-2 mb-4">
         {tabs.map((tab) => (
