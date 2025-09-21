@@ -55,40 +55,39 @@ const BottomMenuBar = () => {
     return (
         <div className={`mt-auto navbar-menu ${pathname === '/home' ? 'h-[70px]' : 'h-[112px]'}`}>
             <div className={` fixed bottom-0 w-full sm:max-w-sm  z-10 ${pathname === '/home' ? 'h-[50px]' : 'h-[112px]'}`}>
-                <div className="bg-[#fff] fixed bottom-0 w-full sm:max-w-sm rounded-t-[6px] px-2 z-10 -mt-4" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
-                    <div className="flex items-start justify-center w-full">
+                <div className="bg-[#fff] fixed bottom-0 w-full sm:max-w-sm rounded-t-[6px] px-[2] z-10 -mt-4" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
+                    <div className="flex items-start justify-center w-full px-[22px]">
                         {/* Home */}
-                        <Link href="/home" className={`navbar-menu-item px-4 py-[12.5px] flex flex-col items-center cursor-pointer mr-2 ${isActive('/home') ? 'active' : ''}`}>
+                        <Link href="/home" className={`navbar-menu-item w-[70px] px-4 py-[12.5px] flex flex-col items-center cursor-pointer mr-2 ${isActive('/home') ? 'active' : ''}`}>
                             {homeIcon(isActive('/home') ? "#4E2A18" : "#B3B3B3")}
-                            <span className={`navbar-menu-text !text-[12px] mt-2 text-[#B3B3B3]`}>홈</span>
+                            <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#B3B3B3]`}>홈</span>
                         </Link>
 
                         {/* edit */}
-                        <Link href="/review" className={`navbar-menu-item pl-4 pr-2 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/review') ? 'active' : ''}`}>
+                        <Link href="/review" className={`navbar-menu-item w-[70px] pl-4 pr-0 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/review') ? 'active' : ''}`}>
                             {editIcon(isActive('/review') ? "#4E2A18" : "#B3B3B3")}
-                            <span className={`navbar-menu-text !text-[12px] mt-2 text-[#B3B3B3]`}>리뷰</span>
+                            <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#B3B3B3]`}>리뷰</span>
                         </Link>
-
-                        <Link href="/my-coffee" className='navbar-menu-main-item-wrapper relative shrink-0 flex-col items-center justify-center -translate-y-[36%] rounded-full' style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
+                        <Link href="/my-coffee" className='navbar-menu-main-item-wrapper w-[64px] relative flex-shrink-0 flex-col items-center justify-center -translate-y-[36%] rounded-full' style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
                             <div className="navbar-menu-main-item absolute cursor-pointer flex flex-col items-center justify-center bg-action-primary rounded-full w-[64px] h-[64px]" style={{ boxShadow: "0 4px 12px 0 rgba(78,42,24,0.50)" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
                                     <path d="M10.8735 5.84853C10.6702 5.39222 10.4944 4.68897 11.412 4.26488C12.2142 3.8891 13.3462 3.76562 14.533 3.76562C16.0386 3.78173 17.5771 4.13604 19.0607 4.80171C20.5443 5.46738 21.9454 6.43367 23.1817 7.64154C24.4181 8.84941 25.4676 10.2827 26.2698 11.8557C27.072 13.4286 27.6105 15.1089 27.8523 16.7999C28.094 18.4909 28.0391 20.1658 27.6874 21.7226C27.3358 23.2794 26.6599 24.6215 25.8027 25.8777C25.3302 26.5058 24.7862 27.0694 24.1873 27.5472C23.3081 28.2505 22.2147 28.1216 21.6542 26.9997L16.3848 16.6603L10.8735 5.84853Z" fill="white" />
                                     <path d="M17.2419 22.4851C17.5056 23.0058 17.5551 23.4138 16.7144 23.8218C15.7418 24.2888 14.5989 24.3479 13.467 24.3371C11.9614 24.321 10.4229 23.9667 8.93933 23.301C7.45575 22.6354 6.05459 21.6691 4.81827 20.4612C3.58196 19.2533 2.53246 17.82 1.73023 16.2471C0.928 14.6742 0.389516 12.9939 0.147747 11.3029C-0.0940211 9.61186 -0.0390737 7.93695 0.31259 6.38014C0.664253 4.82333 1.30164 3.41146 2.19728 2.22507C2.71928 1.53256 3.31821 0.925939 3.98857 0.41595C4.78531 -0.190669 5.70842 -0.212142 6.24141 0.904466L11.6098 11.4424L17.2364 22.4904L17.2419 22.4851Z" fill="white" />
                                 </svg>
-                                <span className="!text-[12px] text-[#fff] mt-0.5">내 커피</span>
+                                <span className="!text-[12px] text-[#fff] mt-0.5 leading-[18px]">내 커피</span>
                             </div>
                         </Link>
 
                         {/* globus */}
-                        <Link href="/community" className={`navbar-menu-item pl-2 pr-4 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/community') ? 'active' : ''}`}>
+                        <Link href="/community" className={`navbar-menu-item w-[70px] pl-0 pr-4 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/community') ? 'active' : ''}`}>
                             {globalIcon(isActive('/community') ? "#4E2A18" : "#B3B3B3")}
-                            <span className={`navbar-menu-text !text-[12px] mt-2 text-[#B3B3B3]`}>커뮤니티</span>
+                            <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#B3B3B3]`}>커뮤니티</span>
                         </Link>
 
                         {/* Profile */}
-                        <Link href="/profile" className={`navbar-menu-item px-4 py-[12.5px] flex flex-col items-center cursor-pointer ml-2 ${isActive('/profile') ? 'active' : ''}`}>
+                        <Link href="/profile" className={`navbar-menu-item w-[70px] px-4 py-[12.5px] flex flex-col items-center cursor-pointer ml-2 ${isActive('/profile') ? 'active' : ''}`}>
                             {profileIcon(isActive('/profile') ? "#4E2A18" : "#B3B3B3")}
-                            <span className={`navbar-menu-text !text-[12px] mt-2 text-[#B3B3B3]`}>MY</span>
+                            <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#B3B3B3]`}>MY</span>
                         </Link>
                     </div>
                 </div>

@@ -99,6 +99,7 @@ export default function DatePicker({
         <input
           type="date"
           id={id}
+          lang="ko"
           ref={inputRef}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 text-gray-0 focus:ring-[#FF7939] focus:border-[#FF7939] placeholder:font-normal font-bold"
           value={value}
@@ -111,6 +112,7 @@ export default function DatePicker({
         {/* Visible text input */}
         <input
           type="text"
+          lang="ko"
           className={`bg-gray-50 border text-gray-0 text-[12px] rounded-lg focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pr-10 py-2.5 px-4 cursor-pointer placeholder:font-normal font-bold ${
             error 
               ? 'border-[#EF4444]' 
