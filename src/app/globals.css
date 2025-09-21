@@ -153,9 +153,6 @@
   line-height: 150%;
   cursor: pointer;
   transition: all 0.5s ease;
-  background: #e6e6e6;
-  color: #9ca3af;
-  cursor: not-allowed;
 }
 
 /* .btn-primary:hover {

@@ -112,14 +112,14 @@ export default function Login() {
         </button>
 
         {/* Account Management Links */}
-        <div className="flex justify-center items-center mt-4 space-x-2 text-sm">
-          <Link href="/auth/find-id" className="text-gray-0 py-[6px] px-[14px]">
+        <div className="flex justify-center items-center mt-4 space-x-2 text-xs">
+          <Link href="/auth/find-id" className="text-gray-0 py-[6px] px-[14px] leading-[18px] font-normal">
             아이디 찾기
           </Link>
-          <Link href="/auth/forgot-password" className="text-gray-0 py-[6px] px-[14px]">
+          <Link href="/auth/forgot-password" className="text-gray-0 py-[6px] px-[14px] leading-[18px] font-normal">
             비밀번호 찾기
           </Link>
-          <Link href="/auth/register" className="text-gray-0 py-[6px] px-[14px]">
+          <Link href="/auth/register" className="text-gray-0 py-[6px] px-[14px] leading-[18px] font-normal">
             회원가입
           </Link>
         </div>
