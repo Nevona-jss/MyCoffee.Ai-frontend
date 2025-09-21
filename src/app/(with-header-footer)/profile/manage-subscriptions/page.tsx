@@ -1,10 +1,20 @@
 "use client";
 
+import { useHeaderStore } from "@/stores/header-store";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageSubscriptions = () => {
     const [activeTag, setActiveTag] = useState("전체");
+
+    const { setHeader } = useHeaderStore();
+
+    useEffect(() => {
+      setHeader({
+        title: "구독 관리"
+      });
+    }, []);
+
     const tags = [
         { id: "전체", label: "전체" },
         { id: "구독", label: "구독" },
@@ -80,7 +90,7 @@ const ManageSubscriptions = () => {
                     <button
                         key={tag.id}
                         onClick={() => setActiveTag(tag.id)}
-                        className={`px-[9px] py-[3px] cursor-pointer rounded-sm text-sm leading-[142%] font-bold transition-all duration-200 whitespace-nowrap ${activeTag === tag.id
+                        className={`px-[9px] py-[3px] cursor-pointer rounded-sm text-sm leading-[20px] font-bold transition-all duration-200 whitespace-nowrap ${activeTag === tag.id
                             ? "bg-linear-gradient text-white border border-action-primary"
                             : "bg-white text-action-primary border border-action-primary"
                             }`}
@@ -159,7 +169,7 @@ const ManageSubscriptions = () => {
                         </div>
 
                         {/* Action buttons */}
-                        <div className="flex items-center justify-between gap-2 mb-4">
+                        <div className="flex items-center justify-between gap-2">
                             {item.buttons.map((buttonText, index) => (
                                 <Link
                                     key={index}

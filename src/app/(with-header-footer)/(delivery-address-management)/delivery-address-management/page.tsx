@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import ActionSheet from "@/components/ActionSheet";
 import { useRouter } from "next/navigation";
+import { useHeaderStore } from "@/stores/header-store";
 
 const delevireAddresses = [
   {
@@ -69,6 +70,15 @@ const delevireAddresses = [
 const DeliveryAddressManagement = () => {
   const [readyModalIsOpen, setReadyModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
+  const { setHeader } = useHeaderStore();
+  useEffect(() => {
+    setHeader({
+      title: "배송지 관리",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
 
   const router = useRouter();
 
@@ -140,7 +150,7 @@ const DeliveryAddressManagement = () => {
         isOpen={readyModalIsOpen}
         onClose={() => setReadyModalIsOpen(false)}
       >
-        <div className="pb-6 pt-2">
+        <div>
           <button
             onClick={navigateToEditDelivery}
             className={`inline-block mb-2 text-center w-full mt-auto py-3 rounded-lg font-bold leading-[24px] bg-linear-gradient text-white`}
@@ -161,7 +171,7 @@ const DeliveryAddressManagement = () => {
         isOpen={deleteModalIsOpen}
         onClose={() => setDeleteModalIsOpen(false)}
       >
-        <div className="pb-6 pt-2">
+        <div>
           <p className="mb-6 text-center text-base leading-[20px] font-bold">
             배송지를 삭제하시겠습니까?
           </p>

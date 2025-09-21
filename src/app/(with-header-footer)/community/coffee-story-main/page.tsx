@@ -1,7 +1,17 @@
+"use client";
+import { useHeaderStore } from "@/stores/header-store";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 const CoffeStoryMain = () => {
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "리뷰",
+      showBackButton: false,
+    });
+  }, []);
   const coffeeStries = [
     {
       id: 1,
@@ -31,12 +41,15 @@ const CoffeStoryMain = () => {
             className="bg-white rounded-lg p-3 border border-border-default"
           >
             {/* Review Image */}
+
             <div className="mb-3 rounded-lg overflow-hidden">
-              <img
-                src={story.image}
-                alt="Coffee review"
-                className="w-full h-90 max-h-[350px] object-cover rounded-lg"
-              />
+              <Link href={`/community/coffee-story-main/${story.id}`}>
+                <img
+                  src={story.image}
+                  alt="Coffee review"
+                  className="w-full h-90 max-h-[350px] object-cover rounded-lg"
+                />
+              </Link>
             </div>
 
             {/* Title*/}

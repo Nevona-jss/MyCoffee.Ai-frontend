@@ -7,10 +7,9 @@ import Footer from '@/components/Footer';
 
 export default function HomePage() {
 
-
     return (
         <div className="bg-background">
-            <div className="py-[18px] flex justify-center">
+            <div className="py-[18px] flex justify-center bg-white">
                 <Image
                     src="/images/logo.svg"
                     alt="My Coffee.Ai"

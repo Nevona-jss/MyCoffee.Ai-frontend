@@ -150,13 +150,11 @@ export default function Register() {
     }
   };
 
-
-
   return (
-    <div className="h-max">
+    <div className="">
       <Header />
       {/* Register Form */}
-      <div className="py-6 px-4 text-gray-0">
+      <div className="p-4 pb-10 text-gray-0">
         {/* Email Input */}
 
         <div className="mb-4">
@@ -211,7 +209,7 @@ export default function Register() {
             type="text"
             id="name"
             className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full px-4 py-2.5"
-            placeholder="이름을 입력해주세요."
+            placeholder="비밀번호를 입력해주세요."
             defaultValue=""
             onChange={(e) => handleInputChange('name', e.target.value)}
             required
@@ -227,6 +225,7 @@ export default function Register() {
           value={formData.birthDate}
           onChange={(value) => handleInputChange('birthDate', value)}
           error={errors.birthDate}
+          placeholder="년도 / 월 / 일"
           required
         />
 
@@ -269,7 +268,7 @@ export default function Register() {
                 type="tel"
                 id="phone"
                 className="w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
-                placeholder="휴대폰 번호를 입력해주세요"
+                placeholder="휴대폰 번호를 입력해주세요."
                 onChange={(e) => {
                   const button = document.getElementById('phoneButton') as HTMLButtonElement;
                   if (e.target.value.trim() === '') {
@@ -284,7 +283,7 @@ export default function Register() {
             <button
               type="button"
               id="phoneButton"
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold hover:bg-[#532E19] cursor-pointer hover:text-white transition-colors disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
+              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
               disabled
             >
               인증 요청
@@ -302,7 +301,7 @@ export default function Register() {
               type="text"
               id="verificationCode"
               className="flex-1 bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
-              placeholder="인증 번호를 입력해주세요."
+              placeholder="인증 번호를 입력하세요."
               onChange={(e) => {
                 const button = document.getElementById('verifyButton') as HTMLButtonElement;
                 if (e.target.value.trim() === '') {
@@ -316,7 +315,7 @@ export default function Register() {
             <button
               type="button"
               id="verifyButton"
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold hover:bg-[#532E19] cursor-pointer hover:text-white transition-colors disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
+              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
               disabled
             >
               인증 요청
@@ -410,7 +409,7 @@ export default function Register() {
 
         {/* Register Button */}
         <button
-          className={`w-full font-medium transition-colors ${isAllAgreed ? 'btn-primary' : 'btn-primary-empty bg-[#E6E6E6] text-[#9CA3AF] hover:bg-[#E6E6E6] !cursor-not-allowed'}`}
+          className={`w-full btn-primary`}
           disabled={!isAllAgreed}
           onClick={handleRegister}
         >

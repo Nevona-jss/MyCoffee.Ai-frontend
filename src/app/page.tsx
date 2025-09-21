@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       {/* Main Content */}
-      <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-15">
+      <div className="h-[100dvh] flex-1 flex flex-col justify-center items-center px-4 pb-10">
         {/* Logo and Title */}
         <div className="my-auto text-center">  
           <Image

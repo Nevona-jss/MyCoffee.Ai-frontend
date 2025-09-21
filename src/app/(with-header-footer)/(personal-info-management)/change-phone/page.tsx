@@ -1,13 +1,24 @@
 "use client";
 import ActionSheet from "@/components/ActionSheet";
+import { useHeaderStore } from "@/stores/header-store";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ChangePhone = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otpNumber, setOtpNumber] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "휴대폰변경",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
 
   const handleSendOtp = () => {
     console.log("send otp");
@@ -20,8 +31,10 @@ const ChangePhone = () => {
     setShowModal(true);
   };
 
+
+
   return (
-    <div className="bg-background p-4 pt-6 pb-2 flex flex-col justify-between h-full">
+    <div className="bg-background p-4 pt-6 pb-2 flex flex-col justify-between ">
       <div className="">
         <div className="mb-4">
           <label className="block text-sm leading-[20px] font-bold text-gray-0 mb-2">
@@ -82,7 +95,7 @@ const ChangePhone = () => {
 
       {/* Show modal action sheet */}
       <ActionSheet isOpen={showModal} onClose={() => setShowModal(false)}>
-        <div className="pb-6 pt-2">
+        <div>
           <p className="mb-6 text-center text-base leading-[20px] font-bold">
             변경이 완료 되었습니다.
           </p>

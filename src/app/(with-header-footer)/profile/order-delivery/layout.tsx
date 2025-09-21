@@ -12,7 +12,10 @@ export default function MyCoffeeLayout({
 
   useEffect(() => {
     setHeader({
-      title: "주문/배송 조회"
+      title: "주문/배송 조회",
+      showBackButton: true,
+      showSettingsButton: false,
+
     });
   }, []);
 

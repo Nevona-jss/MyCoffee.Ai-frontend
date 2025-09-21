@@ -15,7 +15,7 @@ const SuccessFinish = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background  p-4 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-background  p-4 pb-10 flex flex-col items-center justify-center">
       {/* Success Icon */}
       <svg
         className="mb-9"
@@ -42,7 +42,7 @@ const SuccessFinish = () => {
       </div>
 
       {/* Action Buttons */}
-      <div className="w-full max-w-sm space-y-3 absolute bottom-0 p-4">
+      <div className="w-full max-w-sm space-y-3 absolute bottom-10 p-4">
         {/* Main Home Button */}
         <button
           onClick={handleMainHome}

@@ -1,8 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ActionSheet from "@/components/ActionSheet";
+import { useHeaderStore } from "@/stores/header-store";
+import Link from "next/link";
 
 const PersonalInfoManagement = () => {
   const [name, setName] = useState("");
@@ -13,6 +15,15 @@ const PersonalInfoManagement = () => {
   const [showLogOutModal, setShowLogOutModal] = useState(false);
 
   const router = useRouter();
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "개인정보관리",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
 
   const handleChangePhone = () => {
     router.push("/change-phone");
@@ -118,10 +129,10 @@ const PersonalInfoManagement = () => {
             <span className="text-xs leading-[18px] text-gray-0">로그아웃</span>
             <ChevronRight size={20} className="text-icon-default" />
           </button>
-          <button className="w-full flex items-center justify-between py-1.5 px-2">
+          <Link href="membership-withdraw" className="w-full flex items-center justify-between py-1.5 px-2">
             <span className="text-xs leading-[18px] text-gray-0">회원탈퇴</span>
             <ChevronRight size={20} className="text-icon-default" />
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -130,7 +141,7 @@ const PersonalInfoManagement = () => {
         isOpen={showLogOutModal}
         onClose={() => setShowLogOutModal(false)}
       >
-        <div className="pb-6 pt-2">
+        <div className="">
           <p className="mb-6 text-center text-base leading-[20px] font-bold">
             로그아웃 하시겠습니까?
           </p>

@@ -1,4 +1,6 @@
+import OrderingComponent from "@/app/(with-header-footer)/my-coffee/components/ordering/Ordering";
 import ActionSheet from "@/components/ActionSheet";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -64,31 +66,27 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                     <span className="text-sm font-bold leading-[142%]">{data.price}원</span>
                 </div>
 
-
+                {/* <OrderingComponent title={"주문하기"} /> */}
                 {/* Action buttons */}
-
                 {
                     data?.status === "배송 완료" && data?.type === "단품" ? (
                         <div className="flex items-center justify-between gap-2 mb-4">
+                            <OrderingComponent title={"주문하기"} isTooltipOpenHave={false}>
+                                <button
+                                    className="w-full cursor-pointer py-[5px] border border-action-primary text-center text-action-primary rounded-sm font-bold text-sm leading-[20px]"
+                                >
+                                    다시 구매하기
+                                </button>
+                            </OrderingComponent>
                             <Link
-                                href={`/my-coffee/collection/${data.id}`}
-                                className="flex-1 py-[5px] border border-action-primary text-center text-action-primary rounded-sm font-bold text-sm leading-[20px]"
-                            >
-                                다시 구매하기
-                            </Link>
-                            <Link
-                                href={`/my-coffee/collection/${data.id}`}
+                                href={`#`}
                                 className="flex-1 py-[5px] border border-action-primary text-center text-action-primary rounded-sm font-bold text-sm leading-[20px]"
                             >
                                 배송 조회
                             </Link>
 
                             <button onClick={() => openRequestModal(true)} className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M3.3335 4.1665H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M3.3335 10H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M3.3335 15.8335H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <Menu className="size-5 text-action-primary" />
                             </button>
                         </div>
                     ) : ""
@@ -115,8 +113,12 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                 }
                 <div className="flex items-center justify-between gap-2">
                     <Link
-                        href={`/my-coffee/collection/${data.id}`}
-                        className="flex-1 py-[5px] border border-action-primary text-center bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]"
+                        href={
+                            (data?.status === "배송 완료" && data?.type === "단품") ?`/profile/reviews/write-review`
+                                : (data?.status === "배송 완료" && data?.type === "구독") ? `/profile/reviews/history`
+                                    : data?.type === '구독' ? `/profile/reviews/history` : `/profile/reviews/history`
+                        }
+                        className="btn-action text-center"
                     >
                         {
                             (data?.status === "배송 완료" && data?.type === "단품") ? "리뷰 작성"
@@ -127,11 +129,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                     {
                         !(data?.status === "배송 완료" && data?.type === "단품") && !(data?.status === "배송 완료" && data?.type === "구독") && (
                             <button onClick={() => openRequestModal(false)} className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M3.3335 4.1665H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M3.3335 10H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M3.3335 15.8335H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <Menu className="size-5 text-action-primary" />
                             </button>
                         )
                     }

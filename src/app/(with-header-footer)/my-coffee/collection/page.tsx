@@ -134,7 +134,7 @@ const CollectionPage = () => {
               <div className="flex items-center justify-between gap-2">
                 <Link
                   href={`/my-coffee/collection/${analysis.id}`}
-                  className="flex-1 py-[5px] border border-action-primary text-center bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]"
+                  className="btn-action text-center"
                 >
                   주문하기
                 </Link>

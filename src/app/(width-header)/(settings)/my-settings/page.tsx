@@ -1,8 +1,18 @@
+"use client";
 import { Bell, ChevronRight, ShieldAlert } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useHeaderStore } from "@/stores/header-store";
 
-const MySettings = () => {
+const MySettings = () => { 
+  const { setHeader } = useHeaderStore(); 
+  useEffect(() => {
+    setHeader({
+      title: "설정",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
   return (
     <div className="p-4">
       {/* Management List */}

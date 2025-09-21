@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import OrderSelectOption from "./components/orderSelectOption";
-import OrderSelectLabelOption from "./components/orderSelectLabelOption";
+import OrderSelectLabelOption from "./components/orderImageUploader";
 import OrderSelectSubscriptionDeleviryDate from "./components/orderSelectSubscriptionDeleviryDate";
 import Link from "next/link";
 import ActionSheet from "@/components/ActionSheet";
