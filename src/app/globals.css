@@ -134,10 +134,11 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s linear;
-  /* -webkit-transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
   -ms-transition: all 0.3s linear;
-  transition: all 0.3s linear; */
+  transition: all 0.3s linear;
 }
+
 .btn-primary[disabled] {
   background: #E6E6E6;
   color: #9CA3AF;

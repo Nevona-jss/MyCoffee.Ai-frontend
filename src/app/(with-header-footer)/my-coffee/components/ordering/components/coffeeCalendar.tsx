@@ -7,22 +7,7 @@ export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date()); // Today
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
@@ -66,23 +51,12 @@ export default function CalendarPage() {
     const currentYear = currentDate.getFullYear();
     const todayMonth = today.getMonth();
     const todayYear = today.getFullYear();
-    
+
     return currentYear <= todayYear && currentMonth <= todayMonth;
   };
 
   const days = getDaysInMonth(currentDate);
-
-  // for right and left angles
-  const isFutureDate = (date: number) => {
-    const today = new Date();
-    const selectedDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      date
-    );
-    return selectedDate > today;
-  };
-
+ 
   //isToday
   const isToday = (date: number) => {
     const today = new Date();
@@ -113,6 +87,12 @@ export default function CalendarPage() {
     setSelectedDate(selectedDateObj);
   };
 
+  const currentYearAndMonth = `${currentDate.getFullYear()}.${
+    currentDate.getMonth() + 1 < 10
+      ? `0${currentDate.getMonth() + 1}`
+      : currentDate.getMonth() + 1
+  }`;
+
   return (
     <>
       {/* Calendar Container */}
@@ -140,7 +120,7 @@ export default function CalendarPage() {
           </button>
 
           <h1 className="text-normal leading-[20px] font-bold">
-            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+            {currentYearAndMonth}
           </h1>
 
           <button
