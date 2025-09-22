@@ -8,8 +8,9 @@ const CoffeStoryMain = () => {
 
   useEffect(() => {
     setHeader({
-      title: "리뷰",
+      title: "커피스토리",
       showBackButton: false,
+      showSettingsButton: false,
     });
   }, []);
   const coffeeStries = [

@@ -55,7 +55,7 @@ const EditDelivery = () => {
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               placeholder="수령인을 입력해주세요."
-              className="w-full h-10 px-4 text-xs leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary"
+              className="w-full h-10 px-4 text-xs leading-[16px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary"
             />
           </div>
 
@@ -68,7 +68,7 @@ const EditDelivery = () => {
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="휴대폰 번호를 입력해주세요."
-              className="w-full h-10 px-4 text-xs leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary"
+              className="w-full h-10 px-4 text-xs leading-[16px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary"
             />
           </div>
 
@@ -82,7 +82,7 @@ const EditDelivery = () => {
                 value={zipCode}
                 placeholder="우편번호"
                 onChange={(e) => setZipCode(e.target.value)}
-                className="flex-1 h-10 px-4 text-xs leading-[20px] rounded-lg border border-border-default text-gray-0"
+                className="flex-1 h-10 px-4 text-xs leading-[16px] rounded-lg border border-border-default text-gray-0"
               />
               <button
                 // onClick={handleChangePhone}
