@@ -1,4 +1,5 @@
 import ActionSheet from "@/components/ActionSheet";
+import { useOrderImageStore, useOrderStore } from "@/stores/order-store";
 import React, { useState, useRef } from "react";
 
 interface OrderSelectLabelOptionProps {
@@ -13,6 +14,8 @@ const OrderSelectLabelOption: React.FC<OrderSelectLabelOptionProps> = ({
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+ 
+  const { setOrderImage } = useOrderImageStore();
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -35,8 +38,10 @@ const OrderSelectLabelOption: React.FC<OrderSelectLabelOptionProps> = ({
     // Create preview URL
     const reader = new FileReader();
     reader.onload = (e) => {
-      setUploadedImage(e.target?.result as string);
+      setUploadedImage(e.target?.result as string); 
+      setOrderImage({ name: file.name }); 
       setIsUploading(false);
+
     };
     reader.readAsDataURL(file);
   };
@@ -96,7 +101,7 @@ const OrderSelectLabelOption: React.FC<OrderSelectLabelOptionProps> = ({
           </div>
 
           {/* Image Upload Area */}
-          <div className="space-y-3 mt-6">
+          <div className="space-y-3 my-6">
             {uploadedImage ? (
               <div className="relative mb-0">
                 <img
@@ -172,8 +177,9 @@ const OrderSelectLabelOption: React.FC<OrderSelectLabelOptionProps> = ({
 
           {/* Complete Button */}
           <button
+            disabled={uploadedImage === null}
             onClick={handleComplete}
-            className="w-full mt-6 py-3 bg-linear-gradient text-white rounded-lg font-bold leading-[24px]"
+            className="w-full btn-primary"
           >
             선택 완료
           </button>

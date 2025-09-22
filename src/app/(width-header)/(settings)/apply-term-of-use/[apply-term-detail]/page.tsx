@@ -1,10 +1,21 @@
+"use client";
+import { useHeaderStore } from "@/stores/header-store";
 import { Link } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Bullet = () => (
   <span className="inline-block w-1 h-1 bg-gray-0 rounded-full mr-2 ml-1 translate-y-[-2px]" />
 );
-const ApplyTermDetail = () => {
+const ApplyTermDetail = () => { 
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "개인정보 마케팅 활용 동의",
+      showBackButton: true,
+      showSettingsButton: false,
+    });
+  }, []);
   return (
     <div className="p-4">
       <div className="bg-white rounded-2xl border border-border-default p-3">

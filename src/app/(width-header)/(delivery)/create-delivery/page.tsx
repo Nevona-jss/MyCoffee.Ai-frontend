@@ -20,7 +20,8 @@ const EditDelivery = () => {
 
   useEffect(() => {
     setHeader({
-      title: "배송지 수정",
+      title: "배송지 추가",
+      showBackButton: true,
     });
   }, []);
 

@@ -2,10 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { useHeaderStore } from '@/stores/header-store';
+import { Settings } from 'lucide-react';
 
 const Header = () => {
     const router = useRouter();
-    const { title, showBackButton, backHref } = useHeaderStore();
+    const { title, showBackButton, backHref, showSettingsButton } = useHeaderStore();
 
     const handleBackClick = () => {
         if (backHref) {
@@ -16,7 +17,7 @@ const Header = () => {
     };
 
     return (
-        <div className="sticky top-0 z-10 bg-white px-4 py-2.5 flex items-center justify-between w-full" style={{boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.08)"}}>
+        <div className="sticky h-11 top-0 z-10 bg-white px-4 py-2.5 flex items-center justify-between w-full" style={{boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.08)"}}>
             {/* Left side - Back button */}
             <div className="flex items-center">
                 {showBackButton && (
@@ -31,15 +32,20 @@ const Header = () => {
             {/* Center - Title */}
             {
                 title && (
-                <div className="flex-1 flex justify-center">
+                <div className="flex absolute left-1/2 -translate-x-1/2">
                     <h1 className="text-[16px] font-bold text-gray-0">
                         {title}
                     </h1>
                 </div>
             )}
             
-            {/* Right side - Empty for now */}
-            <div className="w-6"></div>
+            {
+                showSettingsButton && (
+                    <button  className="flex items-center p-2.5 cursor-pointer">
+                        <Settings size={24} />
+                    </button>
+                )
+            } 
         </div>
     );
 };

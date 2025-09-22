@@ -16,6 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useHeaderStore } from "@/stores/header-store";
+import { useRouter } from "next/navigation";
 
 const ReviewMain = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -28,10 +29,11 @@ const ReviewMain = () => {
     []
   );
   const { setHeader } = useHeaderStore();
+  const router = useRouter();
 
   useEffect(() => {
     setHeader({
-      title: "리뷰",
+      title: "리뷰", 
       showBackButton: false,
     });
   }, []);
@@ -141,11 +143,13 @@ const ReviewMain = () => {
     setSelectedReviewImages([]);
   };
 
+  const navigateToReviewAnalysys = () => {
+    router.push("/review-analysys");
+  };
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <Header />
-      <div className="px-4 pt-2.5">
+    <div className="bg-background">
+      <div className="px-4 pt-2.5 pb-2">
         {/* Sort Dropdown */}
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
@@ -153,7 +157,7 @@ const ReviewMain = () => {
             <input
               type="checkbox"
               id="photoReview"
-              className="auth-checkbox w-4 h-4"
+              className="auth-checkbox w-5 h-5"
             />
             <label
               htmlFor="photoReview"
@@ -165,10 +169,17 @@ const ReviewMain = () => {
           <div className="relative">
             <button
               onClick={() => setShowSortDropdown(!showSortDropdown)}
-              className="flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary"
+              className={`flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary ${
+                showSortDropdown && "border-action-secondary"
+              }`}
             >
               <span>{sortBy}</span>
-              <ChevronDown size={16} className="text-action-primary" />
+              <ChevronDown
+                size={16}
+                className={`text-action-primary transition-all duration-300 ${
+                  showSortDropdown && "rotate-180"
+                }`}
+              />
             </button>
 
             {showSortDropdown && (
@@ -305,19 +316,14 @@ const ReviewMain = () => {
           </button>
         </div>
       </div>
-
-      <div className="bg-menu-bar h-[40px]"></div>
-
-      {/* Bottom Menu Bar */}
-      <BottomMenuBar />
-
+ 
       {/* Action Sheet */}
       <ActionSheet
         isOpen={showReviewOption}
         onClose={() => setShowReviewOption(false)}
       >
         <div className="flex flex-col gap-2">
-          <button className="text-base leading-[24px] font-bold text-white bg-action-primary rounded-lg py-3">
+          <button onClick={navigateToReviewAnalysys} className="text-base leading-[24px] font-bold text-white bg-action-primary rounded-lg py-3">
             상세 보기
           </button>
           <button className="flex items-center justify-center gap-1 text-base leading-[24px] font-bold text-action-primary border border-action-primary rounded-lg py-3">

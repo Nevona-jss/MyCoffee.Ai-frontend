@@ -1,35 +1,66 @@
-import ActionSheet from "@/components/ActionSheet";
-import React, { useState } from "react";
+import ActionSheet, { ActionSheetRef } from "@/components/ActionSheet";
+import { useOrderImageStore, useOrderStore } from "@/stores/order-store";
+import { ChevronDown } from "lucide-react";
+import React, { useState, useRef } from "react";
 
 interface OrderSelectOptionProps {
   isOpen: boolean;
   onClose: () => void;
+  orderLabelOption: boolean;
+  setOrderLabelOption: (value: boolean) => void;
 }
 
 const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
   isOpen,
   onClose,
+  orderLabelOption,
+  setOrderLabelOption,
 }) => {
-  const [caffeineIntensity, setCaffeineIntensity] = useState<
+  const [caffeineStrength, setCaffeineStrength] = useState<
     "caffeine" | "decaf" | ""
   >("");
   const [grindLevel, setGrindLevel] = useState<"whole" | "ground" | "">("");
   const [packaging, setPackaging] = useState<"stick" | "bulk" | "">("");
   const [weight, setWeight] = useState<string>("");
+  // const [photo, setPhoto] = useState<string>("");
 
-  const isButtonsDisabled =
-    caffeineIntensity === "" ||
-    grindLevel === "" ||
-    packaging === ""
+  const { order, setOrder } = useOrderStore();
+  const { orderImage, setOrderImage } = useOrderImageStore();
+  const actionSheetRef = useRef<ActionSheetRef>(null);
 
   const handleComplete = () => {
-    // Handle selection completion
-    onClose();
+    // Handle selection completion with smooth animation
+    actionSheetRef.current?.closeWithAnimation();
+    setOrder([
+      ...order,
+      {
+        caffeineStrength,
+        grindLevel,
+        packaging,
+        weight,
+        price: 36000,
+        quantity: 1,
+      },
+    ]);
+    setOrderImage({ name: "" });
+
+    setCaffeineStrength("");
+    setGrindLevel("");
+    setPackaging("");
+    setWeight("");
   };
+
+  const isButtonsDisabled =
+    caffeineStrength === "" || grindLevel === "" || packaging === "";
 
   return (
     <>
-      <ActionSheet isOpen={isOpen} onClose={onClose} title="옵션선택">
+      <ActionSheet
+        ref={actionSheetRef}
+        isOpen={isOpen}
+        onClose={onClose}
+        title="옵션선택"
+      >
         <div className="space-y-4 mt-4">
           {/* 카페인 강도 (Caffeine Intensity) */}
           <div>
@@ -38,9 +69,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
             </h3>
             <div className="flex space-x-2">
               <button
-                onClick={() => setCaffeineIntensity("caffeine")}
+                onClick={() => setCaffeineStrength("caffeine")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  caffeineIntensity === "caffeine"
+                  caffeineStrength === "caffeine"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -48,9 +79,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 카페인
               </button>
               <button
-                onClick={() => setCaffeineIntensity("decaf")}
+                onClick={() => setCaffeineStrength("decaf")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  caffeineIntensity === "decaf"
+                  caffeineStrength === "decaf"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -150,7 +181,25 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
             </div>
           </div>
 
-          {/* 선택 완료 버튼 */}
+          {/* add photo */}
+          <div>
+            <h3 className="text-sm leading-[20px] font-bold mb-2">
+              라벨 (선택사항)
+            </h3>
+            <div className="relative">
+              <p
+                onClick={() => setOrderLabelOption(true)}
+                className={`w-full h-[40px] leading-[40px] text-xs pl-4 pr-2 border border-border-default rounded-lg bg-white ${
+                  orderImage.name ? "text-blue-400" : "text-text-secondary"
+                }`}
+              >
+                {orderImage.name || "라벨 이미지를 업로드해주세요."}
+              </p>
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                <ChevronDown size={16} />
+              </div>
+            </div>
+          </div>
 
           {isButtonsDisabled ? (
             <button

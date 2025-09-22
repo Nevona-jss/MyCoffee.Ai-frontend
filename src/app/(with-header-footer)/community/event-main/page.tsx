@@ -1,7 +1,20 @@
+"use client";
+import { useHeaderStore } from "@/stores/header-store";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 const EventMain = () => {
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "리뷰",
+      showBackButton: false,
+    });
+  }, []);
+
+
   const events = [
     {
       id: 1,
@@ -53,7 +66,7 @@ const EventMain = () => {
               <img
                 src={event.image}
                 alt="Coffee review"
-                className="w-full h-90 max-h-[350px] object-cover rounded-lg"
+                className="w-full h-90 max-h-[180px] object-cover rounded-lg"
               />
             </div>
 

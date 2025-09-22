@@ -3,9 +3,17 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function CalendarPage() {
+interface CalendarPageProps {
+  deliveryDate: Date | null;
+  setDeliveryDate: (date: Date) => void;
+}
+
+export default function CalendarPage({
+  deliveryDate,
+  setDeliveryDate,
+}: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date()); // Today
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(deliveryDate);
 
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -56,7 +64,7 @@ export default function CalendarPage() {
   };
 
   const days = getDaysInMonth(currentDate);
- 
+
   //isToday
   const isToday = (date: number) => {
     const today = new Date();
@@ -79,12 +87,19 @@ export default function CalendarPage() {
 
   // Handle date selection
   const handleDateSelect = (day: number) => {
+  
+    if (day < new Date().getDate()) {
+      alert("You can't select past day");
+      return;
+    }
+
     const selectedDateObj = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
       day
     );
     setSelectedDate(selectedDateObj);
+    setDeliveryDate(selectedDateObj);
   };
 
   const currentYearAndMonth = `${currentDate.getFullYear()}.${
@@ -102,7 +117,7 @@ export default function CalendarPage() {
           <button
             onClick={() => navigateMonth("prev")}
             disabled={isPrevMonthDisabled()}
-            className={`p-2 rounded-full transition-colors ${
+            className={`rounded-full transition-colors ${
               isPrevMonthDisabled()
                 ? "cursor-not-allowed opacity-50"
                 : "hover:bg-gray-100"
@@ -125,7 +140,7 @@ export default function CalendarPage() {
 
           <button
             onClick={() => navigateMonth("next")}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="hover:bg-gray-100 rounded-full transition-colors"
           >
             <ChevronRight
               width={16}

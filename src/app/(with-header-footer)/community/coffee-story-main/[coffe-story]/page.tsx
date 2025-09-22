@@ -1,6 +1,17 @@
-import React from "react";
+"use client";
+import { useHeaderStore } from "@/stores/header-store";
+import React, { useEffect } from "react";
 
 const CoffeeStoryDetail = () => {
+
+  const { setHeader } = useHeaderStore();
+
+  useEffect(() => {
+    setHeader({
+      title: "리뷰",
+      showBackButton: true,
+    });
+  }, []);
   const coffeeStory = {
     id: 1,
     product: "커피 스토리 1",
@@ -13,7 +24,7 @@ const CoffeeStoryDetail = () => {
 
   return (
     <div className="bg-background">
-      <div className="px-4 pt-4">
+      <div className="px-4 pt-4 pb-2">
         <div className="bg-white rounded-lg p-3 border border-border-default">
           {/* Title*/}
           <p className="text-base font-bold inline-block leading-[20px] mb-1">

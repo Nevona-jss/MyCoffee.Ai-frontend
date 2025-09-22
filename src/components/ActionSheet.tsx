@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 
 interface ActionSheetProps {
   isOpen: boolean;
@@ -8,12 +8,16 @@ interface ActionSheetProps {
   title?: string;
 }
 
-const ActionSheet: React.FC<ActionSheetProps> = ({
+export interface ActionSheetRef {
+  closeWithAnimation: () => void;
+}
+
+const ActionSheet = forwardRef<ActionSheetRef, ActionSheetProps>(({
   isOpen,
   onClose,
   children,
   title,
-}) => {
+}, ref) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
 
@@ -29,6 +33,11 @@ const ActionSheet: React.FC<ActionSheetProps> = ({
   const handleClose = () => {
     closeModal();
   };
+
+  // Expose closeWithAnimation method to parent components
+  useImperativeHandle(ref, () => ({
+    closeWithAnimation: closeModal,
+  }));
 
   // Handle opening animation
   useEffect(() => {
@@ -96,6 +105,8 @@ const ActionSheet: React.FC<ActionSheetProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ActionSheet.displayName = 'ActionSheet';
 
 export default ActionSheet;

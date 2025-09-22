@@ -2,6 +2,7 @@ import ActionSheet from "@/components/ActionSheet";
 import React, { useState } from "react";
 import CalendarPage from "./coffeeCalendar";
 import { ArrowDown, ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 interface OrderSelectSubscriptionDeleviryDateProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ const OrderSelectSubscriptionDeleviryDate: React.FC<
   OrderSelectSubscriptionDeleviryDateProps
 > = ({ isOpen, onClose }) => {
   const [quantity, setQuantity] = useState<number | null>(null);
+  const [deliveryDate, setDeliveryDate] = useState<Date | null>(null);
 
   return (
     <ActionSheet isOpen={isOpen} onClose={onClose} title="정기구독 배송일 선택">
@@ -34,10 +36,17 @@ const OrderSelectSubscriptionDeleviryDate: React.FC<
             </div>
           </div>
         </div>
-        <CalendarPage />
+        <CalendarPage
+          deliveryDate={deliveryDate}
+          setDeliveryDate={setDeliveryDate}
+        />
 
-        <button className="w-full mt-6 py-3 border border-transparent bg-linear-gradient text-white rounded-lg font-bold leading-[24px]">
-          결제하기
+        <button disabled={!deliveryDate} className="w-full mt-6 btn-primary">
+          {deliveryDate ? (
+            <Link href="/purchase-subscription">결제하기</Link>
+          ) : (
+            "결제하기"
+          )}
         </button>
       </div>
     </ActionSheet>
