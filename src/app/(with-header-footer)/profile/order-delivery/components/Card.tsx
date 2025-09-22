@@ -114,7 +114,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                 <div className="flex items-center justify-between gap-2">
                     <Link
                         href={
-                            (data?.status === "배송 완료" && data?.type === "단품") ?`/profile/reviews/write-review`
+                            (data?.status === "배송 완료" && data?.type === "단품") ?`/profile/write-review/1`
                                 : (data?.status === "배송 완료" && data?.type === "구독") ? `/profile/reviews/history`
                                     : data?.type === '구독' ? `/profile/reviews/history` : `/profile/reviews/history`
                         }
@@ -151,7 +151,9 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                             onClick={() => closeRequestModal()}
                             className="w-full btn-primary-empty"
                         >
-                            반품 요청
+                            {
+                                isRequest ? "반품 요청" : "주문 취소"
+                            }
                         </button>
                         {
                             isRequest && (

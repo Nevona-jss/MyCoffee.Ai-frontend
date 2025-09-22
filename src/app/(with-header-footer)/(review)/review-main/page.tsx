@@ -272,7 +272,7 @@ const ReviewMain = () => {
               <img
                 src={review.images[0]}
                 alt="Coffee review"
-                className="w-full h-48 max-h-[350px] object-cover rounded-lg"
+                className="w-full h-[357px] max-h-[357px] object-cover rounded-lg"
               />
             </div>
 
@@ -312,7 +312,7 @@ const ReviewMain = () => {
           )}
 
           <button className="py-4 bg-linear-gradient w-full text-white rounded-lg font-bold text-base ">
-            내 커피 추천하기 111
+            내 커피 추천하기
           </button>
         </div>
       </div>
@@ -324,7 +324,7 @@ const ReviewMain = () => {
       >
         <div className="flex flex-col gap-2">
           <button onClick={navigateToReviewAnalysys} className="text-base leading-[24px] font-bold text-white bg-action-primary rounded-lg py-3">
-            상세 보기
+            커피 취향 분석 보기
           </button>
           <button className="flex items-center justify-center gap-1 text-base leading-[24px] font-bold text-action-primary border border-action-primary rounded-lg py-3">
             <SquarePen size={16} className="text-action-primary" />

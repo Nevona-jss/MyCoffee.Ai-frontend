@@ -5,7 +5,7 @@ import OrderSelectLabelOption from "./components/orderImageUploader";
 import OrderSelectSubscriptionDeleviryDate from "./components/orderSelectSubscriptionDeleviryDate";
 import Link from "next/link";
 import ActionSheet from "@/components/ActionSheet";
-import { ChevronDown, PlusIcon, X } from "lucide-react";
+import { ChevronDown, PlusIcon, X, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useOrderStore } from "@/stores/order-store";
 const OrderingComponent = ({
@@ -151,7 +151,7 @@ const OrderingComponent = ({
                   나만의 커피 1호기/클래식 하모니 블랜드
                 </p>
                 <button onClick={() => { }}>
-                  <ChevronDown size={16} className="text-icon-default" />
+                  <XIcon size={16} stroke="#1A1A1A" />
                 </button>
               </div>
 

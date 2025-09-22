@@ -117,7 +117,7 @@ export default function ForgotPassword() {
       <div className="p-4 text-gray-0">
         {/* Phone Number Input */}
         <div className="mb-3">
-          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="email" className="leading-[16px] block mb-2 text-[12px] font-bold text-gray-0">
           아이디 또는 이메일
           </label>
           <div>
@@ -131,7 +131,7 @@ export default function ForgotPassword() {
           </div>
         </div>
         <div>
-          <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="phone" className="leading-[16px] block mb-2 text-[12px] font-bold text-gray-0">
           휴대폰 번호
           </label>
           <div className="flex gap-1">
@@ -171,7 +171,7 @@ export default function ForgotPassword() {
         )}
         {/* Verification Code Input */}
         <div className="pt-4">
-          <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="verificationCode" className="leading-[16px] block mb-2 text-[12px] font-bold text-gray-0">
           인증 번호
           </label>
           <div className="flex gap-1">

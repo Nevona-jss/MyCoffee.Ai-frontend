@@ -156,7 +156,7 @@ export default function FindId() {
         )}
         {/* Verification Code Input */}
         <div className="pt-4">
-          <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             인증 번호
           </label>
           <div className="flex gap-1">

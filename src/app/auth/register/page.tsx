@@ -158,7 +158,7 @@ export default function Register() {
         {/* Email Input */}
 
         <div className="mb-4">
-          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             이메일
           </label>
           <input
@@ -202,7 +202,7 @@ export default function Register() {
 
         {/* Name Input */}
         <div className="mb-4">
-          <label htmlFor="name" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="name" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             이름
           </label>
           <input
@@ -231,7 +231,7 @@ export default function Register() {
 
         {/* Gender Selection */}
         <div className="mb-4">
-          <label className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             성별
           </label>
           <div className="flex gap-6">
@@ -259,7 +259,7 @@ export default function Register() {
 
         {/* Phone Number Input */}
         <div className="mb-4">
-          <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             휴대폰 번호
           </label>
           <div className="flex gap-1">
@@ -283,7 +283,7 @@ export default function Register() {
             <button
               type="button"
               id="phoneButton"
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
+              className="px-4 py-[9px] border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
               disabled
             >
               인증 요청
@@ -293,7 +293,7 @@ export default function Register() {
 
         {/* Verification Code Input */}
         <div className="mb-4">
-          <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             인증 번호
           </label>
           <div className="flex gap-1">
@@ -315,7 +315,7 @@ export default function Register() {
             <button
               type="button"
               id="verifyButton"
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
+              className="px-4 py-[9px] border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
               disabled
             >
               인증 요청

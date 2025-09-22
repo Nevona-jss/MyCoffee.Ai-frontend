@@ -15,10 +15,10 @@ const MonthlyCoffeePage = () => {
 
   const tasteLabels = [
     { key: 'aroma', label: '향', color: 'aroma' },
-    { key: 'acidity', label: '산미', color: 'acidity' },
-    { key: 'sweetness', label: '단맛', color: 'sweetness' },
+    { key: 'acidity', label: '단맛', color: 'acidity' },
+    { key: 'sweetness', label: '바디', color: 'sweetness' },
     { key: 'nutty', label: '고소함', color: 'nutty' },
-    { key: 'body', label: '바디', color: 'body' }
+    { key: 'body', label: '산미', color: 'body' }
   ];
 
   return (

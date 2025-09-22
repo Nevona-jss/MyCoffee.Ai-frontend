@@ -145,7 +145,7 @@ const Inquiries = () => {
               </p>
 
               {/* Review Image */}
-              <div className="mb-3 rounded-lg overflow-hidden">
+              <div className="mb-1 rounded-lg overflow-hidden">
                 <img
                   src={inquiry.image}
                   alt="Coffee review"
@@ -154,16 +154,16 @@ const Inquiries = () => {
               </div>
 
               {/* Title*/}
-              <Link
+              {/* <Link
                 href={`/community/coffee-story-main/${inquiry.id}`}
                 className="text-base font-bold inline-block leading-[20px] mb-1 cursor-pointer"
               >
                 오늘의 커피 이야기: {inquiry.title}
-              </Link>
+              </Link> */}
               {/* Date */}
-              <p className="text-[12px] font-normal text-text-secondary mb-3">
+              {/* <p className="text-[12px] font-normal text-text-secondary mb-3">
                 {inquiry.date}
-              </p>
+              </p> */}
 
               {/* Description */}
               <p className="text-xs leading-[20px]  line-clamp-2">

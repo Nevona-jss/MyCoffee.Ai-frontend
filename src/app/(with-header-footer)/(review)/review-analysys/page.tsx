@@ -8,6 +8,7 @@ import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
 import LikeModal from "./components/LikeModal";
 import { useHeaderStore } from "@/stores/header-store";
 import OrderingComponent from "../../my-coffee/components/ordering/Ordering";
+import OtherCoffeeSlider from "../../my-coffee/taste-analysis/ready/[id]/components/OtherCoffeeSlider";
 
 const ReviewAnalysys = () => {
   const [openItems, setOpenItems] = useState<number[]>([0, 1, 2]); // First item open by default
@@ -44,6 +45,11 @@ const ReviewAnalysys = () => {
       content:
         "분석 결과가 여기에 표시됩니다. 향, 산미, 바디감, 단맛, 고소함 등의 다양한 요소들이 종합적으로 분석되어 표시됩니다.",
     },
+    {
+      id: 2,
+      title: "다른 커피는 어때요?",
+      content: "개인화된 커피 추천이 여기에 표시됩니다. 당신의 취향에 맞는 커피 브랜드와 블렌드를 추천해드립니다."
+    }
   ];
 
   const toggleItem = (id: number) => {
@@ -99,7 +105,7 @@ const ReviewAnalysys = () => {
                     </span>
                     <svg
                       className={`shrink-0 transition-transform duration-200 ${
-                        openItems.includes(item.id) ? "rotate-180" : ""
+                        openItems.includes(item.id) ? "" : "rotate-180"
                       }`}
                       xmlns="http://www.w3.org/2000/svg"
                       width="12"
@@ -133,7 +139,7 @@ const ReviewAnalysys = () => {
 
                         {/* Origin Info */}
                         <div className="text-center mb-4">
-                          <p className="text-xs text-gray-0">
+                          <p className="text-xs text-gray-0 leading-[16px]">
                             (브라질 42%, 페루 58%)
                           </p>
                         </div>
@@ -145,6 +151,11 @@ const ReviewAnalysys = () => {
                       <div>
                         {/* Coffee Collection Slider */}
                         <CoffeeCollectionSlider />
+                      </div>
+                    ) : item.id === 2 ? (
+                      <div>
+                          {/* Other Coffee Slider */}
+                          <OtherCoffeeSlider />
                       </div>
                     ) : (
                       <p className="text-sm text-gray-600 leading-relaxed">

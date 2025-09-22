@@ -63,8 +63,8 @@ const CoffeeAnalysisDetail = () => {
     return (
         <div className="pl-4 pt-6 pb-2">
             <div className="pr-4">
-                <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">나만의 커피 취향을 찾아볼까요?</h2>
-                <p className="text-xs text-gray-0 mb-6 text-center">" 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. "</p>
+                <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center leading-[28px]">나만의 커피 취향을 찾아볼까요?</h2>
+                <p className="text-xs text-gray-0 mb-6 text-center leading-[18px]">" 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. "</p>
             </div>
 
             <div className="">
@@ -107,7 +107,7 @@ const CoffeeAnalysisDetail = () => {
 
                                             {/* Origin Info */}
                                             <div className="text-center mb-4">
-                                                <p className="text-xs text-gray-0">
+                                                <p className="text-xs text-gray-0 leading-[16px]">
                                                     (브라질 42%, 페루 58%)
                                                 </p>
                                             </div>

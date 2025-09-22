@@ -94,8 +94,8 @@ const ReadyPage = () => {
         onClose={() => setDeleteModalIsOpen(false)}
       >
         <div className="text-center">
-          <p className="text-base font-bold text-gray-0 my-6">
-          정말 삭제하시겠습니까?
+          <p className="text-base font-bold text-gray-0 mb-6 leading-[20px]">
+            정말 삭제하시겠습니까?
           </p>
           <div className="flex flex-col gap-2">
             <button

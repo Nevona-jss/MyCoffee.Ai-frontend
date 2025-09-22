@@ -97,7 +97,7 @@ const MonthlyCoffeeDetail = () => {
 
                                             {/* Origin Info */}
                                             <div className="text-center mb-4">
-                                                <p className="text-xs text-gray-0">
+                                                <p className="text-xs text-gray-0 leading-[16px]">
                                                     (브라질 42%, 페루 58%)
                                                 </p>
                                             </div>

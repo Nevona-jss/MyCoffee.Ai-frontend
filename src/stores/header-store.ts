@@ -22,6 +22,7 @@ export const useHeaderStore = create<HeaderState>((set) => ({
   
   setHeader: (config) => set((state) => ({
     ...state,
+    // ...{showSettingsButton: false, ...state},
     ...config,
   })),
   

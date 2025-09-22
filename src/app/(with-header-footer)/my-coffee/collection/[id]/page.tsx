@@ -58,7 +58,7 @@ const CollectionDetail = () => {
         <p className="text-[10px] text-text-secondary mb-2 text-center font-normal">
           2025-08-24 오후 12:34
         </p>
-        <p className="text-xs text-gray-0 mb-6 text-center font-normal">
+        <p className="text-xs text-gray-0 mb-6 text-center font-normal ">
           달달한 커피가 먹고 싶을 때 추천받은 커피
         </p>
         <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
@@ -99,7 +99,7 @@ const CollectionDetail = () => {
                   </span>
                   <svg
                     className={`shrink-0 transition-transform duration-200 ${
-                      openItems.includes(item.id) ? "rotate-180" : ""
+                      openItems.includes(item.id) ? "" : "rotate-180"
                     }`}
                     xmlns="http://www.w3.org/2000/svg"
                     width="12"
@@ -133,7 +133,7 @@ const CollectionDetail = () => {
 
                       {/* Origin Info */}
                       <div className="text-center mb-4">
-                        <p className="text-xs text-gray-0">
+                        <p className="text-xs text-gray-0 leading-[16px]">
                           (브라질 42%, 페루 58%)
                         </p>
                       </div>

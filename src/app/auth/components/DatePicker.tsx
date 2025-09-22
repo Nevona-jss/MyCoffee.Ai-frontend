@@ -75,7 +75,7 @@ export default function DatePicker({
 
   return (
     <div className={`mb-4 ${className}`}>
-      <label htmlFor={id} className="block mb-2 text-[12px] font-bold text-gray-0">
+      <label htmlFor={id} className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
         {label}
       </label>
       <div className="relative max-w-sm">

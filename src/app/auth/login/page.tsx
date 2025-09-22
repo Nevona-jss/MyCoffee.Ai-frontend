@@ -32,7 +32,7 @@ export default function Login() {
       <div className="p-4 text-gray-0">
         {/* Email Input */}
         <div className="mb-3">
-          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             이메일
           </label>
           <div className="relative">
@@ -51,7 +51,7 @@ export default function Login() {
 
         {/* Password Input */}
         <div className="mb-3">
-          <label htmlFor="password" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="password" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
             비밀번호
           </label>
           <div className="relative">
@@ -97,7 +97,7 @@ export default function Login() {
             checked={isRememberChecked}
             onChange={(e) => setIsRememberChecked(e.target.checked)}
           />
-          <label htmlFor="remember" className="ml-2 text-xs text-gray-0 font-normal cursor-pointer">
+          <label htmlFor="remember" className="leading-[16px] ml-2 text-xs text-gray-0 font-normal cursor-pointer">
             자동 로그인
           </label>
         </div>
