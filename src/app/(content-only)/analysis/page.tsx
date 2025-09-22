@@ -45,8 +45,8 @@ export default function AnalysisPage() {
 
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
-        const centerY = 200;
-        const maxRadius = 150;
+        const centerY = 210;
+        const maxRadius = 130;
 
         // Calculate position relative to SVG viewBox
         const svgWidth = rect.width;
@@ -73,8 +73,8 @@ export default function AnalysisPage() {
         setIsDragging(true);
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
-        const centerY = 200;
-        const maxRadius = 150;
+        const centerY = 210;
+        const maxRadius = 130;
 
         const handleMouseMove = (e: MouseEvent) => {
             // SVG viewBox koordinatalariga o'tkazish
@@ -113,8 +113,8 @@ export default function AnalysisPage() {
         setIsDragging(true);
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
-        const centerY = 200;
-        const maxRadius = 150;
+        const centerY = 210;
+        const maxRadius = 130;
 
         const handleTouchMove = (e: TouchEvent) => {
             e.preventDefault(); // Prevent scrolling
@@ -152,8 +152,8 @@ export default function AnalysisPage() {
 
     const generateRadarPath = () => {
         const centerX = 200;
-        const centerY = 200;
-        const maxRadius = 150;
+        const centerY = 210;
+        const maxRadius = 130;
 
         const points = tasteLabels.map((taste, index) => {
             const angle = (index * 72 - 90) * (Math.PI / 180); // 72 degrees between each point
@@ -192,15 +192,15 @@ export default function AnalysisPage() {
                         {/* Radar Chart */}
                         <div className="relative mb-8">
                             <svg 
-                                className="mx-auto no-select w-[300px] h-[300px] sm:w-[325px] sm:h-[325px]" 
-                                viewBox="0 0 400 400"
+                                className="mx-auto no-select w-[300px] h-[315px] sm:w-[325px] sm:h-[340px]" 
+                                viewBox="0 0 400 415"
                                 preserveAspectRatio="xMidYMid meet"
                             >
                                 {/* Grid - Concentric pentagons with varying stroke width */}
                                 {[1, 2, 3, 4, 5].map((level) => {
                                     const centerX = 200;
-                                    const centerY = 200;
-                                    const maxRadius = 150;
+                                    const centerY = 210;
+                                    const maxRadius = 130;
                                     const radius = (level / 5) * maxRadius;
                                     const strokeWidth = level/2.2; // 1, 2, 3, 4, 5
                                     
@@ -257,8 +257,8 @@ export default function AnalysisPage() {
                                 {/* Radial lines */}
                                 {[0, 1, 2, 3, 4].map((i) => {
                                     const centerX = 200;
-                                    const centerY = 200;
-                                    const maxRadius = 150;
+                                    const centerY = 210;
+                                    const maxRadius = 130;
                                     const angle = (i * 72 - 90) * (Math.PI / 180);
                                     const x = centerX + maxRadius * Math.cos(angle);
                                     const y = centerY + maxRadius * Math.sin(angle);
@@ -303,9 +303,9 @@ export default function AnalysisPage() {
                                 {/* Rounded corner circles at connection points */}
                                 {tasteLabels.map((taste, index) => {
                                     const angle = (index * 72 - 90) * (Math.PI / 180);
-                                    const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
+                                    const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 130;
                                     const pointX = 200 + currentRadius * Math.cos(angle);
-                                    const pointY = 200 + currentRadius * Math.sin(angle);
+                                    const pointY = 210 + currentRadius * Math.sin(angle);
                                     
                                     return (
                                         <circle
@@ -327,22 +327,22 @@ export default function AnalysisPage() {
                                     const angle = (index * 72 - 90) * (Math.PI / 180);
                                     
                                     // Custom label positioning based on taste
-                                    let labelRadius = 170;
+                                    let labelRadius = 160;
                                     if (taste.key === 'aroma') { // 향 - top
-                                        labelRadius = 170 + 17; // 17px up
+                                        labelRadius = 160 + 17; // 17px up
                                     } else if (taste.key === 'acidity' || taste.key === 'sweetness') { // 산미, 단맛 - sides
-                                        labelRadius = 170 + 12; // 12px out
+                                        labelRadius = 160 + 12; // 12px out
                                     } else if (taste.key === 'nutty' || taste.key === 'body') { // 고소함, 바디 - bottom
-                                        labelRadius = 170 + 7; // 7px out
+                                        labelRadius = 160 + 7; // 7px out
                                     }
                                     
                                     const labelX = 200 + labelRadius * Math.cos(angle);
-                                    const labelY = 200 + labelRadius * Math.sin(angle);
+                                    const labelY = 210 + labelRadius * Math.sin(angle);
 
                                     // Current rating position
-                                    const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 150;
+                                    const currentRadius = (ratings[taste.key as keyof TasteRating] / 5) * 130;
                                     const pointX = 200 + currentRadius * Math.cos(angle);
-                                    const pointY = 200 + currentRadius * Math.sin(angle);
+                                    const pointY = 210 + currentRadius * Math.sin(angle);
 
                                     return (
                                         <g key={taste.key}>
@@ -352,7 +352,7 @@ export default function AnalysisPage() {
                                                 y={labelY}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
-                                                className="text-[18px] font-medium fill-gray-0"
+                                                className="text-[18px] font-normal fill-gray-0"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
                                                 {taste.label}
@@ -378,7 +378,7 @@ export default function AnalysisPage() {
                                                 dominantBaseline="middle"
                                                 fill="#FF7927"
                                                 fontSize="16"
-                                                fontWeight="600"
+                                                fontWeight="400"
                                                 letterSpacing="-0.13px"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
                                             >
@@ -393,7 +393,7 @@ export default function AnalysisPage() {
                                                 dominantBaseline="middle"
                                                 fill="#1A1A1A"
                                                 fontSize="16"
-                                                fontWeight="600"
+                                                fontWeight="400"
                                                 letterSpacing="-0.13px"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
                                             >

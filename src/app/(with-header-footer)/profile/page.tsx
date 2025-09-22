@@ -23,8 +23,6 @@ const MyPage = () => {
     });
   }, []);
 
-
-
   return (
     <div className="bg-background p-4">
       {/* User Information Card */}

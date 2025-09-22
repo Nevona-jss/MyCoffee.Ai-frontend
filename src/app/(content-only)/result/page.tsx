@@ -228,7 +228,7 @@ export default function ResultPage() {
                                                 y={labelY}
                                                 textAnchor="middle"
                                                 dominantBaseline="middle"
-                                                className="text-[18px] font-medium fill-gray-0"
+                                                className="text-[18px] font-normal fill-gray-0"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
                                                 {taste.label}
@@ -254,7 +254,7 @@ export default function ResultPage() {
                                                 dominantBaseline="middle"
                                                 fill="#FF7927"
                                                 fontSize="16"
-                                                fontWeight="600"
+                                                fontWeight="400"
                                                 letterSpacing="-0.13px"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
@@ -269,7 +269,7 @@ export default function ResultPage() {
                                                 dominantBaseline="middle"
                                                 fill="#1A1A1A"
                                                 fontSize="16"
-                                                fontWeight="600"
+                                                fontWeight="400"
                                                 letterSpacing="-0.13px"
                                                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
                                             >
