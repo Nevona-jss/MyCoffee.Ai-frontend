@@ -124,12 +124,12 @@ const PurchaseIndividualItem = () => {
                       onClick={() => handleQuantityChange("decrease")}
                       className="w-7 h-7 flex items-center justify-center border border-border-default rounded cursor-pointer"
                     >
-                      <span className="w-[12px] h-[2px] bg-[#4E2A18] rounded-full inline-block"></span>
+                      <span className="w-[12px] h-[2px] bg-action-primary rounded-full inline-block"></span>
                     </button>
                     <span className="text-lg font-medium">{quantity}</span>
                     <button
                       onClick={() => handleQuantityChange("increase")}
-                      className="w-7 h-7 flex items-center justify-center bg-amber-800 text-white rounded cursor-pointer"
+                      className="w-7 h-7 flex items-center justify-center bg-linear-gradient text-white rounded cursor-pointer"
                     >
                       <svg
                         width="12"
@@ -238,13 +238,14 @@ const PurchaseIndividualItem = () => {
                   보유 포인트 12,000
                 </span>
                 <div className="flex items-center gap-2 mt-2">
+                  
                   <input
                     type="number"
-                    value={pointUsage}
+                    value={pointUsage > 0 ? pointUsage : ""}
                     onChange={(e) => setPointUsage(Number(e.target.value))}
                     className="flex-1 h-10 pl-3 border border-border-default rounded-lg text-left text-sm placeholder:text-text-secondary"
-                    placeholder="0"
-                  />
+                    placeholder="사용할 포인트를 입력해주세요."
+                  /> 
                   <button
                     onClick={() => handlePointUsage("all")}
                     className=" h-10 px-4 py-2.5 border border-action-primary  text-action-primary rounded-lg text-sm leading-[20px] font-bold"

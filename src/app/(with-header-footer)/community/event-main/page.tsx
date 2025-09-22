@@ -9,7 +9,7 @@ const EventMain = () => {
 
   useEffect(() => {
     setHeader({
-      title: "리뷰",
+      title: "이벤트",
       showBackButton: false,
     });
   }, []);

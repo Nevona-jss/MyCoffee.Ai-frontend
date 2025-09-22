@@ -12,7 +12,6 @@ import Link from "next/link";
 import { useHeaderStore } from "@/stores/header-store";
 
 const MyPage = () => {
-
   const { setHeader } = useHeaderStore();
 
   useEffect(() => {
@@ -53,16 +52,22 @@ const MyPage = () => {
               0원
             </p>
           </div>
-          <button className="px-3.5 py-1.5 bg-action-primary text-white rounded-sm text-sm font-bold">
+          <Link
+            href="/point-usage-history"
+            className="px-3.5 py-1.5 inline-block bg-action-primary text-white rounded-sm text-sm font-bold"
+          >
             이용 내역
-          </button>
+          </Link>
         </div>
       </div>
 
       {/* Quick Access Icons */}
       <div className="grid grid-cols-3 gap-2 mb-4">
         {/* Order/Delivery Inquiry */}
-        <Link href="/profile/order-delivery" className="bg-white rounded-2xl p-3 border border-border-default text-center">
+        <Link
+          href="/profile/order-delivery"
+          className="bg-white rounded-2xl p-3 border border-border-default text-center"
+        >
           <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
             <Truck size={24} className="text-white" />
           </div>
@@ -70,7 +75,10 @@ const MyPage = () => {
         </Link>
 
         {/* Subscription Management */}
-        <Link href="/profile/manage-subscriptions" className="bg-white rounded-2xl p-3 border border-border-default text-center">
+        <Link
+          href="/profile/manage-subscriptions"
+          className="bg-white rounded-2xl p-3 border border-border-default text-center"
+        >
           <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
             <img src="/icons/wifi.svg" alt="wifi" className="w-6 h-6" />
           </div>
@@ -104,7 +112,10 @@ const MyPage = () => {
         </Link>
 
         {/* Delivery Address Management */}
-        <Link href="/delivery-address-management" className="flex items-center justify-between py-1.5">
+        <Link
+          href="/delivery-address-management"
+          className="flex items-center justify-between py-1.5"
+        >
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <MapPinHouse size={20} className="text-action-primary" />
@@ -128,7 +139,10 @@ const MyPage = () => {
         </div>
 
         {/* My Inquiries */}
-        <Link href="/profile/inquiries" className="flex items-center justify-between py-1.5">
+        <Link
+          href="/profile/inquiries"
+          className="flex items-center justify-between py-1.5"
+        >
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <BadgeAlert size={20} className="text-action-primary" />
