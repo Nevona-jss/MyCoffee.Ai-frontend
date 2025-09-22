@@ -150,7 +150,7 @@ const OrderingComponent = ({
                 <p className="font-bold text-xs leading-[18px]">
                   나만의 커피 1호기/클래식 하모니 블랜드
                 </p>
-                <button onClick={() => {}}>
+                <button onClick={() => { }}>
                   <ChevronDown size={16} className="text-icon-default" />
                 </button>
               </div>
@@ -271,6 +271,7 @@ const OrderingComponent = ({
         isOpen={orderLabelOption}
         onClose={() => setOrderLabelOption(false)}
       />
+
 
       <OrderSelectSubscriptionDeleviryDate
         isOpen={orderSubscriptionDeleviryDate}

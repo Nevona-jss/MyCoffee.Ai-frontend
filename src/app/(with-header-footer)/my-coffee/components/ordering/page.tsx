@@ -45,7 +45,7 @@ const Ordering = () => {
                 onClick={() => setOrderSelectOption(true)}
                 className="w-full h-[40px] leading-[40px] text-xs text-text-secondary pl-4 pr-2 border border-border-default rounded-lg bg-white"
               >
-                옵션을 선택해주세요. 
+                옵션을 선택해주세요.
               </p>
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
                 {/* this svg size should be 8px 4px  */}
@@ -98,7 +98,7 @@ const Ordering = () => {
               <p className="font-bold text-xs leading-[18px]">
                 나만의 커피 1호기/클래식 하모니 블랜드
               </p>
-              <button onClick={() => {}}>
+              <button onClick={() => { }}>
                 <svg
                   width="16"
                   height="16"
@@ -222,7 +222,7 @@ const Ordering = () => {
                 </div>
               )}
             </div>
- 
+
             <Link href={"/purchase-individual-item"} className="flex-1 inline-block text-center py-3 border border-transparent bg-linear-gradient text-white rounded-lg font-bold leading-[24px]">
               단품 구매
             </Link>
@@ -230,9 +230,17 @@ const Ordering = () => {
         </ActionSheet>
       </div>
 
+      {/* <OrderSelectOption
+        isOpen={orderSelectOption}
+        onClose={() => setOrderSelectOption(false)}
+
+      /> */}
+
       <OrderSelectOption
         isOpen={orderSelectOption}
         onClose={() => setOrderSelectOption(false)}
+        orderLabelOption={orderLabelOption}
+        setOrderLabelOption={setOrderLabelOption}
       />
 
       <OrderSelectLabelOption
