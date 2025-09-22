@@ -12,8 +12,7 @@ const OrderingComponent = ({ className, title, isTooltipOpenHave = true, childre
   const [isTooltipOpen, setIsTooltipOpen] = useState(true);
   const [orderSelectOption, setOrderSelectOption] = useState(false);
   const [orderLabelOption, setOrderLabelOption] = useState(false);
-  const [orderSubscriptionDeleviryDate, setOrderSubscriptionDeleviryDate] =
-    useState(false);
+  const [orderSubscriptionDeleviryDate, setOrderSubscriptionDeleviryDate] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -44,19 +43,21 @@ const OrderingComponent = ({ className, title, isTooltipOpenHave = true, childre
                 {title}
               </button>
             )}
+          </div>) : ""
+      }
 
 
-        {/* Tooltip - Default holatda ochiq */}
-        {isTooltipOpen && (
-          <div
-            id="tooltip-default"
-            role="tooltip"
-            className="absolute -top-[28px] left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-normal text-white leading-[150%]">
-                첫 구독 결제시 1달 무료
-              </span>
+      {/* Tooltip - Default holatda ochiq */}
+      {isTooltipOpen ? (
+        <div
+          id="tooltip-default"
+          role="tooltip"
+          className="absolute -top-[28px] left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-normal text-white leading-[150%]">
+              첫 구독 결제시 1달 무료
+            </span>
 
             {/* Tooltip - Default holatda ochiq */}
             {isTooltipOpenHave && isTooltipOpen && (
@@ -84,21 +85,22 @@ const OrderingComponent = ({ className, title, isTooltipOpenHave = true, childre
                 <div className="absolute top-full left-[20px] transform w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1C1C1C]"></div>
               </div>
             )}
-          </div>) : (
-            children ? (
-              <div className="flex-1" onClick={openModal}>
-                {children}
-              </div>
-            ) : (
-              <button
-                onClick={openModal}
-                className={className || "w-full block text-center btn-primary"}
-              >
-                <X size={16} className="text-white" />
-                {title}
-              </button>
-            )
-          )
+          </div>
+        </div>) : (
+      children ? (
+      <div className="flex-1" onClick={openModal}>
+        {children}
+      </div>
+      ) : (
+      <button
+        onClick={openModal}
+        className={className || "w-full block text-center btn-primary"}
+      >
+        <X size={16} className="text-white" />
+        {title}
+      </button>
+      )
+      )
     }
 
       <ActionSheet isOpen={isModalOpen} onClose={closeModal} title="구매하기">
@@ -162,7 +164,7 @@ const OrderingComponent = ({ className, title, isTooltipOpenHave = true, childre
             <p className="font-bold text-xs leading-[18px]">
               나만의 커피 1호기/클래식 하모니 블랜드
             </p>
-            <button onClick={() => {}}>
+            <button onClick={() => { }}>
               <svg
                 width="16"
                 height="16"

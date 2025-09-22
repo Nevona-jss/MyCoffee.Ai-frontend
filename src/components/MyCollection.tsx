@@ -24,10 +24,10 @@ const MyCollection = () => {
 
     const tasteLabels = [
         { key: 'aroma', label: '향', color: '#BE9FE2' },
-        { key: 'acidity', label: '산미', color: '#DCF494' },
-        { key: 'sweetness', label: '단맛', color: '#FFB5C2' },
+        { key: 'acidity', label: '단맛', color: '#DCF494' },
+        { key: 'sweetness', label: '바디', color: '#FFB5C2' },
         { key: 'nutty', label: '고소함', color: '#D8A058' },
-        { key: 'body', label: '바디', color: '#3B1C1C' },
+        { key: 'body', label: '산미', color: '#3B1C1C' },
     ];
 
     const generateRadarPath = (ratings: TasteRating) => {

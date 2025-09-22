@@ -48,9 +48,9 @@ const RadarChart: React.FC<RadarChartProps> = ({ ratings }) => {
   return (
     <div className="flex justify-center">
       <div className="relative">
-      <svg
-          className="mx-auto no-select w-[280px] h-[320px] sm:w-[305px] sm:h-[345px]"
-          viewBox="0 0 400 450"
+        <svg
+          className="mx-auto no-select w-[280px] h-[280px] sm:w-[305px] sm:h-[305px]"
+          viewBox="0 0 400 410"
           preserveAspectRatio="xMidYMid meet"
         >
           {/* Grid - Concentric pentagons with varying stroke width */}

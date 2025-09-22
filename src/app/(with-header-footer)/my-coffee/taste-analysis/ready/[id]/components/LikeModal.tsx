@@ -2,14 +2,16 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CircleAlert } from "lucide-react";
 
 interface LikeModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (coffeeName: string, comment: string) => void;
+  setLikedItemSaved: (likedItemSaved: boolean) => void;
 }
 
-const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
+const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave, setLikedItemSaved }) => {
   const router = useRouter();
   const [coffeeName, setCoffeeName] = useState("");
   const [comment, setComment] = useState("");
@@ -31,6 +33,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
     if (coffeeName.trim() === "클래식 모닝" && comment.trim() === "매일 아침의 활력") {
       setIsDuplicate(true);
       newErrors.coffeeName = "이미 저장된 내 커피 이름입니다.";
+      newErrors.comment = "이미 저장된 나만의 한줄 코멘트입니다.";
     } else {
       setIsDuplicate(false);
     }
@@ -44,8 +47,9 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
       setErrors({});
       setIsDuplicate(false);
       onClose();
+      setLikedItemSaved(true);
       // Redirect to collection page
-      router.push('/my-coffee/collection');
+      // router.push('/my-coffee/collection');
     }
   };
 
@@ -88,10 +92,8 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
           />
           {errors.coffeeName && (
             <div className="flex items-center gap-1 mt-2">
-              <span className={`text-[10px] ${isDuplicate ? 'text-orange-500' : 'text-[#EF4444]'}`}>!</span>
-              <span className={`text-[10px] font-normal ${isDuplicate ? 'text-orange-500' : 'text-[#EF4444]'}`}>
-                {errors.coffeeName}
-              </span>
+              <CircleAlert size={16} color={"#EF4444"} />
+              <span className="text-[10px] font-normal text-[#EF4444]">{errors.coffeeName}</span>
             </div>
           )}
         </div>
@@ -110,7 +112,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
           />
           {errors.comment && (
             <div className="flex items-center gap-1 mt-2">
-              <span className="text-[10px] text-[#EF4444]">!</span>
+              <CircleAlert size={16} color={"#EF4444"} />
               <span className="text-[10px] font-normal text-[#EF4444]">{errors.comment}</span>
             </div>
           )}
@@ -120,7 +122,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
           <button
             onClick={handleSave}
             className={`w-full text-center btn-primary`}
-            disabled={!isFormValid}
+            disabled={!!errors.comment || !!errors.coffeeName}
           >
             저장하기
           </button>

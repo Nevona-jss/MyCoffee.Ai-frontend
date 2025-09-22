@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import RadarChart from "./components/RadarChart";
 import TasteDetails from "./components/TasteDetails";
 import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
 import LikeModal from "./components/LikeModal";
 import OrderingComponent from "../../components/ordering/Ordering";
+import RadarChart from "../../components/RadarChart";
 
 const MonthlyCoffeeDetail = () => {
 
@@ -75,7 +75,7 @@ const MonthlyCoffeeDetail = () => {
                                         {item.title}
                                     </span>
                                     <svg
-                                        className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? 'rotate-180' : ''
+                                        className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? '' : 'rotate-180'
                                             }`}
                                         xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
                                         <path d="M10.5 6.5L6 1.5L1.5 6.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

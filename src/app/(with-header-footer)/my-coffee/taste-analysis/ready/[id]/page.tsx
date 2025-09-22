@@ -2,12 +2,15 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import RadarChart from "./components/RadarChart";
 import TasteDetails from "./components/TasteDetails";
 import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
 import OtherCoffeeSlider from "./components/OtherCoffeeSlider";
 import LikeModal from "./components/LikeModal";
 import OrderingComponent from "../../../components/ordering/Ordering";
+import RadarChart from "../../../components/RadarChart";
+import ActionSheet from "@/components/ActionSheet";
+import { SquarePen, Trash } from "lucide-react";
+import Link from "next/link";
 
 const CoffeeAnalysisDetail = () => {
 
@@ -15,6 +18,7 @@ const CoffeeAnalysisDetail = () => {
     const analysisId = params.id;
     const [openItems, setOpenItems] = useState<number[]>([0, 1, 2]); // First item open by default
     const [isLikeModalOpen, setIsLikeModalOpen] = useState(false);
+    const [likedItemSaved, setLikedItemSaved] = useState(false);
 
     // Sample taste ratings data
     const tasteRatings = {
@@ -81,7 +85,7 @@ const CoffeeAnalysisDetail = () => {
                                         <p className="flex items-center mt-[3px] text-gray-0 text-base font-bold leading-[125%]">{item.title}</p>
                                     </div>
                                     <svg
-                                        className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? 'rotate-180' : ''
+                                        className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? '' : 'rotate-180'
                                             }`}
                                         xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
                                         <path d="M10.5 6.5L6 1.5L1.5 6.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -133,7 +137,7 @@ const CoffeeAnalysisDetail = () => {
                 </div>
             </div>
             <div className="flex justify-center gap-2 pr-4 mt-9">
-                <button 
+                <button
                     onClick={() => setIsLikeModalOpen(true)}
                     className="size-12 flex-shrink-0 border border-action-primary rounded-lg flex items-center justify-center cursor-pointer"
                 >
@@ -143,13 +147,29 @@ const CoffeeAnalysisDetail = () => {
                 </button>
                 <OrderingComponent title={"주문하기"} />
             </div>
-            
+
             {/* Like Modal */}
             <LikeModal
                 isOpen={isLikeModalOpen}
                 onClose={() => setIsLikeModalOpen(false)}
                 onSave={handleLikeSave}
+                setLikedItemSaved={setLikedItemSaved}
             />
+
+            <ActionSheet
+                isOpen={likedItemSaved}
+                onClose={() => setLikedItemSaved(false)}
+            >
+                <p className="text-base font-bold text-gray-0 mb-6 text-center leading-[20px]">컬렉션 저장 완료!<br />이어서 한 번에 주문까지 끝내시겠어요?</p>
+                <div className="flex flex-col gap-2">
+                    <Link href={'/my-coffee/collection/1'} className="btn-primary text-center">
+                        지금 주문하기
+                    </Link>
+                    <Link href={'/my-coffee/collection'} className="btn-primary-empty text-center">
+                    내 커피 컬렉션 보기
+                    </Link>
+                </div>
+            </ActionSheet>
         </div>
     );
 };

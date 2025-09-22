@@ -64,8 +64,8 @@ const BottomMenuBar = () => {
                         </Link>
 
                         {/* edit */}
-                        <Link href="/review" className={`navbar-menu-item w-[70px] pl-4 pr-0 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/review') ? 'active' : ''}`}>
-                            {editIcon(isActive('/review') ? "#4E2A18" : "#B3B3B3")}
+                        <Link href="/review-main" className={`navbar-menu-item w-[70px] pl-4 pr-0 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/review-main') ? 'active' : ''}`}>
+                            {editIcon(isActive('/review-main') ? "#4E2A18" : "#B3B3B3")}
                             <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#B3B3B3]`}>리뷰</span>
                         </Link>
                         <Link href="/my-coffee" className='navbar-menu-main-item-wrapper w-[64px] relative flex-shrink-0 flex-col items-center justify-center -translate-y-[36%] rounded-full' style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
