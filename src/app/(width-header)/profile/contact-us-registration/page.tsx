@@ -17,7 +17,7 @@ const ContactUsRegistration = () => {
 
     useEffect(() => {
         setHeader({
-            title: "문의하기"
+            title: "문의하기", 
         });
     }, []);
 

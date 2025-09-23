@@ -10,7 +10,6 @@ const MySettings = () => {
     setHeader({
       title: "설정",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
   return (

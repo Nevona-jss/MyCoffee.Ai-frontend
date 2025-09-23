@@ -137,7 +137,7 @@ const PointUsageHistory = () => {
   useEffect(() => {
     setHeader({
       title: "포인트 이용내역",
-      showBackButton: true,
+      showBackButton: true, 
     });
   }, [setHeader]);
 

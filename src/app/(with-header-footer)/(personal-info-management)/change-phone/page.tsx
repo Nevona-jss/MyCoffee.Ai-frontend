@@ -16,7 +16,6 @@ const ChangePhone = () => {
     setHeader({
       title: "휴대폰변경",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
 

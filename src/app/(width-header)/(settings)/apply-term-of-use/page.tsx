@@ -11,7 +11,6 @@ const ApplyTermOfUse = () => {
     setHeader({
       title: "약관 및 개인정보 처리 동의",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
 

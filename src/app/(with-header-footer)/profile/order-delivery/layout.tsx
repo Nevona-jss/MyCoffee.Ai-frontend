@@ -14,8 +14,6 @@ export default function MyCoffeeLayout({
     setHeader({
       title: "주문/배송 조회",
       showBackButton: true,
-      showSettingsButton: false,
-
     });
   }, []);
 

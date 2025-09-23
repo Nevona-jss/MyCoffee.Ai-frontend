@@ -13,7 +13,6 @@ const MembershipWithdraw = () => {
     setHeader({
       title: "회원탈퇴",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
 
