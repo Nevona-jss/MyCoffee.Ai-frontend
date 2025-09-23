@@ -17,19 +17,16 @@ interface HeaderState {
 export const useHeaderStore = create<HeaderState>((set) => ({
   title: undefined,
   showBackButton: true,
-  backHref: undefined,
-  showSettingsButton: false,
+  backHref: undefined, 
   
   setHeader: (config) => set((state) => ({
-    ...state,
-    // ...{showSettingsButton: false, ...state},
+    ...state, 
     ...config,
   })),
   
   resetHeader: () => set({
     title: undefined,
     showBackButton: true,
-    backHref: undefined,
-    showSettingsButton: false,
+    backHref: undefined, 
   }),
 }));

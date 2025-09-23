@@ -13,7 +13,6 @@ const ApplyTermDetail = () => {
     setHeader({
       title: "개인정보 마케팅 활용 동의",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
   return (

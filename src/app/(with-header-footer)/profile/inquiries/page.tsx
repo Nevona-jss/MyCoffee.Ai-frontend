@@ -43,7 +43,6 @@ const Inquiries = () => {
     setHeader({
       title: "내 문의",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, [setHeader]);
 

@@ -20,6 +20,12 @@ const MyPage = () => {
       showBackButton: false,
       showSettingsButton: true,
     });
+
+    return () => {
+      setHeader({ 
+        showSettingsButton: false,
+      });
+    };
   }, []);
 
   return (

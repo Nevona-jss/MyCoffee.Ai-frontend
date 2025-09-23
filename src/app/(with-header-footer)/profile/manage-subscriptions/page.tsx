@@ -12,7 +12,6 @@ const ManageSubscriptions = () => {
     useEffect(() => {
       setHeader({
         title: "구독 관리",
-        showSettingsButton: false,
       });
     }, []);
 

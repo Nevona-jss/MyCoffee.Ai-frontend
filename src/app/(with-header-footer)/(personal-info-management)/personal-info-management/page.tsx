@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import ActionSheet from "@/components/ActionSheet";
 import { useHeaderStore } from "@/stores/header-store";
 import Link from "next/link";
+import DatePicker from "@/app/auth/components/DatePicker";
 
 const PersonalInfoManagement = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("01012341234");
-  const [birth, setBirth] = useState("2001 / 07 / 11");
+  const [birth, setBirth] = useState("");
   const [gender, setGender] = useState<"male" | "female">("male");
   const [showLogOutModal, setShowLogOutModal] = useState(false);
 
@@ -21,7 +22,6 @@ const PersonalInfoManagement = () => {
     setHeader({
       title: "개인정보관리",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
 
@@ -80,7 +80,17 @@ const PersonalInfoManagement = () => {
 
         {/* Birth */}
         <div className="mb-3">
-          <label className="block text-sm leading-[20px] font-bold mb-2">
+          <DatePicker
+            id="birth"
+            label="생년월일"
+            value={birth}
+            onChange={(value) => setBirth(value)}
+            error={""}
+            placeholder="년도 / 월 / 일"
+            required
+          />
+
+          {/* <label className="block text-sm leading-[20px] font-bold mb-2">
             생년월일
           </label>
           <input
@@ -88,7 +98,7 @@ const PersonalInfoManagement = () => {
             value={birth}
             onChange={(e) => setBirth(e.target.value)}
             className="w-full h-10 appearance-none px-4 rounded-lg border border-border-default text-gray-0"
-          />
+          /> */}
         </div>
 
         {/* Gender */}
@@ -129,7 +139,10 @@ const PersonalInfoManagement = () => {
             <span className="text-xs leading-[18px] text-gray-0">로그아웃</span>
             <ChevronRight size={20} className="text-icon-default" />
           </button>
-          <Link href="membership-withdraw" className="w-full flex items-center justify-between py-1.5 px-2">
+          <Link
+            href="membership-withdraw"
+            className="w-full flex items-center justify-between py-1.5 px-2"
+          >
             <span className="text-xs leading-[18px] text-gray-0">회원탈퇴</span>
             <ChevronRight size={20} className="text-icon-default" />
           </Link>

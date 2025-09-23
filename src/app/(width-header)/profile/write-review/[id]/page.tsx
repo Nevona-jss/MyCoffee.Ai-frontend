@@ -15,7 +15,7 @@ const WriteReview = () => {
 
     useEffect(() => {
         setHeader({
-            title: "리뷰 작성"
+            title: "리뷰 작성", 
         });
     }, []);
 

@@ -10,7 +10,6 @@ const CoffeStoryMain = () => {
     setHeader({
       title: "커피스토리",
       showBackButton: false,
-      showSettingsButton: false,
     });
   }, []);
   const coffeeStries = [

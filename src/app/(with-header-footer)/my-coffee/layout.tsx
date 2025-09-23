@@ -34,7 +34,7 @@ export default function MyCoffeeLayout({
 
   useEffect(() => {
     setHeader({
-      title: "내 커피"
+      title: "내 커피", 
     });
   }, []);
 

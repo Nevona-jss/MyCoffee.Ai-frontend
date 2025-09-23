@@ -9,7 +9,7 @@ const ManageSubscriptionsDetail = () => {
 
     useEffect(() => {
       setHeader({
-        title: "구독 상세"
+        title: "구독 상세",
       });
     }, []);
 

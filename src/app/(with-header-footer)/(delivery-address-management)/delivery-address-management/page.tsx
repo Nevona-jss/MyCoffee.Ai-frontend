@@ -76,7 +76,6 @@ const DeliveryAddressManagement = () => {
     setHeader({
       title: "배송지 관리",
       showBackButton: true,
-      showSettingsButton: false,
     });
   }, []);
 
@@ -92,7 +91,10 @@ const DeliveryAddressManagement = () => {
   return (
     <div className="px-4 pt-4 flex-1 flex flex-col ">
       {/* element list */}
-      <div className="space-y-4 flex-1 overflow-y-auto mb-4 max-h-[calc(100vh-240px)]" style={{ scrollbarWidth: 'none' }}>
+      <div
+        className="space-y-4 flex-1 overflow-y-auto mb-4 max-h-[calc(100vh-240px)]"
+        style={{ scrollbarWidth: "none" }}
+      >
         {delevireAddresses.map((address) => (
           <div
             key={address.id}
