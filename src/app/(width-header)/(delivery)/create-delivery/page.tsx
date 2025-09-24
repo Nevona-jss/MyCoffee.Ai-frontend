@@ -32,7 +32,7 @@ const EditDelivery = () => {
         <div className="">
           {/* Recipient */}
           <div className="mb-4">
-            <label className="block text-xs leading-[20px] font-bold text-gray-0 mb-2">
+            <label className="block text-xs leading-[16px] font-bold text-gray-0 mb-2">
               수령인
             </label>
             <input
@@ -45,7 +45,7 @@ const EditDelivery = () => {
 
           {/* Phone */}
           <div className="mb-4">
-            <label className="block text-xs leading-[20px] font-bold text-gray-0 mb-2">
+            <label className="block text-xs leading-[16px] font-bold text-gray-0 mb-2">
               휴대폰 번호
             </label>
             <input
@@ -58,7 +58,7 @@ const EditDelivery = () => {
 
           {/* zip code */}
           <div className="mb-2">
-            <label className="block text-xs leading-[20px] font-bold text-gray-0 mb-2">
+            <label className="block text-xs leading-[16px] font-bold text-gray-0 mb-2">
               배송지
             </label>
             <div className="flex items-center gap-2">
@@ -83,7 +83,7 @@ const EditDelivery = () => {
               type="text"
               value={zipAddress}
               onChange={(e) => setZipAddress(e.target.value)}
-              className="w-full h-10 text-xs  px-4 rounded-lg border border-border-default text-gray-0"
+              className="w-full h-10 text-xs px-4 rounded-lg border border-border-default text-gray-0"
             />
 
             <input

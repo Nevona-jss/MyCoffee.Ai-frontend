@@ -116,7 +116,7 @@ export default function FindId() {
       <div className="p-4 text-gray-0">
         {/* Phone Number Input */}
         <div>
-          <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0">
+          <label htmlFor="phone" className="block mb-2 text-[12px] leading-[16px] font-bold text-gray-0">
             휴대폰 번호
           </label>
           <div className="flex gap-1">
