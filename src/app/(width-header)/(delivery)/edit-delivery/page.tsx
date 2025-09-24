@@ -35,10 +35,6 @@ const EditDelivery = () => {
     });
   }, []);
 
-  const handleChangePhone = () => {
-    router.push("/change-phone");
-  };
-
   const isDisabled =
     !recipient || !phoneNumber || !zipCode || !zipAddress || !addressFloor;
 

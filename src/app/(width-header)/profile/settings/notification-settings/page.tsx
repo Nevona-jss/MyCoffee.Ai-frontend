@@ -13,7 +13,7 @@ const NotificationsSettings = () => {
     setMarketingEnabled(checked);
     console.log("checked", checked);
     if (checked) {
-      router.push("/marketing-permission");
+      router.push("/profile/settings/marketing-permission");
     }
   };
 

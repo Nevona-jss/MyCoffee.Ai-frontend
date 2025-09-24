@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useHeaderStore } from '@/stores/header-store';
 import { Settings } from 'lucide-react';
+import Link from 'next/link';
 
 const Header = () => {
     const router = useRouter();
@@ -41,9 +42,9 @@ const Header = () => {
             
             {
                 showSettingsButton && (
-                    <button  className="flex items-center p-2.5 cursor-pointer">
+                    <Link href="/profile/settings/my-settings" className="flex items-center p-2.5 cursor-pointer">
                         <Settings size={24} />
-                    </button>
+                    </Link>
                 )
             } 
         </div>

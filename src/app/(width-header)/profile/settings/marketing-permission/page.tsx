@@ -107,7 +107,7 @@ const MarketingPermission = () => {
           </div>
 
           <Link
-            href="/my-settings"
+            href="/profile/settings/my-settings"
             className="inline-block text-center w-full mt-auto  py-3 bg-linear-gradient text-white rounded-lg font-bold leading-[24px]"
           >
             확인

@@ -17,7 +17,7 @@ const MySettings = () => {
       {/* Management List */}
       <div className="bg-white rounded-2xl border border-border-default p-3">
         {/* Payment Method Management */}
-        <Link href="/notification-settings" className="flex items-center justify-between py-1.5">
+        <Link href="/profile/settings/notification-settings" className="flex items-center justify-between py-1.5">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <Bell size={20} className="text-action-primary" />
@@ -30,7 +30,7 @@ const MySettings = () => {
         </Link>
 
         {/* Delivery Address Management */}
-        <Link href="/apply-term-of-use" className="flex items-center justify-between py-1.5">
+        <Link href="/profile/settings/apply-term-of-use" className="flex items-center justify-between py-1.5">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <ShieldAlert size={20} className="text-action-primary" />

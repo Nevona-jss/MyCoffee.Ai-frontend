@@ -26,7 +26,7 @@ const PersonalInfoManagement = () => {
   }, []);
 
   const handleChangePhone = () => {
-    router.push("/change-phone");
+    router.push("/profile/change-phone");
   };
 
   return (
@@ -140,7 +140,7 @@ const PersonalInfoManagement = () => {
             <ChevronRight size={20} className="text-icon-default" />
           </button>
           <Link
-            href="membership-withdraw"
+            href="/profile/membership-withdraw"
             className="w-full flex items-center justify-between py-1.5 px-2"
           >
             <span className="text-xs leading-[18px] text-gray-0">회원탈퇴</span>

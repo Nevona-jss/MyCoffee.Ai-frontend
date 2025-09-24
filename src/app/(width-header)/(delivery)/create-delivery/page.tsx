@@ -26,10 +26,6 @@ const EditDelivery = () => {
     });
   }, []);
 
-  const handleChangePhone = () => {
-    router.push("/change-phone");
-  };
-
   return (
     <>
       <div className="bg-background h-full p-4 w-full flex-1 flex flex-col justify-between">

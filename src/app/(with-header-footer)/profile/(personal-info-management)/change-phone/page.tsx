@@ -43,7 +43,7 @@ const ChangePhone = () => {
             <input
               type="number"
               value={phoneNumber}
-              placeholder="00000000000"
+              placeholder="휴대폰 번호를 입력해주세요"
               onChange={(e) => setPhoneNumber(e.target.value)}
               className="flex-1 h-10 px-3 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0"
             />

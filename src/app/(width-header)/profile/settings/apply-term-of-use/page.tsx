@@ -19,7 +19,7 @@ const ApplyTermOfUse = () => {
     <div className="p-4">
       <div className="bg-white rounded-2xl border border-border-default p-3">
         <Link
-          href="/apply-term-of-use/1"
+          href="/profile/settings/apply-term-of-use/1"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">
@@ -30,7 +30,7 @@ const ApplyTermOfUse = () => {
           <ChevronRight size={20} className="text-icon-default" />
         </Link>
         <Link
-          href="/apply-term-of-use/2"
+          href="/profile/settings/apply-term-of-use/2"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ const ApplyTermOfUse = () => {
           <ChevronRight size={20} className="text-icon-default" />
         </Link>
         <Link
-          href="/apply-term-of-use/3"
+          href="/profile/settings/apply-term-of-use/3"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">
@@ -52,7 +52,7 @@ const ApplyTermOfUse = () => {
           <ChevronRight size={20} className="text-icon-default" />
         </Link>
         <Link
-          href="/apply-term-of-use/4"
+          href="/profile/settings/apply-term-of-use/4"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ const ApplyTermOfUse = () => {
           <ChevronRight size={20} className="text-icon-default" />
         </Link>
         <Link
-          href="/apply-term-of-use/5"
+          href="/profile/settings/apply-term-of-use/5"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">

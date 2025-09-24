@@ -31,7 +31,7 @@ const MyPage = () => {
   return (
     <div className="bg-background p-4">
       {/* User Information Card */}
-      <div className="bg-white rounded-2xl p-3 mb-4 border border-border-default">
+      <Link href="/profile/personal-info-management" className="bg-white block rounded-2xl p-3 mb-4 border border-border-default">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <p className="text-base font-bold leading-[20px]">이기홍</p>
@@ -45,7 +45,7 @@ const MyPage = () => {
           </div>
           <ChevronRight size={24} className="text-icon-default" />
         </div>
-      </div>
+      </Link>
 
       {/* My Points Card */}
       <div className="bg-brand-secondary-accent-sub rounded-2xl p-3 mb-4">
@@ -92,14 +92,14 @@ const MyPage = () => {
         </Link>
 
         {/* My Reviews */}
-        <div className="bg-white rounded-2xl p-3 border border-border-default text-center">
+        <Link href="/profile/reviews/history" className="bg-white rounded-2xl p-3 border border-border-default text-center">
           <div className="w-11 h-11 bg-action-secondary rounded-full flex items-center justify-center mx-auto mb-3">
             {/* <MessageSquare size={24} className="text-white" /> */}
 
             <MessageSquareDot size={24} className="text-white" />
           </div>
-          <p className="text-xs leading-[16px] font-bold">내리뷰</p>
-        </div>
+          <p className="text-xs leading-[16px] font-bold">내 리뷰</p>
+        </Link>
       </div>
 
       {/* Management List */}
@@ -134,7 +134,7 @@ const MyPage = () => {
         </Link>
 
         {/* My Reviews */}
-        <div className="flex items-center justify-between py-1.5">
+        <Link href="/profile/reviews/history" className="flex items-center justify-between py-1.5">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
               <MessageSquareMore size={20} className="text-action-primary" />
@@ -142,7 +142,7 @@ const MyPage = () => {
             <span className="text-sm leading-[20px] font-bold">내 리뷰</span>
           </div>
           <ChevronRight size={20} className="text-icon-default" />
-        </div>
+        </Link>
 
         {/* My Inquiries */}
         <Link
