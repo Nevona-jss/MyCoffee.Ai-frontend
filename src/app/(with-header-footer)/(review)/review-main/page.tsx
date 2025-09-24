@@ -161,7 +161,7 @@ const ReviewMain = () => {
             />
             <label
               htmlFor="photoReview"
-              className="text-sm font-bold leading-[20px] "
+              className="text-sm font-bold leading-[16px] "
             >
               포토리뷰
             </label>
