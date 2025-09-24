@@ -234,7 +234,7 @@ const PurchaseSubscription = () => {
 
             {expandedSections.pointUsage && (
               <div className=" mt-2">
-                <span className="text-xs leading-[18px] font-bold">
+                <span className="text-xs leading-[16px] font-bold">
                   보유 포인트 12,000
                 </span>
                 <div className="flex items-center gap-2 mt-2">
@@ -242,7 +242,7 @@ const PurchaseSubscription = () => {
                     type="number"
                     value={pointUsage}
                     onChange={(e) => setPointUsage(Number(e.target.value))}
-                    className="flex-1 h-10 pl-3 border border-border-default rounded-lg text-left text-sm placeholder:text-text-secondary"
+                    className="flex-1 h-10 pl-3 border border-border-default rounded-lg text-left text-xs placeholder:text-text-secondary"
                     placeholder="0"
                   />
                   <button
@@ -338,7 +338,7 @@ const PurchaseSubscription = () => {
                   onChange={() => handleAgreementChange("all")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-xs leading-[18px] font-normal ">
+                <span className="text-xs leading-[16px] font-normal ">
                   구매조건/약관 및 개인정보 이용 전체 동의
                 </span>
               </label>
@@ -350,7 +350,7 @@ const PurchaseSubscription = () => {
                   onChange={() => handleAgreementChange("personalInfo")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-xs leading-[18px] font-normal ">
+                <span className="text-xs leading-[16px] font-normal ">
                   개인정보 수집 및 이용 동의 (필수)
                 </span>
                 <ChevronRight size={20} className="ml-auto text-icon-default" />
@@ -363,7 +363,7 @@ const PurchaseSubscription = () => {
                   onChange={() => handleAgreementChange("terms")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-xs leading-[18px] font-normal ">
+                <span className="text-xs leading-[16px] font-normal ">
                   이용약관 동의 (필수)
                 </span>
                 <ChevronRight size={20} className="ml-auto text-icon-default" />
@@ -376,7 +376,7 @@ const PurchaseSubscription = () => {
                   onChange={() => handleAgreementChange("marketing")}
                   className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
                 />
-                <span className="text-xs leading-[18px] font-normal ">
+                <span className="text-xs leading-[16px] font-normal ">
                   개인정보 마케팅 활용 동의 (선택)
                 </span>
                 <ChevronRight size={20} className="ml-auto text-icon-default" />
