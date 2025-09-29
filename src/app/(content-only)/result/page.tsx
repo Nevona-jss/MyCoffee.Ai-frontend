@@ -80,7 +80,7 @@ export default function ResultPage() {
 
                 {/* Coffee Blend Card */}
                 {coffeeBlends.map((blend, index) => (
-                    <div key={index}>
+                    <div key={index} className='w-full'>
                         <h1 className="text-xl font-bold text-[#4E2A18] mb-2">{blend.name}</h1>
                         <p className="text-gray-0 text-sm mb-2 font-normal">{blend.description}</p>
 

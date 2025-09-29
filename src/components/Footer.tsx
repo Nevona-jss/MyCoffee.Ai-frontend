@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <div className="bg-[rgba(0,0,0,0.05)] px-4 pt-3 pb-8 text-gray-0">
-            <div className="max-w-sm mx-auto">
+            <div className="mx-auto">
                 {/* Company Name */}
                 <h3 className="text-base font-bold mb-2.5 leading-[125%]">MyCoffee.Ai</h3>
                 
