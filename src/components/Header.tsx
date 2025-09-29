@@ -33,7 +33,7 @@ const Header = () => {
             {/* Center - Title */}
             {
                 title && (
-                <div className="flex absolute left-1/2 -translate-x-1/2">
+                <div className="flex absolute left-1/2 -translate-x-1/2 shrink-0 text-nowrap">
                     <h1 className="text-[16px] font-bold text-gray-0">
                         {title}
                     </h1>
