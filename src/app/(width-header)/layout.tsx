@@ -11,7 +11,7 @@ export default function LayoutFooter({
     <div className="h-[100dvh] bg-background flex flex-col">
         <Header  />
         {/* Main Content */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             {children}
         </div>
     </div>
