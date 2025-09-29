@@ -19,7 +19,7 @@ const ApplyTermOfUse = () => {
     <div className="p-4">
       <div className="bg-white rounded-2xl border border-border-default p-3">
         <Link
-          href="/profile/settings/apply-term-of-use/1"
+          href="/profile/settings/apply-term-of-use/collect-and-use-personal-info"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ const ApplyTermOfUse = () => {
           <ChevronRight size={20} className="text-icon-default" />
         </Link>
         <Link
-          href="/profile/settings/apply-term-of-use/3"
+          href="/profile/settings/apply-term-of-use/third-party-provision"
           className="flex items-center justify-between py-2"
         >
           <div className="flex items-center gap-2">
