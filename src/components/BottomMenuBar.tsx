@@ -81,7 +81,7 @@ const BottomMenuBar = () => {
                         {/* globus */}
                         <Link href="/community" className={`navbar-menu-item w-[70px] pl-0 pr-4 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/community') ? 'active' : ''}`}>
                             {globalIcon(isActive('/community') ? "#4E2A18" : "#B3B3B3")}
-                            <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#6E6E6E]`}>커뮤니티</span>
+                            <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#6E6E6E] text-nowrap`}>커뮤니티</span>
                         </Link>
 
                         {/* Profile */}
