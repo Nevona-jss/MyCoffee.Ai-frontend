@@ -51,110 +51,112 @@ const CollectionDetail = () => {
 
   return (
     <div className="pl-4 pt-6 pb-2">
-      <div className="pr-4">
-        <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
-          나만의 커피 1호기
-        </h2>
-        <p className="text-[10px] text-text-secondary mb-2 text-center font-normal">
-          2025-08-24 오후 12:34
-        </p>
-        <p className="text-xs text-gray-0 mb-6 text-center font-normal ">
-          달달한 커피가 먹고 싶을 때 추천받은 커피
-        </p>
-        <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
-          클래식 하모니 블렌드
-        </h2>
-        <p className="text-xs text-gray-0 mb-6 text-center font-normal">
-          “ 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. ”
-        </p>
-      </div>
+      <div className="overflow-y-auto h-[calc(100vh-272px)]">
+        <div className="pr-4">
+          <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
+            나만의 커피 1호기
+          </h2>
+          <p className="text-[10px] text-text-secondary mb-2 text-center font-normal">
+            2025-08-24 오후 12:34
+          </p>
+          <p className="text-xs text-gray-0 mb-6 text-center font-normal ">
+            달달한 커피가 먹고 싶을 때 추천받은 커피
+          </p>
+          <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
+            클래식 하모니 블렌드
+          </h2>
+          <p className="text-xs text-gray-0 mb-6 text-center font-normal">
+            “ 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. ”
+          </p>
+        </div>
 
-      <div className="">
-        <div className="space-y-[26px]">
-          {accordionItems.map((item, index) => (
-            <div key={item.id} className="overflow-hidden">
-              <div className="pr-8">
-                <button
-                  type="button"
-                  onClick={() => toggleItem(item.id)}
-                  className="r-4 flex items-center justify-between w-full py-0 font-medium text-gray-500 rounded-lg transition-colors duration-200 cursor-pointer"
-                >
-                  <span className="flex items-center gap-2 text-gray-0 text-base font-bold leading-[125%]">
+        <div className="">
+          <div className="space-y-[26px]">
+            {accordionItems.map((item, index) => (
+              <div key={item.id} className="overflow-hidden">
+                <div className="pr-8">
+                  <button
+                    type="button"
+                    onClick={() => toggleItem(item.id)}
+                    className="r-4 flex items-center justify-between w-full py-0 font-medium text-gray-500 rounded-lg transition-colors duration-200 cursor-pointer"
+                  >
+                    <span className="flex items-center gap-2 text-gray-0 text-base font-bold leading-[125%]">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M20 6L9 17L4 12"
+                          stroke="#22C55E"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      {item.title}
+                    </span>
                     <svg
+                      className={`shrink-0 transition-transform duration-200 ${
+                        openItems.includes(item.id) ? "" : "rotate-180"
+                      }`}
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
+                      width="12"
+                      height="8"
+                      viewBox="0 0 12 8"
                       fill="none"
                     >
                       <path
-                        d="M20 6L9 17L4 12"
-                        stroke="#22C55E"
+                        d="M10.5 6.5L6 1.5L1.5 6.5"
+                        stroke="#1A1A1A"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
-                    {item.title}
-                  </span>
-                  <svg
-                    className={`shrink-0 transition-transform duration-200 ${
-                      openItems.includes(item.id) ? "" : "rotate-180"
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="8"
-                    viewBox="0 0 12 8"
-                    fill="none"
-                  >
-                    <path
-                      d="M10.5 6.5L6 1.5L1.5 6.5"
-                      stroke="#1A1A1A"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  </button>
+                </div>
 
-              <div
-                className={`transition-all duration-300 ease-in-out ${
-                  openItems.includes(item.id)
-                    ? "max-h-[2000px] opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="pt-3">
-                  {item.id === 0 ? (
-                    <div className="border border-border-default rounded-2xl p-3 bg-white mr-4">
-                      {/* Radar Chart */}
-                      <RadarChart ratings={tasteRatings} />
+                <div
+                  className={`transition-all duration-300 ease-in-out ${
+                    openItems.includes(item.id)
+                      ? "max-h-[2000px] opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="pt-3">
+                    {item.id === 0 ? (
+                      <div className="border border-border-default rounded-2xl p-3 bg-white mr-4">
+                        {/* Radar Chart */}
+                        <RadarChart ratings={tasteRatings} />
 
-                      {/* Origin Info */}
-                      <div className="text-center mb-4">
-                        <p className="text-xs text-gray-0 leading-[16px]">
-                          (브라질 42%, 페루 58%)
-                        </p>
+                        {/* Origin Info */}
+                        <div className="text-center mb-4">
+                          <p className="text-xs text-gray-0 leading-[16px]">
+                            (브라질 42%, 페루 58%)
+                          </p>
+                        </div>
+
+                        {/* Taste Details */}
+                        <TasteDetails ratings={tasteRatings} />
                       </div>
-
-                      {/* Taste Details */}
-                      <TasteDetails ratings={tasteRatings} />
-                    </div>
-                  ) : item.id === 1 ? (
-                    <div>
-                      {/* Coffee Collection Slider */}
-                      <CoffeeCollectionSlider />
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {item.content}
-                    </p>
-                  )}
+                    ) : item.id === 1 ? (
+                      <div>
+                        {/* Coffee Collection Slider */}
+                        <CoffeeCollectionSlider />
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {item.content}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
       <div className="flex justify-center gap-2 pr-4 mt-9">

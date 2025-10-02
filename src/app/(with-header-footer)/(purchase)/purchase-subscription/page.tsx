@@ -76,7 +76,7 @@ const PurchaseSubscription = () => {
   return (
     <>
       <div className="bg-background p-4 pb-2 flex flex-col justify-between">
-        <div className="space-y-4 ">
+        <div className="space-y-4 overflow-y-auto h-[calc(100vh-246px)]">
           {/* 주문 정보 (Order Information) */}
           <div className="bg-white rounded-lg p-3 border border-border-default">
             <div

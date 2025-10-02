@@ -88,7 +88,7 @@ const CollectionPage = () => {
 
   return (
     <div className="px-4 py-4">
-      <div>
+      <div className="overflow-y-auto h-[calc(100vh-240px)]">
         {/* Warning Banner */}
         {showWarning && (
           <div className="bg-[#FFF3CD] rounded-lg p-3 mb-4">
@@ -202,7 +202,7 @@ const CollectionPage = () => {
         onSave={handleSaveChanges}
         href={`/my-coffee/collection`}
       />
-      
+
       {/* Delete Confirmation ActionSheet */}
       <ActionSheet
         isOpen={deleteModalIsOpen}
@@ -210,7 +210,7 @@ const CollectionPage = () => {
       >
         <div className="text-center">
           <p className="text-base font-bold text-gray-0 mb-6 leading-[20px]">
-          정말 삭제하시겠습니까?
+            정말 삭제하시겠습니까?
           </p>
           <div className="flex flex-col gap-2">
             <button

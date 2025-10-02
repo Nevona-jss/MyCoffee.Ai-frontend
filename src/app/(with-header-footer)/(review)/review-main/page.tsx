@@ -149,172 +149,174 @@ const ReviewMain = () => {
 
   return (
     <div className="bg-background">
-      <div className="px-4 pt-2.5 pb-2">
-        {/* Sort Dropdown */}
-        <div className="flex justify-between">
-          <div className="flex items-center gap-2">
-            {/* write input chekcbox with label text */}
-            <input
-              type="checkbox"
-              id="photoReview"
-              className="auth-checkbox w-5 h-5"
-            />
-            <label
-              htmlFor="photoReview"
-              className="text-sm font-bold leading-[16px] "
-            >
-              포토리뷰
-            </label>
-          </div>
-          <div className="relative">
-            <button
-              onClick={() => setShowSortDropdown(!showSortDropdown)}
-              className={`flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary ${
-                showSortDropdown && "border-action-secondary"
-              }`}
-            >
-              <span>{sortBy}</span>
-              <ChevronDown
-                size={16}
-                className={`text-action-primary transition-all duration-300 ${
-                  showSortDropdown && "rotate-180"
-                }`}
+      <div className="overflow-y-auto h-[calc(100vh-220px)] pb-8">
+        <div className="px-4 pt-2.5 pb-2">
+          {/* Sort Dropdown */}
+          <div className="flex justify-between">
+            <div className="flex items-center gap-2">
+              {/* write input chekcbox with label text */}
+              <input
+                type="checkbox"
+                id="photoReview"
+                className="auth-checkbox w-5 h-5"
               />
-            </button>
+              <label
+                htmlFor="photoReview"
+                className="text-sm font-bold leading-[16px] "
+              >
+                포토리뷰
+              </label>
+            </div>
+            <div className="relative">
+              <button
+                onClick={() => setShowSortDropdown(!showSortDropdown)}
+                className={`flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary ${
+                  showSortDropdown && "border-action-secondary"
+                }`}
+              >
+                <span>{sortBy}</span>
+                <ChevronDown
+                  size={16}
+                  className={`text-action-primary transition-all duration-300 ${
+                    showSortDropdown && "rotate-180"
+                  }`}
+                />
+              </button>
 
-            {showSortDropdown && (
-              <div className="absolute right-0 top-full mt-1 bg-white rounded-sm shadow-[0_8px_24px_rgba(0,0,0,0.12)] z-10 min-w-[140px]">
-                {sortOptions.map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => {
-                      setSortBy(option);
-                      setShowSortDropdown(false);
-                    }}
-                    className={`w-full px-3 py-3.5 text-[10px] leading-[16px] font-bold text-left hover:bg-gray-50 ${
-                      sortBy === option && "text-action-secondary"
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            )}
+              {showSortDropdown && (
+                <div className="absolute right-0 top-full mt-1 bg-white rounded-sm shadow-[0_8px_24px_rgba(0,0,0,0.12)] z-10 min-w-[140px]">
+                  {sortOptions.map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        setSortBy(option);
+                        setShowSortDropdown(false);
+                      }}
+                      className={`w-full px-3 py-3.5 text-[10px] leading-[16px] font-bold text-left hover:bg-gray-50 ${
+                        sortBy === option && "text-action-secondary"
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Reviews List */}
-      <div className="px-4 pt-5.5 space-y-4">
-        {reviews.map((review) => (
-          <div
-            key={review.id}
-            className="bg-white rounded-lg px-3 py-2.5 border border-border-default"
-          >
-            {/* User Info and Rating */}
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center border border-border-default">
-                  <img
-                    src={"/images/review-avatar.svg"}
-                    alt="user"
-                    width={28}
-                    height={28}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-                <div>
-                  <p className="text-[10px] leading-[16px] font-bold">
-                    {review.user}
-                  </p>
-                  <div className="flex items-center">
-                    {renderStars(review.rating)}
-                    <span className="text-[10px] leading-[16px] font-normal text-text-secondary ml-1">
-                      | {review.date}
-                    </span>
+        {/* Reviews List */}
+        <div className="px-4 pt-5.5 space-y-4">
+          {reviews.map((review) => (
+            <div
+              key={review.id}
+              className="bg-white rounded-lg px-3 py-2.5 border border-border-default"
+            >
+              {/* User Info and Rating */}
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center border border-border-default">
+                    <img
+                      src={"/images/review-avatar.svg"}
+                      alt="user"
+                      width={28}
+                      height={28}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-[10px] leading-[16px] font-bold">
+                      {review.user}
+                    </p>
+                    <div className="flex items-center">
+                      {renderStars(review.rating)}
+                      <span className="text-[10px] leading-[16px] font-normal text-text-secondary ml-1">
+                        | {review.date}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex items-center gap-2">
-                <span
-                  onClick={() => handleUserLike(review.id)}
-                  className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300 ${
-                    isUserLiked(review.id) &&
-                    "bg-action-secondary border-transparent text-white"
-                  }`}
-                >
-                  <ThumbsUp
-                    size={16}
-                    className={`transition-all duration-300 ${
-                      isUserLiked(review.id)
-                        ? "text-white"
-                        : "text-icon-default"
+                <div className="flex items-center gap-2">
+                  <span
+                    onClick={() => handleUserLike(review.id)}
+                    className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300 ${
+                      isUserLiked(review.id) &&
+                      "bg-action-secondary border-transparent text-white"
                     }`}
-                  />
-                </span>
-                <span className="text-sm leading-[20px] font-bold">
-                  {review.likes}
-                </span>
+                  >
+                    <ThumbsUp
+                      size={16}
+                      className={`transition-all duration-300 ${
+                        isUserLiked(review.id)
+                          ? "text-white"
+                          : "text-icon-default"
+                      }`}
+                    />
+                  </span>
+                  <span className="text-sm leading-[20px] font-bold">
+                    {review.likes}
+                  </span>
+                </div>
+              </div>
+
+              {/* Product Name */}
+              <span className="text-[10px] leading-[16px] text-text-secondary mb-3 rounded-[10px] inline-block bg-[#0000000D] px-2 py-0.5">
+                {review.product}
+              </span>
+
+              {/* Review Image */}
+              <div
+                className="mb-3 rounded-lg overflow-hidden cursor-pointer"
+                onClick={() => handleImageClick(review.images)}
+              >
+                <img
+                  src={review.images[0]}
+                  alt="Coffee review"
+                  className="w-full h-[357px] max-h-[357px] object-cover rounded-lg"
+                />
+              </div>
+
+              {/* Review Text */}
+              <p className="text-[10px] leading-4 mb-3">{review.text}</p>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-between gap-2">
+                <button className="btn-action">
+                  이 추천 커피로 바로 주문하기
+                </button>
+
+                <button
+                  onClick={() => setShowReviewOption(true)}
+                  className="size-8 border border-action-primary rounded-sm flex items-center justify-center"
+                >
+                  <MoreVertical size={16} className="text-action-primary" />
+                </button>
               </div>
             </div>
+          ))}
 
-            {/* Product Name */}
-            <span className="text-[10px] leading-[16px] text-text-secondary mb-3 rounded-[10px] inline-block bg-[#0000000D] px-2 py-0.5">
-              {review.product}
-            </span>
-
-            {/* Review Image */}
-            <div
-              className="mb-3 rounded-lg overflow-hidden cursor-pointer"
-              onClick={() => handleImageClick(review.images)}
-            >
-              <img
-                src={review.images[0]}
-                alt="Coffee review"
-                className="w-full h-[357px] max-h-[357px] object-cover rounded-lg"
-              />
-            </div>
-
-            {/* Review Text */}
-            <p className="text-[10px] leading-4 mb-3">{review.text}</p>
-
-            {/* Action Buttons */}
-            <div className="flex items-center justify-between gap-2">
-              <button className="btn-action">
-                이 추천 커피로 바로 주문하기
-              </button>
-
-              <button
-                onClick={() => setShowReviewOption(true)}
-                className="size-8 border border-action-primary rounded-sm flex items-center justify-center"
-              >
-                <MoreVertical size={16} className="text-action-primary" />
-              </button>
-            </div>
-          </div>
-        ))}
-
-        <div className="relative">
-          {isToolTipOpen && (
-            <div className="absolute bottom-full flex items-center gap-2 left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-lg shadow-lg opacity-100 transition-opacity duration-300 whitespace-nowrap">
-              포토 내 커피 추천 작성시 포인트 +1,000
-              {/* Arrow */}
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
-              {/* X button */}
-              <button
-                onClick={() => setIsToolTipOpen(false)}
-                className="size-4 cursor-pointer inline-flex items-center justify-center hover:bg-gray-700 rounded"
-              >
-                <X size={12} className="text-white" />
-              </button>
-            </div>
-          )}
-
-          <button className="py-4 bg-linear-gradient w-full text-white rounded-lg font-bold text-base ">
-            내 커피 추천하기
-          </button>
         </div>
+      </div>
+      <div className="relative px-4 pt-1">
+        {isToolTipOpen && (
+          <div className="absolute bottom-[90%] flex items-center gap-2 left-[50%] transform -translate-x-1/2 mb-2 px-3 py-2 text-xs font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            포토 내 커피 추천 작성시 포인트 +1,000
+            {/* Arrow */}
+            <div className="absolute top-full left-[20px] transform -translate-x-1/2 w-0 h-0 border-l-5 border-r-5 border-t-5 border-l-transparent border-r-transparent border-t-[#1C1C1C]"></div>
+            {/* X button */}
+            <button
+              onClick={() => setIsToolTipOpen(false)}
+              className="size-4 cursor-pointer inline-flex items-center justify-center hover:bg-gray-700 rounded"
+            >
+              <X size={12} className="text-white" />
+            </button>
+          </div>
+        )}
+
+        <button className="py-4 bg-linear-gradient w-full text-white rounded-lg font-bold text-base ">
+          내 커피 추천하기
+        </button>
       </div>
  
       {/* Action Sheet */}

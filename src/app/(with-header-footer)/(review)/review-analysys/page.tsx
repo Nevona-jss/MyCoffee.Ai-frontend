@@ -58,14 +58,9 @@ const ReviewAnalysys = () => {
     );
   };
 
-  const handleLikeSave = (coffeeName: string, comment: string) => {
-    console.log("Saved coffee:", { coffeeName, comment });
-    // Here you can add logic to save the coffee to your database or state
-  };
-
   return (
     <div className="pl-4 pt-4 pb-2 flex flex-col justify-between">
-      <div>
+      <div className="overflow-y-auto h-[calc(100vh-240px)]">
         <div className="pr-4">
           <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
             나만의 커피 취향을 찾아볼까요?
@@ -169,7 +164,7 @@ const ReviewAnalysys = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center gap-2 pr-4 mt-9">
+      <div className="flex justify-center gap-2 pr-4 mt-1">
         <button
           onClick={() => setIsLikeModalOpen(true)}
           className="size-12 flex-shrink-0 border border-action-primary rounded-lg flex items-center justify-center cursor-pointer"

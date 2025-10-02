@@ -32,6 +32,11 @@ export default function MyCoffeeLayout({
   const [currentTab, setCurrentTab] = useState('taste-analysis');
   const [swiper, setSwiper] = useState<any>(null);
   
+  const isMainTabRoute = () => {
+    const mainRoutes = ['/my-coffee/taste-analysis', '/my-coffee/collection', '/my-coffee/monthly-coffee'];
+    return mainRoutes.some(route => pathname === route);
+  };
+
   // Get current tab from pathname
   const getCurrentTab = () => {
     if (pathname.includes('taste-analysis')) return 'taste-analysis';
@@ -45,31 +50,52 @@ export default function MyCoffeeLayout({
     return tabs.findIndex(t => t.value === tab);
   };
 
-  // Update current tab when pathname changes
   useEffect(() => {
     const tabFromPath = getCurrentTab();
     if (tabFromPath !== currentTab) {
       setCurrentTab(tabFromPath);
       // Update swiper slide when pathname changes
-      if (swiper) {
+      if (swiper && isMainTabRoute()) {
         const index = getTabIndex(tabFromPath);
         swiper.slideTo(index);
+        // Update height after slide change
+        setTimeout(() => {
+          if (swiper && swiper.updateAutoHeight) {
+            swiper.updateAutoHeight();
+          }
+        }, 50);
       }
     }
-  }, [pathname, swiper]);
+  }, [pathname]);
+
+  // Update swiper when it's ready
+  useEffect(() => {
+    if (swiper) {
+      const tabFromPath = getCurrentTab();
+      const index = getTabIndex(tabFromPath);
+      swiper.slideTo(index);
+    }
+  }, [swiper]);
 
   const handleTabChange = (tab: string) => {
     if (tab === currentTab) return;
     
     setCurrentTab(tab);
     
-    // Update URL without triggering navigation
-    window.history.pushState(null, '', `/my-coffee/${tab}`);
+    // Update URL using useRouter
+    router.push(`/my-coffee/${tab}`, { scroll: false });
     
     // Update swiper slide
     if (swiper) {
       const index = getTabIndex(tab);
       swiper.slideTo(index);
+      
+      // Update height after slide change
+      setTimeout(() => {
+        if (swiper && swiper.updateAutoHeight) {
+          swiper.updateAutoHeight();
+        }
+      }, 100);
     }
   };
 
@@ -79,9 +105,16 @@ export default function MyCoffeeLayout({
     
     if (newTab && newTab.value !== currentTab) {
       setCurrentTab(newTab.value);
-      // Update URL without triggering navigation
-      window.history.pushState(null, '', `/my-coffee/${newTab.value}`);
+      // Update URL using useRouter
+      router.push(`/my-coffee/${newTab.value}`, { scroll: false });
     }
+    
+    // Update swiper height when slide changes
+    setTimeout(() => {
+      if (swiper && swiper.updateAutoHeight) {
+        swiper.updateAutoHeight();
+      }
+    }, 100);
   };
 
   const { setHeader } = useHeaderStore();
@@ -91,6 +124,11 @@ export default function MyCoffeeLayout({
       title: "내 커피", 
     });
   }, []);
+
+  // If we're on a sub-route (like /my-coffee/collection/[id]), just render children
+  if (!isMainTabRoute()) {
+    return <div className="flex-1 overflow-y-auto">{children}</div>;
+  }
 
   return (
     <div>
@@ -103,7 +141,7 @@ export default function MyCoffeeLayout({
       </div>
 
       {/* Main Content with Swiper */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1">
         <Swiper
           onSwiper={setSwiper}
           onSlideChange={handleSwiperSlideChange}
@@ -115,22 +153,26 @@ export default function MyCoffeeLayout({
           resistance={true}
           resistanceRatio={0.85}
           speed={300}
-          className="h-full"
+          // className="h-auto"
+          autoHeight={true}
+          updateOnWindowResize={true}
+          observer={true}
+          observeParents={true}
         >
           <SwiperSlide>
-            <div className="h-full overflow-y-auto">
+            <div>
               <TasteAnalysis />
             </div>
           </SwiperSlide>
           
           <SwiperSlide>
-            <div className="h-full overflow-y-auto">
+            <div>
               <Collection />
             </div>
           </SwiperSlide>
           
           <SwiperSlide>
-            <div className="h-full overflow-y-auto">
+            <div>
               <MonthlyCoffee />
             </div>
           </SwiperSlide>
