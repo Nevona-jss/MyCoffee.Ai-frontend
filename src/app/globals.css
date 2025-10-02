@@ -107,6 +107,21 @@
     #532e19 114.31%
   );
 }
+
+/* scrollbar styles for all browsers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* IE va eski Edge */
+* {
+  -ms-overflow-style: none;
+}
  
 
 /* Linear Gradient */

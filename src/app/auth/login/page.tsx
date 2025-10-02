@@ -6,11 +6,15 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useHeaderStore } from "@/stores/header-store";
 import { Lock, Mail } from "lucide-react";
+import useSWRMutation from "swr/mutation";
 
 export default function Login() {
   const { setHeader } = useHeaderStore();
   const [showPassword, setShowPassword] = useState(false);
   const [isRememberChecked, setIsRememberChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -20,9 +24,33 @@ export default function Login() {
     });
   }, [setHeader]);
 
-  const handleLogin = () => {
-    if (isRememberChecked) {
+  const loginFetcher = async (url: string, { arg }: { arg: { email: string; password: string; remember: boolean } }) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(arg),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data?.message || "Login muvaffaqiyatsiz bo'ldi");
+    }
+    return res.json();
+  };
+
+  const { trigger, isMutating } = useSWRMutation("/api/auth/login", loginFetcher);
+
+  const handleLogin = async () => {
+    setErrorMessage(null);
+    if (!email || !password) {
+      setErrorMessage("Email va parolni kiriting");
+      return;
+    }
+    try {
+      await trigger({ email, password, remember: isRememberChecked });
       router.push('/home');
+    } catch (err: any) {
+      setErrorMessage(err?.message || "Xatolik yuz berdi");
     }
   };
   return (
@@ -45,6 +73,8 @@ export default function Login() {
               className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 py-2.5"
               placeholder="이메일을 입력하세요."
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
         </div>
@@ -64,6 +94,8 @@ export default function Login() {
               className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 pr-10 py-2.5"
               placeholder="비밀번호를 입력해주세요."
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               type="button"
@@ -102,13 +134,19 @@ export default function Login() {
           </label>
         </div>
 
+        {errorMessage && (
+          <div className="mb-3 text-[12px] text-red-500 font-medium">
+            {errorMessage}
+          </div>
+        )}
+
         {/* Login Button */}
-        <button 
+        <button
           className="w-full btn-primary"
-          disabled={!isRememberChecked}
+          disabled={isMutating}
           onClick={handleLogin}
         >
-          로그인
+          {isMutating ? '로그인 중...' : '로그인'}
         </button>
 
         {/* Account Management Links */}

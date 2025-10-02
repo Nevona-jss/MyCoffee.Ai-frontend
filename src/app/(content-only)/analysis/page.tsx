@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -21,6 +21,9 @@ export default function AnalysisPage() {
         body: 1,
     });
     const [isDragging, setIsDragging] = useState(false);
+    const animationFrameRef = useRef<number | null>(null);
+    const lastUpdateTime = useRef<number>(0);
+    const dragEndTime = useRef<number>(0);
 
     const tasteLabels = [
         { key: 'aroma', label: '향', position: 'top' },
@@ -30,15 +33,34 @@ export default function AnalysisPage() {
         { key: 'body', label: '산미', position: 'bottom-right' },
     ];
 
-    const updateRating = (taste: keyof TasteRating, value: number) => {
+    const updateRating = useCallback((taste: keyof TasteRating, value: number) => {
+        const clampedValue = Math.max(1, Math.min(5, value));
         setRatings(prev => ({
             ...prev,
-            [taste]: Math.max(1, Math.min(5, value))
+            [taste]: clampedValue
         }));
-    };
+    }, []);
 
-    const handleClick = (taste: keyof TasteRating, event: React.MouseEvent) => {
+    const smoothUpdateRating = useCallback((taste: keyof TasteRating, value: number) => {
+        // Direct update for smoother dragging
+        updateRating(taste, value);
+    }, [updateRating]);
+
+    // Cleanup animation frame on unmount
+    useEffect(() => {
+        return () => {
+            if (animationFrameRef.current !== null) {
+                cancelAnimationFrame(animationFrameRef.current);
+            }
+        };
+    }, []);
+
+    const handleClick = (event: React.MouseEvent) => {
         if (isDragging) return; // Don't handle click if we're dragging
+        
+        // Prevent clicks immediately after dragging
+        const now = performance.now();
+        if (now - dragEndTime.current < 100) return;
         
         const svg = event.currentTarget.closest('svg');
         if (!svg) return;
@@ -57,16 +79,33 @@ export default function AnalysisPage() {
         const x = ((event.clientX - rect.left) / svgWidth) * viewBoxWidth - centerX;
         const y = ((event.clientY - rect.top) / svgHeight) * viewBoxHeight - centerY;
         
+        // Calculate which taste point is closest using angle
+        let closestTaste = 'aroma';
+        let minAngleDiff = Infinity;
+        
+        const clickAngle = Math.atan2(y, x);
+        tasteLabels.forEach((taste, index) => {
+            const tasteAngle = (index * 72 - 90) * (Math.PI / 180);
+            const angleDiff = Math.abs(clickAngle - tasteAngle);
+            const normalizedAngleDiff = Math.min(angleDiff, 2 * Math.PI - angleDiff);
+            
+            if (normalizedAngleDiff < minAngleDiff) {
+                minAngleDiff = normalizedAngleDiff;
+                closestTaste = taste.key;
+            }
+        });
+        
         const distance = Math.sqrt(x * x + y * y);
         const normalizedDistance = Math.max(0, Math.min(1, distance / maxRadius));
         const newValue = Math.round(normalizedDistance * 4) + 1;
 
         // Set rating based on which ring was clicked (1-5)
         const clampedValue = Math.max(1, Math.min(5, newValue));
-        updateRating(taste, clampedValue);
+        updateRating(closestTaste as keyof TasteRating, clampedValue);
     };
 
-    const handleMouseDown = (taste: keyof TasteRating, event: React.MouseEvent) => {
+    const handleMouseDown = (event: React.MouseEvent) => {
+        event.preventDefault();
         const svg = event.currentTarget.closest('svg');
         if (!svg) return;
 
@@ -76,52 +115,98 @@ export default function AnalysisPage() {
         const centerY = 210;
         const maxRadius = 130;
 
+        // Store initial position to determine which taste we're dragging
+        const startX = ((event.clientX - rect.left) / rect.width) * 400 - centerX;
+        const startY = ((event.clientY - rect.top) / rect.height) * 400 - centerY;
+        
+        // Find which taste we're closest to at the start
+        let initialTaste = 'aroma';
+        let minAngleDiff = Infinity;
+        
+        const startAngle = Math.atan2(startY, startX);
+        tasteLabels.forEach((taste, index) => {
+            const tasteAngle = (index * 72 - 90) * (Math.PI / 180);
+            const angleDiff = Math.abs(startAngle - tasteAngle);
+            const normalizedAngleDiff = Math.min(angleDiff, 2 * Math.PI - angleDiff);
+            
+            if (normalizedAngleDiff < minAngleDiff) {
+                minAngleDiff = normalizedAngleDiff;
+                initialTaste = taste.key;
+            }
+        });
+
         const handleMouseMove = (e: MouseEvent) => {
-            // SVG viewBox koordinatalariga o'tkazish
+            e.preventDefault();
+            
             const svgWidth = rect.width;
             const svgHeight = rect.height;
             const viewBoxWidth = 400;
             const viewBoxHeight = 400;
             
+            // Calculate coordinates relative to SVG, even if mouse is outside SVG boundaries
             const x = ((e.clientX - rect.left) / svgWidth) * viewBoxWidth - centerX;
             const y = ((e.clientY - rect.top) / svgHeight) * viewBoxHeight - centerY;
             
             const distance = Math.sqrt(x * x + y * y);
-            const normalizedDistance = Math.max(0, Math.min(1, distance / maxRadius));
-            const newValue = Math.round(normalizedDistance * 4) + 1;
+            // Allow values beyond the max radius for more responsive dragging
+            // Cap at 1.5x max radius for very far drags
+            const normalizedDistance = Math.max(0, Math.min(1.5, distance / maxRadius));
+            const newValue = Math.round(Math.min(normalizedDistance, 1) * 4) + 1;
 
-            // Faqat 1-5 oraliqda qiymat qabul qilish
-            const clampedValue = Math.max(1, Math.min(5, newValue));
-            updateRating(taste, clampedValue);
+            // Always update the initial taste we started dragging
+            updateRating(initialTaste as keyof TasteRating, newValue);
         };
 
-        const handleMouseUp = () => {
+        const handleMouseUp = (e: MouseEvent) => {
+            e.preventDefault();
             setIsDragging(false);
+            dragEndTime.current = performance.now();
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
 
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
+        document.addEventListener('mousemove', handleMouseMove, { passive: false });
+        document.addEventListener('mouseup', handleMouseUp, { passive: false });
     };
 
-    const handleTouchStart = (taste: keyof TasteRating, event: React.TouchEvent) => {
+    const handleTouchStart = (event: React.TouchEvent) => {
         event.preventDefault(); // Prevent scrolling
         const svg = event.currentTarget.closest('svg');
-        if (!svg) return;
+        if (!svg || event.touches.length === 0) return;
 
         setIsDragging(true);
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
         const centerY = 210;
         const maxRadius = 130;
+
+        // Store initial position to determine which taste we're dragging
+        const startTouch = event.touches[0];
+        const startX = ((startTouch.clientX - rect.left) / rect.width) * 400 - centerX;
+        const startY = ((startTouch.clientY - rect.top) / rect.height) * 400 - centerY;
+        
+        // Find which taste we're closest to at the start
+        let initialTaste = 'aroma';
+        let minAngleDiff = Infinity;
+        
+        const startAngle = Math.atan2(startY, startX);
+        tasteLabels.forEach((taste, index) => {
+            const tasteAngle = (index * 72 - 90) * (Math.PI / 180);
+            const angleDiff = Math.abs(startAngle - tasteAngle);
+            const normalizedAngleDiff = Math.min(angleDiff, 2 * Math.PI - angleDiff);
+            
+            if (normalizedAngleDiff < minAngleDiff) {
+                minAngleDiff = normalizedAngleDiff;
+                initialTaste = taste.key;
+            }
+        });
 
         const handleTouchMove = (e: TouchEvent) => {
             e.preventDefault(); // Prevent scrolling
             if (e.touches.length === 0) return;
             
             const touch = e.touches[0];
-            // SVG viewBox koordinatalariga o'tkazish
+            // SVG viewBox koordinatalariga o'tkazish, even if touch is outside SVG boundaries
             const svgWidth = rect.width;
             const svgHeight = rect.height;
             const viewBoxWidth = 400;
@@ -131,17 +216,19 @@ export default function AnalysisPage() {
             const y = ((touch.clientY - rect.top) / svgHeight) * viewBoxHeight - centerY;
             
             const distance = Math.sqrt(x * x + y * y);
-            const normalizedDistance = Math.max(0, Math.min(1, distance / maxRadius));
-            const newValue = Math.round(normalizedDistance * 4) + 1;
+            // Allow values beyond the max radius for more responsive dragging
+            // Cap at 1.5x max radius for very far drags
+            const normalizedDistance = Math.max(0, Math.min(1.5, distance / maxRadius));
+            const newValue = Math.round(Math.min(normalizedDistance, 1) * 4) + 1;
 
-            // Faqat 1-5 oraliqda qiymat qabul qilish
-            const clampedValue = Math.max(1, Math.min(5, newValue));
-            updateRating(taste, clampedValue);
+            // Always update the initial taste we started dragging
+            updateRating(initialTaste as keyof TasteRating, newValue);
         };
 
         const handleTouchEnd = (e: TouchEvent) => {
             e.preventDefault();
             setIsDragging(false);
+            dragEndTime.current = performance.now();
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         };
@@ -228,28 +315,6 @@ export default function AnalysisPage() {
                                                 strokeDasharray="4,2"
                                                 opacity="0.8"
                                             />
-                                            {/* Clickable corners for each ring */}
-                                            {tasteLabels.map((taste, tasteIndex) => {
-                                                const angle = (tasteIndex * 72 - 90) * (Math.PI / 180);
-                                                const x = centerX + radius * Math.cos(angle);
-                                                const y = centerY + radius * Math.sin(angle);
-                                                
-                                                return (
-                                                    <circle
-                                                        key={`ring-${level}-${taste.key}`}
-                                                        cx={x}
-                                                        cy={y}
-                                                        r="8"
-                                                        fill="transparent"
-                                                        className="cursor-pointer"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            updateRating(taste.key as keyof TasteRating, level);
-                                                        }}
-                                                        style={{ cursor: 'pointer' }}
-                                                    />
-                                                );
-                                            })}
                                         </g>
                                     );
                                 })}
@@ -289,6 +354,23 @@ export default function AnalysisPage() {
                                     </linearGradient>
                                 </defs>
 
+                                {/* Large clickable area for the entire radar chart */}
+                                <circle
+                                    cx="200"
+                                    cy="210"
+                                    r="300"
+                                    fill="transparent"
+                                    className="cursor-pointer"
+                                    onClick={handleClick}
+                                    onMouseDown={handleMouseDown}
+                                    onTouchStart={handleTouchStart}
+                                    style={{ 
+                                        cursor: isDragging ? 'grabbing' : 'grab', 
+                                        touchAction: 'none',
+                                        pointerEvents: 'auto'
+                                    }}
+                                />
+
                                 {/* Filled area with rounded corners */}
                                 <path
                                     d={generateRadarPath()}
@@ -297,7 +379,10 @@ export default function AnalysisPage() {
                                     strokeWidth="2.686"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    style={{ pointerEvents: 'none' }}
+                                    style={{ 
+                                        pointerEvents: 'none',
+                                        transition: 'all 0.1s ease-out'
+                                    }}
                                 />
                                 
                                 {/* Rounded corner circles at connection points */}
@@ -316,7 +401,10 @@ export default function AnalysisPage() {
                                             fill="#FF7927"
                                             width="11.5"
                                             height="11.5"
-                                            style={{ pointerEvents: 'none' }}
+                                            style={{ 
+                                                pointerEvents: 'none',
+                                                transition: 'all 0.1s ease-out'
+                                            }}
                                         />
                                     );
                                 })}
@@ -380,7 +468,10 @@ export default function AnalysisPage() {
                                                 fontSize="16"
                                                 fontWeight="400"
                                                 letterSpacing="-0.13px"
-                                                style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}
+                                                style={{ 
+                                                    textShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                                                    transition: 'all 0.1s ease-out'
+                                                }}
                                             >
                                                 {ratings[taste.key as keyof TasteRating]}
                                             </text>
@@ -400,42 +491,17 @@ export default function AnalysisPage() {
                                                 /5
                                             </text>
 
-                                            {/* Invisible larger area for easier dragging */}
-                                            <circle
-                                                cx={pointX}
-                                                cy={pointY}
-                                                r="15"
-                                                fill="transparent"
-                                                className="cursor-pointer draggable"
-                                                onClick={(e) => handleClick(taste.key as keyof TasteRating, e)}
-                                                onMouseDown={(e) => {
-                                                    e.preventDefault();
-                                                    handleMouseDown(taste.key as keyof TasteRating, e);
-                                                }}
-                                                onTouchStart={(e) => {
-                                                    e.preventDefault();
-                                                    handleTouchStart(taste.key as keyof TasteRating, e);
-                                                }}
-                                                style={{ cursor: 'grab', touchAction: 'none', pointerEvents: 'auto' }}
-                                            />
-                                            
-                                            {/* Visible draggable point */}
+                                            {/* Visible draggable point indicator */}
                                             <circle
                                                 cx={pointX}
                                                 cy={pointY}
                                                 r="5.75"
-                                                fill="transparent"
-                                                className="cursor-pointer hover:r-6.75 transition-all draggable"
-                                                onClick={(e) => handleClick(taste.key as keyof TasteRating, e)}
-                                                onMouseDown={(e) => {
-                                                    e.preventDefault();
-                                                    handleMouseDown(taste.key as keyof TasteRating, e);
+                                                fill="#FF7927"
+                                                className="cursor-pointer transition-all"
+                                                style={{ 
+                                                    transition: 'all 0.1s ease-out',
+                                                    pointerEvents: 'none'
                                                 }}
-                                                onTouchStart={(e) => {
-                                                    e.preventDefault();
-                                                    handleTouchStart(taste.key as keyof TasteRating, e);
-                                                }}
-                                                style={{ cursor: 'grab', touchAction: 'none', pointerEvents: 'auto' }}
                                                 filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"
                                             />
 

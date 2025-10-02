@@ -78,7 +78,7 @@ export default function DatePicker({
       <label htmlFor={id} className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
         {label}
       </label>
-      <div className="relative max-w-sm">
+      <div className="relative">
         {/* Calendar icon on the right - clickable */}
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 z-20">
           <button
