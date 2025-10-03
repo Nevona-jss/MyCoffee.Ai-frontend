@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import './BottomMenuBar.css';
 
 const homeIcon = (fill: string = '#B3B3B3') => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -44,6 +45,7 @@ const profileIcon = (fill: string = '#B3B3B3') => <svg xmlns="http://www.w3.org/
 
 const BottomMenuBar = () => {
     const pathname = usePathname();
+    const [bouncingItem, setBouncingItem] = useState<string | null>(null);
     
     const isActive = (path: string) => {
         if (path === '/') {
@@ -52,23 +54,49 @@ const BottomMenuBar = () => {
         return pathname.startsWith(path);
     };
 
+    const handleItemClick = (itemName: string) => {
+        // Clear any existing animation first
+        setBouncingItem(null);
+        
+        // Use requestAnimationFrame to ensure the state is cleared before setting new animation
+        requestAnimationFrame(() => {
+            setBouncingItem(itemName);
+            setTimeout(() => {
+                setBouncingItem(null);
+            }, 800); // Match animation duration (0.8s)
+        });
+    };
+
     return (
         <div className={`mt-auto navbar-menu ${pathname === '/home' ? 'h-[70px]' : 'h-[112px]'}`}>
             <div className={` fixed bottom-0 w-full sm:max-w-sm  z-10 ${pathname === '/home' ? 'h-[50px]' : 'h-[112px]'}`}>
                 <div className="bg-[#fff] fixed bottom-0 w-full sm:max-w-sm rounded-t-[6px] px-[2] z-10 -mt-4" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
                     <div className="flex items-start justify-center w-full px-[22px]">
                         {/* Home */}
-                        <Link href="/home" className={`navbar-menu-item w-[70px] px-4 py-[12.5px] flex flex-col items-center cursor-pointer mr-2 ${isActive('/home') ? 'active' : ''}`}>
+                        <Link 
+                            href="/home" 
+                            className={`navbar-menu-item w-[70px] px-4 py-[12.5px] flex flex-col items-center cursor-pointer mr-2 ${isActive('/home') ? 'active' : ''} ${bouncingItem === 'home' ? 'bounce' : ''}`}
+                            onClick={() => handleItemClick('home')}
+                        >
                             {homeIcon(isActive('/home') ? "#4E2A18" : "#B3B3B3")}
                             <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#6E6E6E]`}>홈</span>
                         </Link>
 
                         {/* edit */}
-                        <Link href="/review-main" className={`navbar-menu-item w-[70px] pl-4 pr-0 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/review-main') ? 'active' : ''}`}>
+                        <Link 
+                            href="/review-main" 
+                            className={`navbar-menu-item w-[70px] pl-4 pr-0 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/review-main') ? 'active' : ''} ${bouncingItem === 'review' ? 'bounce' : ''}`}
+                            onClick={() => handleItemClick('review')}
+                        >
                             {editIcon(isActive('/review-main') ? "#4E2A18" : "#B3B3B3")}
                             <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#6E6E6E]`}>리뷰</span>
                         </Link>
-                        <Link href="/my-coffee" className='navbar-menu-main-item-wrapper w-[64px] relative flex-shrink-0 flex-col items-center justify-center -translate-y-[36%] rounded-full' style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
+                        <Link 
+                            href="/my-coffee" 
+                            className={`navbar-menu-main-item-wrapper w-[64px] relative flex-shrink-0 flex-col items-center justify-center -translate-y-[36%] rounded-full ${bouncingItem === 'my-coffee' ? 'bounce' : ''}`} 
+                            style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}
+                            onClick={() => handleItemClick('my-coffee')}
+                        >
                             <div className="navbar-menu-main-item absolute cursor-pointer flex flex-col items-center justify-center bg-action-primary rounded-full w-[64px] h-[64px]" style={{ boxShadow: "0 4px 12px 0 rgba(78,42,24,0.50)" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
                                     <path d="M10.8735 5.84853C10.6702 5.39222 10.4944 4.68897 11.412 4.26488C12.2142 3.8891 13.3462 3.76562 14.533 3.76562C16.0386 3.78173 17.5771 4.13604 19.0607 4.80171C20.5443 5.46738 21.9454 6.43367 23.1817 7.64154C24.4181 8.84941 25.4676 10.2827 26.2698 11.8557C27.072 13.4286 27.6105 15.1089 27.8523 16.7999C28.094 18.4909 28.0391 20.1658 27.6874 21.7226C27.3358 23.2794 26.6599 24.6215 25.8027 25.8777C25.3302 26.5058 24.7862 27.0694 24.1873 27.5472C23.3081 28.2505 22.2147 28.1216 21.6542 26.9997L16.3848 16.6603L10.8735 5.84853Z" fill="white" />
@@ -79,13 +107,21 @@ const BottomMenuBar = () => {
                         </Link>
 
                         {/* globus */}
-                        <Link href="/community" className={`navbar-menu-item w-[70px] pl-0 pr-4 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/community') ? 'active' : ''}`}>
+                        <Link 
+                            href="/community" 
+                            className={`navbar-menu-item w-[70px] pl-0 pr-4 py-[12.5px] flex flex-col items-center cursor-pointer ${isActive('/community') ? 'active' : ''} ${bouncingItem === 'community' ? 'bounce' : ''}`}
+                            onClick={() => handleItemClick('community')}
+                        >
                             {globalIcon(isActive('/community') ? "#4E2A18" : "#B3B3B3")}
                             <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#6E6E6E] text-nowrap`}>커뮤니티</span>
                         </Link>
 
                         {/* Profile */}
-                        <Link href="/profile" className={`navbar-menu-item w-[70px] px-4 py-[12.5px] flex flex-col items-center cursor-pointer ml-2 ${isActive('/profile') ? 'active' : ''}`}>
+                        <Link 
+                            href="/profile" 
+                            className={`navbar-menu-item w-[70px] px-4 py-[12.5px] flex flex-col items-center cursor-pointer ml-2 ${isActive('/profile') ? 'active' : ''} ${bouncingItem === 'profile' ? 'bounce' : ''}`}
+                            onClick={() => handleItemClick('profile')}
+                        >
                             {profileIcon(isActive('/profile') ? "#4E2A18" : "#B3B3B3")}
                             <span className={`navbar-menu-text font-bold !text-[12px] mt-2 text-[#6E6E6E]`}>MY</span>
                         </Link>

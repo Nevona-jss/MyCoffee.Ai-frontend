@@ -12,6 +12,8 @@ const CoffeStoryMain = () => {
       showBackButton: false,
     });
   }, []);
+
+  
   const coffeeStries = [
     {
       id: 1,
@@ -34,7 +36,7 @@ const CoffeStoryMain = () => {
   ];
   return (
     <div className="bg-background">
-      <div className="px-4 pt-4 space-y-4">
+      <div className="px-4 space-y-4">
         {coffeeStries.map((story) => (
           <div
             key={story.id}
