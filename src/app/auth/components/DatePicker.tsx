@@ -107,6 +107,8 @@ export default function DatePicker({
           onFocus={handleFocus}
           onBlur={handleBlur}
           required={required}
+          min="1930-01-01"
+          max={new Date().toISOString().split('T')[0]}
         />
         
         {/* Visible text input */}

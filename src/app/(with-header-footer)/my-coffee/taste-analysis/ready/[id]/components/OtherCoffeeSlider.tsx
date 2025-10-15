@@ -1,13 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { CoffeePreferences, CoffeeRecord, Top5Recommendations } from "@/types/coffee";
+import { usePost } from "@/hooks/useApi";
 
-const OtherCoffeeSlider: React.FC = () => {
+const OtherCoffeeSlider: React.FC<{ tasteRatings: CoffeePreferences }> = ({ tasteRatings }) => {
 
+    const [data, setData] = useState<CoffeeRecord[]>();
+    const previousRatings = useRef<CoffeePreferences | null>(null);
     const slides = [
         {
             id: 1,
@@ -55,6 +59,31 @@ const OtherCoffeeSlider: React.FC = () => {
         { key: 'body', label: '바디', color: 'body' }
     ];
 
+    const { mutate: getTop5Recommendations, isPending: isGettingTop5Recommendations } = usePost<Top5Recommendations, CoffeePreferences & { limitSimilar: number }>(
+        '/recommendation/top5',
+        {
+          onSuccess: (data) => {
+            setData(data?.data?.recordset);
+          },
+        }
+      );      
+    
+      useEffect(() => {
+        // Check if ratings actually changed
+        const hasChanged = !previousRatings.current || 
+          previousRatings.current.aroma !== tasteRatings.aroma ||
+          previousRatings.current.acidity !== tasteRatings.acidity ||
+          previousRatings.current.sweetness !== tasteRatings.sweetness ||
+          previousRatings.current.nutty !== tasteRatings.nutty ||
+          previousRatings.current.body !== tasteRatings.body;
+
+        if (hasChanged) {
+          getTop5Recommendations({...tasteRatings, limitSimilar: 5});
+          previousRatings.current = { ...tasteRatings };
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [tasteRatings.aroma, tasteRatings.acidity, tasteRatings.sweetness, tasteRatings.nutty, tasteRatings.body]);
+
     return (
         <div className="w-full">
             <Swiper
@@ -64,18 +93,15 @@ const OtherCoffeeSlider: React.FC = () => {
                 pagination={false}
                 className="w-full"
             >
-                {slides.map((slide) => (
-                    <SwiperSlide key={slide.id}>
+                {data?.map((slide) => (
+                    <SwiperSlide key={slide.coffee_blend_id}>
                         <div className="bg-white rounded-lg p-3 min-h-[180px] border border-border-default">
-                            {/* Title */}
-                            <h3 className="text-xs font-bold text-gray-0 mb-1">{slide.title}</h3>
+                            <h3 className="text-xs font-bold text-gray-0 mb-1">{slide.coffee_name}</h3>
                             
-                            {/* Description */}
                             <p className="text-[10px] text-text-secondary mb-2 leading-[160%]">
-                                {slide.description}
+                                {slide.coffee_name}
                             </p>
 
-                            {/* Taste Ratings */}
                             <div className="space-y-1">
                                 {tasteLabels.map((taste) => (
                                     <div key={taste.key} className="flex items-center justify-between">
@@ -86,7 +112,7 @@ const OtherCoffeeSlider: React.FC = () => {
                                                     key={dot}
                                                     className="w-2 h-2 rounded-full"
                                                     style={{
-                                                        backgroundColor: dot <= slide.ratings[taste.key as keyof typeof slide.ratings]
+                                                        backgroundColor: dot <= Number(slide[`${taste.key}_score` as keyof CoffeeRecord])
                                                             ? `var(--${taste.color})`
                                                             : '#E6E6E6'
                                                     }}

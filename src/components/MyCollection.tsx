@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useGet } from '@/hooks/useApi';
+import { useUserStore } from '@/stores/user-store';
 
 interface TasteRating {
     aroma: number;
@@ -21,6 +23,7 @@ interface CoffeeBlend {
 
 const MyCollection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const { data } = useUserStore((state) => state.user);
 
     const tasteLabels = [
         { key: 'aroma', label: '향', color: '#BE9FE2' },
@@ -49,6 +52,8 @@ const MyCollection = () => {
 
         return pathData;
     };
+
+    const { data: myCollection } = useGet(['collections', data?.user_id], '/collections', {params: {user_id: data?.user_id}});
 
     const coffeeBlends: CoffeeBlend[] = [
         {

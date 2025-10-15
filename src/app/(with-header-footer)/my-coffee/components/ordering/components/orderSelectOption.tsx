@@ -17,10 +17,10 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
   setOrderLabelOption,
 }) => {
   const [caffeineStrength, setCaffeineStrength] = useState<
-    "caffeine" | "decaf" | ""
+    "CAFFEINE" | "DECAFFEINE" | ""
   >("");
-  const [grindLevel, setGrindLevel] = useState<"whole" | "ground" | "">("");
-  const [packaging, setPackaging] = useState<"stick" | "bulk" | "">("");
+  const [grindLevel, setGrindLevel] = useState<"WHOLE_BEAN" | "GROUND" | "">("");
+  const [packaging, setPackaging] = useState<"STICK" | "BULK" | "">("");
   const [weight, setWeight] = useState<string>("");
   // const [photo, setPhoto] = useState<string>("");
 
@@ -69,9 +69,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
             </h3>
             <div className="flex space-x-2">
               <button
-                onClick={() => setCaffeineStrength("caffeine")}
+                onClick={() => setCaffeineStrength("CAFFEINE")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  caffeineStrength === "caffeine"
+                  caffeineStrength === "CAFFEINE"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -79,9 +79,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 카페인
               </button>
               <button
-                onClick={() => setCaffeineStrength("decaf")}
+                onClick={() => setCaffeineStrength("DECAFFEINE")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  caffeineStrength === "decaf"
+                  caffeineStrength === "DECAFFEINE"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -96,9 +96,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
             <h3 className="text-sm leading-[20px] font-bold mb-2">분쇄 정도</h3>
             <div className="flex space-x-2">
               <button
-                onClick={() => setGrindLevel("whole")}
+                onClick={() => setGrindLevel("WHOLE_BEAN")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  grindLevel === "whole"
+                  grindLevel === "WHOLE_BEAN"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -106,9 +106,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 홀빈
               </button>
               <button
-                onClick={() => setGrindLevel("ground")}
+                onClick={() => setGrindLevel("GROUND")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  grindLevel === "ground"
+                  grindLevel === "GROUND"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -123,9 +123,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
             <h3 className="text-sm leading-[20px] font-bold mb-2">포장 방법</h3>
             <div className="flex space-x-2">
               <button
-                onClick={() => setPackaging("stick")}
+                onClick={() => setPackaging("STICK")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  packaging === "stick"
+                  packaging === "STICK"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -133,9 +133,9 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 스틱
               </button>
               <button
-                onClick={() => setPackaging("bulk")}
+                onClick={() => setPackaging("BULK")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
-                  packaging === "bulk"
+                  packaging === "BULK"
                     ? "border-action-secondary font-bold"
                     : "border-border-default text-text-secondary"
                 }`}
@@ -158,9 +158,11 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 }`}
               >
                 <option value="">중량을 선택해주세요.</option>
-                <option value="250g">15g X 15</option>
-                <option value="500g">15g X 33</option>
-                <option value="1kg">15g X 66</option>
+                <option value="500g">500g</option>
+                <option value="250g">250g</option>
+                <option value="15gX15">15g X 15</option>
+                <option value="15gX30">15g X 30</option>
+                <option value="15gX45">15g X 45</option>
               </select>
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
                 <svg

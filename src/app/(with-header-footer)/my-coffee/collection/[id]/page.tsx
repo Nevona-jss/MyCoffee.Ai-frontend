@@ -50,8 +50,8 @@ const CollectionDetail = () => {
   };
 
   return (
-    <div className="pl-4 pt-6 pb-2">
-      <div className="overflow-y-auto h-[calc(100vh-272px)]">
+    <div className="pl-4 pt-3 pb-2">
+      <div className="overflow-y-auto h-[calc(100vh-314px)]">
         <div className="pr-4">
           <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
             나만의 커피 1호기

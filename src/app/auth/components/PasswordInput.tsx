@@ -57,6 +57,8 @@ export default function PasswordInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           required={required}
+          minLength={8}
+          maxLength={20}
         />
         <button
           type="button"

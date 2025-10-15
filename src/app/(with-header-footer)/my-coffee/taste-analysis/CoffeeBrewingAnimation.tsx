@@ -6,9 +6,10 @@ import "./CoffeeBrewingAnimation.css";
 
 interface CoffeeBrewingAnimationProps {
   onComplete: () => void;
+  isGettingRecommendations: boolean;
 }
 
-const CoffeeBrewingAnimation: React.FC<CoffeeBrewingAnimationProps> = ({ onComplete }) => {
+const CoffeeBrewingAnimation: React.FC<CoffeeBrewingAnimationProps> = ({ onComplete, isGettingRecommendations }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -28,20 +29,25 @@ const CoffeeBrewingAnimation: React.FC<CoffeeBrewingAnimationProps> = ({ onCompl
   ];
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentStep < steps.length - 1) {
+    if (currentStep < steps.length - 1) {
+      const timer = setTimeout(() => {
         setCurrentStep(currentStep + 1);
-      } else {
-        // Animation completed, show final result
-        setTimeout(() => {
-          setIsVisible(false);
-          onComplete();
-        }, 1000);
-      }
-    }, steps[currentStep].duration);
+      }, steps[currentStep].duration);
 
-    return () => clearTimeout(timer);
-  }, [currentStep, onComplete]);
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, steps]);
+
+  useEffect(() => {
+    if (currentStep === steps.length - 1 && !isGettingRecommendations) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        onComplete();
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, isGettingRecommendations, onComplete, steps.length]);
 
   if (!isVisible) return null;
 

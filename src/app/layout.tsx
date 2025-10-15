@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { suite } from "./fonts";
 import "./globals.css";
+import { QueryProvider } from "@/components/QueryProvider";
+import ProtectedRoutes from "@/components/ProtectedRoutes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +31,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${suite.variable} antialiased`}
       >
-        <div className="flex flex-col">
-          <div className="w-full min-h-[100dvh] sm:max-w-sm sm:mx-auto bg-background">
-            {children}
-          </div>
-        </div>
+        <QueryProvider>
+          <ProtectedRoutes>
+            <div className="flex flex-col">
+              <div className="w-full min-h-[100dvh] sm:max-w-sm sm:mx-auto bg-background">
+                {children}
+              </div>
+            </div>
+          </ProtectedRoutes>
+        </QueryProvider>
       </body>
     </html>
   );

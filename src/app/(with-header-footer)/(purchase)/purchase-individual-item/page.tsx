@@ -1,11 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, ChevronRight, XIcon } from "lucide-react";
-import Link from "next/link";
 import { useHeaderStore } from "@/stores/header-store";
+import { useOrderStore } from "@/stores/order-store";
+import { usePost } from "@/hooks/useApi";
+import { useUserStore } from "@/stores/user-store";
+import { useParams } from "next/navigation";
 const PurchaseIndividualItem = () => {
+
+  const { order, increaseQuantity, decreaseQuantity, removeItem } = useOrderStore();
+  const { user } = useUserStore();
+  const params = useParams();
   const { setHeader } = useHeaderStore();
-  const [quantity, setQuantity] = useState(1);
   const [pointUsage, setPointUsage] = useState(0);
   const [agreements, setAgreements] = useState({
     all: false,
@@ -30,17 +36,21 @@ const PurchaseIndividualItem = () => {
     });
   }, [setHeader]);
 
-  const handleQuantityChange = (type: "increase" | "decrease") => {
+  const handleQuantityChange = (index: number, type: "increase" | "decrease") => {
     if (type === "increase") {
-      setQuantity((prev) => prev + 1);
-    } else if (type === "decrease" && quantity > 1) {
-      setQuantity((prev) => prev - 1);
+      increaseQuantity(index);
+    } else if (type === "decrease") {
+      decreaseQuantity(index);
     }
   };
 
+  const availablePoints = 12000;
+
   const handlePointUsage = (type: "all" | "custom") => {
     if (type === "all") {
-      setPointUsage(12000);
+      // Use minimum of available points and total product price
+      const maxUsablePoints = Math.min(availablePoints, totalProductPrice);
+      setPointUsage(maxUsablePoints);
     }
   };
 
@@ -71,7 +81,54 @@ const PurchaseIndividualItem = () => {
 
   const productPrice = 36000;
   const deliveryFee = 0;
-  const totalPrice = productPrice * quantity - pointUsage + deliveryFee;
+
+  // Calculate total from all items in the order
+  const totalProductPrice = order.reduce((sum, item) => {
+    return sum + (item.price || productPrice) * (item.quantity || 1);
+  }, 0);
+
+  const totalPrice = totalProductPrice - pointUsage + deliveryFee;
+
+
+  const { mutate: orderSingle, isPending: isCreatingOrder } = usePost('/orders/single');
+
+  // Handle form submission
+  const submitOder = () => {
+    orderSingle({
+      user_id: user?.data?.user_id,
+      collection_id: 1001,
+      analysis_id: 2001,
+      order_items: [
+        {
+          coffee_blend_id: "BLEND_001",
+          collection_name: "내 컬렉션",
+          caffeine_type: "DECAF",
+          grind_type: "WHOLE_BEAN",
+          package_type: "BAG",
+          weight_option: "250G",
+          quantity: 2,
+          unit_price: 15000,
+          total_price: 30000,
+          has_custom_label: false
+        }
+      ],
+      recipient_name: "홍길동",
+      recipient_phone: "010-1234-5678",
+      postal_code: "12345",
+      address: "서울시 강남구 테헤란로 123",
+      address_detail: "456호",
+      point_discount: 1000,
+      shipping_fee: 3000,
+      payment_method: "CARD",
+      agreements: [
+        {
+          key: "TERMS_OF_SERVICE",
+          agreed: true,
+          version: "1.0"
+        }
+      ]
+    });
+  }
 
   return (
     <>
@@ -92,66 +149,68 @@ const PurchaseIndividualItem = () => {
             </div>
 
             {expandedSections.orderInfo && (
-              <div className="border border-border-default rounded-lg p-3 mt-4">
-                <div className="flex justify-between items-start mb-2">
-                  <p className="font-bold text-xs leading-[18px] text-gray-0">
-                    나만의 커피 1호기/클래식 하모니 블랜드
-                  </p>
-                  <button>
-                    <XIcon size={16} stroke="#1A1A1A" />
-                  </button>
-                </div>
-
-                <div className="text-sm text-text-secondary mb-4 flex items-center gap-1">
-                  {["카페인", "홀빈", "벌크", "500g", "라벨"].map(
-                    (item, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[10px] leading-[16px] flex items-center gap-1"
-                      >
-                        {item}{" "}
-                        {idx !== 4 && (
-                          <span className="size-1 bg-[#FFE5BF] rounded-full inline-block"></span>
-                        )}
-                      </span>
-                    )
-                  )}
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center space-x-[22px]">
-                    <button
-                      onClick={() => handleQuantityChange("decrease")}
-                      className="w-7 h-7 flex items-center justify-center border border-border-default rounded cursor-pointer"
-                    >
-                      <span className="w-[12px] h-[2px] bg-action-primary rounded-full inline-block"></span>
-                    </button>
-                    <span className="text-lg font-medium">{quantity}</span>
-                    <button
-                      onClick={() => handleQuantityChange("increase")}
-                      className="w-7 h-7 flex items-center justify-center bg-linear-gradient text-white rounded cursor-pointer"
-                    >
-                      <svg
-                        width="12"
-                        height="12"
-                        fill="none"
-                        stroke="#FFF"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 4v16m8-8H4"
-                        />
-                      </svg>
+              order.map((item, idx) => (
+                <div key={idx} className="border border-border-default rounded-lg p-3 mt-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <p className="font-bold text-xs leading-[18px] text-gray-0">
+                      나만의 커피 {idx + 1}호기/클래식 하모니 블랜드
+                    </p>
+                    <button onClick={() => removeItem(idx)}>
+                      <XIcon size={16} stroke="#1A1A1A" />
                     </button>
                   </div>
-                  <div className="text-base font-bold leading-[24px]">
-                    {productPrice.toLocaleString()}원
+
+                  <div className="text-sm text-text-secondary mb-4 flex items-center gap-1">
+                    {[item?.caffeineStrength === "CAFFEINE" ? "카페인" : "데카페인", item?.grindLevel === "WHOLE_BEAN" ? "홀빈" : "분쇄 그라인딩", item?.packaging === "STICK" ? "스틱" : "벌크", item.weight, "라벨"].map(
+                      (option, optionIdx) => (
+                        <span
+                          key={optionIdx}
+                          className="text-[10px] leading-[16px] flex items-center gap-1"
+                        >
+                          {option}{" "}
+                          {optionIdx !== 4 && (
+                            <span className="size-1 bg-[#FFE5BF] rounded-full inline-block"></span>
+                          )}
+                        </span>
+                      )
+                    )}
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-[22px]">
+                      <button
+                        onClick={() => handleQuantityChange(idx, "decrease")}
+                        className="w-7 h-7 flex items-center justify-center border border-border-default rounded cursor-pointer"
+                      >
+                        <span className="w-[12px] h-[2px] bg-action-primary rounded-full inline-block"></span>
+                      </button>
+                      <span className="text-lg font-medium">{item?.quantity || 1}</span>
+                      <button
+                        onClick={() => handleQuantityChange(idx, "increase")}
+                        className="w-7 h-7 flex items-center justify-center bg-linear-gradient text-white rounded cursor-pointer"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          fill="none"
+                          stroke="#FFF"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 4v16m8-8H4"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div className="text-base font-bold leading-[24px]">
+                      {((item.price || productPrice) * (item.quantity || 1)).toLocaleString()}원
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))
             )}
           </div>
 
@@ -235,17 +294,21 @@ const PurchaseIndividualItem = () => {
             {expandedSections.pointUsage && (
               <div className=" mt-2">
                 <span className="text-xs leading-[16px] font-bold">
-                  보유 포인트 12,000
+                  보유 포인트 {availablePoints.toLocaleString()}
                 </span>
                 <div className="flex items-center gap-2 mt-2">
-                  
+
                   <input
                     type="number"
                     value={pointUsage > 0 ? pointUsage : ""}
-                    onChange={(e) => setPointUsage(Number(e.target.value))}
+                    onChange={(e) => {
+                      const value = Number(e.target.value);
+                      const maxUsablePoints = Math.min(availablePoints, totalProductPrice);
+                      setPointUsage(Math.min(value, maxUsablePoints));
+                    }}
                     className="flex-1 h-10 pl-3 border border-border-default rounded-lg text-left text-xs placeholder:text-text-secondary"
                     placeholder="사용할 포인트를 입력해주세요."
-                  /> 
+                  />
                   <button
                     onClick={() => handlePointUsage("all")}
                     className=" h-10 px-4 py-2.5 border border-action-primary  text-action-primary rounded-lg text-sm leading-[20px] font-bold"
@@ -286,7 +349,7 @@ const PurchaseIndividualItem = () => {
               <h2 className="text-sm leading-[20px] font-bold ">
                 최종 결제금액
                 <span className=" ml-2 bg-brand-secondary-accent-sub text-action-secondary px-2 py-1 rounded-sm font-bold">
-                  36,000원
+                  {totalPrice.toLocaleString()}원
                 </span>
               </h2>
               {expandedSections.finalAmount ? (
@@ -305,7 +368,7 @@ const PurchaseIndividualItem = () => {
                     </span>
 
                     <span className="text-xs leading-[18px] font-bold">
-                      {(productPrice * quantity).toLocaleString()}원
+                      {totalProductPrice.toLocaleString()}원
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -321,7 +384,7 @@ const PurchaseIndividualItem = () => {
                       포인트 할인
                     </span>
                     <span className="text-xs leading-[18px] font-bold">
-                      {pointUsage.toLocaleString()}원
+                      -{pointUsage.toLocaleString()}원
                     </span>
                   </div>
                 </div>
@@ -386,10 +449,17 @@ const PurchaseIndividualItem = () => {
           </div>
         </div>
         <div className="pt-4 w-full ">
-          {agreements.all ||
-          agreements.personalInfo ||
-          agreements.terms ||
-          agreements.marketing ? (
+          <button 
+            disabled={isCreatingOrder || !agreements.all || !agreements.personalInfo || !agreements.terms || !agreements.marketing} 
+            onClick={submitOder} 
+            className="w-full  btn-primary"
+          >
+            주문하기
+          </button>
+          {/* {agreements.all ||
+            agreements.personalInfo ||
+            agreements.terms ||
+            agreements.marketing ? (
             <>
               <Link
                 href={"/success-order"}
@@ -399,10 +469,10 @@ const PurchaseIndividualItem = () => {
               </Link>
             </>
           ) : (
-            <button className="w-full py-3 border border-transparent bg-action-disabled text-text-disabled rounded-lg font-bold leading-[24px] cursor-not-allowed">
+            <button className="w-full  btn-primary">
               주문하기
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </>

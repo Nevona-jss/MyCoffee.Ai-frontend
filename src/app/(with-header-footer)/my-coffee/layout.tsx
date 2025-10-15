@@ -10,6 +10,7 @@ import { FreeMode } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import { TasteAnalysisProvider } from "./taste-analysis/TasteAnalysisContext";
 
 // Dynamically import the tab components to avoid SSR issues
 const TasteAnalysis = dynamic(() => import("./taste-analysis/page"), { ssr: false });
@@ -125,59 +126,60 @@ export default function MyCoffeeLayout({
     });
   }, []);
 
-  // If we're on a sub-route (like /my-coffee/collection/[id]), just render children
-  if (!isMainTabRoute()) {
-    return <div className="flex-1 overflow-y-auto">{children}</div>;
-  }
-
   return (
-    <div>
-      <div className="bg-background mt-4 px-4">
-        <Tabs
-          tabs={tabs}
-          activeTab={currentTab}
-          onTabChange={handleTabChange}
-        />
-      </div>
+    <TasteAnalysisProvider>
+      <div>
+        <div className="bg-background mt-4 px-4">
+          <Tabs
+            tabs={tabs}
+            activeTab={currentTab}
+            onTabChange={handleTabChange}
+          />
+        </div>
 
-      {/* Main Content with Swiper */}
-      <div className="flex-1">
-        <Swiper
-          onSwiper={setSwiper}
-          onSlideChange={handleSwiperSlideChange}
-          initialSlide={getTabIndex(currentTab)}
-          modules={[FreeMode]}
-          spaceBetween={0}
-          slidesPerView={1}
-          allowTouchMove={true}
-          resistance={true}
-          resistanceRatio={0.85}
-          speed={300}
-          // className="h-auto"
-          autoHeight={true}
-          updateOnWindowResize={true}
-          observer={true}
-          observeParents={true}
-        >
-          <SwiperSlide>
-            <div>
-              <TasteAnalysis />
-            </div>
-          </SwiperSlide>
-          
-          <SwiperSlide>
-            <div>
-              <Collection />
-            </div>
-          </SwiperSlide>
-          
-          <SwiperSlide>
-            <div>
-              <MonthlyCoffee />
-            </div>
-          </SwiperSlide>
-        </Swiper>
+        <div className="flex-1">
+          {isMainTabRoute() ? (
+            <Swiper
+              onSwiper={setSwiper}
+              onSlideChange={handleSwiperSlideChange}
+              initialSlide={getTabIndex(currentTab)}
+              modules={[FreeMode]}
+              spaceBetween={0}
+              slidesPerView={1}
+              allowTouchMove={true}
+              resistance={true}
+              resistanceRatio={0.85}
+              speed={300}
+              autoHeight={true}
+              updateOnWindowResize={true}
+              observer={true}
+              observeParents={true}
+              noSwiping={true}
+              noSwipingClass="swiper-no-swiping"
+            >
+              <SwiperSlide>
+                <div>
+                  <TasteAnalysis />
+                </div>
+              </SwiperSlide>
+              
+              <SwiperSlide>
+                <div>
+                  <Collection />
+                </div>
+              </SwiperSlide>
+              
+              <SwiperSlide>
+                <div>
+                  <MonthlyCoffee />
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          ) : (
+            <div className="overflow-y-auto">{children}</div>
+          )}
+        </div>
       </div>
-    </div>
+    </TasteAnalysisProvider>
   );
 }

@@ -9,6 +9,7 @@ import LikeModal from "./components/LikeModal";
 import { useHeaderStore } from "@/stores/header-store";
 import OrderingComponent from "../../my-coffee/components/ordering/Ordering";
 import OtherCoffeeSlider from "../../my-coffee/taste-analysis/ready/[id]/components/OtherCoffeeSlider";
+import { CoffeePreferences } from "@/types/coffee";
 
 const ReviewAnalysys = () => {
   const [openItems, setOpenItems] = useState<number[]>([0, 1, 2]); // First item open by default
@@ -23,7 +24,8 @@ const ReviewAnalysys = () => {
     });
   }, []);
 
-  // Sample taste ratings data
+  // Sa
+  // mple taste ratings data
   const tasteRatings = {
     aroma: 5,
     sweetness: 4,
@@ -150,7 +152,7 @@ const ReviewAnalysys = () => {
                     ) : item.id === 2 ? (
                       <div>
                           {/* Other Coffee Slider */}
-                          <OtherCoffeeSlider />
+                          <OtherCoffeeSlider tasteRatings={tasteRatings as CoffeePreferences} />
                       </div>
                     ) : (
                       <p className="text-sm text-gray-600 leading-relaxed">

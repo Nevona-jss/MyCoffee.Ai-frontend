@@ -5,6 +5,7 @@ import PasswordInput from "@/app/auth/components/PasswordInput";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useHeaderStore } from "@/stores/header-store";
+import { usePost } from "@/hooks/useApi";
 
 export default function ResetPassword() {
     const { setHeader } = useHeaderStore();
@@ -57,13 +58,28 @@ export default function ResetPassword() {
         }
     };
 
+    const { mutate: resetPassword, isPending: isresetPasswordPending } = usePost<any, {[key: string]: any}>(
+        '/auth/verify-reset',
+        {
+          onSuccess: (data) => {
+            if (data?.data) {
+                router.push('/auth/set-new-password')
+            }
+          },
+          onError: (error) => {
+            // setgetVerificationCodeError(error?.response?.data?.message);
+          },
+        }
+      );
+
     const handleSubmit = () => {
         const isPasswordValid = validateField('password', formData.password);
         const isConfirmPasswordValid = validateField('confirmPassword', formData.confirmPassword);
 
         if (isPasswordValid && isConfirmPasswordValid) {
             // Handle successful password reset
-            router.push('/auth/forgot-password/success');
+            resetPassword({ reset_token: "", new_password: formData.password, new_password_confirm: formData.confirmPassword });
+            
         }
     };
 
@@ -97,7 +113,7 @@ export default function ResetPassword() {
             <div className="px-4 pb-10 mt-auto">
                 <button
                     onClick={handleSubmit}
-                    disabled={formData.password.trim() === '' || formData.confirmPassword.trim() === ''}
+                    disabled={formData.password.trim() === '' || formData.confirmPassword.trim() === '' || isresetPasswordPending}
                     className="w-full btn-primary"
                 >
                     비밀번호 재설정

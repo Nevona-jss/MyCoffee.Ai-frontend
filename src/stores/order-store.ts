@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
 interface Order {
-    caffeineStrength?: "caffeine" | "decaf" | "";
-    grindLevel?: "whole" | "ground" | "";
-    packaging?: "stick" | "bulk" | "";
+    caffeineStrength?: "CAFFEINE" | "DECAFFEINE" | "";
+    grindLevel?: "WHOLE_BEAN" | "GROUND" | "";
+    packaging?: "STICK" | "BULK" | "";
     weight?: string;
     photo?: string;
     quantity?: number;
@@ -18,6 +18,7 @@ interface OrderStore {
     resetOrder: () => void;
     increaseQuantity: (index: number) => void;
     decreaseQuantity: (index: number) => void;
+    removeItem: (index: number) => void;
 }
 
 interface OrderImage {

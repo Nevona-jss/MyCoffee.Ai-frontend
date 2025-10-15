@@ -6,7 +6,25 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useHeaderStore } from "@/stores/header-store";
 import { Lock, Mail } from "lucide-react";
-import useSWRMutation from "swr/mutation";
+import { usePost } from "@/hooks/useApi";
+import { User, useUserStore } from "@/stores/user-store";
+
+const warningIcon = () => {
+  return (
+    <svg className="shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <g clipPath="url(#clip0_1366_13821)">
+        <path d="M7.99992 14.6667C11.6818 14.6667 14.6666 11.6819 14.6666 8.00001C14.6666 4.31811 11.6818 1.33334 7.99992 1.33334C4.31802 1.33334 1.33325 4.31811 1.33325 8.00001C1.33325 11.6819 4.31802 14.6667 7.99992 14.6667Z" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 5.33334V8.00001" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 10.6667H8.00667" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <defs>
+        <clipPath id="clip0_1366_13821">
+          <rect width="16" height="16" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
 
 export default function Login() {
   const { setHeader } = useHeaderStore();
@@ -15,7 +33,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [requestErrorMessage, setRequestErrorMessage] = useState('');
+
   const router = useRouter();
+  const { setUser } = useUserStore();
 
   useEffect(() => {
     setHeader({
@@ -24,33 +45,40 @@ export default function Login() {
     });
   }, [setHeader]);
 
-  const loginFetcher = async (url: string, { arg }: { arg: { email: string; password: string; remember: boolean } }) => {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(arg),
-    });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data?.message || "Login muvaffaqiyatsiz bo'ldi");
+  const { mutate: signin, isPending: isGettingLogin } = usePost<User, {[key: string]: any}>(
+    '/email/login',
+    {
+      onSuccess: (data) => {
+        console.log('Login response:', data);
+        console.log('All cookies:', document.cookie);
+        
+        if (data?.data) {
+          sessionStorage.removeItem('auth_redirect');
+          setUser(data);
+          
+          // Small delay to ensure cookie is set
+          setTimeout(() => {
+            console.log('Cookies after delay:', document.cookie);
+            router.push('/home');
+          }, 100);
+        }
+      },
+      onError: (error) => {
+        setRequestErrorMessage(error?.response?.data?.message);
+      },
     }
-    return res.json();
-  };
-
-  const { trigger, isMutating } = useSWRMutation("/api/auth/login", loginFetcher);
+  );
 
   const handleLogin = async () => {
     setErrorMessage(null);
     if (!email || !password) {
-      setErrorMessage("Email va parolni kiriting");
+      setErrorMessage("이메일과 비밀번호를 입력해주세요.");
       return;
     }
     try {
-      await trigger({ email, password, remember: isRememberChecked });
-      router.push('/home');
+      signin({ email, password, auto_login: false });
     } catch (err: any) {
-      setErrorMessage(err?.message || "Xatolik yuz berdi");
+      setErrorMessage(err?.message || "로그인 실패");
     }
   };
   return (
@@ -58,6 +86,12 @@ export default function Login() {
       <Header />
       {/* Login Form */}
       <div className="p-4 text-gray-0">
+        {requestErrorMessage && (
+          <div className="flex items-center gap-1 mb-2">
+            {warningIcon()}
+            <span className="text-[#EF4444] text-[10px] font-normal">{requestErrorMessage}</span>
+          </div>
+        )}
         {/* Email Input */}
         <div className="mb-3">
           <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
@@ -143,10 +177,10 @@ export default function Login() {
         {/* Login Button */}
         <button
           className="w-full btn-primary"
-          disabled={isMutating}
+          disabled={isGettingLogin || !email || !password}
           onClick={handleLogin}
         >
-          {isMutating ? '로그인 중...' : '로그인'}
+          {isGettingLogin ? '로그인 중...' : '로그인'}
         </button>
 
         {/* Account Management Links */}

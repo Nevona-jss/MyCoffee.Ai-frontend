@@ -82,7 +82,6 @@ const CoffeeCollectionSlider: React.FC = () => {
                  ))}
              </Swiper>
              
-             {/* Custom pagination dots */}
              <div className="flex justify-center mt-3 gap-1 absolute bottom-4 z-[1] left-1/2 -translate-x-1/2">
                  {slides.map((_, index) => (
                      <div

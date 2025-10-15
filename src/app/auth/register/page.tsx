@@ -6,10 +6,14 @@ import { useRouter } from "next/navigation";
 import PasswordInput from "../components/PasswordInput";
 import DatePicker from "../components/DatePicker";
 import { useHeaderStore } from "@/stores/header-store";
+import { usePost } from "@/hooks/useApi";
+import PhoneNumber from "./phoneNumber";
+import VerifyCode from "./verifyCode";
+import { User, useUserStore } from "@/stores/user-store";
 
 const warningIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <svg className="shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
       <g clipPath="url(#clip0_1366_13821)">
         <path d="M7.99992 14.6667C11.6818 14.6667 14.6666 11.6819 14.6666 8.00001C14.6666 4.31811 11.6818 1.33334 7.99992 1.33334C4.31802 1.33334 1.33325 4.31811 1.33325 8.00001C1.33325 11.6819 4.31802 14.6667 7.99992 14.6667Z" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M8 5.33334V8.00001" stroke="#EF4444" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
@@ -23,6 +27,7 @@ const warningIcon = () => {
     </svg>
   );
 };
+
 export default function Register() {
   const { setHeader } = useHeaderStore();
 
@@ -54,11 +59,16 @@ export default function Register() {
     confirmPassword: '',
     name: '',
     birthDate: '',
+    gender: 'male',
     phone: '',
     verificationCode: '',
   });
-  const router = useRouter();
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+  const [requestErrorMessage, setRequestErrorMessage] = useState('');
+  const { setUser } = useUserStore();
 
+  const router = useRouter()
+  
   const handleAllAgree = () => {
     const newValue = !isAllAgreed;
     setIsAllAgreed(newValue);
@@ -129,12 +139,28 @@ export default function Register() {
   };
 
   const handleInputChange = (name: string, value: string) => {
+    setRequestErrorMessage('');
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
+
+  const { mutate: signup, isPending: isGettingSignup } = usePost<User, {[key: string]: any}>(
+    '/signup',
+    {
+      onSuccess: (data) => {
+        if (data?.data) {
+          setUser(data);
+          router.push('/home');
+          sessionStorage.removeItem('auth_redirect');
+        }
+      },
+      onError: (error) => {
+        setRequestErrorMessage(error?.response?.data?.message);
+      },
+    }
+  );
 
   const handleRegister = () => {
     const fields = ['email', 'password', 'confirmPassword', 'name', 'birthDate'];
@@ -145,8 +171,23 @@ export default function Register() {
         isValid = false;
       }
     });
+
     if (isValid && isAllAgreed) {
-      router.push('/auth/register/success');
+      const data = {
+        p_validation_mode: "FULL_SIGNUP",
+        p_email: formData.email,
+        p_password: formData.password,
+        p_name: formData.name,
+        p_birth_year: formData.birthDate.split('-')[0],
+        p_birth_date: formData.birthDate,
+        p_gender: formData.gender === "male" ? "M" : "F",
+        p_phone_number: formData.phone,
+        p_verification_code: formData.verificationCode,
+        p_terms_agreed: true,
+        p_privacy_agreed: true,
+        p_marketing_agreed: true,
+      }
+      signup(data);
     }
   };
 
@@ -157,7 +198,12 @@ export default function Register() {
       <div className="p-4 pb-10 text-gray-0">
         <div className="overflow-y-auto h-[calc(100vh-154px)]">
           {/* Email Input */}
-
+          {requestErrorMessage && (
+            <div className="flex items-center gap-1 mb-2">
+              {warningIcon()}
+              <span className="text-[#EF4444] text-[10px] font-normal">{requestErrorMessage}</span>
+            </div>
+          )}
           <div className="mb-4">
             <label htmlFor="email" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
               이메일
@@ -171,6 +217,8 @@ export default function Register() {
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               required
+              minLength={5}
+              maxLength={50}
             />
             {errors.email && (
               <div className="flex items-center gap-1 mt-2">
@@ -214,11 +262,10 @@ export default function Register() {
               defaultValue=""
               onChange={(e) => handleInputChange('name', e.target.value)}
               required
+              minLength={2}
+              maxLength={20}
             />
           </div>
-
-
-
 
           <DatePicker
             id="birthDate"
@@ -242,7 +289,8 @@ export default function Register() {
                   name="gender"
                   value="male"
                   className="w-4 h-4 !text-[#FF7939] bg-transparent border-2 border-[#B3B3B3]"
-                  defaultChecked
+                  checked={formData.gender === 'male'}
+                  onChange={() => handleInputChange('gender', 'male')}
                 />
                 <span className="text-[12px] font-normal text-gray-0">남자</span>
               </label>
@@ -252,6 +300,8 @@ export default function Register() {
                   name="gender"
                   value="female"
                   className="w-4 h-4 !text-[#FF7939] bg-transparent border-2 border-[#B3B3B3]"
+                  checked={formData.gender === 'female'}
+                  onChange={() => handleInputChange('gender', 'female')}
                 />
                 <span className="text-[12px] font-normal text-gray-0">여자</span>
               </label>
@@ -259,70 +309,10 @@ export default function Register() {
           </div>
 
           {/* Phone Number Input */}
-          <div className="mb-4">
-            <label htmlFor="phone" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
-              휴대폰 번호
-            </label>
-            <div className="flex gap-1">
-              <div className="flex-1">
-                <input
-                  type="tel"
-                  id="phone"
-                  className="w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
-                  placeholder="휴대폰 번호를 입력해주세요."
-                  onChange={(e) => {
-                    const button = document.getElementById('phoneButton') as HTMLButtonElement;
-                    if (e.target.value.trim() === '') {
-                      button.disabled = true;
-                    } else {
-                      button.disabled = false;
-                    }
-                  }}
-                  required
-                />
-              </div>
-              <button
-                type="button"
-                id="phoneButton"
-                className="px-4 py-[9px] border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
-                disabled
-              >
-                인증 요청
-              </button>
-            </div>
-          </div>
-
+          <PhoneNumber handleInputChange={handleInputChange} formData={formData} isPhoneVerified={isPhoneVerified} setIsPhoneVerified={setIsPhoneVerified} />
+          
           {/* Verification Code Input */}
-          <div className="mb-4">
-            <label htmlFor="verificationCode" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
-              인증 번호
-            </label>
-            <div className="flex gap-1">
-              <input
-                type="text"
-                id="verificationCode"
-                className="flex-1 bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
-                placeholder="인증 번호를 입력하세요."
-                onChange={(e) => {
-                  const button = document.getElementById('verifyButton') as HTMLButtonElement;
-                  if (e.target.value.trim() === '') {
-                    button.disabled = true;
-                  } else {
-                    button.disabled = false;
-                  }
-                }}
-                required
-              />
-              <button
-                type="button"
-                id="verifyButton"
-                className="px-4 py-[9px] border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
-                disabled
-              >
-                인증 요청
-              </button>
-            </div>
-          </div>
+          <VerifyCode handleInputChange={handleInputChange} formData={formData} isPhoneVerified={isPhoneVerified} onVerificationSuccess={() => setIsPhoneVerified(true)} />
 
           {/* Agreement Checkboxes */}
           <div className="mb-6">
@@ -408,11 +398,12 @@ export default function Register() {
             </div>
           </div>
 
-          {/* Register Button */}
+          {/* Register Button */
+          }
         </div>
         <button
           className={`w-full btn-primary mt-1`}
-          disabled={!isAllAgreed}
+          disabled={!isAllAgreed || isGettingSignup}
           onClick={handleRegister}
         >
           가입하기

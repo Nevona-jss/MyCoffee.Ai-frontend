@@ -4,42 +4,18 @@ import React, { useState } from "react";
 import Link from "next/link";
 import ActionSheet from "@/components/ActionSheet";
 import { CircleAlert, Trash, X } from "lucide-react";
+import { useTasteAnalysis } from "../TasteAnalysisContext";
 
 const ReadyPage = () => {
+
   const [showWarning, setShowWarning] = useState(true);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const { recommendations } = useTasteAnalysis();
 
   const handleDelete = () => {
     setDeleteModalIsOpen(false);
   };
-
-  const coffeeAnalyses = [
-    {
-      id: 1,
-      title: "클래식 하모니 블렌드",
-      date: "2025-08-24",
-      time: "오후 12:34"
-    },
-    {
-      id: 2,
-      title: "클래식 하모니 블렌드",
-      date: "2025-08-24",
-      time: "오후 12:34"
-    },
-    {
-      id: 3,
-      title: "클래식 하모니 블렌드",
-      date: "2025-08-24",
-      time: "오후 12:34"
-    },
-    {
-      id: 4,
-      title: "클래식 하모니 블렌드",
-      date: "2025-08-24",
-      time: "오후 12:34"
-    }
-  ];
-
+  
   return (
     <div className="bg-background">
       {/* Warning Banner */}
@@ -60,22 +36,20 @@ const ReadyPage = () => {
 
       {/* Coffee Analysis Cards */}
       <div className="px-4 mt-4 space-y-4">
-        {coffeeAnalyses.map((analysis) => (
-          <div key={analysis.id} className="bg-white rounded-2xl px-4 py-3 border border-border-default">
-            {/* Title */}
+        {recommendations.map((analysis, index) => (
+          <div key={index} className="bg-white rounded-2xl px-4 py-3 border border-border-default">
             <h3 className="text-sm font-bold text-gray-0 mb-2">
-              {analysis.title}
+              {analysis.coffee_name}
             </h3>
 
-            {/* Date and Time */}
             <p className="text-xs text-[#AEAEAE] mb-4">
-              {analysis.date} {analysis.time}
+              {/* {analysis.date} {analysis.time} */}
+              2025-08-24 오후 12:34
             </p>
 
-            {/* Action Buttons */}
             <div className="flex items-center justify-between gap-2">
               <Link
-                href={`/my-coffee/taste-analysis/ready/${analysis.id}`}
+                href={`/my-coffee/taste-analysis/ready/${analysis.coffee_blend_id}`}
                 className="btn-action text-center"
               >
                 취향 분석 시작

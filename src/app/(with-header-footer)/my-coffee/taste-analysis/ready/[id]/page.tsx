@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import TasteDetails from "./components/TasteDetails";
 import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
@@ -9,43 +9,74 @@ import LikeModal from "./components/LikeModal";
 import OrderingComponent from "../../../components/ordering/Ordering";
 import RadarChart from "../../../components/RadarChart";
 import ActionSheet from "@/components/ActionSheet";
-import { SquarePen, Trash } from "lucide-react";
 import Link from "next/link";
+import { useTasteAnalysis } from "../../TasteAnalysisContext";
+import { CoffeePreferences, CoffeeRecommendation } from "@/types/coffee";
+import { useGet } from "@/hooks/useApi";
 
 const CoffeeAnalysisDetail = () => {
 
     const params = useParams();
-    const analysisId = params.id;
-    const [openItems, setOpenItems] = useState<number[]>([0, 1, 2]); // First item open by default
+    const coffeeBlendId = params.id;
+    const [openItems, setOpenItems] = useState<number[]>([0, 1, 2]);
+    const [tasteRatings, setTasteRatings] = useState<CoffeePreferences>({
+        aroma: 1,
+        sweetness: 1,
+        body: 1,
+        nutty: 1,
+        acidity: 1
+    });
+
     const [isLikeModalOpen, setIsLikeModalOpen] = useState(false);
     const [likedItemSaved, setLikedItemSaved] = useState(false);
-
-    // Sample taste ratings data
-    const tasteRatings = {
-        aroma: 5,
-        sweetness: 4,
-        body: 4,
-        nutty: 3,
-        acidity: 4
-    };
+    const { recommendations } = useTasteAnalysis();
+    const recommendation = recommendations.find((recommendation) => recommendation.coffee_blend_id === coffeeBlendId);
+  
+    useEffect(() => {
+        setTasteRatings({
+            aroma: recommendation?.aroma_score || 1,
+            sweetness: recommendation?.sweetness_score || 1,
+            body: recommendation?.body_score || 1,
+            nutty: recommendation?.nutty_score || 1,
+            acidity: recommendation?.acidity_score || 1
+        })
+    }, [recommendation]);
 
     const accordionItems = [
         {
             id: 0,
             title: "원두 프로파일",
-            content: "이 페이지는 커피 분석의 상세 정보를 보여줍니다. 개인화된 커피 추천과 함께 다양한 분석 결과를 확인할 수 있습니다."
         },
         {
             id: 1,
             title: "AI 커피 스토리",
-            content: "분석 결과가 여기에 표시됩니다. 향, 산미, 바디감, 단맛, 고소함 등의 다양한 요소들이 종합적으로 분석되어 표시됩니다."
         },
         {
             id: 2,
             title: "다른 커피는 어때요?",
-            content: "개인화된 커피 추천이 여기에 표시됩니다. 당신의 취향에 맞는 커피 브랜드와 블렌드를 추천해드립니다."
         }
     ];
+
+    const { data: coffeeBlend } = useGet<any>(
+        ['/analytics/similar', coffeeBlendId], 
+        `/analytics/similar/${coffeeBlendId}`,
+        {
+            params: {
+                limit: 5
+            }
+        },
+        {
+            enabled: !!coffeeBlendId
+        }
+    );
+    const { data: AIStory } = useGet<any>(
+        ['/analytics/ai-story', coffeeBlendId], 
+        `/analytics/ai-story/${coffeeBlendId}`,
+        {},
+        {
+            enabled: !!coffeeBlendId
+        }
+    );
 
     const toggleItem = (id: number) => {
         setOpenItems(prev =>
@@ -57,12 +88,11 @@ const CoffeeAnalysisDetail = () => {
 
     const handleLikeSave = (coffeeName: string, comment: string) => {
         console.log('Saved coffee:', { coffeeName, comment });
-        // Here you can add logic to save the coffee to your database or state
     };
 
     return (
-        <div className="pl-4 pt-6 pb-2">
-            <div className="overflow-y-auto h-[calc(100vh-272px)]">
+        <div className="pl-4 pt-3 pb-2">
+            <div className="overflow-y-auto h-[calc(100vh-314px)]">
                 <div className="pr-4">
                     <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center leading-[28px]">나만의 커피 취향을 찾아볼까요?</h2>
                     <p className="text-xs text-gray-0 mb-6 text-center leading-[18px]">" 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. "</p>
@@ -119,18 +149,14 @@ const CoffeeAnalysisDetail = () => {
                                         ) : item.id === 1 ? (
                                             <div>
                                                 {/* Coffee Collection Slider */}
-                                                <CoffeeCollectionSlider />
+                                                <CoffeeCollectionSlider  />
                                             </div>
                                         ) : item.id === 2 ? (
                                             <div>
                                                 {/* Other Coffee Slider */}
-                                                <OtherCoffeeSlider />
+                                                <OtherCoffeeSlider tasteRatings={tasteRatings as CoffeePreferences} />
                                             </div>
-                                        ) : (
-                                            <p className="text-sm text-gray-600 leading-relaxed">
-                                                {item.content}
-                                            </p>
-                                        )}
+                                        ) : null}
                                     </div>
                                 </div>
                             </div>

@@ -48,6 +48,9 @@ const OrderingComponent = ({
     order &&
     order.reduce((acc, item) => acc + Number(item.price!) * item.quantity!, 0);
 
+
+    console.log("order", order);
+    
   return (
     <>
       {isTooltipOpenHave && isTooltipOpen ? (
@@ -122,7 +125,6 @@ const OrderingComponent = ({
           {title}
         </button>
       )}
-
       <ActionSheet isOpen={isModalOpen} onClose={closeModal} title="구매하기">
         {/* Option Dropdowns */}
         <div className="space-y-3 mb-6 mt-4">
@@ -148,7 +150,7 @@ const OrderingComponent = ({
             >
               <div className="flex justify-between items-start mb-2">
                 <p className="font-bold text-xs leading-[18px]">
-                  나만의 커피 1호기/클래식 하모니 블랜드
+                  나만의 커피 {idx + 1}호기/클래식 하모니 블랜드
                 </p>
                 <button onClick={() => { }}>
                   <XIcon size={16} stroke="#1A1A1A" />
@@ -156,7 +158,7 @@ const OrderingComponent = ({
               </div>
 
               <div className="text-sm text-text-secondary mb-6 flex items-center gap-1">
-                {["카페인", "홀빈", "벌크", "500g", "라벨"].map((item, idx) => (
+                {[item?.caffeineStrength === "CAFFEINE" ? "카페인" : "데카페인", item?.grindLevel === "WHOLE_BEAN" ? "홀빈" : "분쇄 그라인딩", item?.packaging === "STICK" ? "스틱" : "벌크", item.weight, "라벨"].map((item, idx) => (
                   <span
                     key={idx}
                     className="text-[10px] leading-[16px] flex items-center gap-1"

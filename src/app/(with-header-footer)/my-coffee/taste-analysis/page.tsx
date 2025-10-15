@@ -1,15 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import CoffeeBrewingAnimation from "./CoffeeBrewingAnimation";
 import Link from "next/link";
+import SpiderChart from "@/app/(content-only)/analysis/SpiderChart";
+import { CoffeeData, CoffeePreferences } from "@/types/coffee";
+import { usePost } from "@/hooks/useApi";
+import { RecommendationRequest } from "@/app/(content-only)/analysis/types";
+import { useRecommendationStore } from "@/stores/recommendation-store";
+import { useUserStore } from "@/stores/user-store";
+import { useTasteAnalysis } from "./TasteAnalysisContext";
 
 const TasteAnalysisPage = () => {
   const [showBrewingAnimation, setShowBrewingAnimation] = useState(false);
   const router = useRouter();
+  const { user } = useUserStore();
+  const { setRecommendations } = useTasteAnalysis();
+  const [ratings, setRatings] = useState<CoffeePreferences>({
+    aroma: 1,
+    sweetness: 1,
+    body: 1,
+    nutty: 1,
+    acidity: 1,
+  });
+  const { setPreferences } = useRecommendationStore();
+
 
   const handleStartAnalysis = () => {
+    handleSubmitAnalysis();
     setShowBrewingAnimation(true);
   };
 
@@ -19,8 +38,38 @@ const TasteAnalysisPage = () => {
     router.push('/my-coffee/taste-analysis/ready');
   };
 
+
+  const { mutate: getRecommendations, isPending: isGettingRecommendations } = usePost<CoffeeData, RecommendationRequest>(
+    '/recommendation',
+    {
+      onSuccess: (data) => {
+        if (data?.data?.preferences) {
+          setPreferences(data?.data?.preferences);
+        }
+        // Save recommendations to context
+        if (data?.data?.recommendations) {          
+          setRecommendations(data.data.recommendations);
+        }
+      },
+    }
+  );
+
+  // Handle form submission
+  const handleSubmitAnalysis = useCallback(() => {
+    getRecommendations({
+      aroma: ratings.aroma,
+      acidity: ratings.acidity,
+      nutty: ratings.nutty,
+      body: ratings.body,
+      sweetness: ratings.sweetness,
+      userId: user?.data?.user_id,
+      saveAnalysis: 0,
+    });
+  }, [ratings]);
+
+
   if (showBrewingAnimation) {
-    return <CoffeeBrewingAnimation onComplete={handleAnimationComplete} />;
+    return <CoffeeBrewingAnimation onComplete={handleAnimationComplete} isGettingRecommendations={isGettingRecommendations} />;
   }
 
   return (
@@ -32,126 +81,7 @@ const TasteAnalysisPage = () => {
 
       {/* Radar Chart */}
       <div className="flex justify-center mb-10">
-        <div className="relative">
-          <svg
-            className="mx-auto no-select w-[300px] h-[300px] sm:w-[325px] sm:h-[325px]"
-            viewBox="0 0 400 400"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            {/* Outer pentagon border with dashed style */}
-            {(() => {
-              const centerX = 200;
-              const centerY = 200;
-              const maxRadius = 140;
-              let pentagonPath = '';
-              for (let i = 0; i < 5; i++) {
-                const angle = (i * 72 - 90) * (Math.PI / 180);
-                const x = centerX + maxRadius * Math.cos(angle);
-                const y = centerY + maxRadius * Math.sin(angle);
-
-                if (i === 0) {
-                  pentagonPath += `M ${x} ${y} `;
-                } else {
-                  pentagonPath += `L ${x} ${y} `;
-                }
-              }
-              pentagonPath += 'Z';
-
-              return (
-                <path
-                  d={pentagonPath}
-                  fill="none"
-                  stroke="#B3B3B3"
-                  strokeWidth="2"
-                  strokeDasharray="4,2"
-                  opacity="0.8"
-                />
-              );
-            })()}
-
-            {/* Taste labels with proper positioning */}
-            {[
-              { key: 'aroma', label: '향', angle: 0, rating: 0 },
-              { key: 'sweetness', label: '단맛', angle: 72, rating: 0 },
-              { key: 'body', label: '바디', angle: 144, rating: 0 },
-              { key: 'nutty', label: '고소함', angle: 216, rating: 0 },
-              { key: 'acidity', label: '산미', angle: 288, rating: 4 }
-            ].map((taste, index) => {
-              const centerX = 200;
-              const centerY = 200;
-              // Custom label positioning based on taste
-              let labelRadius = 175;
-              if (taste.key === 'aroma') { // 향 - top
-                labelRadius = 180; // 5px further out
-              } else if (taste.key === 'sweetness') { // 단맛 - top right
-                labelRadius = 180; // 5px further out
-              }
-              
-              const angle = (taste.angle - 90) * (Math.PI / 180);
-              const labelX = centerX + labelRadius * Math.cos(angle);
-              const labelY = centerY + labelRadius * Math.sin(angle);
-
-              return (
-                <g key={taste.key}>
-                  {/* Taste label */}
-                  <text
-                    x={labelX}
-                    y={labelY}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="text-[17px] font-medium fill-gray-0"
-                    style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)' }}
-                  >
-                    {taste.label}
-                  </text>
-
-                  {/* Rating badge background */}
-                  <rect
-                    x={labelX - 25}
-                    y={labelY + 8}
-                    width="48"
-                    height="25"
-                    rx="8"
-                    fill="#FFF"
-                    stroke="#E6E6E6"
-                    strokeWidth="0.56"
-                  />
-
-                  {/* Rating number - only the number in orange */}
-                  <text
-                    x={labelX - 10}
-                    y={labelY + 22}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill="#FF7939"
-                    fontSize="16"
-                    fontWeight="400"
-                    letterSpacing="-0.13px"
-                    style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
-                  >
-                    {taste.rating}
-                  </text>
-
-                  {/* "/5" text in black */}
-                  <text
-                    x={labelX + 4}
-                    y={labelY + 22}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill="#1A1A1A"
-                    fontSize="16"
-                    fontWeight="400"
-                    letterSpacing="-0.13px"
-                    style={{ textShadow: '0 1px 2px rgba(0,0,0,0.1)', lineHeight: '150%' }}
-                  >
-                    /5
-                  </text>
-                </g>
-              );
-            })}
-
-          </svg>
-        </div>
+        <SpiderChart ratings={ratings} setRatings={setRatings} />
       </div>
 
       {/* Action Buttons */}
@@ -162,7 +92,7 @@ const TasteAnalysisPage = () => {
         >
           취향 분석 시작
         </button>
-        
+
         <Link href={'/my-coffee/taste-analysis/ready'} className="block w-full rounded-lg font-bold !py-2.5 border-1 border-[#4E2A18] text-[#4E2A18] text-center">
           지난 커피 분석 보기
         </Link>

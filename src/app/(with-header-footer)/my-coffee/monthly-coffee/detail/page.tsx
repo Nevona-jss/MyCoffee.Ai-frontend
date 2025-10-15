@@ -51,13 +51,12 @@ const MonthlyCoffeeDetail = () => {
     };
 
     return (
-        <div className="pl-4 pt-6 pb-2">
-            <div className="overflow-y-auto h-[calc(100vh-272px)]">
+        <div className="pl-4 pt-3 pb-2">
+            <div className="overflow-y-auto h-[calc(100vh-314px)]">
                 <div className="pr-4">
                     <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">클래식 하모니 블렌드</h2>
                     <p className="text-xs text-gray-0 mb-6 text-center font-normal">“ 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. ”</p>
                 </div>
-
                 <div className="">
                     <div className="space-y-[26px]">
                         {accordionItems.map((item, index) => (

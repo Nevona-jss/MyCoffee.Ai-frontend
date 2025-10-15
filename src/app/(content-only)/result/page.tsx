@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRecommendationStore } from '@/stores/recommendation-store';
 
 interface TasteRating {
     aroma: number; // 향
@@ -12,13 +13,22 @@ interface TasteRating {
 }
 
 export default function ResultPage() {
-    const [ratings] = useState<TasteRating>({
+    const [ratings, setRatings] = useState<TasteRating>({
         aroma: 5,
         acidity: 4,
         sweetness: 4,
         nutty: 3,
         body: 4,
     });
+
+    const { preferences } = useRecommendationStore();
+
+    useEffect(() => {
+        setRatings(preferences);
+    }, [preferences]);
+
+    console.log("preferences", preferences);
+    
 
     const tasteLabels = [
         { key: 'aroma', label: '향', position: 'top', color: 'aroma' },
