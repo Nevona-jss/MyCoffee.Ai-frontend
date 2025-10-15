@@ -28,7 +28,7 @@ const MonthlyCoffeePage = () => {
           {/* Header Section */}
           <div className="">
             <h1 className="text-[14px] font-medium text-gray-0 mb-0.5">📌 이달의 추천 커피 : 스무스 터치 블렌드</h1>
-            <p className="text-[10px] text-text-secondary font-normal">오늘 이 커피를 추천하는 이유, 직접 전해드립니다.</p>
+            <p className="text-[12px] text-text-secondary font-normal">오늘 이 커피를 추천하는 이유, 직접 전해드립니다.</p>
           </div>
 
           {/* Coffee Profile Section */}
@@ -37,7 +37,7 @@ const MonthlyCoffeePage = () => {
             <div className="space-y-1 xs:pr-10 pr-5">
               {tasteLabels.map((taste) => (
                 <div key={taste.key} className="flex items-center justify-between">
-                  <span className="text-[10px] font-normal text-gray-0 leading-[160%]">{taste.label}</span>
+                  <span className="text-[12px] font-normal text-gray-0 leading-[160%]">{taste.label}</span>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((dot) => (
                       <div
@@ -198,7 +198,7 @@ const MonthlyCoffeePage = () => {
                       y={labelY}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      className="text-[10px] font-normal fill-gray-0"
+                      className="text-[12px] font-normal fill-gray-0"
                     >
                       {taste.label}
                     </text>
@@ -217,13 +217,13 @@ const MonthlyCoffeePage = () => {
 
           {/* Description */}
           <div className="space-y-4 mb-4">
-            <p className="text-gray-0 leading-[160%] text-[10px] font-normal">
+            <p className="text-gray-0 leading-[160%] text-[12px] font-normal">
               스무스 터치 블렌드는 브라질의 부드러움, 에티오피아의 산뜻한 산미, 과테말라의 은은한 고소함이 조화를 이루고 있습니다.
             </p>
-            <p className="text-gray-0 leading-[160%] text-[10px] font-normal">
+            <p className="text-gray-0 leading-[160%] text-[12px] font-normal">
               특히 바디감이 무겁지 않아 아침이나 점심, 부담 없이 즐기기에 제격이죠.
             </p>
-            <p className="text-gray-0 leading-[160%] text-[10px] font-normal">
+            <p className="text-gray-0 leading-[160%] text-[12px] font-normal">
               은은한 향과 부드러운 산미가 하루의 리듬을 깨우면서도 편안하게 이어줍니다.오늘 같은 날, 가볍게 시작하고 싶은 당신께 이 커피를 추천합니다.
             </p>
           </div>
@@ -235,7 +235,7 @@ const MonthlyCoffeePage = () => {
 
           {/* Footer */}
           <div className="text-right">
-            <p className="text-[10px] text-text-secondary font-normal">- 김OO 연구원 -</p>
+            <p className="text-[12px] text-text-secondary font-normal">- 김OO 연구원 -</p>
           </div>
         </div>
       </div>

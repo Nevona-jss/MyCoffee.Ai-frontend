@@ -77,12 +77,12 @@ const ReviewWrite = () => {
                     <div key={item.id} className="bg-white rounded-2xl px-4 py-3 border border-border-default">
                         {/* Header with date and order number */}
                         <div className="flex items-center justify-between border-b border-border-default pb-4 mb-4">
-                            <span className="text-[10px] font-bold leading-[160%] text-gray-500">
+                            <span className="text-[12px] font-bold leading-[160%] text-gray-500">
                                 {item.date} | {item.orderNumber}
                             </span>
                             <Link
                                 href={`/profile/write-review/${item.id}`}
-                                className="text-[10px] font-bold flex items-center gap-2 text-[#3182F6]"
+                                className="text-[12px] font-bold flex items-center gap-2 text-[#3182F6]"
                             >
                                 주문 상세보기
                                 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
@@ -97,7 +97,7 @@ const ReviewWrite = () => {
                         <div className="flex items-center justify-between mb-5">
                             <div className="flex items-center gap-1">
                                 {statuses.map((detail: string, index: number) => (
-                                    <span key={index} className="text-[10px] text-text-secondary flex items-center gap-1">
+                                    <span key={index} className="text-[12px] text-text-secondary flex items-center gap-1">
                                         {detail}
                                         {index < statuses.length - 1 && <span className="text-brand-secondary-accent-sub w-1 h-1 rounded-full flex items-center">•</span>}
                                     </span>

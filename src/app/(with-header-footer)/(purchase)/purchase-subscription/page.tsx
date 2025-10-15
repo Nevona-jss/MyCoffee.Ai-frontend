@@ -107,7 +107,7 @@ const PurchaseSubscription = () => {
                     (item, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] leading-[16px] flex items-center gap-1"
+                        className="text-[12px] leading-[16px] flex items-center gap-1"
                       >
                         {item}{" "}
                         {idx !== 4 && (
@@ -193,7 +193,7 @@ const PurchaseSubscription = () => {
           <div className="bg-white rounded-lg p-3 border border-border-default">
             <div className="flex items-center justify-between cursor-pointer">
               <h2 className="text-sm leading-[20px] font-bold">배송지 정보</h2>
-              <span className="text-[10px] leading-[16px] text-[#3182F6] font-bold">
+              <span className="text-[12px] leading-[16px] text-[#3182F6] font-bold">
                 변경
               </span>
             </div>

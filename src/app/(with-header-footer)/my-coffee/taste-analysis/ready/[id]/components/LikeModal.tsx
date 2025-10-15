@@ -93,7 +93,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave, setLiked
           {errors.coffeeName && (
             <div className="flex items-center gap-1 mt-2">
               <CircleAlert size={16} color={"#EF4444"} />
-              <span className="text-[10px] font-normal text-[#EF4444]">{errors.coffeeName}</span>
+              <span className="text-[12px] font-normal text-[#EF4444]">{errors.coffeeName}</span>
             </div>
           )}
         </div>
@@ -113,7 +113,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave, setLiked
           {errors.comment && (
             <div className="flex items-center gap-1 mt-2">
               <CircleAlert size={16} color={"#EF4444"} />
-              <span className="text-[10px] font-normal text-[#EF4444]">{errors.comment}</span>
+              <span className="text-[12px] font-normal text-[#EF4444]">{errors.comment}</span>
             </div>
           )}
         </div>

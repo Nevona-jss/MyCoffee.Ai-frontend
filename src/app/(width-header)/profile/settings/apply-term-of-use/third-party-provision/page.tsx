@@ -21,10 +21,10 @@ const ThirdPartyProvision = () => {
 
         {/* 1. 일반 원칙 */}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             1. 일반 원칙
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li>
               본 환불 및 교환 정책은 「전자상거래 등에서의 소비자보호에 관한
               법률」에 근거합니다.
@@ -42,10 +42,10 @@ const ThirdPartyProvision = () => {
 
         {/* 2. 환불/교환이 가능한 경우 */}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             2. 환불/교환이 가능한 경우
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li>
               상품 하자 발생: 로스팅 불량, 포장 불량, 이물질 혼입 등 품질 문제가
               확인된 경우
@@ -62,10 +62,10 @@ const ThirdPartyProvision = () => {
 
         {/* 3. 환불/교환이 불가능한 경우*/}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             3. 환불/교환이 불가능한 경우
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li> 맞춤 제작 특성상 단순 변심 또는 개인의 기호 차이</li>
             <li>
               상품을 개봉·섭취한 경우 (단, 하자가 명백히 입증된 경우 제외)
@@ -77,10 +77,10 @@ const ThirdPartyProvision = () => {
 
         {/* 4. 환불 절차*/}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             4. 환불 절차
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4">
             <li>a. 고객센터(전화, 이메일, 채팅 등)를 통해 환불 신청</li>
             <li>b. 하자 또는 오배송 확인 후, 반품 회수 절차 진행</li>
             <li>
@@ -91,10 +91,10 @@ const ThirdPartyProvision = () => {
 
         {/* 5. 교환 절차 */}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             5. 교환 절차
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li>동일 제품 재제작 및 재발송 원칙</li>
             <li>
               재제작 기간은 평균 2~3영업일 소요될 수 있으며, 원두의 특성상
@@ -105,10 +105,10 @@ const ThirdPartyProvision = () => {
 
         {/* 6. 배송비 정책*/}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             6. 환불 절차
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li>당사 귀책 사유(하자, 오배송 등): 왕복 배송비 전액 당사 부담</li>
             <li>고객 귀책 사유: 환불/교환 불가</li>
           </ol>
@@ -116,10 +116,10 @@ const ThirdPartyProvision = () => {
 
         {/* 7. 개인정보 제3자 제공 안내*/}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             7.개인정보 제3자 제공 안내
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li>
               고객님의 결제 및 주문 처리와 관련하여 아래와 같이 개인정보가
               제3자(결제 대행사)에게 제공됩니다.
@@ -143,10 +143,10 @@ const ThirdPartyProvision = () => {
 
         {/* 8. 고객센터 안내*/}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             8. 고객센터 안내
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4 list-disc">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4 list-disc">
             <li>
               문의 접수: 아로마빌 고객센터 (전화: 070-7721-8181 / 이메일:
               aromaville@aromaville.co.kr)

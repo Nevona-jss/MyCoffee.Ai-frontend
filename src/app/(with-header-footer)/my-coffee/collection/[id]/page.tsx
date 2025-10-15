@@ -56,7 +56,7 @@ const CollectionDetail = () => {
           <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
             나만의 커피 1호기
           </h2>
-          <p className="text-[10px] text-text-secondary mb-2 text-center font-normal">
+          <p className="text-[12px] text-text-secondary mb-2 text-center font-normal">
             2025-08-24 오후 12:34
           </p>
           <p className="text-xs text-gray-0 mb-6 text-center font-normal ">

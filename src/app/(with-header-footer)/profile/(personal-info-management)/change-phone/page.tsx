@@ -60,7 +60,7 @@ const ChangePhone = () => {
             </button>
           </div>
           {isOtpSent && (
-            <span className="inline-block text-[10px] leading-[16px] mt-2">
+            <span className="inline-block text-[12px] leading-[16px] mt-2">
               00:53 후에 새 코드를 보내기
             </span>
           )}

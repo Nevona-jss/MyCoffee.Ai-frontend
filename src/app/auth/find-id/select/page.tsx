@@ -99,7 +99,7 @@ export default function SelectId() {
                 <span className="text-gray-0 font-bold text-sm">
                   {account.id}
                 </span>
-                <div className={`pr-3 pl-2 py-1 rounded-sm text-[10px] font-normal flex items-center gap-1.5 bg-[rgba(0,0,0,0.05)] ${getTypeBadgeStyle(account.type)}`}>
+                <div className={`pr-3 pl-2 py-1 rounded-sm text-[12px] font-normal flex items-center gap-1.5 bg-[rgba(0,0,0,0.05)] ${getTypeBadgeStyle(account.type)}`}>
                   {account.icon}
                   <span className="text-gray-0">{account.typeName}</span>
                 </div>

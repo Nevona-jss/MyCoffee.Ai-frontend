@@ -99,7 +99,7 @@ export default function ResultPage() {
                                 {blend.origins.map((origin, idx) => (
                                     <span
                                         key={idx}
-                                        className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[10px] text-[#999]"
+                                        className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-[#999]"
                                     >
                                         {origin.country} {origin.percentage}%
                                     </span>
@@ -311,7 +311,7 @@ export default function ResultPage() {
                                                 ))}
                                             </div>
                                         </div>
-                                        <p className="text-[10px] text-[#999] leading-[140%] w-[100px]">
+                                        <p className="text-[12px] text-[#999] leading-[140%] w-[100px]">
                                             {tasteDescriptions[taste.key as keyof typeof tasteDescriptions]}
                                         </p>
                                     </div>

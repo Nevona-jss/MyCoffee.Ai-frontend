@@ -23,12 +23,12 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
         <div className="bg-white rounded-2xl p-3 border border-border-default text-gray-0">
             {/* Header with date and order number */}
             <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold leading-[160%]">
+                <span className="text-[12px] font-bold leading-[160%]">
                     {data.date} | {data.orderNumber}
                 </span>
                 <Link
                     href={`/order-delivery/${data.id}`}
-                    className="text-[10px] font-bold flex items-center gap-2"
+                    className="text-[12px] font-bold flex items-center gap-2"
                 >
                     주문 상세보기
                     <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
@@ -56,7 +56,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                     {/* Product details */}
                     <div className="flex items-center gap-1">
                         {data.productDetails.map((detail: string, index: number) => (
-                            <span key={index} className="text-[10px] text-text-secondary flex items-center gap-1">
+                            <span key={index} className="text-[12px] text-text-secondary flex items-center gap-1">
                                 {detail}
                                 {index < data.productDetails.length - 1 && <span className="text-brand-secondary-accent-sub w-1 h-1 rounded-full flex items-center">•</span>}
                             </span>

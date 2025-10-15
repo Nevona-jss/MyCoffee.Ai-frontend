@@ -121,7 +121,7 @@ const Ordering = () => {
               {["카페인", "홀빈", "벌크", "500g", "라벨"].map((item, idx) => (
                 <span
                   key={idx}
-                  className="text-[10px] leading-[16px] flex items-center gap-1"
+                  className="text-[12px] leading-[16px] flex items-center gap-1"
                 >
                   {item}{" "}
                   {idx !== 4 && (

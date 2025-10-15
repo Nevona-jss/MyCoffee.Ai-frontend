@@ -61,7 +61,7 @@ const ContactUsRegistration = () => {
                 <div className="flex items-center justify-between mb-5">
                     <div className="flex items-center gap-1">
                         {statuses.map((detail: string, index: number) => (
-                            <span key={index} className="text-[10px] text-text-secondary flex items-center gap-1">
+                            <span key={index} className="text-[12px] text-text-secondary flex items-center gap-1">
                                 {detail}
                                 {index < statuses.length - 1 && <span className="text-brand-secondary-accent-sub w-1 h-1 rounded-full flex items-center">•</span>}
                             </span>
@@ -81,7 +81,7 @@ const ContactUsRegistration = () => {
                     className="bg-transparent placeholder:text-text-secondary placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full py-2.5 px-4 pb-8"
                     placeholder="문의를 남겨주시면 빠르게 답변해드리겠습니다."
                 />
-                <div className="absolute bottom-2 right-3 text-[10px] text-text-secondary">
+                <div className="absolute bottom-2 right-3 text-[12px] text-text-secondary">
                     {textareaValue.length}/300
                 </div>
             </div>

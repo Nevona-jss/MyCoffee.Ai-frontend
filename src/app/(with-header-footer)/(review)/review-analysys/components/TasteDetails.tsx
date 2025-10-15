@@ -51,7 +51,7 @@ const TasteDetails: React.FC<TasteDetailsProps> = ({ ratings }) => {
               ))}
             </div>
           </div>
-          <p className="text-[10px] text-text-secondary leading-[160%]">
+          <p className="text-[12px] text-text-secondary leading-[160%]">
             {tasteDescriptions[taste.key as keyof typeof tasteDescriptions]}
           </p>
         </div>

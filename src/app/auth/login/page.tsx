@@ -89,7 +89,7 @@ export default function Login() {
         {requestErrorMessage && (
           <div className="flex items-center gap-1 mb-2">
             {warningIcon()}
-            <span className="text-[#EF4444] text-[10px] font-normal">{requestErrorMessage}</span>
+            <span className="text-[#EF4444] text-[12px] font-normal">{requestErrorMessage}</span>
           </div>
         )}
         {/* Email Input */}

@@ -103,8 +103,8 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave, href, da
           />
           {errors.coffeeName && (
             <div className="flex items-center gap-1 mt-2">
-              <span className={`text-[10px] ${isDuplicate ? 'text-orange-500' : 'text-[#EF4444]'}`}>!</span>
-              <span className={`text-[10px] font-normal ${isDuplicate ? 'text-orange-500' : 'text-[#EF4444]'}`}>
+              <span className={`text-[12px] ${isDuplicate ? 'text-orange-500' : 'text-[#EF4444]'}`}>!</span>
+              <span className={`text-[12px] font-normal ${isDuplicate ? 'text-orange-500' : 'text-[#EF4444]'}`}>
                 {errors.coffeeName}
               </span>
             </div>
@@ -125,8 +125,8 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave, href, da
           />
           {errors.comment && (
             <div className="flex items-center gap-1 mt-2">
-              <span className="text-[10px] text-[#EF4444]">!</span>
-              <span className="text-[10px] font-normal text-[#EF4444]">{errors.comment}</span>
+              <span className="text-[12px] text-[#EF4444]">!</span>
+              <span className="text-[12px] font-normal text-[#EF4444]">{errors.comment}</span>
             </div>
           )}
         </div>

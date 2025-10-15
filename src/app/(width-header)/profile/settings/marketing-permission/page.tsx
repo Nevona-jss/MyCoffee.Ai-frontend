@@ -40,10 +40,10 @@ const MarketingPermission = () => {
 
         {/* 1. 이용 목적 */}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             1. 이용 목적
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4">
             <li> a. 신규 서비스 및 이벤트 안내</li>
             <li> b. 할인/프로모션 등 마케팅 정보 제공</li>
             <li> c. 맞춤형 상품 및 서비스 추천</li>
@@ -52,10 +52,10 @@ const MarketingPermission = () => {
 
         {/* 2. 수단 항목 */}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             2. 수단 항목
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4">
             <li> a. 푸시 알림(APP)</li>
             <li> b. 문자메세지(SMS/MMS)</li>
             <li> c. 이메일</li>
@@ -64,10 +64,10 @@ const MarketingPermission = () => {
 
         {/* 3. 보유 및 이용 기간 */}
         <section className="mb-4">
-          <p className="text-[10px] leading-[16px] font-normal mb-2">
+          <p className="text-[12px] leading-[16px] font-normal mb-2">
             3. 보유 및 이용 기간
           </p>
-          <ol className="space-y-1 text-[10px] leading-[16px] pl-4">
+          <ol className="space-y-1 text-[12px] leading-[16px] pl-4">
             <li> a. 동의일로부터 회원 탈퇴 또는 동의 철회시 까지</li>
             <li> b. 법령에 따른 보존 필요 시 해당 기간 준수</li>
           </ol>

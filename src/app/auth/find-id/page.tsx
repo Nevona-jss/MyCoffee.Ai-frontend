@@ -144,13 +144,13 @@ export default function FindId() {
           {errors.phone && (
             <div className="flex items-center gap-1 mt-2">
               {warningIcon()}
-              <span className="text-[#EF4444] text-[10px] font-normal">{errors.phone}</span>
+              <span className="text-[#EF4444] text-[12px] font-normal">{errors.phone}</span>
             </div>
           )}
         </div>
 
         {isCodeSent && timeLeft > 0 && (
-          <div className="mt-2 text-[10px] text-gray-0 font-normal flex items-center">
+          <div className="mt-2 text-[12px] text-gray-0 font-normal flex items-center">
             유효 시간 {formatTime(timeLeft)}
           </div>
         )}
@@ -174,7 +174,7 @@ export default function FindId() {
           {errors.verificationCode && (
             <div className="flex items-center gap-1 mt-2">
               {warningIcon()}
-              <span className="text-[#EF4444] text-[10px] font-normal">{errors.verificationCode}</span>
+              <span className="text-[#EF4444] text-[12px] font-normal">{errors.verificationCode}</span>
             </div>
           )}
         </div>

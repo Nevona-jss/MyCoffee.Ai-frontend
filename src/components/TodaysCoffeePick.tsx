@@ -61,7 +61,7 @@ const TodaysCoffeePick = () => {
                                         {pick.hashtags.map((tag, idx) => (
                                             <span
                                                 key={idx}
-                                                className="text-[10px] font-normal leading-[16px]"
+                                                className="text-[12px] font-normal leading-[16px]"
                                             >
                                                 {tag}
                                             </span>
@@ -89,7 +89,7 @@ const TodaysCoffeePick = () => {
                     </SwiperSlide>
                 ))}
                 <div className="absolute top-3 right-2.5 z-20 bg-gray-0 w-10 h-5 rounded-[15px] flex items-center justify-center">
-                    <span className="text-[10px] font-bold text-white">
+                    <span className="text-[12px] font-bold text-white">
                         {String(currentSlide + 1).padStart(2, '0')}<span className="text-[#BEBEBE]">/{String(coffeePicks.length).padStart(2, '0')}</span>
                     </span>
                 </div>

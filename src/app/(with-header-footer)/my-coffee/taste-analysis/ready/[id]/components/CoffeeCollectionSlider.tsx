@@ -71,7 +71,7 @@ const CoffeeCollectionSlider: React.FC = () => {
                                 {slide.content.map((item, index) => (
                                     <div key={index} className="flex items-start gap-2">
                                         <span className="text-xs leading-[100%]">•</span>
-                                        <p className="text-[10px] font-normal flex-1 leading-[160%]">
+                                        <p className="text-[12px] font-normal flex-1 leading-[160%]">
                                             {item}
                                         </p>
                                     </div>

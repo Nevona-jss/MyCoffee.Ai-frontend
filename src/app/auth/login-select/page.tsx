@@ -61,7 +61,7 @@ export default function LoginSelect() {
               <div className="w-full border-t border-[#E6E6E6]"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-[18px] bg-[#FAFAFA] text-[#6E6E6E] text-[10px] py-[1px] leading-[160%]">또는</span>
+              <span className="px-[18px] bg-[#FAFAFA] text-[#6E6E6E] text-[12px] py-[1px] leading-[160%]">또는</span>
             </div>
           </div>
 

@@ -110,7 +110,7 @@ const ManageSubscriptions = () => {
                                 <h3 className="text-sm font-bold">
                                     {item.title}
                                 </h3>
-                                <p className="text-[10px] font-bold mt-1">
+                                <p className="text-[12px] font-bold mt-1">
                                     {item.subtitle}
                                 </p>
                             </div>
@@ -127,7 +127,7 @@ const ManageSubscriptions = () => {
                                 {["카페인", "홀빈", "벌크", "500g", "라벨"].map((item, idx) => (
                                     <span
                                         key={idx}
-                                        className="text-[10px] leading-[16px] flex items-center gap-1"
+                                        className="text-[12px] leading-[16px] flex items-center gap-1"
                                     >
                                         {item}{" "}
                                         {idx !== 4 && (

@@ -83,7 +83,7 @@ export default function PasswordInput({
       {error && (
         <div className="flex items-center gap-1 mt-2">
           {warningIcon()}
-          <span className="text-[#EF4444] text-[10px] font-normal">{error}</span>
+          <span className="text-[#EF4444] text-[12px] font-normal">{error}</span>
         </div>
       )}
     </div>

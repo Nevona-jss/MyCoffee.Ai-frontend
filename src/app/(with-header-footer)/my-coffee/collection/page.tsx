@@ -143,7 +143,7 @@ const CollectionPage = () => {
                   <p className="text-[12px] text-[#AEAEAE] mb-2 font-normal">{analysis.date} {analysis.time}</p>
 
                   <div className="flex items-center justify-center w-fit bg-[rgba(0,0,0,0.05)] rounded-lg px-2 py-1 mb-4">
-                    <span className="text-[10px] text-gray-0 font-medium leading-[160%]">{analysis.tag}</span>
+                    <span className="text-[12px] text-gray-0 font-medium leading-[160%]">{analysis.tag}</span>
                   </div>
 
                   <p className="text-[12px] text-gray-0 leading-[150%]">{analysis.description}</p>

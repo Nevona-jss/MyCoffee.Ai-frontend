@@ -36,8 +36,8 @@ const MyPage = () => {
           <div className="flex-1">
             <p className="text-base font-bold leading-[20px]">이기홍</p>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] leading-[16px]">1235017601</span>
-              <div className="flex items-center gap-1 px-2 py-1 bg-black/5 rounded text-[10px]">
+              <span className="text-[12px] leading-[16px]">1235017601</span>
+              <div className="flex items-center gap-1 px-2 py-1 bg-black/5 rounded text-[12px]">
                 <img src="/images/kakao.png" alt="kakao" className="w-4 h-4" />
                 <span className="text-gray-0 font-medium">카카오</span>
               </div>
@@ -51,7 +51,7 @@ const MyPage = () => {
       <div className="bg-brand-secondary-accent-sub rounded-2xl p-3 mb-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[10px] leading-[16px] text-text-secondary mb-1">
+            <p className="text-[12px] leading-[16px] text-text-secondary mb-1">
               나의 포인트
             </p>
             <p className="text-base leading-[20px] font-bold text-action-secondary">

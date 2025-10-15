@@ -105,7 +105,7 @@ const PhoneNumber = ({ handleInputChange, isPhoneVerified, setIsPhoneVerified, s
                     {getVerificationCodeError && (
                         <div className="flex items-center gap-1 mt-2">
                             {warningIcon()}
-                            <span className="text-[#EF4444] text-[10px] font-normal">{getVerificationCodeError}</span>
+                            <span className="text-[#EF4444] text-[12px] font-normal">{getVerificationCodeError}</span>
                         </div>
                     )}
                 </div>
@@ -124,7 +124,7 @@ const PhoneNumber = ({ handleInputChange, isPhoneVerified, setIsPhoneVerified, s
             </div>
             {
                 isCountdownActive && (
-                    <p className="text-[10px] text-gray-0 font-normal mt-2">{`유효 시간 ${formatCountdown(countdown)}`}</p>
+                    <p className="text-[12px] text-gray-0 font-normal mt-2">{`유효 시간 ${formatCountdown(countdown)}`}</p>
                 )
             }
         </div>

@@ -192,7 +192,7 @@ const ReviewMain = () => {
                         setSortBy(option);
                         setShowSortDropdown(false);
                       }}
-                      className={`w-full px-3 py-3.5 text-[10px] leading-[16px] font-bold text-left hover:bg-gray-50 ${
+                      className={`w-full px-3 py-3.5 text-[12px] leading-[16px] font-bold text-left hover:bg-gray-50 ${
                         sortBy === option && "text-action-secondary"
                       }`}
                     >
@@ -225,12 +225,12 @@ const ReviewMain = () => {
                     />
                   </div>
                   <div>
-                    <p className="text-[10px] leading-[16px] font-bold">
+                    <p className="text-[12px] leading-[16px] font-bold">
                       {review.user}
                     </p>
                     <div className="flex items-center">
                       {renderStars(review.rating)}
-                      <span className="text-[10px] leading-[16px] font-normal text-text-secondary ml-1">
+                      <span className="text-[12px] leading-[16px] font-normal text-text-secondary ml-1">
                         | {review.date}
                       </span>
                     </div>
@@ -261,7 +261,7 @@ const ReviewMain = () => {
               </div>
 
               {/* Product Name */}
-              <span className="text-[10px] leading-[16px] text-text-secondary mb-3 rounded-[10px] inline-block bg-[#0000000D] px-2 py-0.5">
+              <span className="text-[12px] leading-[16px] text-text-secondary mb-3 rounded-[10px] inline-block bg-[#0000000D] px-2 py-0.5">
                 {review.product}
               </span>
 
@@ -278,7 +278,7 @@ const ReviewMain = () => {
               </div>
 
               {/* Review Text */}
-              <p className="text-[10px] leading-4 mb-3">{review.text}</p>
+              <p className="text-[12px] leading-4 mb-3">{review.text}</p>
 
               {/* Action Buttons */}
               <div className="flex items-center justify-between gap-2">

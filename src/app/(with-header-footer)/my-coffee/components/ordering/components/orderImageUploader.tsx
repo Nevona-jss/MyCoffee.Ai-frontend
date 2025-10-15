@@ -87,13 +87,13 @@ const OrderSelectLabelOption: React.FC<OrderSelectLabelOptionProps> = ({
             <div className="space-y-1">
               <div className="flex items-start space-x-2">
                 <div className="w-1 h-1 bg-text-secondary rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-[10px] leading-[16px] font-normal text-text-secondary">
+                <p className="text-[12px] leading-[16px] font-normal text-text-secondary">
                   커피 스틱 라벨: <span>35mm × 100mm</span>
                 </p>
               </div>
               <div className="flex items-start space-x-2">
                 <div className="w-1 h-1 bg-text-secondary rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-[10px] leading-[16px] font-normal text-text-secondary">
+                <p className="text-[12px] leading-[16px] font-normal text-text-secondary">
                   커피 번들 라벨(5~10스틱용): <span>70mm × 120mm</span>
                 </p>
               </div>

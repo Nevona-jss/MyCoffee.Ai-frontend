@@ -75,7 +75,7 @@ const UserReviews = () => {
                                         <Image src="/images/avatar.png" alt="user" width={40} height={40} className="w-full h-full object-cover rounded-full" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-bold leading-[160%]  mb-0.5">{review.name}</p>
+                                        <p className="text-[12px] font-bold leading-[160%]  mb-0.5">{review.name}</p>
                                         <div className="flex gap-1">
                                             {[1, 2, 3, 4, 5].map((star) => (
                                                 star <= review.rating ? (
@@ -90,18 +90,18 @@ const UserReviews = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <span className="text-[10px] text-text-secondary font-normal leading-[160%]">{review.date}</span>
+                                <span className="text-[12px] text-text-secondary font-normal leading-[160%]">{review.date}</span>
                             </div>
 
                             {/* Product Tag */}
                             <div className="mb-1">
-                                <span className="inline-block px-2 py-0.5 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-text-secondary text-[10px] leading-[160%]">
+                                <span className="inline-block px-2 py-0.5 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-text-secondary text-[12px] leading-[160%]">
                                     {review.product}
                                 </span>
                             </div>
 
                             {/* Comment */}
-                            <p className="text-[10px] mb-2 font-normal leading-[160%]">{review.comment}</p>
+                            <p className="text-[12px] mb-2 font-normal leading-[160%]">{review.comment}</p>
 
                             {/* Images - maksimal 2 ta */}
                             {review.images && review.images.length > 0 && (

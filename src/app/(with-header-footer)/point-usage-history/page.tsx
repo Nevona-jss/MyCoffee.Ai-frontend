@@ -196,7 +196,7 @@ const PointUsageHistory = () => {
     <div className="bg-background p-4">
       {/* Header - My Points */}
       <div className="bg-brand-secondary-accent-sub p-3 rounded-2xl mb-4">
-        <p className="text-[10px] leading-[16px] mb-1">나의 포인트</p>
+        <p className="text-[12px] leading-[16px] mb-1">나의 포인트</p>
         <p className="text-base leading-[20px] font-bold text-action-secondary">
           1,155원
         </p>
@@ -244,7 +244,7 @@ const PointUsageHistory = () => {
                     <div className="w-full border-t border-border-default"></div>
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-2 text-[10px] leading-[16px] text-text-secondary">
+                    <span className="bg-white px-2 text-[12px] leading-[16px] text-text-secondary">
                       {year}
                     </span>
                   </div>
@@ -264,14 +264,14 @@ const PointUsageHistory = () => {
                           </span>
 
                           <span
-                            className={`px-1 py-0.5 rounded-sm text-[10px] leading-[16px] font-normal ${getTypeStyle(
+                            className={`px-1 py-0.5 rounded-sm text-[12px] leading-[16px] font-normal ${getTypeStyle(
                               transaction.type
                             )}`}
                           >
                             {getTypeLabel(transaction.type)}
                           </span>
                         </div>
-                        <p className="text-[10px] leading-[16px] text-text-secondary">
+                        <p className="text-[12px] leading-[16px] text-text-secondary">
                           {transaction.date}
                         </p>
                       </div>

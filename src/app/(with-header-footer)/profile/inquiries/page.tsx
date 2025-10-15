@@ -116,14 +116,14 @@ const Inquiries = () => {
               {/* status and date */}
               <div className="flex justify-between items-center mb-2">
                 <span
-                  className={`px-2 py-1 rounded-sm text-[10px] leading-[16px] font-normal ${getTypeStyle(
+                  className={`px-2 py-1 rounded-sm text-[12px] leading-[16px] font-normal ${getTypeStyle(
                     inquiry.type
                   )}`}
                 >
                   {getTypeLabel(inquiry.type)}
                 </span>
 
-                <span className="text-[10px] leading-[16px] font-normal text-text-secondary">
+                <span className="text-[12px] leading-[16px] font-normal text-text-secondary">
                   {/* change lines to dots */}
                   {inquiry.date.replaceAll("-", ".")}
                 </span>
@@ -177,7 +177,7 @@ const Inquiries = () => {
         <div className="bg-white rounded-lg p-3 border border-border-default">
           <div className="mb-2">
             <p className="text-sm leading-[20px] font-bold mb-1">답변</p>
-            <p className="text-[10px] leading-[16px] font-normal text-text-secondary">
+            <p className="text-[12px] leading-[16px] font-normal text-text-secondary">
               2025.08.25
             </p>
           </div>

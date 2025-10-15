@@ -92,7 +92,7 @@ const CoffeeStories = () => {
                                     className="w-full h-full object-cover rounded-xl"
                                 />
                                 {/* Category Badge */}
-                                <span className="absolute top-[9px] left-[9px] px-1 py-0.5 text-white border-[0.5px] border-[#ECECEC] bg-[rgba(0,0,0,0.40)] text-[10px] font-normal leading-[16px] rounded-xl">
+                                <span className="absolute top-[9px] left-[9px] px-1 py-0.5 text-white border-[0.5px] border-[#ECECEC] bg-[rgba(0,0,0,0.40)] text-[12px] font-normal leading-[16px] rounded-xl">
                                     {story.category}
                                 </span>
                             </div>
@@ -102,7 +102,7 @@ const CoffeeStories = () => {
                                 <h3 className="text-sm font-bold text-gray-0 mb-1 line-clamp-1 leading-[142%]">
                                     {story.title}
                                 </h3>
-                                <p className="text-[10px] text-text-secondary font-normal leading-[16px]">{story.date}</p>
+                                <p className="text-[12px] text-text-secondary font-normal leading-[16px]">{story.date}</p>
                             </div>
                         </div>
                     </SwiperSlide>

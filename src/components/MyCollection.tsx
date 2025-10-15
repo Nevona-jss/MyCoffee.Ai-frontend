@@ -136,7 +136,7 @@ const MyCollection = () => {
                                                         backgroundColor: '#D2954F'
                                                     }}
                                                 ></div>
-                                                <span className="text-[10px] font-light text-[#6E6E6E] leading-[16px]">{hashtag}</span>
+                                                <span className="text-[12px] font-light text-[#6E6E6E] leading-[16px]">{hashtag}</span>
                                             </div>
                                         ))
                                     }
@@ -273,7 +273,7 @@ const MyCollection = () => {
                             <div className="space-y-1 mb-2 mt-1">
                                 {tasteLabels.map((taste) => (
                                     <div key={taste.key} className="flex items-center justify-between">
-                                        <span className="text-[10px] font-normal leading-[16px]">{taste.label}</span>
+                                        <span className="text-[12px] font-normal leading-[16px]">{taste.label}</span>
                                         <div className="flex gap-[3px]">
                                             {[1, 2, 3, 4, 5].map((dot) => (
                                                 <div

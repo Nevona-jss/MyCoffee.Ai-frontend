@@ -161,7 +161,7 @@ const OrderingComponent = ({
                 {[item?.caffeineStrength === "CAFFEINE" ? "카페인" : "데카페인", item?.grindLevel === "WHOLE_BEAN" ? "홀빈" : "분쇄 그라인딩", item?.packaging === "STICK" ? "스틱" : "벌크", item.weight, "라벨"].map((item, idx) => (
                   <span
                     key={idx}
-                    className="text-[10px] leading-[16px] flex items-center gap-1"
+                    className="text-[12px] leading-[16px] flex items-center gap-1"
                   >
                     {item}{" "}
                     {idx !== 4 && (

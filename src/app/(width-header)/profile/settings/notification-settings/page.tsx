@@ -46,7 +46,7 @@ const NotificationsSettings = () => {
             <h3 className="text-sm leading-[20px] font-bold mb-0.5">
               앱 푸시 알림
             </h3>
-            <p className="text-[10px] text-text-secondary">
+            <p className="text-[12px] text-text-secondary">
               주문부터 구독까지, 진행 상황을 바로바로 알려드릴게요
             </p>
           </div>
@@ -70,7 +70,7 @@ const NotificationsSettings = () => {
             <h3 className="text-sm leading-[20px] font-bold mb-0.5">
               혜택/마케팅 알림
             </h3>
-            <p className="text-[10px] text-text-secondary">
+            <p className="text-[12px] text-text-secondary">
               특가와 이벤트 소식을 가장 먼저 전해드려요.
             </p>
           </div>

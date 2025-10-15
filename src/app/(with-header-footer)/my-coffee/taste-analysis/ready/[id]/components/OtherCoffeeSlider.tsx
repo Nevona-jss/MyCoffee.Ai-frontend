@@ -98,14 +98,14 @@ const OtherCoffeeSlider: React.FC<{ tasteRatings: CoffeePreferences }> = ({ tast
                         <div className="bg-white rounded-lg p-3 min-h-[180px] border border-border-default">
                             <h3 className="text-xs font-bold text-gray-0 mb-1">{slide.coffee_name}</h3>
                             
-                            <p className="text-[10px] text-text-secondary mb-2 leading-[160%]">
+                            <p className="text-[12px] text-text-secondary mb-2 leading-[160%]">
                                 {slide.coffee_name}
                             </p>
 
                             <div className="space-y-1">
                                 {tasteLabels.map((taste) => (
                                     <div key={taste.key} className="flex items-center justify-between">
-                                        <span className="text-[10px] text-gray-0">{taste.label}</span>
+                                        <span className="text-[12px] text-gray-0">{taste.label}</span>
                                         <div className="flex gap-[3px]">
                                             {[1, 2, 3, 4, 5].map((dot) => (
                                                 <div

@@ -201,7 +201,7 @@ export default function Register() {
           {requestErrorMessage && (
             <div className="flex items-center gap-1 mb-2">
               {warningIcon()}
-              <span className="text-[#EF4444] text-[10px] font-normal">{requestErrorMessage}</span>
+              <span className="text-[#EF4444] text-[12px] font-normal">{requestErrorMessage}</span>
             </div>
           )}
           <div className="mb-4">
@@ -223,7 +223,7 @@ export default function Register() {
             {errors.email && (
               <div className="flex items-center gap-1 mt-2">
                 {warningIcon()}
-                <span className="text-[#EF4444] text-[10px] font-normal">{errors.email}</span>
+                <span className="text-[#EF4444] text-[12px] font-normal">{errors.email}</span>
               </div>
             )}
           </div>

@@ -107,7 +107,7 @@ const DeliveryAddressManagement = () => {
 
               {address.type && (
                 <div
-                  className={`bg-action-secondary px-2 py-1 rounded-lg h-[24px] text-[10px] text-white font-bold`}
+                  className={`bg-action-secondary px-2 py-1 rounded-lg h-[24px] text-[12px] text-white font-bold`}
                 >
                   {address.type}
                 </div>

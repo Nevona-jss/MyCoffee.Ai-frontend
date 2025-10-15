@@ -161,7 +161,7 @@ export default function ForgotPassword() {
           {errors.verificationCode && (
             <div className="flex items-center gap-1 mt-2">
               {warningIcon()}
-              <span className="text-[#EF4444] text-[10px] font-normal">{errors.verificationCode}</span>
+              <span className="text-[#EF4444] text-[12px] font-normal">{errors.verificationCode}</span>
             </div>
           )}
         </div>
