@@ -2,12 +2,12 @@
 const KakaoTalkLoginButton = () => {
 
     const REST_API_KEY = "9e333b47e27e4b67233780b5fe1e0abf";
-    const REDIRECT_URI = `https://dev.mycoffeeai.com/auth/kakao/callback`;
-    // const REDIRECT_URI = `https://mycoffeeai.com/home`;
+    // const REDIRECT_URI = `https://dev.mycoffeeai.com/auth/kakao/callback`;
+    const REDIRECT_URI = `https://mycoffeeai.com/home`;
 
     const loginWithCacaouTalk = () => {
         const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
-        window.location.href = kakaoAuthUrl; // Kakao OAuth sahifasiga yo‘naltirish
+        window.location.href = kakaoAuthUrl;
     };
 
     return (
