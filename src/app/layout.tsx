@@ -32,13 +32,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${suite.variable} antialiased`}
       >
         <QueryProvider>
-          <ProtectedRoutes>
+          {/* <ProtectedRoutes> */}
             <div className="flex flex-col">
               <div className="w-full min-h-[100dvh] sm:max-w-sm sm:mx-auto bg-background">
                 {children}
               </div>
             </div>
-          </ProtectedRoutes>
+          {/* </ProtectedRoutes> */}
         </QueryProvider>
       </body>
     </html>
