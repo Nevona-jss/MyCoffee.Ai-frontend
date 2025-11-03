@@ -211,7 +211,7 @@ export default function Register() {
             <input
               type="email"
               id="email"
-              className={`bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full px-4 py-2.5 ${errors.email ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
+              className={`bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full px-4 py-2.5 ${errors.email ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                 }`}
               placeholder="이메일을 입력하세요."
               value={formData.email}
@@ -257,7 +257,7 @@ export default function Register() {
             <input
               type="text"
               id="name"
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full px-4 py-2.5"
+              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full px-4 py-2.5"
               placeholder="비밀번호를 입력해주세요."
               defaultValue=""
               onChange={(e) => handleInputChange('name', e.target.value)}
@@ -288,7 +288,7 @@ export default function Register() {
                   type="radio"
                   name="gender"
                   value="male"
-                  className="w-4 h-4 !text-[#FF7939] bg-transparent border-2 border-[#B3B3B3]"
+                  className="w-4 h-4 !text-[#62402D] bg-transparent border-2 border-[#B3B3B3]"
                   checked={formData.gender === 'male'}
                   onChange={() => handleInputChange('gender', 'male')}
                 />
@@ -299,7 +299,7 @@ export default function Register() {
                   type="radio"
                   name="gender"
                   value="female"
-                  className="w-4 h-4 !text-[#FF7939] bg-transparent border-2 border-[#B3B3B3]"
+                  className="w-4 h-4 !text-[#62402D] bg-transparent border-2 border-[#B3B3B3]"
                   checked={formData.gender === 'female'}
                   onChange={() => handleInputChange('gender', 'female')}
                 />

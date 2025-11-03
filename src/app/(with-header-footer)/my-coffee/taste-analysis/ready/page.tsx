@@ -55,7 +55,7 @@ const ReadyPage = () => {
                 취향 분석 시작
               </Link>
 
-              <button onClick={() => setDeleteModalIsOpen(true)} className="size-8 border border-action-primary rounded-sm flex items-center justify-center cursor-pointer " >
+              <button onClick={() => setDeleteModalIsOpen(true)} className="size-8 border border-border-default rounded-sm flex items-center justify-center cursor-pointer " >
                 <Trash size={20} className="text-action-primary" />
               </button>
             </div>

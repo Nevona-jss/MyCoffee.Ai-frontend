@@ -170,8 +170,8 @@ const ReviewMain = () => {
             <div className="relative">
               <button
                 onClick={() => setShowSortDropdown(!showSortDropdown)}
-                className={`flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary ${
-                  showSortDropdown && "border-action-secondary"
+                className={`cursor-pointer flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary ${
+                  showSortDropdown && "bg-action-secondary"
                 }`}
               >
                 <span>{sortBy}</span>
@@ -242,14 +242,14 @@ const ReviewMain = () => {
                     onClick={() => handleUserLike(review.id)}
                     className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300 ${
                       isUserLiked(review.id) &&
-                      "bg-action-secondary border-transparent text-white"
+                      "bg-action-secondary border-transparent text-action-primary"
                     }`}
                   >
                     <ThumbsUp
                       size={16}
                       className={`transition-all duration-300 ${
                         isUserLiked(review.id)
-                          ? "text-white"
+                          ? "text-action-primary"
                           : "text-icon-default"
                       }`}
                     />
@@ -282,13 +282,13 @@ const ReviewMain = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center justify-between gap-2">
-                <button className="btn-action">
+                <button className="btn-action"> 
                   이 추천 커피로 바로 주문하기
                 </button>
 
                 <button
                   onClick={() => setShowReviewOption(true)}
-                  className="size-8 border border-action-primary rounded-sm flex items-center justify-center"
+                  className="size-8 border border-border-default rounded-sm flex items-center justify-center"
                 >
                   <MoreVertical size={16} className="text-action-primary" />
                 </button>

@@ -54,8 +54,8 @@ const CoffeeStories = () => {
                     onClick={() => setActiveTab('커피스토리')}
                     className={`px-2.5 py-1 rounded-sm text-[15px] font-bold leading-[20px] cursor-pointer ${
                         activeTab === '커피스토리' 
-                            ? 'border border-action-primary text-action-primary' 
-                            : 'border border-transparent text-text-secondary'
+                            ? 'border border-[#ECE5DF] bg-[#ECE5DF] text-action-primary' 
+                            : 'border border-transparent text-text-primary'
                     }`}
                 >
                     커피스토리
@@ -64,8 +64,8 @@ const CoffeeStories = () => {
                     onClick={() => setActiveTab('커피꿀팁')}
                     className={`px-2.5 py-1 rounded-sm text-[15px] font-bold leading-[20px] cursor-pointer ${
                         activeTab === '커피꿀팁' 
-                            ? 'border border-action-primary text-action-primary' 
-                            : 'border border-transparent text-text-secondary'
+                            ? 'border border-[#ECE5DF] bg-[#ECE5DF] text-action-primary' 
+                            : 'border border-transparent text-text-primary'
                     }`}
                 >
                     커피꿀팁

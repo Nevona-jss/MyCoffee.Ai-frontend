@@ -86,7 +86,7 @@ const CoffeeCollectionSlider: React.FC = () => {
                  {slides.map((_, index) => (
                      <div
                          key={index}
-                         className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${index === activeSlide ? 'bg-action-secondary w-10' : 'bg-action-disabled'
+                         className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${index === activeSlide ? 'bg-action-primary w-10' : 'bg-action-disabled'
                              }`}
                      />
                  ))}

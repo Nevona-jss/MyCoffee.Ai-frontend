@@ -1,7 +1,8 @@
 "use client";
 
-import { useHeaderStore } from "@/stores/header-store";
+// import { useHeaderStore } from "@/stores/header-store";
 import React, { useEffect } from "react";
+import { useHeaderStore } from "../../../../../../stores/header-store";
 
 const ApplyTermDetail = () => {
   const { setHeader } = useHeaderStore();

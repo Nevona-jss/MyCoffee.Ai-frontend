@@ -104,7 +104,7 @@ export default function Login() {
             <input
               type="email"
               id="email"
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 py-2.5"
+              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full pl-11 py-2.5"
               placeholder="이메일을 입력하세요."
               required
               value={email}
@@ -125,7 +125,7 @@ export default function Login() {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pl-11 pr-10 py-2.5"
+              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full pl-11 pr-10 py-2.5"
               placeholder="비밀번호를 입력해주세요."
               required
               value={password}
@@ -158,7 +158,7 @@ export default function Login() {
           <input
             id="remember"
             type="checkbox"
-            className="cursor-pointer auth-checkbox w-5 h-5 bg-transparent border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
+            className="cursor-pointer auth-checkbox w-5 h-5 bg-transparent border border-[#B3B3B3] rounded focus:ring-[#62402D] focus:ring-0"
             style={{ accentColor: '#FF7939' }}
             checked={isRememberChecked}
             onChange={(e) => setIsRememberChecked(e.target.checked)}

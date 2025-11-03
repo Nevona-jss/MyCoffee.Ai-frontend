@@ -8,6 +8,7 @@ import { RecommendationRequest } from './types';
 import { CoffeeData } from '@/types/coffee';
 import { useRecommendationStore } from '@/stores/recommendation-store';
 import SpiderChart from './SpiderChart';
+import { Info } from 'lucide-react';
 
 export default function AnalysisPage() {
 
@@ -25,12 +26,12 @@ export default function AnalysisPage() {
     const { mutate: getRecommendations, isPending: isGettingRecommendations } = usePost<CoffeeData, RecommendationRequest>(
         '/recommendation',
         {
-          onSuccess: (data) => {
-            if (data?.data?.preferences) {
-                setPreferences(data?.data?.preferences);
-            }
-            router.push('/result');
-          },
+            onSuccess: (data) => {
+                if (data?.data?.preferences) {
+                    setPreferences(data?.data?.preferences);
+                }
+                router.push('/result');
+            },
         }
     );
 
@@ -71,7 +72,7 @@ export default function AnalysisPage() {
                     </div>
                 </div>
                 {/* CTA Button */}
-                <button 
+                <button
                     onClick={handleSubmitAnalysis}
                     disabled={isGettingRecommendations}
                     className="btn-primary w-full text-center block disabled:opacity-50 disabled:cursor-not-allowed"

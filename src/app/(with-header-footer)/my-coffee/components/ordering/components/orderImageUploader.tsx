@@ -132,7 +132,7 @@ const OrderSelectLabelOption: React.FC<OrderSelectLabelOptionProps> = ({
             ) : (
               <div
                 onClick={handleUploadClick}
-                className="w-full h-15 border-1 border-dashed border-border-default rounded-lg flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
+                className="w-full h-15 border-1 bg-action-secondary border-dashed border-[#A45F37] rounded-lg flex items-center justify-center cursor-pointer transition-colors"
               >
                 <div className="flex flex-row items-center gap-2">
                   <div className=" flex items-center justify-center">

@@ -78,7 +78,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
             value={coffeeName}
             onChange={handleCoffeeNameChange}
             placeholder="내 커피 이름을 입력해주세요."
-            className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${
+            className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5 ${
               errors.coffeeName 
                 ? isDuplicate 
                   ? 'border-orange-500' 
@@ -104,7 +104,7 @@ const LikeModal: React.FC<LikeModalProps> = ({ isOpen, onClose, onSave }) => {
             value={comment}
             onChange={handleCommentChange}
             placeholder="메모를 입력해주세요."
-            className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${
+            className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5 ${
               errors.comment ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
             }`}
           />

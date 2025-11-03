@@ -41,7 +41,7 @@ const PersonalInfoManagement = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="이기홍"
-            className="w-full h-10 px-4 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary"
+            className="w-full h-10 px-4 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37]"
           />
         </div>
 
@@ -54,7 +54,7 @@ const PersonalInfoManagement = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="example@gmail.com"
-            className="w-full h-10 px-4 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary"
+            className="w-full h-10 px-4 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37]"
           />
         </div>
 
@@ -67,11 +67,12 @@ const PersonalInfoManagement = () => {
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="flex-1 h-10 px-4 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0"
+              placeholder="휴대폰 번호를 입력해주세요."
+              className="flex-1 h-10 px-4 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 placeholder:text-text-secondary focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37]"
             />
             <button
               onClick={handleChangePhone}
-              className="px-4 h-10 text-sm leading-[20px] rounded-lg border border-primary text-primary font-bold"
+              className="px-4 h-10 text-sm leading-[20px] rounded-lg bg-action-secondary text-action-primary font-bold"
             >
               변경
             </button>

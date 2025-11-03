@@ -188,7 +188,7 @@ const Ordering = () => {
           {/* Action Buttons */}
           <div className="flex space-x-2">
             <div className="relative group flex-1">
-              <button onClick={() => setOrderSubscriptionDeleviryDate(true)} className="w-full py-3 border border-gradient-primary rounded-lg font-bold leading-[24px] color-[#4E2A18] ">
+              <button onClick={() => setOrderSubscriptionDeleviryDate(true)} className="w-full bg-action-secondary py-3 border border-gradient-primary rounded-lg font-bold leading-[24px] color-[#4E2A18] ">
                 정기구독
               </button>
 

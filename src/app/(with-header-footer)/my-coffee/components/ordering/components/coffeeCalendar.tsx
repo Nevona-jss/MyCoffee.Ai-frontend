@@ -173,10 +173,10 @@ export default function CalendarPage({
                   onClick={() => handleDateSelect(day)}
                   className={`w-11 h-11 rounded-full flex items-center justify-center text-sm leading-[20px] font-normal transition-all duration-200 hover:bg-gray-100 ${
                     isSelected(day)
-                      ? "bg-accent-sub text-action-secondary"
+                      ? "bg-action-secondary text-action-primary"
                       : //   if day is equal  today
                       isToday(day)
-                      ? "text-action-secondary"
+                      ? "text-action-primary"
                       : "text-text-primary hover:text-gray-900"
                   }`}
                 >

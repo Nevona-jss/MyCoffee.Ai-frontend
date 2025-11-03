@@ -41,7 +41,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
             <div className="border border-border-default rounded-2xl py-3 px-4">
                 {/* Status and tag row */}
                 <div className="flex items-center justify-between mb-4">
-                    <div className={`${data.type === "구독" ? "bg-[#28A745]" : "bg-[#17A2B8]"}  px-2 py-1 rounded-sm h-[24px] flex items-center justify-center`}>
+                    <div className={`${data.type === "구독" ? "bg-[#8B5E3C]" : "bg-[#C97A50]"}  px-2 py-1 rounded-sm h-[24px] flex items-center justify-center`}>
                         <span className="text-xs text-white font-bold leading-[133%]">{data.type}</span>
                     </div>
                     <span className="text-sm font-bold leading-[142%]">{data.status}</span>
@@ -85,7 +85,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                                 배송 조회
                             </Link>
 
-                            <button onClick={() => openRequestModal(true)} className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center">
+                            <button onClick={() => openRequestModal(true)} className="cursor-pointer size-8 border border-border-default rounded-sm flex items-center justify-center">
                                 <Menu className="size-5 text-action-primary" />
                             </button>
                         </div>
@@ -101,7 +101,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                                 배송 조회
                             </Link>
 
-                            <button onClick={() => openRequestModal(true)} className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center">
+                            <button onClick={() => openRequestModal(true)} className="cursor-pointer size-8 border border-border-default rounded-sm flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                     <path d="M3.3335 4.1665H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M3.3335 10H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
@@ -128,7 +128,7 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                     </Link>
                     {
                         !(data?.status === "배송 완료" && data?.type === "단품") && !(data?.status === "배송 완료" && data?.type === "구독") && (
-                            <button onClick={() => openRequestModal(false)} className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center">
+                            <button onClick={() => openRequestModal(false)} className="cursor-pointer size-8 border border-border-default rounded-sm flex items-center justify-center">
                                 <Menu className="size-5 text-action-primary" />
                             </button>
                         )

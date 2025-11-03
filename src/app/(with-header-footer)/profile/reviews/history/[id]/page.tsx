@@ -127,13 +127,13 @@ const ReviewWrite = () => {
                                 <span
                                     onClick={() => handleUserLike(review.id)}
                                     className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300 ${isUserLiked(review.id) &&
-                                        "bg-action-secondary border-transparent text-white"
+                                        "bg-action-secondary border-transparent text-action-primary"
                                         }`}
                                 >
                                     <ThumbsUp
                                         size={16}
                                         className={`transition-all duration-300 ${isUserLiked(review.id)
-                                            ? "text-white"
+                                            ? "text-action-primary"
                                             : "text-icon-default"
                                             }`}
                                     />
@@ -175,7 +175,7 @@ const ReviewWrite = () => {
 
                             <button
                                 onClick={() => setShowReviewOption(true)}
-                                className="size-8 border border-action-primary rounded-sm flex items-center justify-center"
+                                className="size-8 border border-border-default rounded-sm flex items-center justify-center"
                             >
                                 <MoreVertical size={16} className="text-action-primary" />
                             </button>

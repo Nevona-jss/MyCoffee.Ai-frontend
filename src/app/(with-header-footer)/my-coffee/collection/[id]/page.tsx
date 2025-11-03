@@ -162,7 +162,7 @@ const CollectionDetail = () => {
       <div className="flex justify-center gap-2 pr-4 mt-9">
         <button
           onClick={() => setIsLikeModalOpen(true)}
-          className="size-12 flex-shrink-0 border border-action-primary rounded-lg flex items-center justify-center cursor-pointer"
+          className="size-12 flex-shrink-0 border border-border-default rounded-lg flex items-center justify-center cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

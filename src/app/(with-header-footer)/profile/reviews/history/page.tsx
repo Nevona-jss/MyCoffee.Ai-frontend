@@ -151,10 +151,10 @@ const ReviewWrite = () => {
                     <div className="relative">
                         <button
                             onClick={() => setShowSortDropdown(!showSortDropdown)}
-                            className="flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-action-primary text-action-primary"
+                            className="flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold border border-border-default bg-action-secondary text-action-primary"
                         >
                             <span>{sortBy}</span>
-                            <ChevronDown size={16} className="text-action-primary" />
+                            <ChevronDown size={16} className={`text-action-primary transition-all duration-300 ${showSortDropdown && "rotate-180"}`} />
                         </button>
 
                         {showSortDropdown && (
@@ -166,8 +166,7 @@ const ReviewWrite = () => {
                                             setSortBy(option);
                                             setShowSortDropdown(false);
                                         }}
-                                        className={`w-full px-3 py-3.5 text-[12px] leading-[16px] font-bold text-left hover:bg-gray-50 ${sortBy === option && "text-action-secondary"
-                                            }`}
+                                        className={`w-full px-3 py-3.5 text-[12px] leading-[16px] font-bold text-left hover:bg-gray-50`}
                                     >
                                         {option}
                                     </button>
@@ -215,13 +214,13 @@ const ReviewWrite = () => {
                                 <span
                                     onClick={(e) => {handleUserLike(review.id); e.preventDefault();}}
                                     className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300 ${isUserLiked(review.id) &&
-                                        "bg-action-secondary border-transparent text-white"
+                                        "bg-action-secondary border-transparent text-action-primary"
                                         }`}
                                 >
                                     <ThumbsUp
                                         size={16}
                                         className={`transition-all duration-300 ${isUserLiked(review.id)
-                                            ? "text-white"
+                                            ? "text-action-primary"
                                             : "text-icon-default"
                                             }`}
                                     />
@@ -264,7 +263,7 @@ const ReviewWrite = () => {
 
                             <button
                                 onClick={(e) => {setShowReviewOption(true); e.preventDefault();}}
-                                className="size-8 border border-action-primary rounded-sm flex items-center justify-center"
+                                className="size-8 border border-border-default rounded-sm flex items-center justify-center"
                             >
                                 <MoreVertical size={16} className="text-action-primary" />
                             </button>

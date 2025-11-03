@@ -191,7 +191,7 @@ const OrderingComponent = ({
                     <PlusIcon size={20} className="text-white" />
                   </button>
                 </div>
-                <div className="text-base font-bold leading-[24px]">
+                <div className="text-sm font-bold leading-[24px]">
                   {(item.price! * item.quantity!).toLocaleString()}원
                 </div>
               </div>
@@ -204,7 +204,7 @@ const OrderingComponent = ({
             <span className="text-sm font-bold leading-[20px]">
               최종 결제금액
             </span>
-            <span className="bg-brand-secondary-accent-sub text-action-secondary px-2 py-1 rounded-sm font-bold text-sm">
+            <span className="text-text-primary px-2 py-1 rounded-sm font-bold text-sm">
               {totalPrice.toLocaleString()} 원
             </span>
           </div>
@@ -216,8 +216,8 @@ const OrderingComponent = ({
             <button
               disabled={order && order.length === 0}
               onClick={() => setOrderSubscriptionDeleviryDate(true)}
-              className="flex-1 w-full py-3 border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-lg font-bold text-base leading-[24px] disabled:bg-action-disabled disabled:text-[#9CA3AF] disabled:cursor-not-allowed disabled:border-action-disabled "
-            >
+              className="flex-1 w-full py-3 border border-action-secondary bg-action-secondary text-action-primary rounded-lg font-bold text-base leading-[24px] disabled:bg-action-disabled disabled:text-[#9CA3AF] disabled:cursor-not-allowed disabled:border-action-disabled "
+            > 
               정기구독
             </button>
 

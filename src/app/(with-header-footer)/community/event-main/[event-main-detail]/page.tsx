@@ -35,7 +35,7 @@ const EventDetail = () => {
             className="inline-block mb-1 text-[12px] leading-[16px] font-bold px-2 py-1 rounded-[100px]"
             style={{
               backgroundColor:
-                event.status === "진행중" ? "#17A2B8" : "#E6E6E6",
+                event.status === "진행중" ? "#C97A50" : "#E6E6E6",
               color: event.status === "진행중" ? "#FFF" : "#9CA3AF",
             }}
           >

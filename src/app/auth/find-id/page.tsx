@@ -124,7 +124,7 @@ export default function FindId() {
               <input
                 type="tel"
                 id="phone"
-                className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${errors.phone ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
+                className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5 ${errors.phone ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                   }`}
                 placeholder="휴대폰 번호를 입력해주세요"
                 value={phone}
@@ -136,7 +136,7 @@ export default function FindId() {
               type="button"
               onClick={handleSendCode}
               disabled={phone.trim() === '' || (isCodeSent && timeLeft > 0)}
-              className="px-4 py-2.5 border border-[#4E2A18] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold cursor-pointer disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
+              className="px-4 py-2.5 border border-[#ECE5DF] bg-[#ECE5DF] text-[#4E2A18] text-sm leading-[18px] rounded-lg font-bold cursor-pointer disabled:opacity-50 disabled:bg-[#E6E6E6] disabled:text-gray-700 disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:text-gray-700"
             >
               {isCodeSent ? '재전송' : '인증 요청'}
             </button>
@@ -163,7 +163,7 @@ export default function FindId() {
             <input
               type="text"
               id="verificationCode"
-              className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5 ${errors.verificationCode ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
+              className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5 ${errors.verificationCode ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                 }`}
               placeholder="인증 번호를 입력해주세요."
               value={verificationCode}

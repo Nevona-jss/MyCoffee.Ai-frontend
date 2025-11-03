@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useHeaderStore } from "@/stores/header-store";
 
-export default function MyCoffeeLayout({
+export default function OrderDeliveryLayout({
   children,
 }: {
   children: React.ReactNode;

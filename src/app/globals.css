@@ -27,7 +27,7 @@
   --nutty: #d8a058;
   --body: #3b1c1c;
   --brand-secondary-accent-sub: #ffe5bf;
-  --action-secondary: #ff7939;
+  --action-secondary: #ECE5DF;
 
   /* Gray Colors */
   --gray-0: #1a1a1a;
@@ -183,7 +183,8 @@
 }
 
 .btn-action {
-  @apply flex-1 py-[5px] border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px];
+  @apply flex-1 py-1.5 border-none bg-action-secondary text-action-primary rounded-sm font-bold text-sm leading-[20px];
+  /* @apply flex-1 py-[5px] border border-action-primary bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]; */
 } 
 
 body {
@@ -272,8 +273,8 @@ svg {
 }
 
 .auth-checkbox:checked {
-  background-color: #ff7939 !important;
-  border-color: #ff7939 !important;
+  background-color: #62402D !important;
+  border-color: #62402D !important;
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e") !important;
   background-size: 16px 16px !important;
   background-position: center !important;
@@ -295,7 +296,7 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
   background-color: white;
-  border-color: #FF7939;
+  border-color: #62402D;
 }
 
 input[type="radio"]:checked::after {
@@ -305,11 +306,93 @@ input[type="radio"]:checked::after {
   left: 50%;
   width: 10px;
   height: 10px;
-  background-color: #ff7939;
+  background-color: #62402D;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
 
 .child-width-full > :first-child {
   width: 100%;
+}
+
+/* Custom tooltip styles for rc-tooltip */
+.custom-tooltip .rc-tooltip-inner {
+  padding: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  min-height: auto !important;
+}
+
+/* Arrow styling - top placement */
+.rc-tooltip-placement-top .rc-tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: #1C1C1C !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+.rc-tooltip-placement-topLeft .rc-tooltip-arrow {
+  bottom: 0;
+  left: 16px;
+  border-top-color: #1C1C1C !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+.rc-tooltip-placement-topRight .rc-tooltip-arrow {
+  bottom: 0;
+  right: 16px;
+  border-top-color: #1C1C1C !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+/* Arrow styling - bottom placement */
+.rc-tooltip-placement-bottom .rc-tooltip-arrow,
+.rc-tooltip-placement-bottomLeft .rc-tooltip-arrow,
+.rc-tooltip-placement-bottomRight .rc-tooltip-arrow {
+  top: 0;
+  border-bottom-color: #1C1C1C !important;
+  border-top-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+.rc-tooltip {
+  padding-bottom: 4px !important;
+}
+/* Arrow styling - left placement */
+.rc-tooltip-placement-left .rc-tooltip-arrow,
+.rc-tooltip-placement-leftTop .rc-tooltip-arrow,
+.rc-tooltip-placement-leftBottom .rc-tooltip-arrow {
+  right: 0;
+  border-left-color: #1C1C1C !important;
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+/* Arrow styling - right placement */
+.rc-tooltip-placement-right .rc-tooltip-arrow,
+.rc-tooltip-placement-rightTop .rc-tooltip-arrow,
+.rc-tooltip-placement-rightBottom .rc-tooltip-arrow {
+  left: 0;
+  border-right-color: #1C1C1C !important;
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+}
+
+/* Make sure arrow content is visible */
+.custom-tooltip .rc-tooltip-arrow-content {
+  width: 8px;
+  height: 8px;
+  background-color: #1C1C1C;
+  transform: rotate(45deg);
 }

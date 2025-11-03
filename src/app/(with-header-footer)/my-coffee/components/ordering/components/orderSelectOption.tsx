@@ -61,7 +61,7 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
         onClose={onClose}
         title="옵션선택"
       >
-        <div className="space-y-4 mt-4">
+        <div className="space-y-4 mt-4 text-text-primary">
           {/* 카페인 강도 (Caffeine Intensity) */}
           <div>
             <h3 className="text-sm leading-[20px] font-bold mb-2">
@@ -72,8 +72,8 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 onClick={() => setCaffeineStrength("CAFFEINE")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
                   caffeineStrength === "CAFFEINE"
-                    ? "border-action-secondary font-bold"
-                    : "border-border-default text-text-secondary"
+                    ? "border-[#A45F37] font-bold"
+                    : "border-border-default"
                 }`}
               >
                 카페인
@@ -82,8 +82,8 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 onClick={() => setCaffeineStrength("DECAFFEINE")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
                   caffeineStrength === "DECAFFEINE"
-                    ? "border-action-secondary font-bold"
-                    : "border-border-default text-text-secondary"
+                    ? "border-[#A45F37] font-bold"
+                    : "border-border-default"
                 }`}
               >
                 디카페인
@@ -99,8 +99,8 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 onClick={() => setGrindLevel("WHOLE_BEAN")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
                   grindLevel === "WHOLE_BEAN"
-                    ? "border-action-secondary font-bold"
-                    : "border-border-default text-text-secondary"
+                    ? "border-[#A45F37] font-bold"
+                    : "border-border-default"
                 }`}
               >
                 홀빈
@@ -109,8 +109,8 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 onClick={() => setGrindLevel("GROUND")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
                   grindLevel === "GROUND"
-                    ? "border-action-secondary font-bold"
-                    : "border-border-default text-text-secondary"
+                    ? "border-[#A45F37] font-bold"
+                    : "border-border-default"
                 }`}
               >
                 분쇄 그라인딩
@@ -126,8 +126,8 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 onClick={() => setPackaging("STICK")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
                   packaging === "STICK"
-                    ? "border-action-secondary font-bold"
-                    : "border-border-default text-text-secondary"
+                    ? "border-[#A45F37] font-bold"
+                    : "border-border-default"
                 }`}
               >
                 스틱
@@ -136,8 +136,8 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 onClick={() => setPackaging("BULK")}
                 className={`flex-1 h-[40px] leading-[40px] inline-block text-xs rounded-lg border transition-colors ${
                   packaging === "BULK"
-                    ? "border-action-secondary font-bold"
-                    : "border-border-default text-text-secondary"
+                    ? "border-[#A45F37] font-bold"
+                    : "border-border-default"
                 }`}
               >
                 벌크
@@ -153,7 +153,7 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
                 disabled={packaging === ""}
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
-                className={`w-full h-[40px] text-xs text-text-secondary pl-4 pr-2 border border-border-default rounded-lg appearance-none bg-white ${
+                className={`w-full h-[40px] text-xs pl-4 pr-2 border border-border-default rounded-lg appearance-none bg-white ${
                   packaging === "" && "cursor-not-allowed"
                 }`}
               >
@@ -192,7 +192,7 @@ const OrderSelectOption: React.FC<OrderSelectOptionProps> = ({
               <p
                 onClick={() => setOrderLabelOption(true)}
                 className={`w-full h-[40px] leading-[40px] text-xs pl-4 pr-2 border border-border-default rounded-lg bg-white ${
-                  orderImage.name ? "text-blue-400" : "text-text-secondary"
+                  orderImage.name ? "text-blue-400" : "text-text-primary"
                 }`}
               >
                 {orderImage.name || "라벨 이미지를 업로드해주세요."}

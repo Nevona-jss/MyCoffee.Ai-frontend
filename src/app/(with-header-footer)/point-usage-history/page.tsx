@@ -175,11 +175,11 @@ const PointUsageHistory = () => {
   const getTypeStyle = (type: string) => {
     switch (type) {
       case "earned":
-        return "bg-[#28A745] text-white";
+        return "bg-[#8B5E3C] text-white";
       case "used":
-        return "bg-[#17A2B8] text-white";
+        return "bg-[#C97A50] text-white";
       case "canceled":
-        return "bg-[#DC3545] text-white";
+        return "bg-[#B94C3C] text-white";
       default:
         return "";
     }
@@ -195,9 +195,9 @@ const PointUsageHistory = () => {
   return (
     <div className="bg-background p-4">
       {/* Header - My Points */}
-      <div className="bg-brand-secondary-accent-sub p-3 rounded-2xl mb-4">
+      <div className="bg-white p-3 rounded-2xl mb-4 border border-border-default">
         <p className="text-[12px] leading-[16px] mb-1">나의 포인트</p>
-        <p className="text-base leading-[20px] font-bold text-action-secondary">
+        <p className="text-base leading-[20px] font-bold text-action-primary">
           1,155원
         </p>
       </div>

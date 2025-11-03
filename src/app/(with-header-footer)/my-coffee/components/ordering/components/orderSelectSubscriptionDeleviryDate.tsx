@@ -24,7 +24,7 @@ const OrderSelectSubscriptionDeleviryDate: React.FC<
             <select
               value={quantity || ""}
               onChange={(e) => setQuantity(Number(e.target.value))}
-              className={`w-full h-[40px] text-xs text-text-secondary pl-4 pr-2 border border-border-default rounded-lg appearance-none bg-white`}
+              className={`w-full h-[40px] text-xs text-text-secondary pl-4 pr-2 border border-border-default rounded-lg appearance-none bg-white focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37]`}
             >
               <option value="">이용횟수를 선택해주세요.</option>
               <option value="4">4</option>

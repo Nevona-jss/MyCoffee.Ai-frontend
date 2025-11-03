@@ -107,7 +107,7 @@ const DeliveryAddressManagement = () => {
 
               {address.type && (
                 <div
-                  className={`bg-action-secondary px-2 py-1 rounded-lg h-[24px] text-[12px] text-white font-bold`}
+                  className={`bg-[#A67C52] px-2 py-1 rounded-lg h-[24px] text-[12px] text-white font-bold`}
                 >
                   {address.type}
                 </div>
@@ -125,13 +125,13 @@ const DeliveryAddressManagement = () => {
             <div className="flex items-center justify-between gap-2">
               <Link
                 href={"#"}
-                className="flex-1 py-[5px] border border-action-primary text-center bg-brand-secondary-accent-sub text-action-primary rounded-sm font-bold text-sm leading-[20px]"
+                className="btn-action text-center"
               >
                 선택
               </Link>
               <button
                 onClick={() => setReadyModalIsOpen(true)}
-                className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center"
+                className="cursor-pointer size-8 border border-border-default rounded-sm flex items-center justify-center"
               >
                 <Menu size={20} className="text-action-primary" />
               </button>

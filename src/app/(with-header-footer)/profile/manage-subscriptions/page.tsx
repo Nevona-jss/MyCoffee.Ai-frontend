@@ -179,7 +179,7 @@ const ManageSubscriptions = () => {
                                     {buttonText}
                                 </Link>
                             ))}
-                            <button className="cursor-pointer size-8 border border-action-primary rounded-sm flex items-center justify-center">
+                            <button className="cursor-pointer size-8 border border-border-default rounded-sm flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                     <path d="M3.3335 4.1665H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M3.3335 10H16.6668" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />

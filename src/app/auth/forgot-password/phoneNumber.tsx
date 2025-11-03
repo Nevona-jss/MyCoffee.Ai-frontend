@@ -88,7 +88,7 @@ const PhoneNumber = ({ handleInputChange, isPhoneVerified, setIsPhoneVerified, s
                     <input
                         type="tel"
                         id="phone"
-                        className="w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#FF7939] focus:border-[#FF7939] px-4 py-2.5"
+                        className="w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5"
                         placeholder="휴대폰 번호를 입력해주세요."
                         value={phone}
                         onChange={(e) => {
@@ -112,7 +112,7 @@ const PhoneNumber = ({ handleInputChange, isPhoneVerified, setIsPhoneVerified, s
                 <button
                     type="button"
                     id="phoneButton"
-                    className="h-max px-4 py-[9px] border border-[#4E2A18] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
+                    className="h-max px-4 py-[9px] border border-[#ECE5DF] bg-[#ECE5DF] text-[#4E2A18] text-sm leading-[20px] rounded-lg font-bold cursor-pointer disabled:bg-[#E6E6E6] disabled:text-[#9CA3AF] disabled:border-[#E6E6E6] disabled:hover:bg-[#E6E6E6] disabled:hover:cursor-not-allowed"
                     disabled={isButtonDisabled || isGettingVerificationCode || isCountdownActive}
                     onClick={() => getVerificationCode({ phone_number: phone, purpose: 'SIGNUP', "user_id": 0 })}
                 >

@@ -1,4 +1,7 @@
 import { CoffeePreferences } from "@/types/coffee";
+import { Info, X } from "lucide-react";
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const SpiderChart = ({ ratings, setRatings }: { ratings: CoffeePreferences, setRatings: (ratings: CoffeePreferences) => void }) => {
@@ -10,14 +13,15 @@ const SpiderChart = ({ ratings, setRatings }: { ratings: CoffeePreferences, setR
     const pendingUpdateRef = useRef<{ tasteKey: keyof CoffeePreferences; value: number } | null>(null);
     const dragStartPos = useRef<{ x: number; y: number } | null>(null);
     const hasMoved = useRef(false);
+    const [openTooltip, setOpenTooltip] = useState<string | null>(null);
     // const { setPreferences } = useRecommendationStore();
 
     const tasteLabels = [
-        { key: 'aroma', label: '향', position: 'top' },
-        { key: 'acidity', label: '단맛', position: 'top-left' },
-        { key: 'sweetness', label: '바디', position: 'top-right' },
-        { key: 'nutty', label: '고소함', position: 'bottom-left' },
-        { key: 'body', label: '산미', position: 'bottom-right' },
+        { key: 'aroma', label: '향', position: 'top', description: '향미가 얼마나 또렷하게 느껴지는지를 말합니다.', tooltipPlacement: 'top' },
+        { key: 'acidity', label: '단맛', position: 'top-left', description: '향미가 얼마나 또렷하게 느껴지는지를 말합니다.', tooltipPlacement: 'topRight' },
+        { key: 'sweetness', label: '바디', position: 'top-right', description: '향미가 얼마나 또렷하게 느껴지는지를 말합니다.', tooltipPlacement: 'topRight' },
+        { key: 'nutty', label: '고소함', position: 'bottom-left', description: '향미가 얼마나 또렷하게 느껴지는지를 말합니다.', tooltipPlacement: 'topLeft' },
+        { key: 'body', label: '산미', position: 'bottom-right', description: '향미가 얼마나 또렷하게 느껴지는지를 말합니다.', tooltipPlacement: 'topLeft' },
     ];
 
     const updateRating = useCallback((taste: keyof CoffeePreferences, value: number) => {
@@ -187,7 +191,7 @@ const SpiderChart = ({ ratings, setRatings }: { ratings: CoffeePreferences, setR
     };
 
     return (
-        <div 
+        <div
             className="relative mb-8 swiper-no-swiping"
             onTouchStart={(e) => e.stopPropagation()}
             onTouchMove={(e) => e.stopPropagation()}
@@ -396,7 +400,7 @@ const SpiderChart = ({ ratings, setRatings }: { ratings: CoffeePreferences, setR
                         <g key={taste.key}>
                             {/* Taste label */}
                             <text
-                                x={labelX}
+                                x={labelX - 7}
                                 y={labelY}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
@@ -405,6 +409,61 @@ const SpiderChart = ({ ratings, setRatings }: { ratings: CoffeePreferences, setR
                             >
                                 {taste.label}
                             </text>
+
+                            {/* Info icon next to label */}
+                            <foreignObject
+                                x={taste.key === 'aroma' ? 
+                                    labelX - 7 + 15 : taste.key === 'acidity' ? 
+                                    labelX - 7 + 19 : taste.key === 'sweetness' ? 
+                                    labelX - 7 + 19 : taste.key === 'nutty' ? 
+                                    labelX - 7 + 27 : labelX - 7 + 19}
+                                y={labelY - 12}
+                                width="24"
+                                height="24"
+                                style={{ overflow: 'visible' }}
+                            >
+                                <Tooltip
+                                    placement={taste.tooltipPlacement}
+                                    trigger={['click']}
+                                    visible={openTooltip === taste.key}
+                                    onVisibleChange={(visible) => {
+                                        setOpenTooltip(visible ? taste.key : null);
+                                    }}
+                                    overlay={
+                                        <div className="flex items-center gap-2.5 px-[18px] py-2 text-xs leading-[18px] font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg whitespace-nowrap">
+                                            {taste.description}
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setOpenTooltip(null);
+                                                }}
+                                                className="size-4 cursor-pointer inline-flex items-center justify-center hover:bg-gray-700 rounded transition-colors"
+                                            >
+                                                <X size={18} className="text-white" />
+                                            </button>
+                                        </div>
+                                    }
+                                    overlayClassName="custom-tooltip"
+                                    overlayInnerStyle={{
+                                        padding: 0,
+                                        backgroundColor: 'transparent',
+                                        boxShadow: 'none',
+                                    }}
+                                    align={{
+                                        offset: taste.tooltipPlacement === 'top' ? [0, -2]
+                                        : taste.tooltipPlacement === 'topRight' ? [20, -2]
+                                            : taste.tooltipPlacement === 'topLeft' ? [-50, -2] : [0, -2],
+                                        
+                                    }}
+                                >
+                                    <div 
+                                        className="cursor-pointer hover:opacity-70 transition-opacity"
+                                        style={{ pointerEvents: 'auto' }}
+                                    >
+                                        <Info size={18} className="text-gray-600" />
+                                    </div>
+                                </Tooltip>
+                            </foreignObject>
 
                             {/* Rating badge background */}
                             <rect

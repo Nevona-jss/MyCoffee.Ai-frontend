@@ -22,7 +22,7 @@ const MySettings = () => {
           className="flex items-center justify-between py-1.5"
         >
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-[rgba(0,0,0,0.05)] rounded-full flex items-center justify-center">
               <Bell size={20} className="text-action-primary" />
             </div>
             <span className="text-sm leading-[20px] font-bold">알림 설정</span>
@@ -36,7 +36,7 @@ const MySettings = () => {
           className="flex items-center justify-between py-1.5"
         >
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-brand-secondary-accent-sub rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-[rgba(0,0,0,0.05)] rounded-full flex items-center justify-center">
               <ShieldAlert size={20} className="text-action-primary" />
             </div>
             <span className="text-sm leading-[20px] font-bold">

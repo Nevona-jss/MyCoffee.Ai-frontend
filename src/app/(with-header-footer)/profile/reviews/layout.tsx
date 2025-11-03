@@ -32,7 +32,8 @@ export default function ReviewsLayout({
   
   const isMainTabRoute = () => {
     const mainRoutes = ['/profile/reviews/write-review', '/profile/reviews/history'];
-    return mainRoutes.some(route => pathname === route);
+    // Also include history/[id] routes
+    return mainRoutes.some(route => pathname === route) || pathname.startsWith('/profile/reviews/history/');
   };
 
   // Get current tab from pathname
@@ -122,10 +123,13 @@ export default function ReviewsLayout({
     });
   }, []);
 
-  // If we're on a sub-route, just render children
+  // If we're on a sub-route (write-review detail or history detail), render in layout
   if (!isMainTabRoute()) {
     return <div className="flex-1 overflow-y-auto">{children}</div>;
   }
+
+  // Check if we're on a history detail page
+  const isHistoryDetail = pathname.startsWith('/profile/reviews/history/');
 
   return (
     <div>
@@ -137,36 +141,42 @@ export default function ReviewsLayout({
         />
       </div>
 
-      {/* Main Content with Swiper */}
+      {/* Main Content */}
       <div className="flex-1 px-4 overflow-y-auto h-[calc(100vh-226px)]">
-        <Swiper
-          onSwiper={setSwiper}
-          onSlideChange={handleSwiperSlideChange}
-          initialSlide={getTabIndex(currentTab)}
-          modules={[FreeMode]}
-          spaceBetween={0}
-          slidesPerView={1}
-          allowTouchMove={true}
-          resistance={true}
-          resistanceRatio={0.85}
-          speed={300}
-          autoHeight={true}
-          updateOnWindowResize={true}
-          observer={true}
-          observeParents={true}
-        >
-          <SwiperSlide>
-            <div>
-              <WriteReview />
-            </div>
-          </SwiperSlide>
-          
-          <SwiperSlide>
-            <div>
-              <History />
-            </div>
-          </SwiperSlide>
-        </Swiper>
+        {isHistoryDetail ? (
+          // If on history detail page, render children directly
+          <div>{children}</div>
+        ) : (
+          // Otherwise use Swiper for tab switching
+          <Swiper
+            onSwiper={setSwiper}
+            onSlideChange={handleSwiperSlideChange}
+            initialSlide={getTabIndex(currentTab)}
+            modules={[FreeMode]}
+            spaceBetween={0}
+            slidesPerView={1}
+            allowTouchMove={true}
+            resistance={true}
+            resistanceRatio={0.85}
+            speed={300}
+            autoHeight={true}
+            updateOnWindowResize={true}
+            observer={true}
+            observeParents={true}
+          >
+            <SwiperSlide>
+              <div>
+                <WriteReview />
+              </div>
+            </SwiperSlide>
+            
+            <SwiperSlide>
+              <div>
+                <History />
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        )}
       </div>
     </div>
   );
