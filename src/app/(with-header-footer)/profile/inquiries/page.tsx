@@ -66,9 +66,9 @@ const Inquiries = () => {
   const getTypeStyle = (type: string) => {
     switch (type) {
       case "pending":
-        return "bg-[#FFC107] text-white";
+        return "bg-[#8B5E3C] text-white";
       case "finished":
-        return "bg-[#28A745] text-white";
+        return "bg-[#C4A484] text-white";
       default:
         return "";
     }

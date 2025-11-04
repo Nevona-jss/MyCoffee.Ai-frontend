@@ -17,7 +17,7 @@ export default function CollectionPage() {
   return (
     <>
       <Header />
-      <div className="bg-[#FAFAFA] min-h-screen">
+      <div className="bg-[#F9FAFB] min-h-screen">
         {/* Page content goes here */}
         <div className="p-4">
           <p>Collection page content</p>

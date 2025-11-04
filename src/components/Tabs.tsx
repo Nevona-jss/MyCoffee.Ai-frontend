@@ -51,10 +51,10 @@ const Tabs = ({ tabs, activeTab, onTabChange }: TabsProps) => {
           onClick={() => onTabChange(tab.value)}
         >
           <span
-            className={`text-sm font-bold transition-colors duration-200 ease-out ${
+            className={`text-sm  transition-colors duration-200 ease-out ${
               activeTab === tab.value
-                ? "text-action-primary"
-                : "text-text-secondary"
+                ? "text-action-primary font-bold"
+                : "text-text-secondary font-normal"
             }`}
           >
             {tab.label}

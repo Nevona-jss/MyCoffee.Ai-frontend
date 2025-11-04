@@ -57,7 +57,7 @@ const VerifyCode = ({ handleInputChange, formData, isPhoneVerified, onVerificati
                 <input
                     type="text"
                     id="verificationCode"
-                    className="flex-1 bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5"
+                    className="flex-1 input-default"
                     placeholder="인증 번호를 입력하세요."
                     value={formData.verificationCode}
                     onChange={(e) => {

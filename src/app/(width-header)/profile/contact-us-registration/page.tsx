@@ -78,7 +78,7 @@ const ContactUsRegistration = () => {
                     value={textareaValue}
                     onChange={(e) => setTextareaValue(e.target.value)}
                     maxLength={300}
-                    className="bg-transparent placeholder:text-text-secondary placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full py-2.5 px-4 pb-8"
+                    className="bg-white placeholder:text-text-secondary placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full py-2.5 px-4 pb-8"
                     placeholder="문의를 남겨주시면 빠르게 답변해드리겠습니다."
                 />
                 <div className="absolute bottom-2 right-3 text-[12px] text-text-secondary">

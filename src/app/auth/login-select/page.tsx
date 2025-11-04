@@ -54,11 +54,11 @@ export default function LoginSelect() {
               <div className="w-full border-t border-[#E6E6E6]"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-[18px] bg-[#FAFAFA] text-[#6E6E6E] text-[12px] py-[1px] leading-[160%]">또는</span>
+              <span className="px-[18px] bg-[#F9FAFB] text-text-secondary text-[12px] py-[1px] leading-[160%]">또는</span>
             </div>
           </div>
 
-          <p className="text-[14px] text-gray-0 font-bold py-[14px]">먼저 둘러보기</p>
+          <p className="text-[14px] text-text-secondary font-bold py-[14px]">먼저 둘러보기</p>
         </div>
 
       </div>

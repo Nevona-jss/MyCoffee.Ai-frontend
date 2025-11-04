@@ -2,11 +2,10 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import TasteDetails from "./components/TasteDetails";
-import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
+import CoffeeCollectionSlider from "@/components/CoffeeCollectionSlider";
 import LikeModal from "./components/LikeModal";
 import OrderingComponent from "../../components/ordering/Ordering";
-import RadarChart from "../../components/RadarChart";
+import SpiderChart from "@/app/(content-only)/analysis/SpiderChart";
 
 const MonthlyCoffeeDetail = () => {
 
@@ -52,7 +51,7 @@ const MonthlyCoffeeDetail = () => {
 
     return (
         <div className="pl-4 pt-3 pb-2">
-            <div className="overflow-y-auto h-[calc(100vh-314px)]">
+            <div className="overflow-y-auto h-[calc(100vh-278px)]">
                 <div className="pr-4">
                     <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">클래식 하모니 블렌드</h2>
                     <p className="text-xs text-gray-0 mb-6 text-center font-normal">“ 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. ”</p>
@@ -91,9 +90,15 @@ const MonthlyCoffeeDetail = () => {
                                     <div className="pt-3">
                                         {item.id === 0 ? (
                                             <div className="border border-border-default rounded-2xl p-3 bg-white mr-4">
-                                                {/* Radar Chart */}
-                                                <RadarChart ratings={tasteRatings} />
-
+                                                <SpiderChart
+                                                    ratings={tasteRatings}
+                                                    setRatings={() => { }}
+                                                    isChangable={false}
+                                                    isClickable={true}
+                                                    // tastes={tastesData?.tastes}
+                                                    wrapperClassName="!mb-1"
+                                                    size="medium"
+                                                />
                                                 {/* Origin Info */}
                                                 <div className="text-center mb-4">
                                                     <p className="text-xs text-gray-0 leading-[16px]">
@@ -102,7 +107,7 @@ const MonthlyCoffeeDetail = () => {
                                                 </div>
 
                                                 {/* Taste Details */}
-                                                <TasteDetails ratings={tasteRatings} />
+                                                {/* <TasteDetails ratings={tasteRatings} /> */}
                                             </div>
                                         ) : item.id === 1 ? (
                                             <div>
@@ -121,7 +126,7 @@ const MonthlyCoffeeDetail = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center gap-2 pr-4 mt-9">
+            <div className="flex justify-center gap-2 pr-4 mt-4">
                 <button
                     onClick={() => setIsLikeModalOpen(true)}
                     className="size-12 flex-shrink-0 border border-action-primary rounded-lg flex items-center justify-center cursor-pointer"

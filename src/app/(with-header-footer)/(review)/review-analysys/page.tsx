@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import RadarChart from "./components/RadarChart";
-import TasteDetails from "./components/TasteDetails";
-import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
-import LikeModal from "./components/LikeModal";
 import { useHeaderStore } from "@/stores/header-store";
-import OrderingComponent from "../../my-coffee/components/ordering/Ordering";
-import OtherCoffeeSlider from "../../my-coffee/taste-analysis/ready/[id]/components/OtherCoffeeSlider";
-import { CoffeePreferences } from "@/types/coffee";
+import SpiderChart from "@/app/(content-only)/analysis/SpiderChart";
+import CoffeeCollectionSlider from "@/components/CoffeeCollectionSlider";
+import OtherCoffeeSlider from "@/components/OtherCoffeeSlider";
 
 const ReviewAnalysys = () => {
   const [openItems, setOpenItems] = useState<number[]>([0, 1, 2]); // First item open by default
@@ -62,7 +57,7 @@ const ReviewAnalysys = () => {
 
   return (
     <div className="pl-4 pt-4 pb-2 flex flex-col justify-between">
-      <div className="overflow-y-auto h-[calc(100vh-240px)]">
+      <div className="overflow-y-auto h-[calc(100vh-220px)]">
         <div className="pr-4">
           <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
             나만의 커피 취향을 찾아볼까요?
@@ -132,7 +127,14 @@ const ReviewAnalysys = () => {
                     {item.id === 0 ? (
                       <div className="border border-border-default rounded-2xl p-3 bg-white mr-4">
                         {/* Radar Chart */}
-                        <RadarChart ratings={tasteRatings} />
+                        <SpiderChart
+                          ratings={tasteRatings}
+                          setRatings={() => { }}
+                          isChangable={false}
+                          isClickable={true}
+                          size="medium"
+                          wrapperClassName="!mb-1"
+                        />
 
                         {/* Origin Info */}
                         <div className="text-center mb-4">
@@ -142,7 +144,7 @@ const ReviewAnalysys = () => {
                         </div>
 
                         {/* Taste Details */}
-                        <TasteDetails ratings={tasteRatings} />
+                        {/* <TasteDetails ratings={tasteRatings} /> */}
                       </div>
                     ) : item.id === 1 ? (
                       <div>
@@ -152,7 +154,7 @@ const ReviewAnalysys = () => {
                     ) : item.id === 2 ? (
                       <div>
                           {/* Other Coffee Slider */}
-                          <OtherCoffeeSlider tasteRatings={tasteRatings as CoffeePreferences} />
+                          <OtherCoffeeSlider />
                       </div>
                     ) : (
                       <p className="text-sm text-gray-600 leading-relaxed">

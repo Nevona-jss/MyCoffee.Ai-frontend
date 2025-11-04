@@ -45,12 +45,12 @@ const ChangePhone = () => {
               value={phoneNumber}
               placeholder="휴대폰 번호를 입력해주세요"
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="flex-1 h-10 px-3 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37]"
+              className="input-default"
             />
             <button
               onClick={handleSendOtp}
               disabled={isOtpSent}
-              className={`px-4 h-10 text-sm leading-[20px] rounded-lg bg-action-secondary text-action-primary font-bold ${
+              className={`shrink-0 px-4 h-10 text-sm leading-[20px] rounded-lg bg-action-secondary text-action-primary font-bold ${
                 isOtpSent
                   ? "bg-action-disabled text-icon-disabled border-transparent"
                   : " text-action-primary"
@@ -75,7 +75,7 @@ const ChangePhone = () => {
             type="number"
             placeholder="인증 번호를 입력하세요."
             onChange={(e) => setOtpNumber(e.target.value)}
-            className="w-full h-10 px-3 text-sm leading-[20px] rounded-lg border border-border-default text-gray-0 focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37]"
+            className="input-default"
           />
         </div>
       </div>

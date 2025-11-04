@@ -115,7 +115,7 @@ const DeliveryAddressManagement = () => {
             </div>
 
             {/* text address */}
-            <div className="text-xs leading-[18px] font-normal space-y-1 pb-4">
+            <div className="text-xs leading-[18px] font-normal space-y-1 pb-4 text-text-secondary">
               <p>인천 부평구 길주남로 113번길 12</p>
               <p>동아아파트 2동 512호</p>
               <p>010-2934-3017</p>

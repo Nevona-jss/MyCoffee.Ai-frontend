@@ -125,7 +125,7 @@ const Ordering = () => {
                 >
                   {item}{" "}
                   {idx !== 4 && (
-                    <span className="size-1 bg-[#FFE5BF] rounded-full inline-block"></span>
+                    <span className="size-1 bg-[#9CA3AF] rounded-full inline-block"></span>
                   )}
                 </span>
               ))}
@@ -147,7 +147,7 @@ const Ordering = () => {
                   onClick={() => {
                     console.log("plus");
                   }}
-                  className="w-7 h-7 flex items-center justify-center bg-amber-800 text-white rounded cursor-pointer"
+                  className="w-7 h-7 flex items-center justify-center bg-primary text-white rounded cursor-pointer"
                 >
                   {/* plus svg size should be 12px 12px */}
                   {/* stroke color should be #FFF  size should be 12px 12px */}

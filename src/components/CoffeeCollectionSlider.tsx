@@ -6,10 +6,10 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const CoffeeCollectionSlider: React.FC = () => {
+const CoffeeCollectionSlider: React.FC = ({data}: {data?: any}) => {
     const [activeSlide, setActiveSlide] = useState(0);
 
-    const slides = [
+    const slides = data || [
         {
             id: 1,
             title: "이렇게 즐겨보세요.",
@@ -63,8 +63,8 @@ const CoffeeCollectionSlider: React.FC = () => {
                     <SwiperSlide key={slide.id}>
                         <div className="bg-white rounded-lg px-4 py-3 min-h-[174px] border border-border-default">
                             <div className="flex items-center gap-1 mb-2">
-                                <span className="text-xs">{slide.icon}</span>
-                                <h3 className="text-xs font-bold text-gray-0">{slide.title}</h3>
+                                <span className="text-sm">{slide.icon}</span>
+                                <h3 className="text-sm font-bold text-gray-0">{slide.title}</h3>
                             </div>
 
                             <div className="space-y-2 text-text-secondary">
@@ -82,6 +82,7 @@ const CoffeeCollectionSlider: React.FC = () => {
                  ))}
              </Swiper>
              
+             {/* Custom pagination dots */}
              <div className="flex justify-center mt-3 gap-1 absolute bottom-4 z-[1] left-1/2 -translate-x-1/2">
                  {slides.map((_, index) => (
                      <div

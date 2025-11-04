@@ -211,7 +211,7 @@ export default function Register() {
             <input
               type="email"
               id="email"
-              className={`bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full px-4 py-2.5 ${errors.email ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
+              className={`input-default ${errors.email ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
                 }`}
               placeholder="이메일을 입력하세요."
               value={formData.email}
@@ -257,7 +257,7 @@ export default function Register() {
             <input
               type="text"
               id="name"
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full px-4 py-2.5"
+              className="input-default"
               placeholder="비밀번호를 입력해주세요."
               defaultValue=""
               onChange={(e) => handleInputChange('name', e.target.value)}
@@ -338,7 +338,7 @@ export default function Register() {
                   <input
                     id="personalInfo"
                     type="checkbox"
-                    className="cursor-pointer auth-checkbox w-5 h-5 bg-transparent border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
+                    className="cursor-pointer auth-checkbox w-5 h-5 bg-white border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
                     style={{ accentColor: '#FF7939' }}
                     checked={agreements.personalInfo}
                     onChange={() => handleAgreementChange('personalInfo')}
@@ -359,7 +359,7 @@ export default function Register() {
                   <input
                     id="terms"
                     type="checkbox"
-                    className="cursor-pointer auth-checkbox w-5 h-5 bg-transparent border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
+                    className="cursor-pointer auth-checkbox w-5 h-5 bg-white border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
                     style={{ accentColor: '#FF7939' }}
                     checked={agreements.terms}
                     onChange={() => handleAgreementChange('terms')}
@@ -380,7 +380,7 @@ export default function Register() {
                   <input
                     id="marketing"
                     type="checkbox"
-                    className="cursor-pointer auth-checkbox w-5 h-5 bg-transparent border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
+                    className="cursor-pointer auth-checkbox w-5 h-5 bg-white border border-[#B3B3B3] rounded focus:ring-[#FF7939] focus:ring-0"
                     style={{ accentColor: '#FF7939' }}
                     checked={agreements.marketing}
                     onChange={() => handleAgreementChange('marketing')}

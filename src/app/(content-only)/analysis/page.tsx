@@ -3,12 +3,21 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { usePost } from '@/hooks/useApi';
-import { RecommendationRequest } from './types';
+import { useQryMutation } from '@/hooks/useApi';
 import { CoffeeData } from '@/types/coffee';
 import { useRecommendationStore } from '@/stores/recommendation-store';
 import SpiderChart from './SpiderChart';
-import { Info } from 'lucide-react';
+import { api } from '@/lib/api';
+
+type GetRecommendationsParams = {
+    aroma: number;
+    acidity: number;
+    nutty: number;
+    body: number;
+    sweetness: number;
+    userId: number;
+    saveAnalysis: number;
+};
 
 export default function AnalysisPage() {
 
@@ -21,19 +30,33 @@ export default function AnalysisPage() {
         body: 1,
     });
     const [userId] = useState(0);
-    const { setPreferences } = useRecommendationStore();
+    const { setPreferences, setRecommendations } = useRecommendationStore();
 
-    const { mutate: getRecommendations, isPending: isGettingRecommendations } = usePost<CoffeeData, RecommendationRequest>(
-        '/recommendation',
-        {
+    // const { mutate: getRecommendations, isPending: isGettingRecommendations } = usePost<CoffeeData, RecommendationRequest>(
+    //     '/mycoffee/blend/top5',
+    //     {
+    //         onSuccess: (data) => {
+    //             if (data?.data?.preferences) {
+    //                 setPreferences(data?.data?.preferences);
+    //             }
+    //             router.push('/result');
+    //         },
+    //     }
+    // );
+
+    const { mutate: getRecommendations, isPending: isGettingRecommendations } = useQryMutation<CoffeeData, GetRecommendationsParams>({
+        mutationFn: async (data: GetRecommendationsParams) => {
+            const response = await api.get<CoffeeData>("/mycoffee/blend/top5", { params: data });
+            return response.data;
+        },
+        options: {
             onSuccess: (data) => {
-                if (data?.data?.preferences) {
-                    setPreferences(data?.data?.preferences);
-                }
+                console.log(data);
+                setRecommendations(data?.reco_list);
                 router.push('/result');
             },
-        }
-    );
+        },
+    });
 
     // Handle form submission
     const handleSubmitAnalysis = useCallback(() => {

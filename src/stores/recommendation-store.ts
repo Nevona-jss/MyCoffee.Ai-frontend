@@ -3,7 +3,9 @@ import { create } from 'zustand'
 
 interface RecommendationState {
   preferences: CoffeePreferences;
+  recommendations: CoffeeData[];
   setPreferences: (preferences: CoffeePreferences) => void;
+  setRecommendations: (recommendations: CoffeeData[]) => void;
 }
 
 export const useRecommendationStore = create<RecommendationState>((set) => ({
@@ -14,5 +16,7 @@ export const useRecommendationStore = create<RecommendationState>((set) => ({
     body: 1,
     sweetness: 1,
   },
+  recommendations: [],
+  setRecommendations: (recommendations: CoffeeData[]) => set({ recommendations }),
   setPreferences: (preferences: CoffeePreferences) => set({ preferences }),
 }))

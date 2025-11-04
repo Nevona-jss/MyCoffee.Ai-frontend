@@ -1,8 +1,16 @@
 export interface CoffeeData {
-    analysisId: string | null;
-    recommendations: CoffeeRecommendation[];
-    preferences: CoffeePreferences;
-    saved: boolean;
+    rank_no: 1,
+    group_type: string,
+    coffee_blend_id: string,
+    coffee_name: string,
+    similarity_score: null | number,
+    taste_distance: number,
+    aroma_score: number,
+    acidity_score: number,
+    nutty_score: number,
+    body_score: number,
+    sweetness_score: number,
+    summary: string,
 }
 
 export interface CoffeeRecommendation {

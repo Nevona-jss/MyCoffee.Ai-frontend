@@ -61,7 +61,7 @@ const ManageSubscriptionsDetail = () => {
                             >
                                 {item}{" "}
                                 {idx !== 4 && (
-                                    <span className="size-1 bg-[#FFE5BF] rounded-full inline-block"></span>
+                                    <span className="size-1 bg-[#9CA3AF] rounded-full inline-block"></span>
                                 )}
                             </span>
                         ))}

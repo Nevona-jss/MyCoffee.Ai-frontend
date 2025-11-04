@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 // Import Swiper styles
 import 'swiper/css';
+import Tabs from './Tabs';
 
 interface CoffeeStory {
     id: number;
@@ -31,45 +32,43 @@ const CoffeeStories = () => {
             title: "오늘의 커피 이야기 : 콜롬비아 수프리마",
             date: "2025.08.19",
             image: "/images/coffee-story.png",
-            category: "커피꿀팁"
+            category: "이벤트"
+        },
+        {
+            id: 4,
+            title: "오늘의 커피 이야기 : 콜롬비아 수프리마",
+            date: "2025.08.20",
+            image: "/images/coffee-story.png",
+            category: "커피스토리"
         },
         {
             id: 3,
             title: "오늘의 커피 이야기 : 콜롬비아 수프리마",
             date: "2025.08.18",
             image: "/images/coffee-story.png",
-            category: "커피스토리"
+            category: "커피 꿀팁"
         }
     ];
 
     const filteredStories = coffeeStories.filter(story => story.category === activeTab);
+
+    const tabs = [
+        { id: 1, label: "커피스토리", value: "커피스토리" },
+        { id: 2, label: "이벤트", value: "이벤트" },
+        { id: 3, label: "커피 꿀팁", value: "커피 꿀팁" },
+    ];
 
     return (
         <div className="mb-6 bg-background-sub py-3 pl-4 text-gray-0">
             <h2 className="text-base font-bold mb-3 leading-[125%]">알차게 즐기는 MyCoffee.Ai</h2>
             
             {/* Tab Buttons */}
-            <div className="flex gap-2 mb-3">
-                <button 
-                    onClick={() => setActiveTab('커피스토리')}
-                    className={`px-2.5 py-1 rounded-sm text-[15px] font-bold leading-[20px] cursor-pointer ${
-                        activeTab === '커피스토리' 
-                            ? 'border border-[#ECE5DF] bg-[#ECE5DF] text-action-primary' 
-                            : 'border border-transparent text-text-primary'
-                    }`}
-                >
-                    커피스토리
-                </button>
-                <button 
-                    onClick={() => setActiveTab('커피꿀팁')}
-                    className={`px-2.5 py-1 rounded-sm text-[15px] font-bold leading-[20px] cursor-pointer ${
-                        activeTab === '커피꿀팁' 
-                            ? 'border border-[#ECE5DF] bg-[#ECE5DF] text-action-primary' 
-                            : 'border border-transparent text-text-primary'
-                    }`}
-                >
-                    커피꿀팁
-                </button>
+            <div className="flex gap-2 mb-3 w-[206px]">
+                <Tabs
+                    tabs={tabs}
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                />
             </div>
             
             {/* Stories Slider */}

@@ -72,7 +72,7 @@ const WriteReview = () => {
                 maxLength={300}
                 value={textareaValue}
                 onChange={(e) => setTextareaValue(e.target.value)}
-                className="mb-4 bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full py-2.5 px-4"
+                className="mb-4 bg-white placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full py-2.5 px-4"
                 placeholder="문의를 남겨주시면 빠르게 답변해드리겠습니다."
             />
 

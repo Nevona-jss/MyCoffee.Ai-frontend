@@ -42,7 +42,7 @@ const ReadyPage = () => {
               {analysis.coffee_name}
             </h3>
 
-            <p className="text-xs text-[#AEAEAE] mb-4">
+            <p className="text-xs text-text-secondary mb-4">
               {/* {analysis.date} {analysis.time} */}
               2025-08-24 오후 12:34
             </p>

@@ -132,7 +132,7 @@ export default function ForgotPassword() {
               id="email"
               value={email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              className="bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full py-2.5 px-4"
+              className="input-default"
               placeholder="아이디 또는 이메일을 입력해주세요."
               required
             />
@@ -150,8 +150,7 @@ export default function ForgotPassword() {
             <input
               type="text"
               id="verificationCode"
-              className={`w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5 ${errors.verificationCode ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
-                }`}
+              className={`input-default ${errors.verificationCode ? 'border-[#EF4444]' : 'border-[#E6E6E6]'}`}
               placeholder="인증 번호를 입력하세요."
               value={verificationCode}
               onChange={(e) => handleInputChange('verificationCode', e.target.value)}

@@ -23,12 +23,12 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
         <div className="bg-white rounded-2xl p-3 border border-border-default text-gray-0">
             {/* Header with date and order number */}
             <div className="flex items-center justify-between mb-3">
-                <span className="text-[12px] font-bold leading-[160%]">
+                <span className="text-[10px] font-bold leading-[160%] text-text-secondary">
                     {data.date} | {data.orderNumber}
                 </span>
                 <Link
                     href={`/order-delivery/${data.id}`}
-                    className="text-[12px] font-bold flex items-center gap-2"
+                    className="text-[10px] font-bold flex items-center gap-2"
                 >
                     주문 상세보기
                     <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
@@ -66,8 +66,6 @@ const OrderDeliveryCard = ({ data }: { data: any }) => {
                     <span className="text-sm font-bold leading-[142%]">{data.price}원</span>
                 </div>
 
-                {/* <OrderingComponent title={"주문하기"} /> */}
-                {/* Action buttons */}
                 {
                     data?.status === "배송 완료" && data?.type === "단품" ? (
                         <div className="flex items-center justify-between gap-2 mb-4">

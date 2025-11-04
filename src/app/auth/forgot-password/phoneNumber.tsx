@@ -88,7 +88,7 @@ const PhoneNumber = ({ handleInputChange, isPhoneVerified, setIsPhoneVerified, s
                     <input
                         type="tel"
                         id="phone"
-                        className="w-full bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border border-[#E6E6E6] text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] px-4 py-2.5"
+                        className="input-default"
                         placeholder="휴대폰 번호를 입력해주세요."
                         value={phone}
                         onChange={(e) => {

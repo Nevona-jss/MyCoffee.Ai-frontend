@@ -115,7 +115,7 @@ export default function DatePicker({
         <input
           type="text"
           lang="ko"
-          className={`bg-gray-50 border text-gray-0 text-[12px] rounded-lg focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pr-10 py-2.5 px-4 cursor-pointer placeholder:font-normal font-bold ${
+          className={`bg-white border text-gray-0 text-[12px] rounded-lg focus:ring-[#FF7939] focus:border-[#FF7939] block w-full pr-10 py-2.5 px-4 cursor-pointer placeholder:font-normal font-bold ${
             error 
               ? 'border-[#EF4444]' 
               : isFocused 

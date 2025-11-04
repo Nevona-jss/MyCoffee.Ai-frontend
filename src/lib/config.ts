@@ -1,6 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: 'https://mycoffee-ai-backend.onrender.com',
+  BASE_URL: 'https://api.mycoffeeai.com/',
+  // BASE_URL: 'https://mycoffee-ai-backend.onrender.com',
   // BASE_URL: 'http://192.168.1.79:3000',
 
   ENDPOINTS: {

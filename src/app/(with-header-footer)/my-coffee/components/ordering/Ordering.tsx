@@ -8,6 +8,7 @@ import ActionSheet from "@/components/ActionSheet";
 import { ChevronDown, PlusIcon, X, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useOrderStore } from "@/stores/order-store";
+
 const OrderingComponent = ({
   className,
   title,
@@ -71,7 +72,7 @@ const OrderingComponent = ({
             <div
               id="tooltip-default"
               role="tooltip"
-              className="absolute -top-[28px] left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
+              className="absolute -top-[28px] z-10 left-7 inline-block px-[18px] py-[4px] text-sm font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg tooltip mb-2 min-w-max"
             >
               <div className="flex items-center gap-2">
                 <span className="text-xs font-normal text-white leading-[150%]">
@@ -165,7 +166,7 @@ const OrderingComponent = ({
                   >
                     {item}{" "}
                     {idx !== 4 && (
-                      <span className="size-1 bg-[#FFE5BF] rounded-full inline-block"></span>
+                      <span className="size-1 bg-[#9CA3AF] rounded-full inline-block"></span>
                     )}
                   </span>
                 ))}
@@ -186,7 +187,7 @@ const OrderingComponent = ({
                     onClick={() => {
                       increaseQuantity(idx);
                     }}
-                    className="w-7 h-7 flex items-center justify-center bg-amber-800 text-white rounded cursor-pointer"
+                    className="w-7 h-7 flex items-center justify-center bg-primary text-white rounded cursor-pointer"
                   >
                     <PlusIcon size={20} className="text-white" />
                   </button>

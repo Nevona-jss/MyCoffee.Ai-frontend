@@ -3,13 +3,10 @@ import { api } from '@/lib/api';
 import { AxiosRequestConfig } from 'axios';
 
 // Types
-interface ApiResponse<T> {
-  message?: string;
-  success: boolean;
-  data: T;
-  meta: {
-    timestamp: string
-  }
+export interface ApiResponse<T> {
+  result_code: string;
+  result_message: string;
+  reco_list: T;
 }
 
 interface UseGetOptions {
@@ -155,4 +152,23 @@ export function useInvalidateQueries() {
     invalidateByKey: (queryKey: string[]) => queryClient.invalidateQueries({ queryKey }),
     refetchQueries: (queryKey: string[]) => queryClient.refetchQueries({ queryKey }),
   };
+}
+
+
+export function useQryMutation<T = any, D = any>({ mutationFn, options }: { mutationFn: (data: D) => Promise<T>, options?: UsePostOptions }) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn,
+    onSuccess: (data) => {
+      options?.onSuccess?.(data);
+      queryClient.invalidateQueries();
+    },
+    onError: (error) => {
+      options?.onError?.(error);
+    },
+    onSettled: (data, error) => {
+      options?.onSettled?.(data, error);
+    },
+  });
 }

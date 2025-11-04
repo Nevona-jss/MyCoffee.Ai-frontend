@@ -2,11 +2,10 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import TasteDetails from "./components/TasteDetails";
-import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
 import LikeModal from "./components/LikeModal";
 import OrderingComponent from "../../components/ordering/Ordering";
-import RadarChart from "../../components/RadarChart";
+import SpiderChart from "@/app/(content-only)/analysis/SpiderChart";
+import CoffeeCollectionSlider from "@/components/CoffeeCollectionSlider";
 
 const CollectionDetail = () => {
   const params = useParams();
@@ -51,7 +50,7 @@ const CollectionDetail = () => {
 
   return (
     <div className="pl-4 pt-3 pb-2">
-      <div className="overflow-y-auto h-[calc(100vh-314px)]">
+      <div className="overflow-y-auto h-[calc(100vh-278px)]">
         <div className="pr-4">
           <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center">
             나만의 커피 1호기
@@ -99,9 +98,8 @@ const CollectionDetail = () => {
                       {item.title}
                     </span>
                     <svg
-                      className={`shrink-0 transition-transform duration-200 ${
-                        openItems.includes(item.id) ? "" : "rotate-180"
-                      }`}
+                      className={`shrink-0 transition-transform duration-200 ${openItems.includes(item.id) ? "" : "rotate-180"
+                        }`}
                       xmlns="http://www.w3.org/2000/svg"
                       width="12"
                       height="8"
@@ -120,17 +118,23 @@ const CollectionDetail = () => {
                 </div>
 
                 <div
-                  className={`transition-all duration-300 ease-in-out ${
-                    openItems.includes(item.id)
+                  className={`transition-all duration-300 ease-in-out ${openItems.includes(item.id)
                       ? "max-h-[2000px] opacity-100"
                       : "max-h-0 opacity-0"
-                  }`}
+                    }`}
                 >
                   <div className="pt-3">
                     {item.id === 0 ? (
                       <div className="border border-border-default rounded-2xl p-3 bg-white mr-4">
                         {/* Radar Chart */}
-                        <RadarChart ratings={tasteRatings} />
+                        <SpiderChart
+                          ratings={tasteRatings}
+                          setRatings={() => { }}
+                          isChangable={false}
+                          isClickable={true}
+                          wrapperClassName="!mb-1"
+                          size="medium"
+                        />
 
                         {/* Origin Info */}
                         <div className="text-center mb-4">
@@ -139,8 +143,7 @@ const CollectionDetail = () => {
                           </p>
                         </div>
 
-                        {/* Taste Details */}
-                        <TasteDetails ratings={tasteRatings} />
+                        {/* <TasteDetails ratings={tasteRatings} /> */}
                       </div>
                     ) : item.id === 1 ? (
                       <div>
@@ -159,7 +162,7 @@ const CollectionDetail = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center gap-2 pr-4 mt-9">
+      <div className="flex justify-center gap-2 pr-4 mt-4">
         <button
           onClick={() => setIsLikeModalOpen(true)}
           className="size-12 flex-shrink-0 border border-border-default rounded-lg flex items-center justify-center cursor-pointer"

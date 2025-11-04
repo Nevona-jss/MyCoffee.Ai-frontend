@@ -2,17 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import TasteDetails from "./components/TasteDetails";
-import CoffeeCollectionSlider from "./components/CoffeeCollectionSlider";
-import OtherCoffeeSlider from "./components/OtherCoffeeSlider";
+import CoffeeCollectionSlider from "@/components/CoffeeCollectionSlider";
 import LikeModal from "./components/LikeModal";
 import OrderingComponent from "../../../components/ordering/Ordering";
-import RadarChart from "../../../components/RadarChart";
 import ActionSheet from "@/components/ActionSheet";
 import Link from "next/link";
 import { useTasteAnalysis } from "../../TasteAnalysisContext";
-import { CoffeePreferences, CoffeeRecommendation } from "@/types/coffee";
+import { CoffeePreferences } from "@/types/coffee";
 import { useGet } from "@/hooks/useApi";
+import SpiderChart from "@/app/(content-only)/analysis/SpiderChart";
+import OtherCoffeeSlider from "@/components/OtherCoffeeSlider";
 
 const CoffeeAnalysisDetail = () => {
 
@@ -31,7 +30,7 @@ const CoffeeAnalysisDetail = () => {
     const [likedItemSaved, setLikedItemSaved] = useState(false);
     const { recommendations } = useTasteAnalysis();
     const recommendation = recommendations.find((recommendation) => recommendation.coffee_blend_id === coffeeBlendId);
-  
+
     useEffect(() => {
         setTasteRatings({
             aroma: recommendation?.aroma_score || 1,
@@ -58,7 +57,7 @@ const CoffeeAnalysisDetail = () => {
     ];
 
     const { data: coffeeBlend } = useGet<any>(
-        ['/analytics/similar', coffeeBlendId], 
+        ['/analytics/similar', coffeeBlendId],
         `/analytics/similar/${coffeeBlendId}`,
         {
             params: {
@@ -70,7 +69,7 @@ const CoffeeAnalysisDetail = () => {
         }
     );
     const { data: AIStory } = useGet<any>(
-        ['/analytics/ai-story', coffeeBlendId], 
+        ['/analytics/ai-story', coffeeBlendId],
         `/analytics/ai-story/${coffeeBlendId}`,
         {},
         {
@@ -92,7 +91,7 @@ const CoffeeAnalysisDetail = () => {
 
     return (
         <div className="pl-4 pt-3 pb-2">
-            <div className="overflow-y-auto h-[calc(100vh-314px)]">
+            <div className="overflow-y-auto h-[calc(100vh-278px)]">
                 <div className="pr-4">
                     <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center leading-[28px]">나만의 커피 취향을 찾아볼까요?</h2>
                     <p className="text-xs text-gray-0 mb-6 text-center leading-[18px]">" 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. "</p>
@@ -134,8 +133,14 @@ const CoffeeAnalysisDetail = () => {
                                         {item.id === 0 ? (
                                             <div className="border border-border-default rounded-2xl p-3 bg-white mr-4">
                                                 {/* Radar Chart */}
-                                                <RadarChart ratings={tasteRatings} />
-
+                                                <SpiderChart
+                                                    ratings={tasteRatings}
+                                                    setRatings={() => { }}
+                                                    isChangable={false}
+                                                    isClickable={true}
+                                                    size="medium"
+                                                    wrapperClassName="!mb-1"
+                                                />
                                                 {/* Origin Info */}
                                                 <div className="text-center mb-4">
                                                     <p className="text-xs text-gray-0 leading-[16px]">
@@ -144,17 +149,16 @@ const CoffeeAnalysisDetail = () => {
                                                 </div>
 
                                                 {/* Taste Details */}
-                                                <TasteDetails ratings={tasteRatings} />
+                                                {/* <TasteDetails ratings={tasteRatings} /> */}
                                             </div>
                                         ) : item.id === 1 ? (
                                             <div>
                                                 {/* Coffee Collection Slider */}
-                                                <CoffeeCollectionSlider  />
+                                                <CoffeeCollectionSlider />
                                             </div>
                                         ) : item.id === 2 ? (
-                                            <div>
-                                                {/* Other Coffee Slider */}
-                                                <OtherCoffeeSlider tasteRatings={tasteRatings as CoffeePreferences} />
+                                            <div>                                                
+                                                <OtherCoffeeSlider />
                                             </div>
                                         ) : null}
                                     </div>
@@ -164,7 +168,7 @@ const CoffeeAnalysisDetail = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center gap-2 pr-4 mt-9">
+            <div className="flex justify-center gap-2 pr-4 mt-4">
                 <button
                     onClick={() => setIsLikeModalOpen(true)}
                     className="size-12 flex-shrink-0 border border-border-default rounded-lg flex items-center justify-center cursor-pointer"
@@ -194,7 +198,7 @@ const CoffeeAnalysisDetail = () => {
                         지금 주문하기
                     </Link>
                     <Link href={'/my-coffee/collection'} className="btn-primary-empty text-center">
-                    내 커피 컬렉션 보기
+                        내 커피 컬렉션 보기
                     </Link>
                 </div>
             </ActionSheet>

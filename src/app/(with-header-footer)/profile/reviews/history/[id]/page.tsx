@@ -78,16 +78,16 @@ const ReviewWrite = () => {
 
     const isUserLiked = (id: number) => {
         return likedReviews.includes(id);
-      };
+    };
 
     const handleUserLike = (id: number) => {
         const isLiked = isUserLiked(id);
         if (isLiked) {
-          setLikedReviews(likedReviews.filter((review) => review !== id));
+            setLikedReviews(likedReviews.filter((review) => review !== id));
         } else {
-          setLikedReviews([...likedReviews, id]);
+            setLikedReviews([...likedReviews, id]);
         }
-      };
+    };
 
     return (
         <div>
@@ -126,17 +126,18 @@ const ReviewWrite = () => {
                             <div className="flex items-center gap-2">
                                 <span
                                     onClick={() => handleUserLike(review.id)}
-                                    className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300 ${isUserLiked(review.id) &&
-                                        "bg-action-secondary border-transparent text-action-primary"
-                                        }`}
+                                    className={`size-8 border border-border-default rounded-sm flex items-center justify-center transition-all duration-300`}
                                 >
-                                    <ThumbsUp
-                                        size={16}
-                                        className={`transition-all duration-300 ${isUserLiked(review.id)
-                                            ? "text-action-primary"
-                                            : "text-icon-default"
-                                            }`}
-                                    />
+                                    {
+                                        isUserLiked(review.id) ?
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                <path d="M9.33332 3.25366L8.66666 6.00033H12.5533C12.7603 6.00033 12.9645 6.04852 13.1496 6.14109C13.3347 6.23366 13.4958 6.36806 13.62 6.53366C13.7442 6.69925 13.8281 6.89149 13.8651 7.09514C13.9022 7.2988 13.8913 7.50828 13.8333 7.70699L12.28 13.0403C12.1992 13.3173 12.0308 13.5606 11.8 13.7337C11.5692 13.9068 11.2885 14.0003 11 14.0003H1.99999C1.64637 14.0003 1.30723 13.8598 1.05718 13.6098C0.807132 13.3598 0.666656 13.0206 0.666656 12.667V7.33366C0.666656 6.98004 0.807132 6.6409 1.05718 6.39085C1.30723 6.1408 1.64637 6.00033 1.99999 6.00033H3.83999C4.08805 6.00019 4.33115 5.93087 4.54196 5.80014C4.75277 5.66941 4.92294 5.48247 5.03332 5.26033L7.33332 0.666992C7.64771 0.670885 7.95715 0.745772 8.23853 0.886056C8.5199 1.02634 8.76594 1.2284 8.95826 1.47713C9.15058 1.72586 9.2842 2.01483 9.34915 2.32246C9.41409 2.63009 9.40868 2.94842 9.33332 3.25366Z" fill="#62402D" stroke="#62402D" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg> :
+                                            <ThumbsUp
+                                                size={16}
+                                                className={`transition-all duration-300`}
+                                            />
+                                    }
                                 </span>
                                 <span className="text-sm leading-[20px] font-bold">
                                     {review.likes}
@@ -167,7 +168,7 @@ const ReviewWrite = () => {
 
                         {/* Action Buttons */}
                         <div className="flex items-center justify-between gap-2">
-                            <button 
+                            <button
                                 className="btn-action text-center"
                             >
                                 이 추천 커피로 바로 주문하기

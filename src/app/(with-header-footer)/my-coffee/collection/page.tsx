@@ -105,7 +105,7 @@ const CollectionPage = () => {
 
     return (
       <div className="px-4 py-4">
-        <div className="overflow-y-auto h-[calc(100vh-240px)]">
+        <div className="overflow-y-auto h-[calc(100vh-220px)]">
           {/* Warning Banner */}
           <button onClick={handleSubmitAnalysis}>save</button>
           {showWarning && (
@@ -140,7 +140,7 @@ const CollectionPage = () => {
               <div key={analysis.id} className="bg-white rounded-2xl px-4 py-3 border border-border-default">
                 <div className="mb-4">
                   <h3 className="text-sm font-bold text-gray-0 mb-2">{analysis.title}</h3>
-                  <p className="text-[12px] text-[#AEAEAE] mb-2 font-normal">{analysis.date} {analysis.time}</p>
+                  <p className="text-[12px] text-text-secondary mb-2 font-normal">{analysis.date} {analysis.time}</p>
 
                   <div className="flex items-center justify-center w-fit bg-[rgba(0,0,0,0.05)] rounded-lg px-2 py-1 mb-4">
                     <span className="text-[12px] text-gray-0 font-medium leading-[160%]">{analysis.tag}</span>

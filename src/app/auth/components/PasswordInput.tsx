@@ -51,7 +51,7 @@ export default function PasswordInput({
         <input
           type={showPassword ? "text" : "password"}
           id={id}
-          className={`bg-transparent placeholder:text-[#6E6E6E] placeholder:font-normal font-bold border text-gray-0 text-[12px] rounded-lg focus:outline-none focus:ring-[#A45F37] focus:border-[#A45F37] block w-full px-4 py-2.5 ${error ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
+          className={`input-default ${error ? 'border-[#EF4444]' : 'border-[#E6E6E6]'
             }`}
           placeholder={placeholder}
           value={value}
