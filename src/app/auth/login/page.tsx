@@ -76,7 +76,9 @@ export default function Login() {
       return;
     }
     try {
-      signin({ email, password, auto_login: false });
+      // signin({ email, password, auto_login: false });
+      localStorage.setItem('guest_view', 'false');
+      router.push('/home');
     } catch (err: any) {
       setErrorMessage(err?.message || "로그인 실패");
     }

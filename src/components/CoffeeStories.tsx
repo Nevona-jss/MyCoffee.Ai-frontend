@@ -59,7 +59,7 @@ const CoffeeStories = () => {
     ];
 
     return (
-        <div className="mb-6 bg-background-sub py-3 pl-4 text-gray-0">
+        <div className="mb-3 bg-background-sub py-3 pl-4 text-gray-0">
             <h2 className="text-base font-bold mb-3 leading-[125%]">알차게 즐기는 MyCoffee.Ai</h2>
             
             {/* Tab Buttons */}

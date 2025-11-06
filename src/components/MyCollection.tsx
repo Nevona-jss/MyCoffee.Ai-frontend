@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import SpiderChart from '@/app/(content-only)/analysis/SpiderChart';
 import Tabs from './Tabs';
 import OtherCoffeeSlider from './OtherCoffeeSlider';
+import Link from 'next/link';
 
 interface TasteRating {
     aroma: number;
@@ -25,6 +26,14 @@ interface CoffeeBlend {
 const MyCollection = () => {
 
     const [currentTab, setCurrentTab] = useState('monthly-coffee');
+    const [isGuestView, setIsGuestView] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const guestView = localStorage.getItem('guest_view');
+            setIsGuestView(guestView === 'true');
+        }
+    }, []);
 
     // const { data: myCollection } = useGet(['collections', data?.user_id], '/collections', {params: {user_id: data?.user_id}});
 
@@ -90,8 +99,38 @@ const MyCollection = () => {
         setCurrentTab(tab);
     };
 
+    // Agar guest view bo'lsa, register qilishni so'rash
+    if (isGuestView) {
+        return (
+            <div className={`mb-3 bg-background-sub text-gray-0 py-3`}>
+                <div className="flex items-center justify-between mb-3 pr-6 pl-4">
+                    <div className='w-[176px]'>
+                        <Tabs
+                            tabs={tabs}
+                            activeTab={currentTab}
+                            onTabChange={handleTabChange}
+                        />
+                    </div>
+                    <svg className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
+                        <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </div>
+                <div className="bg-background-sub rounded-lg px-4 text-gray-0 text-center pb-[194px] pt-[126px]">
+                    <div>
+                        <p className="text-[14px] font-normal text-text-secondary mb-2 leading-[20px]">
+                            지금 로그인하고, 내 커피 취향을 확인하세요!
+                        </p>
+                        <Link href="/auth/login" className="btn-action w-full text-center px-[14px]">
+                        로그인
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className={`mb-4 bg-background-sub text-gray-0 py-3`}>
+        <div className={`mb-3 bg-background-sub text-gray-0 py-3`}>
             <div className="flex items-center justify-between mb-3 pr-6 pl-4">
                 <div className='w-[176px]'>
                     <Tabs
@@ -109,16 +148,10 @@ const MyCollection = () => {
                     <OtherCoffeeSlider />
                 </div>
             ) : (
-                <div className="bg-background-sub rounded-lg p-4 text-gray-0">
-                    <div className='mb-3'>
-                        <h3 className="text-[14px] font-medium mb-1 leading-normal">{coffeeBlends[0].name}</h3>
-                        <div className="flex items-center gap-2">
-                            {
-                                coffeeBlends[0].hashtags.map((hashtag, index) => (
-                                    <span key={index} className="bg-[rgba(0,0,0,0.05)] px-2 py-0.5 rounded-full text-[10px] font-light text-gray-0 leading-[16px]">#{hashtag}</span>
-                                ))
-                            }
-                        </div>
+                <div className="bg-background-sub rounded-lg p-4 pt-0 text-gray-0">
+                    <div className='mb-2 text-center'>
+                        <h3 className="text-[14px] font-medium mb-1 leading-[20px]">{coffeeBlends[0].name}</h3>
+                        <p className="text-text-secondary text-xs font-normal leading-[18px]">" 오늘은 부담 없이 즐기기 좋은, 깊이 있으면서도 <br />깔끔한 딥 바디 블렌드가 잘 어울려요."</p>
                     </div>
                     <SpiderChart
                         ratings={coffeeBlends[0].ratings}
@@ -128,11 +161,8 @@ const MyCollection = () => {
                         size="medium"
                         wrapperClassName="!mb-1"
                     />
-                    <div className='px-4 py-3 border border-dashed border-[#22C55E] rounded-lg'>
-                        <p className='text-center text-[#22C55E] text-xs font-normal'>“ 오늘은 부담 없이 즐기기 좋은, 깊이 있으면서도 <br /> 깔끔한 딥 바디 블렌드가 잘 어울려요.”</p>
-                    </div>
-                    <div className="flex justify-center gap-2 mt-4">
-                        <button className='btn-primary w-full'>
+                    <div className="flex justify-center gap-2 mt-1">
+                        <button className='w-full btn-action !text-base !leading-[24px] !font-bold !py-3 !rounded-lg'>
                             자세히 보기
                         </button>
                     </div>

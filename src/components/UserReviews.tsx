@@ -52,9 +52,9 @@ const UserReviews = () => {
     ];
 
     return (
-        <div className="mb-4 bg-background-sub py-3 px-4 pr-0 text-gray-0">
+        <div className="mb-3 bg-background-sub py-3 px-4 pr-0 text-gray-0">
             <div className="flex items-center justify-between mb-3 pr-6">
-                <h2 className="text-base font-bold">내 커피 컬렉션</h2>
+                <h2 className="text-base font-bold">모이면 더 맛있는 커피 리뷰</h2>
                 <svg className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
                     <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

@@ -18,7 +18,7 @@ export default function Home() {
             width={220}
             height={32}
           />
-          <p className="mb-16 text-[14px]">
+          <p className="mb-16 text-[14px] text-gray-0 leading-[20px]">
             나만의 커피 취향을 찾아볼까요?
           </p>
         </div>

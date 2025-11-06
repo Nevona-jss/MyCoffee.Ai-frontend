@@ -5,6 +5,7 @@ import "./globals.css";
 import { QueryProvider } from "@/components/QueryProvider";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import GlobalLoader from "@/components/GlobalLoader";
+import { SpinnerGlobalLoader } from "@/components/Loader/Spinner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <QueryProvider>
         <GlobalLoader>
+          <SpinnerGlobalLoader />
           {/* <ProtectedRoutes> */}
             <div className="flex flex-col">
               <div className="w-full min-h-[100dvh] sm:max-w-sm sm:mx-auto bg-background">

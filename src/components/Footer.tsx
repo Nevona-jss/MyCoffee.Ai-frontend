@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
     return (
-        <div className="pb-6 text-gray-0">
+        <div className="pb-3 text-gray-0">
             <div className="bg-white p-4">
                 <div className="mx-auto">
                     {/* Company Name */}

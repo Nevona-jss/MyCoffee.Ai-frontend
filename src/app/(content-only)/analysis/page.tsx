@@ -83,7 +83,7 @@ export default function AnalysisPage() {
                             width={220}
                             height={32}
                         />
-                        <p className="text-gray-0 text-center mt-3 text-[14px]">
+                        <p className="text-text-secondary text-center mt-3 text-[14px] leading-[20px]">
                             나만의 커피 취향을 찾아볼까요?
                         </p>
                     </div>
@@ -91,7 +91,10 @@ export default function AnalysisPage() {
                     {/* Main Content */}
                     <div className="flex-1 flex flex-col justify-center items-center px-6 pb-8 sm:mx-auto">
                         {/* Radar Chart */}
-                        <SpiderChart ratings={ratings} setRatings={setRatings} />
+                        <SpiderChart
+                            ratings={ratings} 
+                            setRatings={setRatings}
+                        />
                     </div>
                 </div>
                 {/* CTA Button */}

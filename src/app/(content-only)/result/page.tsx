@@ -96,15 +96,15 @@ export default function ResultPage() {
                 <div className='overflow-y-auto h-[calc(100vh-140px)] pt-6'>
                     {/* Coffee Blend Card */}
                     <div className='w-full'>
-                        <h1 className="text-xl font-bold text-[#4E2A18] mb-2">{coffeeBlend.name}</h1>
-                        <p className="text-gray-0 text-sm mb-2 font-normal">{coffeeBlend.description}</p>
+                        <h1 className="text-xl font-bold text-gray-0 mb-2">{coffeeBlend.name}</h1>
+                        <p className="text-sm mb-2 font-normal text-text-secondary">{coffeeBlend.description}</p>
 
                             {/* Origins */}
                         <div className="flex gap-1 mb-16">
                             {coffeeBlend.origins.map((origin, idx) => (
                                     <span
                                         key={idx}
-                                        className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-[#999]"
+                                        className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-gray-0 leading-[16px]"
                                     >
                                     {origin}
                                     </span>
@@ -156,7 +156,15 @@ export default function ResultPage() {
                     <Link href="/auth/login-select" className="btn-primary w-full text-center block">
                         회원 가입
                     </Link>
-                    <Link href="/" className="block text-center text-base text-gray-0 font-normal">
+                    <Link 
+                        href="/home" 
+                        className="block text-center text-xs text-gray-0 font-normal"
+                        onClick={() => {
+                            if (typeof window !== 'undefined') {
+                                localStorage.setItem('guest_view', 'true');
+                            }
+                        }}
+                    >
                         둘러보고 나중에 할래요.
                     </Link>
                 </div>

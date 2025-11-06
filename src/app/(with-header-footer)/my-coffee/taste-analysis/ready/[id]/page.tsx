@@ -90,8 +90,8 @@ const CoffeeAnalysisDetail = () => {
     };
 
     return (
-        <div className="pl-4 pt-3 pb-2">
-            <div className="overflow-y-auto h-[calc(100vh-278px)]">
+        <div className="">
+            <div className="overflow-y-auto h-[calc(100vh-253px)] pl-4 pt-3 pb-2">
                 <div className="pr-4">
                     <h2 className="text-[20px] font-bold text-gray-0 mb-2 text-center leading-[28px]">나만의 커피 취향을 찾아볼까요?</h2>
                     <p className="text-xs text-gray-0 mb-6 text-center leading-[18px]">" 향긋한 꽃향기와 크리미한 바디감이 인상 깊습니다. "</p>
@@ -168,16 +168,19 @@ const CoffeeAnalysisDetail = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center gap-2 pr-4 mt-4">
-                <button
-                    onClick={() => setIsLikeModalOpen(true)}
-                    className="size-12 flex-shrink-0 border border-border-default rounded-lg flex items-center justify-center cursor-pointer"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M1.66675 7.91662C1.66677 6.98929 1.94808 6.08377 2.47353 5.31967C2.99898 4.55557 3.74385 3.96883 4.60976 3.63695C5.47567 3.30507 6.42188 3.24366 7.32343 3.46082C8.22497 3.67799 9.03944 4.16352 9.65925 4.85329C9.7029 4.89996 9.75568 4.93718 9.81431 4.96262C9.87294 4.98806 9.93617 5.00119 10.0001 5.00119C10.064 5.00119 10.1272 4.98806 10.1859 4.96262C10.2445 4.93718 10.2973 4.89996 10.3409 4.85329C10.9588 4.15904 11.7734 3.66943 12.6764 3.44962C13.5795 3.22982 14.528 3.29024 15.3958 3.62286C16.2636 3.95547 17.0096 4.5445 17.5343 5.31154C18.0591 6.07858 18.3378 6.98725 18.3334 7.91662C18.3334 9.82495 17.0834 11.25 15.8334 12.5L11.2567 16.9275C11.1015 17.1058 10.91 17.249 10.6951 17.3477C10.4802 17.4464 10.2468 17.4982 10.0103 17.4997C9.77386 17.5012 9.53979 17.4523 9.32365 17.3564C9.10752 17.2605 8.91427 17.1196 8.75675 16.9433L4.16675 12.5C2.91675 11.25 1.66675 9.83329 1.66675 7.91662Z" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
-                <OrderingComponent title={"주문하기"} />
+
+            <div className="bg-white py-2 px-4" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
+                <div className="flex justify-center gap-2">
+                    <button
+                        onClick={() => setIsLikeModalOpen(true)}
+                        className="size-12 flex-shrink-0 border border-border-default rounded-lg flex items-center justify-center cursor-pointer"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M1.66675 7.91662C1.66677 6.98929 1.94808 6.08377 2.47353 5.31967C2.99898 4.55557 3.74385 3.96883 4.60976 3.63695C5.47567 3.30507 6.42188 3.24366 7.32343 3.46082C8.22497 3.67799 9.03944 4.16352 9.65925 4.85329C9.7029 4.89996 9.75568 4.93718 9.81431 4.96262C9.87294 4.98806 9.93617 5.00119 10.0001 5.00119C10.064 5.00119 10.1272 4.98806 10.1859 4.96262C10.2445 4.93718 10.2973 4.89996 10.3409 4.85329C10.9588 4.15904 11.7734 3.66943 12.6764 3.44962C13.5795 3.22982 14.528 3.29024 15.3958 3.62286C16.2636 3.95547 17.0096 4.5445 17.5343 5.31154C18.0591 6.07858 18.3378 6.98725 18.3334 7.91662C18.3334 9.82495 17.0834 11.25 15.8334 12.5L11.2567 16.9275C11.1015 17.1058 10.91 17.249 10.6951 17.3477C10.4802 17.4464 10.2468 17.4982 10.0103 17.4997C9.77386 17.5012 9.53979 17.4523 9.32365 17.3564C9.10752 17.2605 8.91427 17.1196 8.75675 16.9433L4.16675 12.5C2.91675 11.25 1.66675 9.83329 1.66675 7.91662Z" stroke="#4E2A18" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                    <OrderingComponent title={"주문하기"} />
+                </div>
             </div>
 
             {/* Like Modal */}

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { AxiosRequestConfig } from 'axios';
+import { useLoaderStore } from '@/stores/loader-store';
 
 // Types
 export interface ApiResponse<T> {
@@ -157,9 +158,14 @@ export function useInvalidateQueries() {
 
 export function useQryMutation<T = any, D = any>({ mutationFn, options }: { mutationFn: (data: D) => Promise<T>, options?: UsePostOptions }) {
   const queryClient = useQueryClient();
-
+  const { setIsLoading } = useLoaderStore();
+  
   return useMutation({
     mutationFn,
+    onMutate: () => {
+      // Loader'ni mutation boshlanganda ko'rsatish
+      setIsLoading(true);
+    },
     onSuccess: (data) => {
       options?.onSuccess?.(data);
       queryClient.invalidateQueries();
@@ -168,6 +174,8 @@ export function useQryMutation<T = any, D = any>({ mutationFn, options }: { muta
       options?.onError?.(error);
     },
     onSettled: (data, error) => {
+      // Loader'ni mutation tugaganda yopish
+      setIsLoading(false);
       options?.onSettled?.(data, error);
     },
   });

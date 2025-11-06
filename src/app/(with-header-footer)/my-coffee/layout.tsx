@@ -156,6 +156,7 @@ export default function MyCoffeeLayout({
               observeParents={true}
               noSwiping={true}
               noSwipingClass="swiper-no-swiping"
+              className="!h-[calc(100vh-191px)]"
             >
               <SwiperSlide>
                 <div>

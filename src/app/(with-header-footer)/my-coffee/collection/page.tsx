@@ -107,7 +107,7 @@ const CollectionPage = () => {
       <div className="px-4 py-4">
         <div className="overflow-y-auto h-[calc(100vh-220px)]">
           {/* Warning Banner */}
-          <button onClick={handleSubmitAnalysis}>save</button>
+          {/* <button onClick={handleSubmitAnalysis}>save</button> */}
           {showWarning && (
             <div className="bg-[#FFF3CD] rounded-lg p-3 mb-4">
               <div className="flex items-center gap-2">

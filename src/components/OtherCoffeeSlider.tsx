@@ -88,15 +88,15 @@ const OtherCoffeeSlider: React.FC = () => {
                 {coffeeBlends.map((blend, index) => (
                     <SwiperSlide key={index}>
                         <div className="bg-background-sub rounded-lg p-3 border border-border-default text-gray-0">
-                            <div className='mb-3'>
-                                <h3 className="text-[14px] font-medium mb-1 leading-normal">{blend.name}</h3>
-                                <div className="flex items-center gap-2">
+                            <div className='mb-2'>
+                                <h3 className="text-[14px] font-medium leading-[20px]">{blend.name}</h3>
+                                {/* <div className="flex items-center gap-2">
                                     {
                                         blend.hashtags.map((hashtag, index) => (
                                             <span key={index} className="bg-[rgba(0,0,0,0.05)] px-2 py-0.5 rounded-full text-[10px] font-light text-gray-0 leading-[16px]">#{hashtag}</span>
                                         ))
                                     }
-                                </div>
+                                </div> */}
                             </div>
                             <SpiderChart
                                 ratings={blend.ratings}
@@ -104,6 +104,7 @@ const OtherCoffeeSlider: React.FC = () => {
                                 isChangable={false}
                                 isClickable={true}
                                 size="small"
+                                wrapperClassName="!mb-0"
                             />
                             <div className="flex justify-center gap-2 mt-3">
                                 <button className='btn-primary w-full !py-1.5 leading-5 !text-sm font-bold'>

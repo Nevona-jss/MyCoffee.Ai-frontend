@@ -40,7 +40,7 @@ const TodaysCoffeePick = () => {
     ];
 
     return (
-        <div className="pb-4 bg-background-sub mb-4">
+        <div className="pb-4 bg-background-sub mb-3">
             <Swiper
                 spaceBetween={0}
                 slidesPerView={1}

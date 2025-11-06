@@ -73,7 +73,7 @@ const TasteAnalysisPage = () => {
   }
 
   return (
-    <div className="px-4 pt-[36px] h-[calc(100dvh-220px)] flex flex-col">
+    <div className="px-4 pt-[36px] h-[calc(100dvh-206px)] flex flex-col">
       {/* Main Prompt */}
       <div className="text-center mb-8">
         <h1 className="text-[20px] font-bold text-gray-0 leading-[28px]">나만의 커피 취향을 찾아볼까요?</h1>

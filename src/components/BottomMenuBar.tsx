@@ -47,6 +47,16 @@ const BottomMenuBar = () => {
     const pathname = usePathname();
     const [bouncingItem, setBouncingItem] = useState<string | null>(null);
 
+    // URL'larda boxShadow bo'lmasligi kerak
+    const shouldShowShadow = !(
+        pathname.includes('/my-coffee/monthly-coffee/detail') ||
+        pathname.includes('/my-coffee/taste-analysis/ready') ||
+        pathname.includes('/my-coffee/monthly-coffee') ||
+        pathname.includes('/review-main') ||
+        pathname.includes('/review-analysys') ||
+        (pathname.startsWith('/my-coffee/collection/') && pathname !== '/my-coffee/collection')
+    );
+
     const isActive = (path: string) => {
         if (path === '/') {
             return pathname === '/';
@@ -70,7 +80,7 @@ const BottomMenuBar = () => {
     return (
         <div className={`mt-auto navbar-menu h-[91px]`}>
             <div className={`fixed bottom-0 w-full sm:max-w-sm z-10`}>
-                <div className="bg-[#fff] fixed bottom-0 w-full sm:max-w-sm z-10 -mt-4" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)" }}>
+                <div className="bg-[#fff] fixed bottom-0 w-full sm:max-w-sm z-10 -mt-4" style={{ boxShadow: shouldShowShadow ? "0 -1px 2px 0 rgba(0,0,0,0.04)" : "none" }}>
                     <div className="flex items-start justify-between w-full px-[15px] pb-2 pt-[10.5px]">
                         <div className='flex items-center w-[calc((100%-80px)/2)]'>
                             {/* Home */}

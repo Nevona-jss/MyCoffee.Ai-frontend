@@ -58,7 +58,17 @@ export default function LoginSelect() {
             </div>
           </div>
 
-          <p className="text-[14px] text-text-secondary font-bold py-[14px]">먼저 둘러보기</p>
+          <Link 
+            href="/home" 
+            className="text-[14px] text-text-secondary hover:text-text-primary font-bold my-[14px]"
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('guest_view', 'true');
+              }
+            }}
+          >
+            먼저 둘러보기
+          </Link>
         </div>
 
       </div>

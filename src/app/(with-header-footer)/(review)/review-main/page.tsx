@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import BottomMenuBar from "@/components/BottomMenuBar";
 import {
   ChevronDown,
   ThumbsUp,
@@ -149,7 +148,7 @@ const ReviewMain = () => {
 
   return (
     <div className="bg-background">
-      <div className="overflow-y-auto h-[calc(100vh-220px)] pb-8">
+      <div className="overflow-y-auto h-[calc(100vh-200px)] pb-2">
         <div className="px-4 pt-2.5 pb-2">
           {/* Sort Dropdown */}
           <div className="flex justify-between">
@@ -170,14 +169,12 @@ const ReviewMain = () => {
             <div className="relative">
               <button
                 onClick={() => setShowSortDropdown(!showSortDropdown)}
-                className={`cursor-pointer bg-action-secondary flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold text-action-primary ${showSortDropdown && "bg-action-secondary"
-                  }`}
+                className={`cursor-pointer bg-action-secondary flex items-center gap-1 py-1 pl-2.5 pr-2  rounded-sm text-sm leading-[20px] font-bold text-action-primary ${showSortDropdown && "bg-action-secondary"}`}
               >
                 <span>{sortBy}</span>
                 <ChevronDown
                   size={16}
-                  className={`text-action-primary transition-all duration-300 ${showSortDropdown && "rotate-180"
-                    }`}
+                  className={`text-action-primary transition-all duration-300 ${showSortDropdown && "rotate-180"}`}
                 />
               </button>
 
@@ -297,9 +294,9 @@ const ReviewMain = () => {
 
         </div>
       </div>
-      <div className="relative px-4 pt-1">
+      <div className="relative px-4 py-2 bg-white" style={{ boxShadow: "0 -1px 2px 0 rgba(0,0,0,0.04)", borderTop: "1px solid rgba(230, 230, 230, 0.50)" }}>
         {isToolTipOpen && (
-          <div className="absolute bottom-[90%] flex items-center gap-2 left-[50%] transform -translate-x-1/2 mb-2 px-3 py-2 text-xs font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          <div className="absolute bottom-[80%] flex items-center gap-2 left-[50%] transform -translate-x-1/2 mb-2 px-3 py-2 text-xs font-medium text-white bg-[#1C1C1C] rounded-lg shadow-lg opacity-100 transition-opacity duration-300 whitespace-nowrap">
             포토 내 커피 추천 작성시 포인트 +1,000
             {/* Arrow */}
             <div className="absolute top-full left-[20px] transform -translate-x-1/2 w-0 h-0 border-l-5 border-r-5 border-t-5 border-l-transparent border-r-transparent border-t-[#1C1C1C]"></div>
@@ -313,7 +310,7 @@ const ReviewMain = () => {
           </div>
         )}
 
-        <button className="py-4 bg-linear-gradient w-full text-white rounded-lg font-bold text-base ">
+        <button className="btn-primary w-full">
           내 커피 추천하기
         </button>
       </div>
@@ -324,14 +321,14 @@ const ReviewMain = () => {
         onClose={() => setShowReviewOption(false)}
       >
         <div className="flex flex-col gap-2">
-          <button onClick={navigateToReviewAnalysys} className="text-base leading-[24px] font-bold text-white bg-action-primary rounded-lg py-3">
+          <button onClick={navigateToReviewAnalysys} className="btn-primary">
             커피 취향 분석 보기
           </button>
-          <button className="flex items-center justify-center gap-1 text-base leading-[24px] font-bold text-action-primary border border-action-primary rounded-lg py-3">
+          <button className="flex items-center justify-center gap-1 text-base leading-[24px] font-bold text-action-primary border border-action-primary rounded-lg py-[11]">
             <SquarePen size={16} className="text-action-primary" />
             수정
           </button>
-          <button className="flex items-center justify-center gap-1 text-base leading-[24px] font-bold text-action-primary border border-action-primary rounded-lg py-3">
+          <button className="flex items-center justify-center gap-1 text-base leading-[24px] font-bold text-action-primary border border-action-primary rounded-lg py-[11]">
             <Trash size={16} className="text-action-primary" />
             삭제
           </button>
