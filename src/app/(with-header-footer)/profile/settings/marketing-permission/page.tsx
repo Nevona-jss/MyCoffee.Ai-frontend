@@ -24,7 +24,7 @@ const MarketingPermission = () => {
   };
 
   return (
-    <div className="bg-background p-4 pb-10 h-full flex flex-col justify-between">
+    <div className="bg-background p-4 pb-0 flex flex-col justify-between h-[calc(100vh-145px)]">
       <div className="bg-white rounded-2xl border border-border-default p-3">
         {/* Title */}
         <h1 className="text-base leading-[20px] font-bold text-gray-0 mb-4">
@@ -84,7 +84,7 @@ const MarketingPermission = () => {
       {/* Agree Button */}
       <button
         onClick={handleAgree}
-        className="w-full mt-auto  py-3 bg-linear-gradient text-white rounded-lg font-bold leading-[24px]"
+        className="w-full mt-auto  py-3 bg-linear-gradient text-white rounded-lg font-bold leading-[24px] mt-auto"
       >
         동의하기
       </button>

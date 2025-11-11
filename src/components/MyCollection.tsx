@@ -30,8 +30,8 @@ const MyCollection = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const guestView = localStorage.getItem('guest_view');
-            setIsGuestView(guestView === 'true');
+            const token = localStorage.getItem('token');
+            setIsGuestView(!token);
         }
     }, []);
 
@@ -99,36 +99,6 @@ const MyCollection = () => {
         setCurrentTab(tab);
     };
 
-    // Agar guest view bo'lsa, register qilishni so'rash
-    if (isGuestView) {
-        return (
-            <div className={`mb-3 bg-background-sub text-gray-0 py-3`}>
-                <div className="flex items-center justify-between mb-3 pr-6 pl-4">
-                    <div className='w-[176px]'>
-                        <Tabs
-                            tabs={tabs}
-                            activeTab={currentTab}
-                            onTabChange={handleTabChange}
-                        />
-                    </div>
-                    <svg className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
-                        <path d="M1.5 10.5L6.5 6L1.5 1.5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </div>
-                <div className="bg-background-sub rounded-lg px-4 text-gray-0 text-center pb-[194px] pt-[126px]">
-                    <div>
-                        <p className="text-[14px] font-normal text-text-secondary mb-2 leading-[20px]">
-                            지금 로그인하고, 내 커피 취향을 확인하세요!
-                        </p>
-                        <Link href="/auth/login" className="btn-action w-full text-center px-[14px]">
-                        로그인
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className={`mb-3 bg-background-sub text-gray-0 py-3`}>
             <div className="flex items-center justify-between mb-3 pr-6 pl-4">
@@ -144,9 +114,24 @@ const MyCollection = () => {
                 </svg>
             </div>
             {currentTab === 'my-collection' ? (
-                <div className={currentTab === 'my-collection' ? 'pl-4' : ''}>
-                    <OtherCoffeeSlider />
+                isGuestView ? (
+                    <div className="bg-background-sub rounded-lg px-4 text-gray-0 text-center pb-[194px] pt-[128px]">
+                    <div>
+                        <p className="text-[14px] font-normal text-text-secondary mb-2 leading-[20px]">
+                            지금 로그인하고, 내 커피 취향을 확인하세요!
+                        </p>
+                        <Link href="/auth/login" className="btn-action w-full text-center px-[14px]">
+                        로그인
+                        </Link>
+                    </div>
                 </div>
+                )
+                    :(
+                        <div className={currentTab === 'my-collection' ? 'pl-4' : ''}>
+                            <OtherCoffeeSlider />
+                        </div>
+                    )
+                
             ) : (
                 <div className="bg-background-sub rounded-lg p-4 pt-0 text-gray-0">
                     <div className='mb-2 text-center'>

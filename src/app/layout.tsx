@@ -6,6 +6,7 @@ import { QueryProvider } from "@/components/QueryProvider";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import GlobalLoader from "@/components/GlobalLoader";
 import { SpinnerGlobalLoader } from "@/components/Loader/Spinner";
+import 'react-responsive-modal/styles.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

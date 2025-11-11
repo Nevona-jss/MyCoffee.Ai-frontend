@@ -46,7 +46,7 @@ export default function Login() {
   }, [setHeader]);
 
   const { mutate: signin, isPending: isGettingLogin } = usePost<User, {[key: string]: any}>(
-    '/email/login',
+    '/auth/login',
     {
       onSuccess: (data) => {
         console.log('Login response:', data);
@@ -55,8 +55,6 @@ export default function Login() {
         if (data?.data) {
           sessionStorage.removeItem('auth_redirect');
           setUser(data);
-          
-          // Small delay to ensure cookie is set
           setTimeout(() => {
             console.log('Cookies after delay:', document.cookie);
             router.push('/home');
@@ -76,9 +74,8 @@ export default function Login() {
       return;
     }
     try {
-      // signin({ email, password, auto_login: false });
-      localStorage.setItem('guest_view', 'false');
-      router.push('/home');
+      signin({ email, password });
+      // router.push('/home');
     } catch (err: any) {
       setErrorMessage(err?.message || "로그인 실패");
     }

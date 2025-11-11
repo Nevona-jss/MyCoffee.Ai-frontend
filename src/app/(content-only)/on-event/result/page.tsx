@@ -4,9 +4,12 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useRecommendationStore } from '@/stores/recommendation-store';
-import SpiderChart from '../analysis/SpiderChart';
 import { CoffeePreferences } from '@/types/coffee';
 import { useGet } from '@/hooks/useApi';
+import SpiderChart from '../../analysis/SpiderChart';
+import Modal from 'react-responsive-modal';
+import { ChevronRight } from 'lucide-react';
+import RegisterBtn from './registerBtn';
 
 type BlendType = {
     name: string;
@@ -15,6 +18,12 @@ type BlendType = {
     ratings: CoffeePreferences;
 }
 export default function ResultPage() {
+
+    const [open, setOpen] = useState(false);
+
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
+
     const router = useRouter();
     const { recommendations } = useRecommendationStore();
     const [isRedirecting, setIsRedirecting] = useState(false);
@@ -24,10 +33,10 @@ export default function ResultPage() {
         description: "깔끔한 마무리와 산뜻한 입안 감촉이 좋은 커피입니다.",
         origins: ["케냐 51%", "코스타리카 49%"],
         ratings: {
-        aroma: 5,
-        acidity: 4,
-        sweetness: 4,
-        nutty: 3,
+            aroma: 5,
+            acidity: 4,
+            sweetness: 4,
+            nutty: 3,
             body: 4
         }
     });
@@ -36,7 +45,7 @@ export default function ResultPage() {
     useEffect(() => {
         if (!recommendations?.length || !recommendations?.[0] || !recommendations?.[0].coffee_blend_id) {
             setIsRedirecting(true);
-            router.replace('/analysis');
+            router.replace('/on-event/analysis');
         }
     }, [recommendations, router]);
 
@@ -44,7 +53,7 @@ export default function ResultPage() {
     if (isRedirecting || !recommendations?.length || !recommendations?.[0] || !recommendations?.[0].coffee_blend_id) {
         return null;
     }
-    
+
     useEffect(() => {
         if (recommendations) {
             setCoffeeBlend({
@@ -63,8 +72,8 @@ export default function ResultPage() {
     }, [setCoffeeBlend]);
 
 
-    const {data: originData} = useGet<any>(
-        ["mycoffee", "blend", "origin", recommendations?.[0]?.coffee_blend_id], 
+    const { data: originData } = useGet<any>(
+        ["mycoffee", "blend", "origin", recommendations?.[0]?.coffee_blend_id],
         `/mycoffee/blend/${recommendations?.[0]?.coffee_blend_id}/origin`,
         {
             params: {
@@ -85,56 +94,54 @@ export default function ResultPage() {
         }
     }, [originData]);
 
-    const {data: tastesData} = useGet(
-        ["mycoffee", "blend", "taste", recommendations?.[0]?.coffee_blend_id], 
+    const { data: tastesData } = useGet(
+        ["mycoffee", "blend", "taste", recommendations?.[0]?.coffee_blend_id],
         `/mycoffee/blend/${recommendations?.[0]?.coffee_blend_id}/taste`
     );
 
     return (
         <>
             <div className="flex flex-col justify-center items-center px-4 pb-10">
-                <div className='overflow-y-auto h-[calc(100vh-140px)] pt-6'>
+                <div className='overflow-y-auto h-[calc(100vh-145px)] pt-[72px]'>
                     {/* Coffee Blend Card */}
                     <div className='w-full'>
                         <h1 className="text-xl font-bold text-gray-0 mb-2">{coffeeBlend.name}</h1>
                         <p className="text-sm mb-2 font-normal text-text-secondary">{coffeeBlend.description}</p>
 
-                            {/* Origins */}
+                        {/* Origins */}
                         <div className="flex gap-1 mb-16">
                             {coffeeBlend.origins.map((origin, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-gray-0 leading-[16px]"
-                                    >
+                                <span
+                                    key={idx}
+                                    className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-gray-0 leading-[16px]"
+                                >
                                     {origin}
-                                    </span>
-                                ))}
-                            </div>
+                                </span>
+                            ))}
+                        </div>
 
-                            {/* Radar Chart */}
-                            <div className="relative">
-                            <SpiderChart 
-                                ratings={coffeeBlend.ratings} 
-                                setRatings={() => {}}
+                        {/* Radar Chart */}
+                        <div className="relative">
+                            <SpiderChart
+                                ratings={coffeeBlend.ratings}
+                                setRatings={() => { }}
                                 isChangable={false}
                                 isClickable={true}
                                 tastes={tastesData?.tastes}
                             />
-                            </div>
                         </div>
+                    </div>
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="space-y-5 mt-auto w-full">
-                    <Link href="/auth/login-select" className="btn-primary w-full text-center block">
-                        회원 가입
-                    </Link>
-                    <Link 
-                        href="/home" 
-                        className="block text-center text-xs text-gray-0 font-normal"
-                    >
-                        둘러보고 나중에 할래요.
-                    </Link>
+                <div className="space-y-2 mt-auto w-full">
+                    <RegisterBtn
+                        onOpenModal={onOpenModal}
+                        onCloseModal={onCloseModal}
+                        open={open}
+                        setOpen={setOpen}
+                    />
+                    <button className="btn-primary-outline w-full" >다시 하기</button>
                 </div>
             </div>
         </>

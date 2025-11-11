@@ -4,10 +4,12 @@ import Header from "@/components/Header";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PasswordInput from "../components/PasswordInput";
+import DatePicker from "../components/DatePicker";
 import { useHeaderStore } from "@/stores/header-store";
 import { usePost } from "@/hooks/useApi";
+import PhoneNumber from "./phoneNumber";
+import VerifyCode from "./verifyCode";
 import { User, useUserStore } from "@/stores/user-store";
-import KCPRegisterButton from "./components/KCPRegisterButton";
 
 const warningIcon = () => {
   return (
@@ -37,13 +39,11 @@ export default function Register() {
   }, [setHeader]);
 
   const [isAllAgreed, setIsAllAgreed] = useState(false);
-  const [verifiedData, setVerifiedData] = useState<any>(null);
   const [agreements, setAgreements] = useState({
     personalInfo: false,
     terms: false,
     marketing: false
   });
-
   const [errors, setErrors] = useState({
     email: '',
     password: '',
@@ -53,7 +53,6 @@ export default function Register() {
     phone: '',
     verificationCode: '',
   });
-
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -64,9 +63,10 @@ export default function Register() {
     phone: '',
     verificationCode: '',
   });
-
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
   const [requestErrorMessage, setRequestErrorMessage] = useState('');
   const { setUser } = useUserStore();
+  const [kcpPhone, setKcpPhone] = useState('');
 
   const router = useRouter()
 
@@ -111,6 +111,28 @@ export default function Register() {
           error = '비밀번호가 일치하지 않습니다.';
         }
         break;
+      case 'name':
+        if (!value) {
+          error = '이름을 입력해주세요.';
+        }
+        break;
+      case 'birthDate':
+        if (!value) {
+          error = '생년월일을 입력해주세요.';
+        }
+        break;
+      case 'phone':
+        if (!value) {
+          error = '휴대폰 번호를 입력해주세요.';
+        } else if (!/^[0-9]{10,11}$/.test(value.replace(/\s/g, ''))) {
+          error = '올바른 휴대폰 번호를 입력해주세요.';
+        }
+        break;
+      case 'verificationCode':
+        if (!value) {
+          error = '인증 번호를 입력해주세요.';
+        }
+        break;
     }
 
     setErrors(prev => ({ ...prev, [name]: error }));
@@ -129,6 +151,13 @@ export default function Register() {
     '/auth/register',
     {
       onSuccess: (data) => {
+        // Clear KCP localStorage on success
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('kcp_verified');
+          localStorage.removeItem('kcp_phone');
+          localStorage.removeItem('kcp_payload');
+        }
+
         if (data?.status === 'success' || data?.data) {
           if (data?.data) {
             setUser(data);
@@ -158,27 +187,38 @@ export default function Register() {
     });
 
     // Check KCP verification
+    const kcpVerified = typeof window !== 'undefined' && localStorage.getItem('kcp_verified') === '1';
+    const kcpPhone = typeof window !== 'undefined' ? localStorage.getItem('kcp_phone') || '' : '';
+
+    if (!kcpVerified || !kcpPhone) {
+      setRequestErrorMessage('휴대폰 인증을 완료해주세요.');
+      return;
+    }
 
     if (isValid && isAllAgreed) {
       const data = {
         email: formData.email,
         password: formData.password,
         name: formData.name,
-        birth_date_in: formData.birthDate,
-        gender: formData.gender,
-        phone_number: formData.phone,
-        // verified: 1,
-        // terms_agreed: agreements.terms,
-        // privacy_agreed: agreements.personalInfo,
-        // marketing_agreed: agreements.marketing,
+        birth_date: formData.birthDate,
+        gender: formData.gender === "male" ? "M" : "F",
+        phone_number: kcpPhone, // Use KCP verified phone
+        verified: 1,
+        terms_agreed: agreements.terms,
+        privacy_agreed: agreements.personalInfo,
+        marketing_agreed: agreements.marketing,
       };
 
       signup(data);
     }
   };
 
-  console.log("verifiedData", verifiedData);
-  
+  const handleKCPVerificationComplete = (phone: string) => {
+    setKcpPhone(phone);
+    setIsPhoneVerified(true);
+    // Update formData phone field
+    setFormData(prev => ({ ...prev, phone }));
+  };
 
   return (
     <div className="">
@@ -187,6 +227,8 @@ export default function Register() {
       <div className="p-4 pb-10 text-gray-0">
         <div className="overflow-y-auto h-[calc(100vh-154px)]">
 
+        {/* <KCPRegisterBtn onVerificationComplete={handleKCPVerificationComplete} /> */}
+        
           {/* Email Input */}
           {requestErrorMessage && (
             <div className="flex items-center gap-1 mb-2">
@@ -241,14 +283,68 @@ export default function Register() {
 
           {/* Name Input */}
           <div className="mb-4">
-            <KCPRegisterButton
-              setFormData={setFormData}
-              setVerifiedData={setVerifiedData}
-              onRegisterError={(error) => {
-                console.error("Register error:", error);
-              }}
+            <label htmlFor="name" className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
+              이름
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="input-default"
+              placeholder="비밀번호를 입력해주세요."
+              defaultValue=""
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              required
+              minLength={2}
+              maxLength={20}
             />
           </div>
+
+          <DatePicker
+            id="birthDate"
+            label="생년월일"
+            value={formData.birthDate}
+            onChange={(value) => handleInputChange('birthDate', value)}
+            error={errors.birthDate}
+            placeholder="년도 / 월 / 일"
+            required
+          />
+
+          {/* Gender Selection */}
+          <div className="mb-4">
+            <label className="block mb-2 text-[12px] font-bold text-gray-0 leading-[16px]">
+              성별
+            </label>
+            <div className="flex gap-6">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  className="w-4 h-4 !text-[#62402D] bg-transparent border-2 border-[#B3B3B3]"
+                  checked={formData.gender === 'male'}
+                  onChange={() => handleInputChange('gender', 'male')}
+                />
+                <span className="text-[12px] font-normal text-gray-0">남자</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  className="w-4 h-4 !text-[#62402D] bg-transparent border-2 border-[#B3B3B3]"
+                  checked={formData.gender === 'female'}
+                  onChange={() => handleInputChange('gender', 'female')}
+                />
+                <span className="text-[12px] font-normal text-gray-0">여자</span>
+              </label>
+            </div>
+          </div>
+
+          {/* Phone Number Input */}
+          <PhoneNumber handleInputChange={handleInputChange} formData={formData} isPhoneVerified={isPhoneVerified} setIsPhoneVerified={setIsPhoneVerified} />
+
+          {/* Verification Code Input */}
+          <VerifyCode handleInputChange={handleInputChange} formData={formData} isPhoneVerified={isPhoneVerified} onVerificationSuccess={() => setIsPhoneVerified(true)} />
 
           {/* Agreement Checkboxes */}
           <div className="mb-6">
@@ -339,7 +435,7 @@ export default function Register() {
         </div>
         <button
           className={`w-full btn-primary mt-1`}
-          disabled={!isAllAgreed || isGettingSignup || !verifiedData}
+          disabled={!isAllAgreed || isGettingSignup}
           onClick={handleRegister}
         >
           가입하기

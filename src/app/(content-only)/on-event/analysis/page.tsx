@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation';
 import { useQryMutation } from '@/hooks/useApi';
 import { CoffeeData } from '@/types/coffee';
 import { useRecommendationStore } from '@/stores/recommendation-store';
-import SpiderChart from './SpiderChart';
 import { api } from '@/lib/api';
+import SpiderChart from '../../analysis/SpiderChart';
+import Link from 'next/link';
+import Modal from 'react-responsive-modal';
 
 type GetRecommendationsParams = {
     aroma: number;
@@ -21,6 +23,14 @@ type GetRecommendationsParams = {
 
 export default function AnalysisPage() {
 
+    const [open, setOpen] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+    });
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
+
     const router = useRouter();
     const [ratings, setRatings] = useState({
         aroma: 1,
@@ -30,7 +40,7 @@ export default function AnalysisPage() {
         body: 1,
     });
     const [userId] = useState(0);
-    const { setPreferences, setRecommendations } = useRecommendationStore();
+    const { setRecommendations } = useRecommendationStore();
 
     const { mutate: getRecommendations, isPending: isGettingRecommendations } = useQryMutation<CoffeeData, GetRecommendationsParams>({
         mutationFn: async (data: GetRecommendationsParams) => {
@@ -41,7 +51,7 @@ export default function AnalysisPage() {
             onSuccess: (data) => {
                 console.log(data);
                 setRecommendations(data?.reco_list);
-                router.push('/result');
+                router.push('/on-event/result');
             },
         },
     });
@@ -80,7 +90,7 @@ export default function AnalysisPage() {
                     <div className="flex-1 flex flex-col justify-center items-center px-6 pb-8 sm:mx-auto">
                         {/* Radar Chart */}
                         <SpiderChart
-                            ratings={ratings} 
+                            ratings={ratings}
                             setRatings={setRatings}
                         />
                     </div>
@@ -91,9 +101,51 @@ export default function AnalysisPage() {
                     disabled={isGettingRecommendations}
                     className="btn-primary w-full text-center block disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {isGettingRecommendations ? '분석 중...' : '취향 분석 시작'}
+                    {isGettingRecommendations ? '분석 중...' : '결과보기'}
+                </button>
+                <button className="btn-primary-outline w-full mt-2 text-center block" onClick={onOpenModal}>
+                    이력 조회
                 </button>
             </div>
+
+            <Modal
+                open={open}
+                onClose={onCloseModal}
+                center
+                showCloseIcon={false}
+                styles={{
+                    modal: {
+                        width: '361px',
+                        padding: '12px',
+                        borderRadius: '16px',
+                    }
+                }}
+            >
+                <div className="mb-3">
+                    <label className="block text-xs leading-[16px] font-bold text-gray-0 mb-2">
+                        이름
+                    </label>
+                    <input
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="이름을 입력해주세요."
+                        className="input-default"
+                    />
+                </div>
+                <div className="mb-6">
+                    <label className="block text-xs leading-[16px] font-bold text-gray-0 mb-2">
+                        휴대폰 번호
+                    </label>
+                    <input
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="휴대폰 번호를 입력해주세요."
+                        className="input-default"
+                    />
+                </div>
+                <button disabled={formData.name === '' || formData.phone === ''} onClick={() => router.push('/on-event/history')} className="btn-primary w-full mb-2">요청</button>
+                <button className="btn-primary-empty !py-0.5 w-full !font-normal" onClick={onCloseModal}>취소</button>
+            </Modal>
         </>
     );
 }

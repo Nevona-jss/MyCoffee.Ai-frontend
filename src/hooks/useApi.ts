@@ -163,7 +163,6 @@ export function useQryMutation<T = any, D = any>({ mutationFn, options }: { muta
   return useMutation({
     mutationFn,
     onMutate: () => {
-      // Loader'ni mutation boshlanganda ko'rsatish
       setIsLoading(true);
     },
     onSuccess: (data) => {

@@ -18,7 +18,7 @@ const NotificationsSettings = () => {
   };
 
   return (
-    <div className="bg-background min-h-screen p-4">
+    <div className="p-4">
       {/* Banner */}
       <div className="bg-[#FFF3CD] rounded-lg px-4 py-3 flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">

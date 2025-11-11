@@ -61,11 +61,6 @@ export default function LoginSelect() {
           <Link 
             href="/home" 
             className="text-[14px] text-text-secondary hover:text-text-primary font-bold my-[14px]"
-            onClick={() => {
-              if (typeof window !== 'undefined') {
-                localStorage.setItem('guest_view', 'true');
-              }
-            }}
           >
             먼저 둘러보기
           </Link>
