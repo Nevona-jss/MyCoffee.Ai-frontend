@@ -39,7 +39,6 @@ export default function AnalysisPage() {
         },
         options: {
             onSuccess: (data) => {
-                console.log(data);
                 setRecommendations(data?.reco_list);
                 router.push('/result');
             },

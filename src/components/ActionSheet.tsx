@@ -73,14 +73,14 @@ const ActionSheet = forwardRef<ActionSheetRef, ActionSheetProps>(({
 
   return (
     <div
-      className={`fixed inset-0 bg-black/20 z-50 flex items-end transition-all duration-300 ${
+      className={`fixed inset-0 bg-black/20 z-50 flex items-end transition-all duration-300 !mb-0 ${
         isClosing ? "opacity-0" : "opacity-100"
       }`}
       onClick={handleClose}
     >
       {/* Modal Content */}
       <div
-        className={`bg-white w-full sm:max-w-sm sm:mx-auto rounded-t-2xl p-4 pt-3 pb-10 max-h-[80vh] overflow-y-auto transition-all duration-300 ease-out ${
+        className={`bg-white w-full sm:max-w-sm sm:mx-auto rounded-t-2xl p-4 pt-3 pb-7 max-h-[97vh] overflow-y-auto transition-all duration-300 ease-out ${
           isClosing ? "translate-y-full" : isOpening ? "translate-y-0" : "translate-y-full"
         }`}
         onClick={(e) => e.stopPropagation()} 

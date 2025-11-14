@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useRecommendationStore } from '@/stores/recommendation-store';
 import { CoffeePreferences } from '@/types/coffee';
 import { useGet } from '@/hooks/useApi';
 import SpiderChart from '../../analysis/SpiderChart';
-import Modal from 'react-responsive-modal';
-import { ChevronRight } from 'lucide-react';
 import RegisterBtn from './registerBtn';
+import { Link } from 'lucide-react';
 
 type BlendType = {
     name: string;
@@ -27,7 +25,7 @@ export default function ResultPage() {
     const router = useRouter();
     const { recommendations } = useRecommendationStore();
     const [isRedirecting, setIsRedirecting] = useState(false);
-
+    
     const [coffeeBlend, setCoffeeBlend] = useState<BlendType>({
         name: "벨벳 터치 블렌드",
         description: "깔끔한 마무리와 산뜻한 입안 감촉이 좋은 커피입니다.",
@@ -55,7 +53,7 @@ export default function ResultPage() {
     }
 
     useEffect(() => {
-        if (recommendations) {
+        if (recommendations) {            
             setCoffeeBlend({
                 name: recommendations?.[0].coffee_name,
                 description: recommendations?.[0].summary,
@@ -69,7 +67,7 @@ export default function ResultPage() {
                 }
             });
         }
-    }, [setCoffeeBlend]);
+    }, [recommendations]);
 
 
     const { data: originData } = useGet<any>(
@@ -87,17 +85,21 @@ export default function ResultPage() {
 
     useEffect(() => {
         if (originData) {
-            setCoffeeBlend({
-                ...coffeeBlend,
+            setCoffeeBlend(prev => ({
+                ...prev,
                 origins: originData?.origin_summary?.match(/.*?\d+%/g).map((origin: any) => origin.trim())
-            });
+            }));
         }
     }, [originData]);
 
     const { data: tastesData } = useGet(
         ["mycoffee", "blend", "taste", recommendations?.[0]?.coffee_blend_id],
-        `/mycoffee/blend/${recommendations?.[0]?.coffee_blend_id}/taste`
-    );
+        `/mycoffee/blend/${recommendations?.[0]?.coffee_blend_id}/taste`,
+        {},
+        {
+            enabled: !!recommendations?.[0]?.coffee_blend_id
+        }
+    );    
 
     return (
         <>
@@ -140,8 +142,9 @@ export default function ResultPage() {
                         onCloseModal={onCloseModal}
                         open={open}
                         setOpen={setOpen}
+                        coffeeBlendId={recommendations?.[0].coffee_blend_id}
                     />
-                    <button className="btn-primary-outline w-full" >다시 하기</button>
+                    <button onClick={() => router.push('/on-event/analysis')} className="btn-primary-outline w-full" >다시 하기</button>
                 </div>
             </div>
         </>

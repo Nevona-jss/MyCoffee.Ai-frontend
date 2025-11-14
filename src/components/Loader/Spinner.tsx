@@ -51,7 +51,7 @@ export const SpinnerGlobalLoader = () => {
 
     return (
         <div 
-            className="fixed inset-0 z-50 flex items-center justify-center" 
+            className="fixed inset-0 z-[1001] flex items-center justify-center" 
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.40)' }}
         >
             <span className={`spinner-global-loader loading`}></span>

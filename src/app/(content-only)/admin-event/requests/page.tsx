@@ -1,111 +1,44 @@
 'use client';
 
 import ActionSheet from '@/components/ActionSheet';
+import { useGet, usePost } from '@/hooks/useApi';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-type RequestItem = {
-    id: string;
-    date: string;
-    time: string;
-    productName: string;
-    productId: string;
-    blendRatio: string;
-    status: '대기' | '수령 완료';
-    name: string;
-    phone: string;
-    personalInfoAgreed: boolean;
-    marketingAgreed: boolean;
-};
-
 export default function AdminEventRequests() {
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState<'전체' | '대기' | '수령 완료'>('전체');
-
-    const [requests, setRequests] = useState<RequestItem[]>([
-        {
-            id: '1',
-            date: '2025-05-10',
-            time: '17:20',
-            productName: '클래식 하모니 블랜드',
-            productId: 'A0005',
-            blendRatio: '케냐 51% 코스타리카 49%',
-            status: '대기',
-            name: '이기홍',
-            phone: '010-1234-1234',
-            personalInfoAgreed: true,
-            marketingAgreed: true,
-        },
-        {
-            id: '2',
-            date: '2025-05-10',
-            time: '17:20',
-            productName: '클래식 하모니 블랜드',
-            productId: 'A0004',
-            blendRatio: '케냐 51% 코스타리카 49%',
-            status: '대기',
-            name: '이기홍',
-            phone: '010-1234-1234',
-            personalInfoAgreed: true,
-            marketingAgreed: true,
-        },
-        {
-            id: '3',
-            date: '2025-05-10',
-            time: '15:35',
-            productName: '클래식 하모니 블랜드',
-            productId: 'A0002',
-            blendRatio: '케냐 51% 코스타리카 49%',
-            status: '수령 완료',
-            name: '이기홍',
-            phone: '010-1234-1234',
-            personalInfoAgreed: true,
-            marketingAgreed: true,
-        },
-        {
-            id: '4',
-            date: '2025-05-10',
-            time: '15:35',
-            productName: '클래식 하모니 블랜드',
-            productId: 'A0001',
-            blendRatio: '케냐 51% 코스타리카 49%',
-            status: '수령 완료',
-            name: '이기홍',
-            phone: '010-1234-1234',
-            personalInfoAgreed: true,
-            marketingAgreed: true,
-        },
-    ]);
+    const [activeTab, setActiveTab] = useState<'전체' | '대기' | '수령완료'>('전체');
 
     const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
     const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
 
-    const filteredRequests = requests.filter((item) => {
-        if (activeTab === '전체') return true;
-        return item.status === activeTab;
-    });
-
-    const handleStatusClick = (itemId: string, currentStatus: '대기' | '수령 완료') => {
-        // Faqat "대기" status bo'lgan button'lar uchun action sheet ochiladi
+    const handleStatusClick = (itemId: string, currentStatus: '대기' | '수령완료') => {
         if (currentStatus === '대기') {
             setSelectedRequestId(itemId);
             setIsActionSheetOpen(true);
         }
     };
 
-    const handleConfirm = () => {
-        if (selectedRequestId) {
-            setRequests((prev) =>
-                prev.map((item) =>
-                    item.id === selectedRequestId
-                        ? { ...item, status: '수령 완료' as const }
-                        : item
-                )
-            );
+    const { data: tasteRequestData, refetch } = useGet(
+        ["mycoffee", "tasting-requests", activeTab],
+        `/mycoffee/tasting-requests`,
+        {
+            params: {
+                sts_nm: activeTab,
+            },
+        },
+        {
+            enabled: !!activeTab,
         }
-        setIsActionSheetOpen(false);
-        setSelectedRequestId(null);
-    };
+    );
+
+    const { mutate: changeStatus, isPending: isChangingStatus } = usePost(`/mycoffee/requests/${selectedRequestId}/toggle-end`, {
+        onSuccess: (data) => {
+            refetch()
+            setIsActionSheetOpen(false);
+            setSelectedRequestId(null);
+        },
+    });
 
     return (
         <div className="h-[100dvh] bg-background flex flex-col">
@@ -119,7 +52,7 @@ export default function AdminEventRequests() {
                 <div className='w-6'></div>
             </div>
             <div className="flex items-center gap-2 px-4 py-3">
-                {(['전체', '대기', '수령 완료'] as const).map((tab) => (
+                {(['전체', '대기', '수령완료'] as const).map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -135,52 +68,60 @@ export default function AdminEventRequests() {
             <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
                 <div className="px-4 pb-4">
                     <div className="space-y-5">
-                        {filteredRequests.map((item) => (
+                        {tasteRequestData?.items?.map((item) => (
                             <div
-                                key={item.id}
+                                key={item.tst_id}
                                 className="bg-white rounded-2xl border border-border-default py-3 px-4 text-gray-0"
                             >
-                                <p className="text-[10px] font-bold leading-[16px] mb-4">{item.date} {item.time}</p>
+                                <p className="text-[10px] font-bold leading-[16px] mb-4">{item.cre_dt.replace(/\.\d+/, '').replace('T', ' ').slice(0, 16)}</p>
                                 <div className='border border-border-default rounded-2xl p-4 pb-3'>
                                     <div className="flex justify-between items-center gap-4 mb-3">
                                         <div>
-                                            <p className="text-sm font-bold leading-[20px]">{item.productName}</p>
-                                            <p className="text-sm font-bold leading-[20px] my-2">{item.productId}</p>
-                                            <div className="flex items-center gap-1">
-                                                <span className='text-[#FFE5BF] leading-[16px]'>•</span>
-                                                <span className='text-xs leading-[16px] font-normal'>케냐 51%</span>
-                                                <span className='text-[#FFE5BF] leading-[16px]'>•</span>
-                                                <span className='text-xs leading-[16px] font-normal'>코스타리카 49%</span>
-                                            </div>
+                                            <p className="text-sm font-bold leading-[20px]">{item.cof_nm}</p>
+                                            <p className="text-sm font-bold leading-[20px] my-2">{item.tst_id}</p>
+                                            {item?.orgn_list && (
+                                                <div className="flex items-center gap-1 flex-wrap">
+                                                    {item.orgn_list.match(/[^%]+%/g)?.map((part, index) => {
+                                                        const trimmedPart = part.trim();
+                                                        if (!trimmedPart) return null;
+                                                        return (
+                                                            <div key={index} className="flex items-center gap-1">
+                                                                {index > 0 && <span className='text-[#FFE5BF] leading-[16px]'>•</span>}
+                                                                <span className='text-xs leading-[16px] font-normal'>{trimmedPart}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
                                         </div>
                                         <button
-                                            onClick={() => handleStatusClick(item.id, item.status)}
-                                            className={`h-7 px-3 py-1 rounded-sm text-xs font-bold leading-[16px] ${item.status === '수령 완료'
+                                            onClick={() => handleStatusClick(item.tst_id, item.sts_nm)}
+                                            className={`shrink-0 h-7 px-3 py-1 rounded-sm text-xs font-bold leading-[16px] ${item.sts_nm === '수령완료'
                                                 ? 'bg-[#28A745] text-white'
                                                 : 'bg-white border border-action-primary text-black cursor-pointer'
                                                 }`}
                                         >
-                                            {item.status}
+                                            {item.sts_nm}
                                         </button>
                                     </div>
                                     <div className="flex justify-between text-xs mb-2">
                                         <span className="text-xs font-normal leading-[18px]">이름</span>
-                                        <span className="font-bold text-xs leading-[16px]">{item.name}</span>
+                                        <span className="font-bold text-xs leading-[16px]">{item.tst_usr_nm}</span>
                                     </div>
                                     <div className="flex justify-between text-xs mb-2">
                                         <span className="text-xs font-normal leading-[18px]">전화번호</span>
-                                        <span className="font-bold text-xs leading-[16px]">{item.phone}</span>
+                                        <span className="font-bold text-xs leading-[16px]">{item.hphn_no}</span>
                                     </div>
                                     <div className="flex justify-between text-xs mb-2">
                                         <span className="text-xs font-normal leading-[18px]">개인정보 수집 동의</span>
                                         <span className="font-bold text-xs leading-[16px]">
-                                            {item.personalInfoAgreed ? 'Y' : 'N'}
+                                            {item.n1st_apro_flg}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-xs">
                                         <span className="text-xs font-normal leading-[18px]">앱 출시 알림 동의</span>
                                         <span className="font-bold text-xs leading-[16px]">
-                                            {item.marketingAgreed ? 'Y' : 'N'}
+                                            {item.n2nd_apro_flg}
                                         </span>
                                     </div>
                                 </div>
@@ -202,9 +143,10 @@ export default function AdminEventRequests() {
                 <div className="space-y-4 mt-6">
                     <button
                         className="btn-primary w-full mb-2"
-                        onClick={handleConfirm}
+                        onClick={() => changeStatus({})}
+                        disabled={isChangingStatus}
                     >
-                        확인
+                        {isChangingStatus ? '변경 중...' : '확인'}
                     </button>
                     <button
                         className="btn-primary-outline w-full"

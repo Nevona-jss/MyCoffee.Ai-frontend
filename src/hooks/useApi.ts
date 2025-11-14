@@ -7,7 +7,6 @@ import { useLoaderStore } from '@/stores/loader-store';
 export interface ApiResponse<T> {
   result_code: string;
   result_message: string;
-  reco_list: T;
 }
 
 interface UseGetOptions {
@@ -49,21 +48,27 @@ export function usePost<T = any, D = any>(
   options?: UsePostOptions
 ) {
   const queryClient = useQueryClient();
+  const { setIsLoading } = useLoaderStore();
 
   return useMutation({
-    mutationFn: async (data: D): Promise<ApiResponse<T>> => {
-      const response = await api.post<ApiResponse<T>>(url, data);
+    // mutationFn: async (data: D): Promise<ApiResponse<T>> => {
+    //   const response = await api.post<ApiResponse<T>>(url, data);
+    mutationFn: async (data: D): Promise<any> => {
+      const response = await api.post<any>(url, data);
       return response.data;
     },
+    onMutate: () => {
+      setIsLoading(true);
+    },  
     onSuccess: (data) => {
       options?.onSuccess?.(data);
-      // Invalidate and refetch queries that might be affected
       queryClient.invalidateQueries();
     },
     onError: (error) => {
       options?.onError?.(error);
     },
     onSettled: (data, error) => {
+      setIsLoading(false);
       options?.onSettled?.(data, error);
     },
   });

@@ -17,7 +17,7 @@ export default function AdminEventHome() {
           />
           <p className="mb-12 text-[14px] text-gray-0 leading-[20px]">행사용 관리자 화면</p>
           <Link href="/admin-event/requests" className="btn-primary w-full block text-center mb-3">시음 요청</Link>
-          <Link href="/admin-event/order-reception" className="btn-primary w-full block text-center">주문 접수</Link>
+          <Link href="/admin-event/order-history" className="btn-primary w-full block text-center">주문 접수</Link>
         </div>
 
       </div>
