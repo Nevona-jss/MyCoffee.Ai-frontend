@@ -2,6 +2,7 @@
 
 import ActionSheet from '@/components/ActionSheet';
 import { useGet, usePost } from '@/hooks/useApi';
+import { staticBlends } from '@/statics';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -12,11 +13,9 @@ export default function AdminEventRequests() {
     const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
     const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
 
-    const handleStatusClick = (itemId: string, currentStatus: '대기' | '수령완료') => {
-        if (currentStatus === '대기') {
-            setSelectedRequestId(itemId);
-            setIsActionSheetOpen(true);
-        }
+    const handleStatusClick = (itemId: string) => {
+        setSelectedRequestId(itemId);
+        setIsActionSheetOpen(true);
     };
 
     const { data: tasteRequestData, refetch } = useGet(
@@ -77,7 +76,10 @@ export default function AdminEventRequests() {
                                 <div className='border border-border-default rounded-2xl p-4 pb-3'>
                                     <div className="flex justify-between items-center gap-4 mb-3">
                                         <div>
-                                            <p className="text-sm font-bold leading-[20px]">{item.cof_nm}</p>
+                                            <div className="flex items-center gap-2">
+                                                {item.cof_nm && <span className="text-sm leading-[20px] font-bold bg-[#1A1A1A] rounded-[2px] border border-black text-white size-5 flex items-center justify-center">{staticBlends.find(blend => blend.name === item.cof_nm)?.value}</span>}
+                                                <p className="text-sm font-bold leading-[20px]">{item.cof_nm}</p>
+                                            </div>
                                             <p className="text-sm font-bold leading-[20px] my-2">{item.tst_id}</p>
                                             {item?.orgn_list && (
                                                 <div className="flex items-center gap-1 flex-wrap">
@@ -86,7 +88,7 @@ export default function AdminEventRequests() {
                                                         if (!trimmedPart) return null;
                                                         return (
                                                             <div key={index} className="flex items-center gap-1">
-                                                                {index > 0 && <span className='text-[#FFE5BF] leading-[16px]'>•</span>}
+                                                                <span className='text-[#FFE5BF] leading-[16px]'>•</span>
                                                                 <span className='text-xs leading-[16px] font-normal'>{trimmedPart}</span>
                                                             </div>
                                                         );
@@ -95,10 +97,10 @@ export default function AdminEventRequests() {
                                             )}
                                         </div>
                                         <button
-                                            onClick={() => handleStatusClick(item.tst_id, item.sts_nm)}
-                                            className={`shrink-0 h-7 px-3 py-1 rounded-sm text-xs font-bold leading-[16px] ${item.sts_nm === '수령완료'
+                                            onClick={() => handleStatusClick(item.tst_id)}
+                                            className={`shrink-0 h-7 px-3 py-1 rounded-sm text-xs font-bold leading-[16px] cursor-pointer ${item.sts_nm === '수령완료'
                                                 ? 'bg-[#28A745] text-white'
-                                                : 'bg-white border border-action-primary text-black cursor-pointer'
+                                                : 'bg-white border border-action-primary text-black'
                                                 }`}
                                         >
                                             {item.sts_nm}

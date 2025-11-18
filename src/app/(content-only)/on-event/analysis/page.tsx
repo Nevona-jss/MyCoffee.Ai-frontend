@@ -55,18 +55,24 @@ export default function AnalysisPage() {
         },
     });
 
-    // Handle form submission
     const handleSubmitAnalysis = useCallback(() => {
+        //sweetness bilan acidity almashib qolgan shuning uchun keylar almashib qolgan!!!
         getRecommendations({
             aroma: ratings.aroma,
-            acidity: ratings.acidity,
+            acidity: ratings.sweetness,
             nutty: ratings.nutty,
             body: ratings.body,
-            sweetness: ratings.sweetness,
+            sweetness: ratings.acidity,
             userId: userId,
             saveAnalysis: 0,
         });
     }, [ratings, userId]);
+
+    const onSubmitForm = () => {
+        localStorage.setItem('tst_usr_nm', formData.name);
+        localStorage.setItem('hphn_no', formData.phone);
+        router.push('/on-event/history')
+    }
 
     return (
         <>
@@ -85,16 +91,13 @@ export default function AnalysisPage() {
                         </p>
                     </div>
 
-                    {/* Main Content */}
                     <div className="flex-1 flex flex-col justify-center items-center px-6 pb-8 sm:mx-auto">
-                        {/* Radar Chart */}
                         <SpiderChart
                             ratings={ratings}
                             setRatings={setRatings}
                         />
                     </div>
                 </div>
-                {/* CTA Button */}
                 <button
                     onClick={handleSubmitAnalysis}
                     disabled={isGettingRecommendations}
@@ -142,7 +145,7 @@ export default function AnalysisPage() {
                         className="input-default"
                     />
                 </div>
-                <button disabled={formData.name === '' || formData.phone === ''} onClick={() => router.push('/on-event/history')} className="btn-primary w-full mb-2">요청</button>
+                <button disabled={formData.name === '' || formData.phone === ''} onClick={onSubmitForm} className="btn-primary w-full mb-2">요청</button>
                 <button className="btn-primary-empty !py-0.5 w-full !font-normal" onClick={onCloseModal}>취소</button>
             </Modal>
         </>

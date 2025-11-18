@@ -38,7 +38,7 @@ export default function OnEventHistoryPage() {
         setHeader({
             title: '조회',
         });
-        
+
         if (typeof window !== 'undefined') {
             setPhoneNumber(localStorage.getItem("hphn_no") || '');
             setName(localStorage.getItem("tst_usr_nm") || '');
@@ -59,6 +59,15 @@ export default function OnEventHistoryPage() {
         }
     );
 
+    const { data: orderDetailData } = useGet(
+        ["mycoffee", "tst-org", selectedItem?.ord_no],
+        `/mycoffee/tst-org/${selectedItem?.ord_no}`,
+        {},
+        {
+            enabled: !!selectedItem?.ord_no
+        }
+    );
+
     return (
         <>
             <div className="h-[100dvh] bg-background flex flex-col">
@@ -72,7 +81,11 @@ export default function OnEventHistoryPage() {
                                     item={item}
                                     onClick={() => {
                                         setSelectedItem(item);
-                                        setIsActionSheetOpen(true);
+                                        if (!item?.ord_no) {
+                                            setOpenActionSheet("detail");
+                                        } else {
+                                            setIsActionSheetOpen(true);
+                                        }
                                     }}
                                 />
                             ))}
@@ -84,120 +97,93 @@ export default function OnEventHistoryPage() {
 
             <ActionSheet
                 isOpen={isActionSheetOpen}
-                onClose={() => setIsActionSheetOpen(false)}
+                onClose={() => { setIsActionSheetOpen(false); setSelectedItem(null); }}
                 title="상세 정보"
             >
                 {selectedItem && (
                     <div className="space-y-3 mt-3">
 
-                        {
-                            !selectedItem?.ord_no ? (
-                                <div className="border border-border-default rounded-2xl py-3 px-4 text-gray-0">
-                                    {/* <p className="text-sm font-bold mb-3 leading-[20px]">주문정보</p> */}
-                                    <div className="space-y-2 text-xs">
-                                        <div className="flex justify-between">
-                                            <span className="leading-[18px] font-normal">시음번호</span>
-                                            <span className="font-bold leading-[16px]">{selectedItem?.tst_id}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="leading-[18px] font-normal">요청 일자</span>
-                                            <span className="font-bold leading-[16px]">{selectedItem?.cre_dt.replace(/\.\d+/, '').replace('T', ' ').slice(0, 16)}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="leading-[18px] font-normal">이름</span>
-                                            <span className="font-bold leading-[16px]">{name}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="leading-[18px] font-normal">전화번호</span>
-                                            <span className="font-bold leading-[16px]">{phoneNumber}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="leading-[18px] font-normal">요청 커피</span>
-                                            <span className="font-bold leading-[16px]">{selectedItem?.cof_nm}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="leading-[18px] font-normal">상태</span>
-                                            <span
-                                                className={`font-bold leading-[16px] ${selectedItem.sts_nm === '결제완료' ? 'text-[#28A745]' : 'text-gray-0' }`}
-                                            >
-                                                {selectedItem.sts_nm}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ) : (
-                                <>
-                                    {selectedItem?.details.map((detail, index) => (
-                                        <div key={index} className="border border-border-default rounded-2xl py-3 px-4">
-                                            <p className="text-sm font-bold text-gray-0 mb-3 leading-[20px]">
-                                                {detail.grind_dgr_nm}
-                                            </p>
-                                            <div className="flex justify-between items-center">
+                        <>
+                            <div className="border border-border-default rounded-2xl py-3 px-4">
+                                <p className="text-sm font-bold text-gray-0 mb-3 leading-[20px]">
+                                    {selectedItem.cof_nm}
+                                </p>
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        {selectedItem?.details.map((detail, index) => (
+                                            <div key={index} className="flex justify-between items-center">
                                                 <div className="flex items-center gap-1">
+                                                    <span className='text-[#9CA3AF]'>•</span>
                                                     <span className='text-xs leading-[16px] font-normal text-text-secondary'>{detail.grind_dgr_nm}</span>
                                                     <span className='text-[#9CA3AF]'>•</span>
                                                     <span className='text-xs leading-[16px] font-normal text-text-secondary'>{detail.ord_wgt_nm}</span>
+                                                    <span className='text-[#9CA3AF]'>•</span>
+                                                    <span className='text-xs leading-[16px] font-normal text-text-secondary'>{detail.ord_qty}개</span>
                                                 </div>
-                                                <p className="text-sm font-bold text-gray-0 leading-[20px]">
-                                                    {detail.ord_amt}원
-                                                </p>
                                             </div>
-                                        </div>
-                                    ))}
-
-                                    <div className="border border-border-default rounded-2xl py-3 px-4 text-gray-0">
-                                        <p className="text-sm font-bold mb-3 leading-[20px]">주문정보</p>
-                                        <div className="space-y-2 text-xs">
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">주문번호</span>
-                                                <span className="font-bold leading-[16px]">{selectedItem.ord_no}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">요청 일자</span>
-                                                <span className="font-bold leading-[16px]">{selectedItem.cre_dt.replace(/\.\d+/, '').replace('T', ' ').slice(0, 16)}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">요청 커피</span>
-                                                <span className="font-bold leading-[16px]">{selectedItem.cof_nm}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">상태</span>
-                                                <span
-                                                    className="font-bold leading-[16px]"
-                                                    style={{ color: selectedItem.sts_nm === '결제완료' ? 'text-[#28A745]' : 'text-gray-0' }}
-                                                >
-                                                    {selectedItem.sts_nm}
-                                                </span>
-                                            </div>
-                                        </div>
+                                        ))}
                                     </div>
+                                    <p className="text-sm font-bold text-gray-0 leading-[20px]">
+                                        {Math.floor(selectedItem?.details?.reduce((acc, detail) => acc + Number(detail?.ord_amt), 0) || 0).toLocaleString()}원
+                                    </p>
+                                </div>
+                            </div>
 
-                                    {/* Basic Information */}
-                                    <div className="border border-border-default rounded-2xl py-3 px-4 text-gray-0 mb-6">
-                                        <p className="text-sm font-bold mb-3 leading-[20px]">기본 정보</p>
-                                        <div className="space-y-2 text-xs">
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">이름</span>
-                                                <span className="font-bold leading-[16px]">{selectedItem.ord_no}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">전화번호</span>
-                                                <span className="font-bold leading-[16px]">{phoneNumber}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="leading-[18px] font-normal">배송지 주소</span>
-                                                <span className="font-bold leading-[16px] text-right">{'서울시 강동구 암사동 ○○아파트 102동 1002호'}</span>
-                                            </div>
-                                        </div>
+                            <div className="border border-border-default rounded-2xl py-3 px-4 text-gray-0">
+                                <p className="text-sm font-bold mb-3 leading-[20px]">주문정보</p>
+                                <div className="space-y-2 text-xs">
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">주문번호</span>
+                                        <span className="font-bold leading-[16px]">{selectedItem.ord_no}</span>
                                     </div>
-                                </>
-                            )
-                        }
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">요청 일자</span>
+                                        <span className="font-bold leading-[16px]">{selectedItem.cre_dt.replace(/\.\d+/, '').replace('T', ' ').slice(0, 16)}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">요청 커피</span>
+                                        <span className="font-bold leading-[16px]">{selectedItem.cof_nm}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">상태</span>
+                                        <span
+                                            className="font-bold leading-[16px]"
+                                            style={{ color: selectedItem.sts_nm === '결제완료' ? 'text-[#28A745]' : 'text-gray-0' }}
+                                        >
+                                            {selectedItem.sts_nm}
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">수령 방법</span>
+                                        <span className="font-bold leading-[16px]">{orderDetailData?.rct_nm}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Basic Information */}
+                            <div className="border border-border-default rounded-2xl py-3 px-4 text-gray-0 mb-6">
+                                <p className="text-sm font-bold mb-3 leading-[20px]">기본 정보</p>
+                                <div className="space-y-2 text-xs">
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">이름</span>
+                                        <span className="font-bold leading-[16px]">{name}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">전화번호</span>
+                                        <span className="font-bold leading-[16px]">{phoneNumber}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="leading-[18px] font-normal">배송지 주소</span>
+                                        <span className="font-bold leading-[16px] text-right">{orderDetailData?.de_addr}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
                         {
                             !selectedItem?.ord_no?.startsWith("B") && (
                                 <button
                                     className="btn-primary w-full mb-2"
-                                    onClick={() => { setOpenActionSheet("detail"); setIsActionSheetOpen(false) }}
+                                    onClick={() => { setIsActionSheetOpen(false); setOpenActionSheet("detail") }}
                                 >
                                     원두 예약 주문
                                 </button>)
@@ -205,7 +191,7 @@ export default function OnEventHistoryPage() {
 
                         <button
                             className="btn-primary-outline w-full"
-                            onClick={() => setIsActionSheetOpen(false)}
+                            onClick={() => { setIsActionSheetOpen(false); setSelectedItem(null); }}
                         >
                             닫기
                         </button>
@@ -216,13 +202,8 @@ export default function OnEventHistoryPage() {
             <ActionFlow
                 openActionSheet={openActionSheet}
                 setOpenActionSheet={setOpenActionSheet}
-                descriptionData={{...selectedItem, tst_usr_nm: name, hphn_no: phoneNumber, blnd_nm: selectedItem?.cof_nm}}
+                descriptionData={{ ...selectedItem, tst_usr_nm: name, hphn_no: phoneNumber, blnd_nm: selectedItem?.cof_nm }}
             />
-            {/* <ActionFlow 
-                openActionSheet={openActionSheet} 
-                setOpenActionSheet={setOpenActionSheet} 
-                descriptionData={descriptionData?.item}
-            /> */}
         </>
     );
 }

@@ -5,9 +5,12 @@ import { useGet, usePost } from "@/hooks/useApi";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 const DEFAULT_PRICE = 16800;
 const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { openActionSheet: string | null, setOpenActionSheet: (openActionSheet: string | null) => void, descriptionData?: any }) => {
+    const router = useRouter();
+    const pathname = usePathname();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -44,7 +47,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
 
 
     useEffect(() => {
-        if(openActionSheet === 'detail') {
+        if (openActionSheet === 'detail') {
             setOrderData({
                 option: '',
                 caffeine: '카페인',
@@ -67,7 +70,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
                 }>,
             })
         }
-    }, [])
+    }, [openActionSheet])
     useEffect(() => {
         if (orderData.deliveryMethod === '배송') {
             setIsAnimating(true);
@@ -89,7 +92,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
             setOpenActionSheet('order-confirm');
         },
     });
-    
+
     const handleOrderCoffee = () => {
         const orderObject = {
             tst_id: descriptionData?.tst_id,
@@ -97,7 +100,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
             de_addr: orderData.deliveryAddress,
             n1st_apro_flg: orderData.agreements.personalInfo ? "Y" : "N",
             n2nd_apro_flg: orderData.agreements.marketing ? "Y" : "N",
-            ord_sts_cd: "N",
+            ord_sts_cd: "A",
             delt_flg: "N",
             details: orderData.options.map((opt) => ({
                 grind_dgr_cd: opt.grind === "홀빈" ? "A" : "B",
@@ -109,7 +112,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
         orderCoffee(orderObject);
     }
 
-    const { data: tastesData, refetch: refetchTastesData } = useGet(
+    const { data: tastesData } = useGet(
         ["mycoffee/tst-org", orderCoffeeData?.out_ord_no],
         `/mycoffee/tst-org/${orderCoffeeData?.out_ord_no}`,
         {},
@@ -117,6 +120,14 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
             enabled: !!orderCoffeeData?.out_ord_no
         }
     );
+
+    const onFinish = () => {
+        if (pathname === '/on-event/result') {
+            router.push('/on-event/analysis');
+        } else {
+            setOpenActionSheet(null);
+        }
+    }
 
     return (
         <>
@@ -151,6 +162,10 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
                             <span className="text-xs leading-[18px]">상태</span>
                             <span className="text-xs leading-[16px] font-bold">{descriptionData?.sts_nm}</span>
                         </div>
+                        {/* <div className="flex justify-between">
+                            <span className="leading-[18px] font-normal">수령 방법</span>
+                            <span className="font-bold leading-[16px]">{descriptionData.cof_nm}</span>
+                        </div> */}
                     </div>
                     <button className="btn-primary w-full mb-2" onClick={() => setOpenActionSheet('order')}>원두 예약 주문</button>
                     <button className="btn-primary-outline w-full" onClick={() => setOpenActionSheet(null)}>닫기</button>
@@ -196,7 +211,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
                                     <path d="M4 4L12 12" stroke="#1A1A1A" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-                            <p className="text-xs font-bold text-gray-0 mb-2 leading-[16px]">클래식 하모니 블랜드</p>
+                            <p className="text-xs font-bold text-gray-0 mb-2 leading-[16px]">{descriptionData?.cof_nm}</p>
                             <p className="text-xs text-text-secondary mb-6">{opt.option}</p>
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-[22px]">
@@ -260,10 +275,11 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
                                 setOpenActionSheet('option');
                             }
                         }}
+                        disabled={orderData.options.length === 0}
                     >
                         다음으로
                     </button>
-                    <button className="btn-primary-outline w-full" onClick={() => setOpenActionSheet(null)}>닫기</button>
+                    <button className="btn-primary-outline w-full" onClick={() => setOpenActionSheet("detail")}>닫기</button>
                 </div>
             </ActionSheet>
 
@@ -335,7 +351,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
                     >
                         선택 완료
                     </button>
-                    <button className="btn-primary-outline w-full" onClick={() => setOpenActionSheet(null)}>닫기</button>
+                    <button className="btn-primary-outline w-full" onClick={() => setOpenActionSheet("order")}>닫기</button>
                 </div>
             </ActionSheet>
 
@@ -392,37 +408,37 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
 
                         </div>
                     )}
-                        <label className="flex items-center gap-2 cursor-pointer border-t border-border-default pt-5 mb-[18px] mt-4">
-                            <input
-                                type="checkbox"
-                                checked={orderData.agreements.personalInfo}
-                                onChange={() => setOrderData({ ...orderData, agreements: { ...orderData.agreements, personalInfo: !orderData.agreements.personalInfo } })}
-                                className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
-                            />
-                            <span className="text-xs leading-[18px] text-gray-0 font-normal">
-                                개인정보 수집 동의 (필수)
-                            </span>
-                            <ChevronRight size={20} className="ml-auto text-icon-default" />
-                        </label>
+                    <label className="flex items-center gap-2 cursor-pointer border-t border-border-default pt-5 mb-[18px] mt-4">
+                        <input
+                            type="checkbox"
+                            checked={orderData.agreements.personalInfo}
+                            onChange={() => setOrderData({ ...orderData, agreements: { ...orderData.agreements, personalInfo: !orderData.agreements.personalInfo } })}
+                            className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
+                        />
+                        <span className="text-xs leading-[18px] text-gray-0 font-normal">
+                            개인정보 수집 동의 (필수)
+                        </span>
+                        <ChevronRight size={20} className="ml-auto text-icon-default" />
+                    </label>
 
-                        <label className="flex items-center gap-2 cursor-pointer mb-6">
-                            <input
-                                type="checkbox"
-                                checked={orderData.agreements.marketing}
-                                onChange={() => setOrderData({ ...orderData, agreements: { ...orderData.agreements, marketing: !orderData.agreements.marketing } })}
-                                className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
-                            />
-                            <span className="text-xs leading-[18px] text-gray-0 font-normal">
-                                앱 출시 알림 동의 (선택)
-                            </span>
-                            <ChevronRight size={20} className="ml-auto text-icon-default" />
-                        </label>
+                    <label className="flex items-center gap-2 cursor-pointer mb-6">
+                        <input
+                            type="checkbox"
+                            checked={orderData.agreements.marketing}
+                            onChange={() => setOrderData({ ...orderData, agreements: { ...orderData.agreements, marketing: !orderData.agreements.marketing } })}
+                            className="auth-checkbox w-5 h-5 rounded-sm border border-border-default"
+                        />
+                        <span className="text-xs leading-[18px] text-gray-0 font-normal">
+                            앱 출시 알림 동의 (선택)
+                        </span>
+                        <ChevronRight size={20} className="ml-auto text-icon-default" />
+                    </label>
 
                     <div className={`transition-all duration-500 ease-in-out`}>
                         <button
                             className="btn-primary w-full mb-2"
                             onClick={handleOrderCoffee}
-                            disabled={isOrderingCoffee || !orderData.agreements.personalInfo || !orderData.agreements.marketing || (orderData.deliveryMethod === '배송' ? (!orderData.deliveryAddress) : false)}
+                            disabled={isOrderingCoffee || !orderData.agreements.personalInfo || (orderData.deliveryMethod === '배송' ? (!orderData.deliveryAddress) : false)}
                         >
                             주문 접수
                         </button>
@@ -452,19 +468,19 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
                             <p className="text-sm text-text-secondary font-normal mb-6">주문 요청이 완료되었습니다.</p>
                             <p className="text-sm text-text-secondary font-bold underline ">* 부스에서 결제를 진행하여 주문을 확정해주세요.</p>
                         </div>
-
-                        {
-                            tastesData?.details?.map((detail, index) => (
-                                <div key={index} className="border border-border-default rounded-2xl py-3 px-4">
-                                    <p className="text-sm font-bold text-gray-0 mb-3 leading-[20px]">클래식 하모니 블랜드</p>
-                                    <div className="flex justify-between items-center">
-                                        <p className="text-xs text-text-secondary leading-[16px]">{detail.grind_dgr_nm} • {detail.ord_wgt_nm}</p>
-                                        <p className="text-sm font-bold text-gray-0 leading-[20px]">{detail.ord_amt.toLocaleString()}원</p>
-                                    </div>
+                        <div className="border border-border-default rounded-2xl py-3 px-4">
+                            <p className="text-sm font-bold text-gray-0 mb-2 leading-[20px]">{tastesData?.cof_nm}</p>
+                            <div className="flex justify-between items-center">
+                                <div className="space-y-1">
+                                    {
+                                        tastesData?.details?.map((detail, index) => (
+                                            <p className="text-xs text-text-secondary leading-[16px]">{detail.grind_dgr_nm} • {detail.ord_wgt_nm} • {detail.ord_qty}개</p>
+                                        ))
+                                    }
                                 </div>
-                            ))
-                        }
-
+                                <p className="text-sm font-bold text-gray-0 leading-[20px]">{Math.floor(tastesData?.details?.reduce((acc, detail) => acc + Number(detail.ord_amt), 0) || 0).toLocaleString()}원</p>
+                            </div>
+                        </div>
 
                         <div className="border border-border-default rounded-2xl py-3 px-4 text-gray-0">
                             <p className="text-sm font-bold mb-3 leading-[20px]">주문정보</p>
@@ -512,7 +528,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
 
                     </div>
                 </div>
-                <Link href="/on-event/analysis" className="btn-primary-outline w-full inline-block text-center mt-4">메인으로</Link>
+                <button onClick={onFinish} className="btn-primary-outline w-full inline-block text-center mt-4">메인으로</button>
             </ActionSheet>
         </>
     );
