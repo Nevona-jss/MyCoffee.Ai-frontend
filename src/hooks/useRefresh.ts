@@ -8,7 +8,7 @@ interface RefreshResponse {
     data: {
         user_id: number;
         session_id: string;
-        access_token: string;
+        token: string;
         token_type: string;
         expires_in: number;
         result_code: string;
@@ -41,7 +41,7 @@ export function useRefresh() {
         try {
             const response = await api.post<RefreshResponse>('/auth/refresh');
             
-            if (response.status === 200 && response.data?.data?.access_token) {
+            if (response.status === 200 && response.data?.data?.token) {
                 sessionStorage.removeItem('auth_redirect');
                 setUser({data: response.data.data, meta: response.data.meta, isAuthenticated: true});
             }

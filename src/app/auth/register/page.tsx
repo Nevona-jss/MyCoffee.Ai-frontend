@@ -129,20 +129,10 @@ export default function Register() {
     '/auth/register',
     {
       onSuccess: (data) => {
-        if (data?.status === 'success' || data?.data) {
-          if (data?.data) {
-            setUser(data);
-          }
-          router.push('/home');
-          sessionStorage.removeItem('auth_redirect');
-        } else if (data?.status === 'exists') {
-          setRequestErrorMessage('이메일 또는 전화번호가 이미 등록되어 있습니다.');
-        } else {
-          setRequestErrorMessage('회원가입에 실패했습니다.');
-        }
+        router.push('/auth/login');
       },
       onError: (error) => {
-        setRequestErrorMessage(error?.response?.data?.message || '회원가입에 실패했습니다.');
+        setRequestErrorMessage(error?.response?.data?.detail || '회원가입에 실패했습니다.');
       },
     }
   );
@@ -157,9 +147,10 @@ export default function Register() {
       }
     });
 
-    // Check KCP verification
+    // Check required agreements only (personalInfo and terms, marketing is optional)
+    const requiredAgreementsMet = agreements.personalInfo && agreements.terms;
 
-    if (isValid && isAllAgreed) {
+    if (isValid && requiredAgreementsMet) {
       const data = {
         email: formData.email,
         password: formData.password,
@@ -167,6 +158,8 @@ export default function Register() {
         birth_date_in: formData.birthDate,
         gender: formData.gender,
         phone_number: formData.phone,
+        
+
         // verified: 1,
         // terms_agreed: agreements.terms,
         // privacy_agreed: agreements.personalInfo,
@@ -339,7 +332,7 @@ export default function Register() {
         </div>
         <button
           className={`w-full btn-primary mt-1`}
-          disabled={!isAllAgreed || isGettingSignup || !verifiedData}
+          disabled={!agreements.personalInfo || !agreements.terms || isGettingSignup || !verifiedData}
           onClick={handleRegister}
         >
           가입하기

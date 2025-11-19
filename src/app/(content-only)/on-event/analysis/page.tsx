@@ -8,7 +8,6 @@ import { CoffeeData } from '@/types/coffee';
 import { useRecommendationStore } from '@/stores/recommendation-store';
 import { api } from '@/lib/api';
 import SpiderChart from '../../analysis/SpiderChart';
-import Link from 'next/link';
 import Modal from 'react-responsive-modal';
 
 type GetRecommendationsParams = {
@@ -56,13 +55,12 @@ export default function AnalysisPage() {
     });
 
     const handleSubmitAnalysis = useCallback(() => {
-        //sweetness bilan acidity almashib qolgan shuning uchun keylar almashib qolgan!!!
         getRecommendations({
             aroma: ratings.aroma,
-            acidity: ratings.sweetness,
+            acidity: ratings.acidity,
             nutty: ratings.nutty,
             body: ratings.body,
-            sweetness: ratings.acidity,
+            sweetness: ratings.sweetness,
             userId: userId,
             saveAnalysis: 0,
         });

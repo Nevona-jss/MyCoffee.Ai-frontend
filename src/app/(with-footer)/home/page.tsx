@@ -1,25 +1,32 @@
 'use client';
 
 import { useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import MyCollection from '@/components/MyCollection';
 import TodaysCoffeePick from '@/components/TodaysCoffeePick';
 import UserReviews from '@/components/UserReviews';
 import CoffeeStories from '@/components/CoffeeStories';
 import Footer from '@/components/Footer';
+import { setAccessTokenCookie } from '@/utils/cookies';
 
 function HomePageContent() {
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const token = searchParams.get('token');
             if (token) {
-                localStorage.setItem('token', token);
+                setAccessTokenCookie(token);
+                
+                // Remove token from URL
+                const url = new URL(window.location.href);
+                url.searchParams.delete('token');
+                router.replace(url.pathname + url.search, { scroll: false });
             }
         }
-    }, [searchParams]);
+    }, [searchParams, router]);
 
     return (
         <div className="bg-background w-full">

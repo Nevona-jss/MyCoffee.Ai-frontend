@@ -37,7 +37,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
             </svg>
         },
         {
-            key: 'acidity', 
+            key: 'sweetness', 
             label: '단맛',
             position: 'top-left',
             detailedDescription: '원두 본연의 자연스러운 달콤함의 정도',
@@ -47,7 +47,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
             </svg>
         },
         {
-            key: 'sweetness', 
+            key: 'body', 
             label: '바디',
             position: 'top-right',
             detailedDescription: '입안에 퍼지는 묵직함과 질감의 깊이의 정도',
@@ -66,7 +66,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
             </svg>
         },
         {
-            key: 'body', 
+            key: 'acidity', 
             label: '산미',
             position: 'bottom-right',
             detailedDescription: '상큼한 과일처럼 생동감 있는 맛의 정도',

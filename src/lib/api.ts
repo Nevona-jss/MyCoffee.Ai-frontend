@@ -15,7 +15,17 @@ const apiClient: AxiosInstance = axios.create({
 // Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    const token = useUserStore.getState().user.data.access_token;
+    let token = useUserStore.getState().user.data.token;
+    
+    // If token is not in store, try to get it from cookies
+    if (!token && typeof document !== 'undefined') {
+      const cookies = document.cookie.split(';');
+      const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('token='));
+      if (tokenCookie) {
+        token = tokenCookie.split('=')[1]?.trim();
+      }
+    }
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -45,7 +55,7 @@ apiClient.interceptors.response.use(
       try {
         const response = await apiClient.post('/auth/refresh');
 
-        if (response.status === 200 && response.data?.data?.access_token) {
+        if (response.status === 200 && response.data?.data?.token) {
           const currentUser = useUserStore.getState().user;
 
           useUserStore.getState().setUser({
@@ -60,7 +70,7 @@ apiClient.interceptors.response.use(
           
 
           // Retry the original request with new token
-          originalRequest.headers.Authorization = `Bearer ${response.data.data.access_token}`;
+          originalRequest.headers.Authorization = `Bearer ${response.data.data.token}`;
           return apiClient(originalRequest);
         }
       } catch (refreshError) {

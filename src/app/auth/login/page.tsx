@@ -8,6 +8,7 @@ import { useHeaderStore } from "@/stores/header-store";
 import { Lock, Mail } from "lucide-react";
 import { usePost } from "@/hooks/useApi";
 import { User, useUserStore } from "@/stores/user-store";
+import { setAccessTokenCookie } from "@/utils/cookies";
 
 const warningIcon = () => {
   return (
@@ -49,16 +50,27 @@ export default function Login() {
     '/auth/login',
     {
       onSuccess: (data) => {
-        console.log('Login response:', data);
-        console.log('All cookies:', document.cookie);
+        console.log("data", data);
         
-        if (data?.data) {
-          sessionStorage.removeItem('auth_redirect');
-          setUser(data);
-          setTimeout(() => {
-            console.log('Cookies after delay:', document.cookie);
+        if(data?.success){
+          if(data?.token){
+            setAccessTokenCookie(data.token);
+            setUser({
+              data: {
+                user_id: data.userId,
+                session_id: data.session_id,
+                token: data.token,
+                token_type: data.token_type,
+                expires_in: data.expires_in,
+                result_code: data.result_code,
+                result_message: data.result_message
+              },
+              meta: data.meta,
+              isAuthenticated: true
+            });
             router.push('/home');
-          }, 100);
+          }
+          
         }
       },
       onError: (error) => {

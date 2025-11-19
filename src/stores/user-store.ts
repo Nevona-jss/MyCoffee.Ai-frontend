@@ -5,7 +5,7 @@ export interface User {
     data: {
         user_id: number,
         session_id: string,
-        access_token: string,
+        token: string,
         token_type: string,
         expires_in: number,
         result_code: string,
@@ -26,7 +26,7 @@ const initialUser: User = {
     data: {
         user_id: 0,
         session_id: "",
-        access_token: "",
+        token: "",
         token_type: "",
         expires_in: 0,
         result_code: "",

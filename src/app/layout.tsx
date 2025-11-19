@@ -37,13 +37,13 @@ export default function RootLayout({
         <QueryProvider>
         <GlobalLoader>
           <SpinnerGlobalLoader />
-          {/* <ProtectedRoutes> */}
+          <ProtectedRoutes>
             <div className="flex flex-col">
               <div className="w-full min-h-[100dvh] sm:max-w-sm sm:mx-auto bg-background">
                 {children}
               </div>
             </div>
-          {/* </ProtectedRoutes> */}
+          </ProtectedRoutes>
           </GlobalLoader>
         </QueryProvider>
       </body>
