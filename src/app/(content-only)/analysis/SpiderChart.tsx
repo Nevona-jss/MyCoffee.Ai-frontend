@@ -20,8 +20,29 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
     const animationFrameRef = useRef<number | null>(null);
     const pendingUpdateRef = useRef<{ tasteKey: keyof CoffeePreferences; value: number } | null>(null);
     const hasMoved = useRef(false);
+    const touchStartPosRef = useRef<{ x: number; y: number; time: number } | null>(null);
+    const touchStartTasteIndexRef = useRef<number | null>(null);
     const [openActionSheet, setOpenActionSheet] = useState<string | null>(null);
-    // const { setPreferences } = useRecommendationStore();
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect if device is a phone (mobile device)
+    useEffect(() => {
+        const checkIsMobile = () => {
+            // Check if device is a phone by user agent and screen size
+            const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+            const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+            
+            // Consider it mobile if it's a mobile device OR small screen
+            setIsMobile(isMobileDevice);
+        };
+        
+        checkIsMobile();
+        window.addEventListener('resize', checkIsMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }, []);
 
     const baseTasteLabels = [
         {
@@ -80,7 +101,6 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
     ];
 
     const tasteLabels = useMemo(() => {
-        // Agar tastes data bo'lmasa, default qiymatlarni qaytar
         if (!tastes || !Array.isArray(tastes) || tastes.length === 0) {
             return baseTasteLabels;
         }
@@ -106,13 +126,6 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
         });
     }, [ratings]);
 
-    const smoothUpdateRating = useCallback((taste: keyof CoffeePreferences, value: number) => {
-        // Direct update for smoother dragging
-        updateRating(taste, value);
-    }, [updateRating]);
-
-
-    // Cleanup animation frame on unmount
     useEffect(() => {
         return () => {
             if (animationFrameRef.current !== null) {
@@ -134,7 +147,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
         const centerY = 210;
-        const maxRadius = 130;
+        const maxRadius = 123;
 
         const handleMouseMove = (e: MouseEvent) => {
             e.preventDefault();
@@ -185,26 +198,59 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
 
     const startHandleTouchDrag = (event: React.TouchEvent, tasteIndex: number) => {
         if (!isChangable) return;
-        event.preventDefault();
         event.stopPropagation();
         const svg = event.currentTarget.closest('svg');
         if (!svg || event.touches.length === 0) return;
+        
+        // Prevent default to stop page scroll when starting touch on chart
+        // We'll allow click detection in touchEnd if no movement occurred
+        event.preventDefault();
 
+        const touch = event.touches[0];
+        const startX = touch.clientX;
+        const startY = touch.clientY;
+        const startTime = Date.now();
+        
+        // Save initial touch position for click detection
+        touchStartPosRef.current = { x: startX, y: startY, time: startTime };
+        touchStartTasteIndexRef.current = tasteIndex;
+        
         hasMoved.current = false;
         activeTasteIndexRef.current = tasteIndex;
 
         const rect = svg.getBoundingClientRect();
         const centerX = 200;
         const centerY = 210;
-        const maxRadius = 130;
+        const maxRadius = 123;
+        
+        // Minimum distance to consider it a drag (not a click) - increased for better click detection
+        const MIN_DRAG_DISTANCE = 10;
 
         const handleTouchMove = (e: TouchEvent) => {
-            e.preventDefault();
             if (activeTasteIndexRef.current === null || e.touches.length === 0) return;
 
             const touch = e.touches[0];
-            hasMoved.current = true;
-            if (!isDragging) setIsDragging(true);
+            
+            // Always prevent default during touch move to stop page scroll
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Check if touch has moved enough to be considered a drag
+            if (touchStartPosRef.current) {
+                const deltaX = Math.abs(touch.clientX - touchStartPosRef.current.x);
+                const deltaY = Math.abs(touch.clientY - touchStartPosRef.current.y);
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                if (distance > MIN_DRAG_DISTANCE) {
+                    hasMoved.current = true;
+                    if (!isDragging) setIsDragging(true);
+                } else {
+                    // If not enough movement yet, still prevent scroll but don't update rating
+                    return;
+                }
+            } else {
+                return;
+            }
 
             const svgWidth = rect.width;
             const svgHeight = rect.height;
@@ -235,21 +281,66 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
         };
 
         const handleTouchEnd = (e: TouchEvent) => {
-            e.preventDefault();
+            // Check if it was a click (not a drag) before preventing default
+            let wasClick = false;
+            if (touchStartPosRef.current && touchStartTasteIndexRef.current !== null && !hasMoved.current) {
+                const touch = e.changedTouches[0];
+                if (touch) {
+                    const deltaX = Math.abs(touch.clientX - touchStartPosRef.current.x);
+                    const deltaY = Math.abs(touch.clientY - touchStartPosRef.current.y);
+                    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                    const timeDiff = Date.now() - touchStartPosRef.current.time;
+                    
+                    // If touch was quick and didn't move much, treat as click
+                    if (distance < MIN_DRAG_DISTANCE && timeDiff < 500) {
+                        wasClick = true;
+                        // Use setTimeout to ensure the click is processed after touch events
+                        setTimeout(() => {
+                            const currentValue = ratings[tasteLabels[touchStartTasteIndexRef.current!].key as keyof CoffeePreferences];
+                            const newValue = currentValue >= 5 ? 1 : currentValue + 1;
+                            updateRating(tasteLabels[touchStartTasteIndexRef.current!].key as keyof CoffeePreferences, newValue);
+                        }, 0);
+                    }
+                }
+            }
+            
+            // Only prevent default if it was a drag, not a click
+            if (!wasClick && hasMoved.current) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
             setIsDragging(false);
             activeTasteIndexRef.current = null;
+            touchStartPosRef.current = null;
+            touchStartTasteIndexRef.current = null;
+            hasMoved.current = false;
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
+            document.removeEventListener('touchcancel', handleTouchCancel);
+        };
+
+        const handleTouchCancel = (e: TouchEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDragging(false);
+            activeTasteIndexRef.current = null;
+            touchStartPosRef.current = null;
+            touchStartTasteIndexRef.current = null;
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchEnd);
+            document.removeEventListener('touchcancel', handleTouchCancel);
         };
 
         document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd, { passive: false });
+        document.addEventListener('touchcancel', handleTouchCancel, { passive: false });
     };
 
     const generateRadarPath = () => {
         const centerX = 200;
         const centerY = 210;
-        const maxRadius = 130;
+        const maxRadius = 123;
 
         const points = tasteLabels.map((taste, index) => {
             const angle = (index * 72 - 90) * (Math.PI / 180); // 72 degrees between each point
@@ -269,6 +360,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
     return (
         <div
             className={`mb-8 ${isChangable ? 'swiper-no-swiping' : ''} ${wrapperClassName}`}
+            style={{ touchAction: isChangable ? 'none' : 'auto' }}
             onTouchStart={isChangable ? (e) => e.stopPropagation() : undefined}
             onTouchMove={isChangable ? (e) => e.stopPropagation() : undefined}
             onMouseDown={isChangable ? (e) => e.stopPropagation() : undefined}
@@ -276,19 +368,20 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
             <svg
                 className={`mx-auto no-select ${
                     size === 'large' 
-                        ? 'w-[325px] h-[315px] sm:w-[355px] sm:h-[350px]'
+                        ? 'w-[325px] h-[315px] sm:w-[370px] sm:h-[350px]'
                         : size === 'medium'
-                        ? 'w-[250px] h-[263px] sm:w-[310px] sm:h-[310px]'
-                        : 'w-[200px] h-[210px] sm:w-[250px] sm:h-[253px]'
+                        ? 'w-[250px] h-[263px] sm:w-[322px] sm:h-[310px]'
+                        : 'w-[216px] h-[210px] sm:w-[264px] sm:h-[253px]'
                 }`}
                 viewBox="0 0 400 415"
                 preserveAspectRatio="xMidYMid meet"
+                style={{ touchAction: isChangable ? 'none' : 'auto' }}
             >
                 {/* Grid - Concentric pentagons with varying stroke width */}
                 {[1, 2, 3, 4, 5].map((level) => {
                     const centerX = 200;
                     const centerY = 210;
-                    const maxRadius = 130;
+                    const maxRadius = 123;
                     const radius = (level / 5) * maxRadius;
                     const strokeWidth = level / 2.2; // 1, 2, 3, 4, 5
 
@@ -324,7 +417,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                 {[0, 1, 2, 3, 4].map((i) => {
                     const centerX = 200;
                     const centerY = 210;
-                    const maxRadius = 130;
+                    const maxRadius = 123;
                     const angle = (i * 72 - 90) * (Math.PI / 180);
                     const x = centerX + maxRadius * Math.cos(angle);
                     const y = centerY + maxRadius * Math.sin(angle);
@@ -348,7 +441,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                 {[0, 1, 2, 3, 4].map((axisIndex) => {
                     const centerX = 200;
                     const centerY = 210;
-                    const maxRadius = 130;
+                    const maxRadius = 123;
                     const angle = (axisIndex * 72 - 90) * (Math.PI / 180);
                     const tasteKey = tasteLabels[axisIndex].key as keyof CoffeePreferences;
                     return (
@@ -382,7 +475,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                 {tasteLabels.map((taste, index) => {
                     const centerX = 200;
                     const centerY = 210;
-                    const maxRadius = 130;
+                    const maxRadius = 123;
                     const angle = (index * 72 - 90) * (Math.PI / 180);
                     const cornerX = centerX + maxRadius * Math.cos(angle);
                     const cornerY = centerY + maxRadius * Math.sin(angle);
@@ -436,7 +529,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                 {/* Rounded corner circles at connection points */}
                 {tasteLabels.map((taste, index) => {
                     const angle = (index * 72 - 90) * (Math.PI / 180);
-                    const currentRadius = (ratings[taste.key as keyof CoffeePreferences] / 5) * 130;
+                    const currentRadius = (ratings[taste.key as keyof CoffeePreferences] / 5) * 123;
                     const pointX = 200 + currentRadius * Math.cos(angle);
                     const pointY = 210 + currentRadius * Math.sin(angle);
 
@@ -467,16 +560,16 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                     if (taste.key === 'aroma') { // 향 - top
                         labelRadius = 160 + 17; // 17px up
                     } else if (taste.key === 'acidity' || taste.key === 'sweetness') { // 산미, 단맛 - sides
-                        labelRadius = 160 + 12; // 12px out
+                        labelRadius = 160 + 12 + 10; // 12px out + 10px further
                     } else if (taste.key === 'nutty' || taste.key === 'body') { // 고소함, 바디 - bottom
-                        labelRadius = 160 + 7; // 7px out
+                        labelRadius = 160 + 7 + 10; // 7px out + 10px further
                     }
 
                     const labelX = 200 + labelRadius * Math.cos(angle);
                     const labelY = 210 + labelRadius * Math.sin(angle);
 
                     // Current rating position
-                    const currentRadius = (ratings[taste.key as keyof CoffeePreferences] / 5) * 130;
+                    const currentRadius = (ratings[taste.key as keyof CoffeePreferences] / 5) * 123;
                     const pointX = 200 + currentRadius * Math.cos(angle);
                     const pointY = 210 + currentRadius * Math.sin(angle);
 
@@ -487,7 +580,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                                 {/* Badge background - light beige rounded rectangle - clickable */}
                                 <rect
                                     x={labelX - 40}
-                                    y={labelY - (taste?.key === "body" ? 30 : 20)}
+                                    y={labelY - 20}
                                     width="83"
                                     height="36"
                                     rx="18"
@@ -505,7 +598,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                                 {/* Icon and text container - centered */}
                                 <foreignObject
                                     x={labelX - 40}
-                                    y={labelY - (taste?.key === "body" ? 30 : 20)}
+                                    y={labelY - 20}
                                     width="80"
                                     height="36"
                                     style={{ overflow: 'visible', pointerEvents: 'none' }}
@@ -545,7 +638,6 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                             >
                                 {ratings[taste.key as keyof CoffeePreferences]}
                             </text>
-                            {/* "/5" text in black */}
                             <text
                                 x={labelX - 6}
                                 y={labelY + 30}
@@ -559,7 +651,7 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                                     transition: 'all 0.1s ease-out'
                                 }}
                             >
-                                <tspan dx="5.5">/5</tspan>
+                                <tspan dx="5.5" dy={isMobile ? "0.25em" : "0"}>/5</tspan>
                             </text>
 
                             <circle
@@ -571,7 +663,9 @@ const SpiderChart = ({ ratings, setRatings, isChangable = true, isClickable = tr
                                 onClick={(e) => {
                                     if (!isChangable) return;
                                     e.stopPropagation();
-                                    if (hasMoved.current) {
+                                    // Only handle click if it wasn't a drag
+                                    // Touch events handle clicks themselves, but this is for mouse clicks
+                                    if (hasMoved.current || isDragging) {
                                         hasMoved.current = false;
                                         return;
                                     }

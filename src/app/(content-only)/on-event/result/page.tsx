@@ -39,7 +39,6 @@ export default function ResultPage() {
         }
     });
 
-    // Agar refresh bo'lsa (recommendations yo'q), analysis page'ga redirect
     useEffect(() => {
         if (!recommendations?.length || !recommendations?.[0] || !recommendations?.[0].coffee_blend_id) {
             setIsRedirecting(true);
@@ -47,7 +46,6 @@ export default function ResultPage() {
         }
     }, [recommendations, router]);
 
-    // Redirect bo'layotganda hech narsa ko'rsatma
     if (isRedirecting || !recommendations?.length || !recommendations?.[0] || !recommendations?.[0].coffee_blend_id) {
         return null;
     }

@@ -75,16 +75,14 @@ export default function AnalysisPage() {
                         </p>
                     </div>
 
-                    {/* Main Content */}
                     <div className="flex-1 flex flex-col justify-center items-center px-6 pb-8 sm:mx-auto">
-                        {/* Radar Chart */}
                         <SpiderChart
                             ratings={ratings} 
                             setRatings={setRatings}
+                            size='large'
                         />
                     </div>
                 </div>
-                {/* CTA Button */}
                 <button
                     onClick={handleSubmitAnalysis}
                     disabled={isGettingRecommendations}

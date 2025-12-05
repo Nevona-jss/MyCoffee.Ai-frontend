@@ -35,6 +35,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [requestErrorMessage, setRequestErrorMessage] = useState('');
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
 
   const router = useRouter();
   const { setUser } = useUserStore();
@@ -79,15 +83,56 @@ export default function Login() {
     }
   );
 
+  const validateField = (name: string, value: string) => {
+    let error = '';
+
+    switch (name) {
+      case 'email':
+        if (!value) {
+          error = '이메일을 입력해주세요.';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = '올바른 이메일 형식을 입력해주세요.';
+        }
+        break;
+      case 'password':
+        if (!value) {
+          error = '비밀번호를 입력해주세요.';
+        }
+        break;
+    }
+
+    setErrors(prev => ({ ...prev, [name]: error }));
+    return error === '';
+  };
+
+  const handleInputChange = (name: string, value: string) => {
+    setRequestErrorMessage('');
+    setErrorMessage(null);
+    
+    if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+    
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
   const handleLogin = async () => {
     setErrorMessage(null);
-    if (!email || !password) {
-      setErrorMessage("이메일과 비밀번호를 입력해주세요.");
+    setRequestErrorMessage('');
+    
+    const isEmailValid = validateField('email', email);
+    const isPasswordValid = validateField('password', password);
+    
+    if (!isEmailValid || !isPasswordValid) {
       return;
     }
+    
     try {
       signin({ email, password });
-      // router.push('/home');
     } catch (err: any) {
       setErrorMessage(err?.message || "로그인 실패");
     }
@@ -115,13 +160,20 @@ export default function Login() {
             <input
               type="email"
               id="email"
-              className="input-default !pl-11"
+              className={`input-default !pl-11 ${errors.email ? 'border-[#EF4444]' : 'border-[#E6E6E6]'}`}
               placeholder="이메일을 입력하세요."
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              onBlur={(e) => validateField('email', e.target.value)}
             />
           </div>
+          {errors.email && (
+            <div className="flex items-center gap-1 mt-2">
+              {warningIcon()}
+              <span className="text-[#EF4444] text-[12px] font-normal">{errors.email}</span>
+            </div>
+          )}
         </div>
 
         {/* Password Input */}
@@ -136,11 +188,12 @@ export default function Login() {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className="input-default !pl-11 pr-10"
+              className={`input-default !pl-11 pr-10 ${errors.password ? 'border-[#EF4444]' : 'border-[#E6E6E6]'}`}
               placeholder="비밀번호를 입력해주세요."
               required
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => handleInputChange('password', e.target.value)}
+              onBlur={(e) => validateField('password', e.target.value)}
             />
             <button
               type="button"
@@ -162,6 +215,12 @@ export default function Login() {
               )}
             </button>
           </div>
+          {errors.password && (
+            <div className="flex items-center gap-1 mt-2">
+              {warningIcon()}
+              <span className="text-[#EF4444] text-[12px] font-normal">{errors.password}</span>
+            </div>
+          )}
         </div>
 
         {/* Remember Me Checkbox */}

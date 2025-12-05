@@ -75,11 +75,11 @@ export default function AdminEventOrderReception() {
                             >
                                 <p className="text-[10px] font-bold leading-[16px] mb-4">{item?.cre_dt.replace(/\.\d+/, '').replace('T', ' ').slice(0, 16)}</p>
                                 <div className='border border-border-default rounded-2xl p-4 pb-3'>
-                                    <div className="flex justify-between items-center gap-1">
+                                    <div className="flex justify-between items-center gap-1 mb-4">
                                         <div>
                                             {/* <p className="text-sm font-bold leading-[20px]">{item?.cof_nm}</p> */}
                                             <div className="flex items-center gap-2">
-                                                {item.cof_nm && <span className="text-sm leading-[20px] font-bold bg-[#1A1A1A] rounded-[2px] border border-black text-white size-5 flex items-center justify-center">{staticBlends.find(blend => blend.name === item.cof_nm)?.value}</span>}
+                                                {/* {item.cof_nm && <span className="text-sm leading-[20px] font-bold bg-[#1A1A1A] rounded-[2px] border border-black text-white size-5 flex items-center justify-center">{staticBlends.find(blend => blend.name === item.cof_nm)?.value}</span>} */}
                                                 <p className="text-sm font-bold leading-[20px]">{item.cof_nm}</p>
                                             </div>
                                             <p className="text-sm font-bold leading-[20px] mt-2">{item.ord_no}</p>
@@ -95,7 +95,7 @@ export default function AdminEventOrderReception() {
                                             {item.sts_nm}
                                         </button>
                                     </div>
-                                    <div className="flex items-center justify-between gap-1 mb-4">
+                                    {/* <div className="flex items-center justify-between gap-1 mb-4">
                                         <div>
                                             {
                                                 item?.details?.map((detail, index) => (
@@ -111,7 +111,7 @@ export default function AdminEventOrderReception() {
                                             }
                                         </div>
                                         <p className='text-sm font-bold leading-[20px]'>{Math.floor(item?.details?.reduce((acc, detail) => acc + Number(detail?.ord_amt), 0) || 0).toLocaleString()}원</p>
-                                    </div>
+                                    </div> */}
                                     <div className="flex justify-between text-xs mb-2">
                                         <span className="text-xs font-normal leading-[18px]">이름</span>
                                         <span className="font-bold text-xs leading-[16px]">{item.tst_usr_nm}</span>
@@ -121,16 +121,16 @@ export default function AdminEventOrderReception() {
                                         <span className="font-bold text-xs leading-[16px]">{item.hphn_no}</span>
                                     </div>
                                     <div className="flex justify-between text-xs mb-2">
-                                        <span className="text-xs font-normal leading-[18px]">배송지 주소</span>
+                                        <span className="text-xs font-normal leading-[18px]">배송지</span>
                                         <div>
                                             <span className="block font-bold text-xs leading-[16px]">{item?.de_addr}</span>
                                             {/* <span className="block font-bold text-xs text-right leading-[16px]">102동 1002호</span> */}
                                         </div>
                                     </div>
-                                    <div className="flex justify-between text-xs mb-2">
+                                    {/* <div className="flex justify-between text-xs mb-2">
                                         <span className="text-xs font-normal leading-[18px]">수령 방법</span>
                                         <span className="font-bold text-xs leading-[16px]">{item.rct_nm}</span>
-                                    </div>
+                                    </div> */}
                                     <div className="flex justify-between text-xs mb-2">
                                         <span className="text-xs font-normal leading-[18px]">개인정보 수집 동의</span>
                                         <span className="font-bold text-xs leading-[16px]">

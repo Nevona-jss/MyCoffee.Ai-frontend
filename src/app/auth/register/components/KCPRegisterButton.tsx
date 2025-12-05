@@ -101,8 +101,8 @@ export default function KCPRegisterButton({
             </clipPath>
           </defs>
         </svg>
-        인증 요청
-      </div> : '인증 완료'}
+        인증 완료
+      </div> : '인증 요청'}
     </button>
   );
 }

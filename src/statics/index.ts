@@ -7,6 +7,6 @@ export const staticBlends = [
     { code: 'BLEND007', name: '안데스 허니 마일드', value: 8 },
     { code: 'BLEND008', name: '골드 하모니', value: 7 },
     { code: 'BLEND009', name: '티파니 블루', value: 4 },
-    { code: 'BLEND010', name: '트윈 비비드 플로워', value: 1 },
-    { code: 'BLEND017', name: '재규어 블렌드', value: 6 },
+    { code: 'BLEND010', name: '트윈 비비드 플로워\r', value: 1 },
+    { code: 'BLEND017', name: '재규어 블랜드', value: 6 },
 ];

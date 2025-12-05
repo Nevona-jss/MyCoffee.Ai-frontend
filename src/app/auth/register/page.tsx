@@ -94,19 +94,19 @@ export default function Register() {
         if (!value) {
           error = '이메일을 입력해주세요.';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          error = '이메일이 올바르게 입력되지 않았습니다.';
+          error = '올바른 이메일 형식을 입력해주세요.';
         }
         break;
       case 'password':
         if (!value) {
           error = '비밀번호를 입력해주세요.';
         } else if (value.length < 8) {
-          error = '비밀번호는 8자 이상이어야 합니다.';
+          error = '8~20자의 영문과 숫자를 포함해주세요.';
         }
         break;
       case 'confirmPassword':
         if (!value) {
-          error = '비밀번호를 다시 입력해주세요.';
+          error = '비밀번호를 입력해주세요.';
         } else if (value !== formData.password) {
           error = '비밀번호가 일치하지 않습니다.';
         }
@@ -120,7 +120,11 @@ export default function Register() {
   const handleInputChange = (name: string, value: string) => {
     setRequestErrorMessage('');
     setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name as keyof typeof errors]) {
+    
+    // Real-time validation for email while typing
+    if (name === 'email' && value) {
+      validateField('email', value);
+    } else if (errors[name as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
@@ -158,7 +162,7 @@ export default function Register() {
         birth_date_in: formData.birthDate,
         gender: formData.gender,
         phone_number: formData.phone,
-        
+
 
         // verified: 1,
         // terms_agreed: agreements.terms,
@@ -171,7 +175,7 @@ export default function Register() {
   };
 
   console.log("verifiedData", verifiedData);
-  
+
 
   return (
     <div className="">
@@ -326,13 +330,10 @@ export default function Register() {
               </div>
             </div>
           </div>
-
-          {/* Register Button */
-          }
         </div>
         <button
           className={`w-full btn-primary mt-1`}
-          disabled={!agreements.personalInfo || !agreements.terms || isGettingSignup || !verifiedData}
+          disabled={!agreements.personalInfo || !agreements.terms || isGettingSignup || !verifiedData || !!errors.email || !!errors.password || !!errors.confirmPassword}
           onClick={handleRegister}
         >
           가입하기

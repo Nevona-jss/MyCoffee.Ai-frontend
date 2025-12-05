@@ -9,7 +9,7 @@ const apiClient: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
-  // withCredentials: true,
+  withCredentials: true,
 });
 
 // Request interceptor
@@ -43,52 +43,88 @@ apiClient.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-
-    // Skip refresh logic if it's the refresh endpoint itself
     if (
       error.response?.status === 401 && 
       !originalRequest._retry &&
-      !originalRequest.url?.includes('/auth/refresh')
+      originalRequest &&
+      !originalRequest.url?.includes('/auth/refresh') &&
+      !originalRequest.url?.includes('/auth/me')
     ) {
       originalRequest._retry = true;
 
       try {
-        const response = await apiClient.post('/auth/refresh');
+        // Call refresh endpoint
+        const refreshResponse = await apiClient.post('/auth/refresh', {}, {
+          withCredentials: true,
+        });
 
-        if (response.status === 200 && response.data?.data?.token) {
+        // If refresh successful (200), update token and retry original request
+        if (refreshResponse.status === 200 && refreshResponse.data?.data?.token) {
+          const newToken = refreshResponse.data.data.token;
           const currentUser = useUserStore.getState().user;
 
+          // Convert expAt to number if it's a string
+          let expiresIn = refreshResponse.data.data.expires_in;
+          if (!expiresIn && refreshResponse.data.data.expAt) {
+            expiresIn = typeof refreshResponse.data.data.expAt === 'string' 
+              ? new Date(refreshResponse.data.data.expAt).getTime() / 1000 
+              : refreshResponse.data.data.expAt;
+          }
+
+          // Update user store with new token
           useUserStore.getState().setUser({
             ...currentUser,
             data: {
               ...currentUser.data,
-              ...response.data.data
-            }
+              user_id: refreshResponse.data.data.userId || currentUser.data.user_id,
+              session_id: refreshResponse.data.data.session_id || currentUser.data.session_id,
+              token: newToken,
+              token_type: refreshResponse.data.data.token_type || currentUser.data.token_type,
+              expires_in: expiresIn || currentUser.data.expires_in,
+              result_code: String(refreshResponse.data.data.result_code || currentUser.data.result_code),
+              result_message: refreshResponse.data.data.result_message || currentUser.data.result_message
+            },
+            meta: refreshResponse.data.meta || currentUser.meta
           });
 
-          console.log("refresh success", response.data);
-          
+          // Update cookie with new token
+          if (typeof document !== 'undefined') {
+            const { setAccessTokenCookie } = require('@/utils/cookies');
+            setAccessTokenCookie(newToken);
+          }
 
           // Retry the original request with new token
-          originalRequest.headers.Authorization = `Bearer ${response.data.data.token}`;
+          // Update authorization header
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          
+          // Retry original request - user won't notice this
           return apiClient(originalRequest);
+        } else {
+          throw new Error('No token in refresh response');
         }
       } catch (refreshError) {
+        // Refresh failed, clear user state
+        originalRequest._retry = false; // Reset retry flag
         useUserStore.getState().resetUser();
+        if (typeof document !== 'undefined') {
+          document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        }
         sessionStorage.setItem('auth_redirect', 'true');
-        // window.location.href = '/auth/login';
-        return Promise.reject(refreshError);
+        // Reject with original error, not refresh error
+        return Promise.reject(error);
       }
     }
 
-    // If it's a 401 on the refresh endpoint itself, redirect to login
+    // If it's a 401 on the refresh endpoint itself, clear user
     if (
       error.response?.status === 401 && 
-      originalRequest.url?.includes('/auth/refresh')
+      originalRequest?.url?.includes('/auth/refresh')
     ) {
       useUserStore.getState().resetUser();
+      if (typeof document !== 'undefined') {
+        document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      }
       sessionStorage.setItem('auth_redirect', 'true');
-      // window.location.href = '/auth/login';
     }
 
     return Promise.reject(error);
