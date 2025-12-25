@@ -123,7 +123,7 @@ const ActionFlow = ({ openActionSheet, setOpenActionSheet, descriptionData }: { 
 
     const onFinish = () => {
         if (pathname === '/on-event/result') {
-            router.push('/on-event/analysis');
+            router.push('/on-event');
         } else {
             setOpenActionSheet(null);
         }

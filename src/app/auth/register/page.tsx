@@ -170,6 +170,7 @@ export default function Register() {
         // marketing_agreed: agreements.marketing,
       };
 
+      
       signup(data);
     }
   };

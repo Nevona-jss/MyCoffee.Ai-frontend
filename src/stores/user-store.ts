@@ -9,7 +9,9 @@ export interface User {
         token_type: string,
         expires_in: number,
         result_code: string,
-        result_message: string
+        result_message: string,
+        username?: string,
+        phone?: string,
     }
     meta: {
         timestamp: string

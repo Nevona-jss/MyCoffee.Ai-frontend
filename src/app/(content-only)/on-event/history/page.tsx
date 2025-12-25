@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import HistoryCard from './components/HistoryCard';
 import ActionFlow from '../components/ActionFlow';
 import { useGet } from '@/hooks/useApi';
+import { useUserStore } from '@/stores/user-store';
 
 export type TastingOrderItem = {
     cre_dt: string;
@@ -26,7 +27,7 @@ export type TastingOrderItem = {
 export default function OnEventHistoryPage() {
 
     const { setHeader } = useHeaderStore();
-
+    const { user } = useUserStore();
     const [openActionSheet, setOpenActionSheet] = useState<string | null>(null);
     const [selectedItem, setSelectedItem] = useState<TastingOrderItem | null>(null);
     const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
@@ -40,8 +41,8 @@ export default function OnEventHistoryPage() {
         });
 
         if (typeof window !== 'undefined') {
-            setPhoneNumber(localStorage.getItem("hphn_no") || '');
-            setName(localStorage.getItem("tst_usr_nm") || '');
+            setPhoneNumber(user.data?.phone || '');
+            setName(user.data?.username || '');
         }
     }, []);
 

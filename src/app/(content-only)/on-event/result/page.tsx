@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecommendationStore } from '@/stores/recommendation-store';
 import { CoffeePreferences } from '@/types/coffee';
 import { useGet } from '@/hooks/useApi';
 import SpiderChart from '../../analysis/SpiderChart';
-import RegisterBtn from './registerBtn';
-import { Link } from 'lucide-react';
+import RegisterBtn from './components/registerBtn';
+import OnEventResultCollapse from './components/collapse';
+import { useTokenNavigationGuard } from '@/hooks/useTokenNavigationGuard';
 
 type BlendType = {
     name: string;
@@ -15,16 +16,18 @@ type BlendType = {
     origins: string[];
     ratings: CoffeePreferences;
 }
-export default function ResultPage() {
 
+function TokenGuard() {
+    useTokenNavigationGuard();
+    return null;
+}
+
+function ResultContent() {
     const [open, setOpen] = useState(false);
-
+    const router = useRouter();
+    const { recommendations, setRecommendations } = useRecommendationStore();
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
-
-    const router = useRouter();
-    const { recommendations } = useRecommendationStore();
-    const [isRedirecting, setIsRedirecting] = useState(false);
     
     const [coffeeBlend, setCoffeeBlend] = useState<BlendType>({
         name: "벨벳 터치 블렌드",
@@ -40,33 +43,44 @@ export default function ResultPage() {
     });
 
     useEffect(() => {
-        if (!recommendations?.length || !recommendations?.[0] || !recommendations?.[0].coffee_blend_id) {
-            setIsRedirecting(true);
-            router.replace('/on-event/analysis');
+        let currentRecommendations = recommendations;
+        
+        if (!currentRecommendations?.length && typeof window !== 'undefined') {
+            const stored = localStorage.getItem('recommendation');
+            if (stored) {
+                try {
+                    const parsed = JSON.parse(stored);
+                    currentRecommendations = [parsed];
+                    setRecommendations([parsed]);
+                } catch (e) {
+                    console.error('Failed to parse recommendation from localStorage', e);
+                }
+            }
         }
-    }, [recommendations, router]);
-
-    if (isRedirecting || !recommendations?.length || !recommendations?.[0] || !recommendations?.[0].coffee_blend_id) {
-        return null;
-    }
-
-    useEffect(() => {
-        if (recommendations) {            
+        
+        if (!currentRecommendations?.length) {
+            router.replace('/on-event');
+            return;
+        }
+        
+        const firstRec = currentRecommendations[0];
+        if (firstRec) {
             setCoffeeBlend({
-                name: recommendations?.[0].coffee_name,
-                description: recommendations?.[0].summary,
+                name: firstRec.coffee_name,
+                description: firstRec.summary,
                 origins: ["케냐 51%", "코스타리카 49%"],
                 ratings: {
-                    aroma: recommendations?.[0].aroma_score,
-                    acidity: recommendations?.[0].acidity_score,
-                    sweetness: recommendations?.[0].sweetness_score,
-                    nutty: recommendations?.[0].nutty_score,
-                    body: recommendations?.[0].body_score
+                    aroma: firstRec.aroma_score,
+                    acidity: firstRec.acidity_score,
+                    sweetness: firstRec.sweetness_score,
+                    nutty: firstRec.nutty_score,
+                    body: firstRec.body_score
                 }
             });
         }
-    }, [recommendations]);
+    }, [recommendations, router, setRecommendations]);
 
+    const hasRecommendations = recommendations?.length && recommendations?.[0]?.coffee_blend_id;
 
     const { data: originData } = useGet<any>(
         ["mycoffee", "blend", "origin", recommendations?.[0]?.coffee_blend_id],
@@ -77,50 +91,52 @@ export default function ResultPage() {
             },
         },
         {
-            enabled: !!recommendations?.[0]?.coffee_blend_id
+            enabled: !!(hasRecommendations && recommendations?.[0]?.coffee_blend_id)
         }
     );
 
     useEffect(() => {
-        if (originData) {
+        if (hasRecommendations && originData) {
             setCoffeeBlend(prev => ({
                 ...prev,
                 origins: originData?.origin_summary?.match(/.*?\d+%/g).map((origin: any) => origin.trim())
             }));
         }
-    }, [originData]);
+    }, [originData, hasRecommendations]);
 
     const { data: tastesData } = useGet(
         ["mycoffee", "blend", "taste", recommendations?.[0]?.coffee_blend_id],
         `/mycoffee/blend/${recommendations?.[0]?.coffee_blend_id}/taste`,
         {},
         {
-            enabled: !!recommendations?.[0]?.coffee_blend_id
+            enabled: !!(hasRecommendations && recommendations?.[0]?.coffee_blend_id)
         }
-    );    
+    );
+    
 
     return (
         <>
+            <TokenGuard />
             <div className="flex flex-col justify-center items-center px-4 pb-10">
-                <div className='overflow-y-auto h-[calc(100vh-145px)] pt-[72px]'>
-                    {/* Coffee Blend Card */}
+                <div className='overflow-y-auto h-[calc(100vh-164px)] pt-[72px]'>
+                <div className=''>
                     <div className='w-full'>
-                        <h1 className="text-xl font-bold text-gray-0 mb-2">{coffeeBlend.name}</h1>
-                        <p className="text-sm mb-2 font-normal text-text-secondary">{coffeeBlend.description}</p>
+                        <div className='px-[7px]'>
+                            <h1 className="text-xl font-bold text-gray-0 mb-2">{coffeeBlend.name}</h1>
+                            <p className="text-sm mb-2 font-normal text-text-secondary">{coffeeBlend.description}</p>
 
-                        {/* Origins */}
-                        <div className="flex gap-1 mb-16">
-                            {coffeeBlend.origins.map((origin, idx) => (
-                                <span
-                                    key={idx}
-                                    className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-gray-0 leading-[16px]"
-                                >
-                                    {origin}
-                                </span>
-                            ))}
+                            <div className="flex gap-1 mb-16">
+                                {coffeeBlend.origins.map((origin, idx) => (
+                                    <span
+                                        key={idx}
+                                        className="px-2 py-1 bg-[rgba(0,0,0,0.05)] rounded-[10px] text-[12px] text-gray-0 leading-[16px]"
+                                    >
+                                        {origin}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Radar Chart */}
                         <div className="relative">
                             <SpiderChart
                                 ratings={coffeeBlend.ratings}
@@ -132,19 +148,29 @@ export default function ResultPage() {
                         </div>
                     </div>
                 </div>
+                <OnEventResultCollapse />
+                </div>
+                
 
-                {/* CTA Buttons */}
                 <div className="space-y-2 mt-auto w-full">
                     <RegisterBtn
                         onOpenModal={onOpenModal}
                         onCloseModal={onCloseModal}
                         open={open}
                         setOpen={setOpen}
-                        coffeeBlendId={recommendations?.[0].coffee_blend_id}
+                        coffeeBlendId={recommendations?.[0]?.coffee_blend_id || ''}
                     />
-                    <button onClick={() => router.push('/on-event/analysis')} className="btn-primary-outline w-full" >다시 하기</button>
+                    <button onClick={() => router.push('/on-event')} className="btn-primary-outline w-full" >다시 하기</button>
                 </div>
             </div>
         </>
+    );
+}
+
+export default function ResultPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ResultContent />
+        </Suspense>
     );
 }

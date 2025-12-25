@@ -12,6 +12,7 @@ export default function PrivacyTermsPage() {
             title: "개인정보 수집 및 약관 동의",
             showBackButton: true,
         });
+        sessionStorage.setItem("internal-navigation", "true");
     }, []);
 
     return (

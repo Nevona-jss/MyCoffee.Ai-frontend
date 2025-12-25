@@ -12,6 +12,7 @@ export default function MarketingTermsPage() {
         title: "앱 출시 알림 동의",
         showBackButton: true,
       });
+      sessionStorage.setItem("internal-navigation", "true");
     }, []);
 
     return (
